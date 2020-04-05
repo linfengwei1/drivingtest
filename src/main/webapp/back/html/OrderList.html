@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<script src="../../js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<!--<link rel="stylesheet" href="../../background/css/goodsmanage.css">-->
+<link rel="stylesheet" href="../../layui/css/layui.css">
+<script src="../../background/js/OrderList.js" type="text/javascript" charset="UTF-8"></script>
+<!--<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>-->
+<!--<script src="${pageContext.request.contextPath}/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
+<!--<%&#45;&#45;	<script src="${pageContext.request.contextPath}/layui/layui.js" type="text/javascript" charset="utf-8"></script>&#45;&#45;%>-->
+<!--<link rel="stylesheet" href="${pageContext.request.contextPath}/background/css/goodsmanage.css">-->
+<!--<link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css">-->
+<!--<script src="${pageContext.request.contextPath}/background/js/ManageUser.js" type="text/javascript" charset="UTF-8"></script>-->
+</head>
+<body>
+<div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs4">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">余额：</label>
+                    <label class="layui-form-label" style="text-align: left; color: grey">100元</label>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-xs1 layui-col-xs-offset10">
+                <button  type="submit" class="layui-btn">
+                    <i class="layui-icon">&#xe65e;</i> 充值
+                </button>
+            </div>
+        </div>
+
+
+</div>
+<div id="center_div">
+    <table class="layui-table"  lay-filter="test" id="demo" lay-size="sm" >
+        <tr>
+            <td colspan="6" style="color: #20B2AA; text-align: center" >收支明细 </td>
+
+        </tr>
+        <tr style="color: white; background-color: #808080;">
+            <th>发生时间</th>
+            <th>发生事项</th>
+            <th>关系人</th>
+            <th>收入/支出</th>
+            <th>金额（元）</th>
+
+        </tr>
+                <td>${g.account}</td>
+                <td>${g.sex}</td>
+                <td>${g.age}</td>
+                <td>${g.phonenum}</td>
+                <td></td>
+        </tr>
+    </table>
+</div>
+<div id="bottom_div">
+    <table class="" align="center">
+        <tr>
+            <td>
+                <a class="layui-btn"
+                   href="${pageContext.request.contextPath}/ManageUsersServlet?method=usersInfoPage&curPage=1&account=${param.account}&status=${param.status}">首页</a>
+                <a class="layui-btn"
+                   href="${pageContext.request.contextPath}/ManageUsersServlet?method=usersInfoPage&curPage=${userPageBean.prePageNum}&account=${param.account}&status=${param.status}">上一页</a>
+
+                <a class="layui-btn"
+                   href="${pageContext.request.contextPath}/ManageUsersServlet?method=usersInfoPage&curPage=${userPageBean.nextPageNum}&account=${param.account}&status=${param.status}">下一页</a>
+                <a class="layui-btn"
+                   href="${pageContext.request.contextPath}/ManageUsersServlet?method=usersInfoPage&curPage=${userPageBean.totalPageNum}&account=${param.account}&status=${param.status}" >尾页</a>
+            </td>
+        </tr>
+    </table>
+
+
+
+</div>
+<input type="hidden" id="url" value="${pageContext.request.contextPath}">
+
+
+</body>
+</html>

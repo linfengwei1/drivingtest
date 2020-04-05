@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../css/usermanage.css">
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+
+    <table class="serch_panel" align="center">
+        <tbody>
+            <tr class="serch_panel_info">
+                <td width="8%" align="right">账户:</td>
+                <td width="20%">
+                    <input class="field" type="text" placeholder="请输入搜索账户">
+                </td>
+                <td width="8%" align="right">电话:</td>
+                <td width="20%">
+                    <input class="field" type="text" placeholder="请输入搜索电话" />
+                </td>
+                <td width="8%" align="right">状态:</td>
+                <td width="20%">
+                    <select class="field">
+                        <option>暂无</option>
+                        <option>启用</option>
+                        <option>禁用</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="search_panel_info">
+                <td width="15%" align="right">创建时间:</td>
+                <td colspan="3">
+                    <input class="field" type="date" placeholder="请输入开始时间" />
+                    至
+                    <input class="field" type="date" placeholder="请输入结束时间" />
+                </td>
+                <td width="8%" colspan="2">
+                    <input type="button" class="btn" value="搜索" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="user_panel" align="center" border="1" bordercolor="#E4E4E4" cellpadding="0" cellspacing="0">
+        <tr class="user_panel_title" align="center">
+            <td>账号</td>
+            <td>账户</td>
+            <td>密码</td>
+            <td>邮箱</td>
+            <td>电话</td>
+            <td>性别</td>
+            <td>地址</td>
+            <td width="100px">注册时间</td>
+            <td>状态</td>
+            <td width="100px">操作</td>
+        </tr>
+        <tr class="user_panel_info" align="center">
+            <td>1000</td>
+            <td>zhangsan</td>
+            <td>123456</td>
+            <td>871161387@qq.com</td>
+            <td>13799430776</td>
+            <td>男</td>
+            <td>福建省福州市台江区</td>
+            <td>2018-12-14 16:38:30</td>
+            <td>启用</td>
+            <td>
+                <input class="btn" type="button" value="禁用/启用" />
+                <input class="btn" type="button" value="注销" />
+            </td>
+        </tr>
+    </table>
+    <table class="function_panel" align="center">
+        <tr>
+            <td>
+                <input class="btn" type="button" value="上一页" />
+                <span class="font">0/0</span>
+                <input class="btn" type="button" value="下一页" />
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

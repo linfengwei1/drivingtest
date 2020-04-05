@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+<!--		<link rel="stylesheet" type="text/css" href="../css/goodsmanage.css"/>-->
+		<link rel="stylesheet" href="../../layui/css/layui.css">
+		<script src="../../js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../layui/layui.all.js"></script>
+		<script src="../../layui/layui.js" charset="utf-8"></script>
+		<script src="../../background/js/addquestion.js" type="text/javascript" charset="UTF-8"></script>
+
+	</head>
+	<body>
+	<div class="layui-container">
+
+		<h1 style="margin-left: 40%;">新增题目</h1>
+	<form class="layui-form" action="">
+		<div class="layui-row">
+			<div class="layui-col-xs5">
+			<div class="layui-form-item">
+				<label class="layui-form-label">问题</label>
+				<div class="layui-input-block">
+					<input type="text"  name="name" required  lay-verify="required" placeholder="请输入问题" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			</div>
+			<div class="layui-col-xs5">
+				<button  id="add" type="button" class="layui-btn add"><i class="layui-icon">&#xe654;</i>增加选项</button>
+			</div>
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-xs5">
+			<div class="layui-form-item">
+				<label class="layui-form-label">选项</label>
+				<div class="layui-input-block">
+					<input type="text"  name="name" required  lay-verify="required" placeholder="请输入选项" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			</div>
+			<div class="layui-col-xs4">
+			<div class="layui-form-item">
+				<label class="layui-form-label">分值</label>
+				<div class="layui-input-block">
+					<input type="number"  name="score" required  lay-verify="required" placeholder="请输入分值" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-xs5">
+			<div class="layui-form-item">
+				<label class="layui-form-label">选项</label>
+				<div class="layui-input-block">
+					<input type="text"  name="name" required  lay-verify="required" placeholder="请输入选项" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			</div>
+			<div class="layui-col-xs4">
+			<div class="layui-form-item">
+				<label class="layui-form-label">分值</label>
+				<div class="layui-input-block">
+					<input type="number"  name="score" required  lay-verify="required" placeholder="请输入分值" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-xs5">
+			<div class="layui-form-item">
+				<label class="layui-form-label">选项</label>
+				<div class="layui-input-block">
+					<input type="text"  name="name" required  lay-verify="required" placeholder="请输入选项" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			</div>
+			<div class="layui-col-xs4">
+			<div class="layui-form-item">
+				<label class="layui-form-label">分值</label>
+				<div class="layui-input-block">
+					<input type="number"  name="score" required  lay-verify="required" placeholder="请输入分值" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-xs5">
+			<div class="layui-form-item">
+				<label class="layui-form-label">选项</label>
+				<div class="layui-input-block">
+					<input type="text"  name="name" required  lay-verify="required" placeholder="请输入选项" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			</div>
+			<div class="layui-col-xs4">
+			<div class="layui-form-item">
+				<label class="layui-form-label">分值</label>
+				<div class="layui-input-block">
+					<input type="number"  name="score" required  lay-verify="required" placeholder="请输入分值" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			</div>
+		</div>
+
+
+
+	</form>
+	</div>
+	<script>
+		//Demo
+		layui.use('form', function(){
+			var form = layui.form;
+			//监听提交
+			//但是，如果你的HTML是动态生成的，自动渲染就会失效
+			form.render();
+			// form.on('submit(formDemo)', function(data){
+			// 	layer.msg(JSON.stringify(data.field));
+			// 	return false;
+			// });
+		});
+	</script>
+
+	</body>
+</html>

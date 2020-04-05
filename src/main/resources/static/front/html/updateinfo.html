@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../css/updatemyinfo.css">
+    <script type="text/javascript" src="../js/birthday.js"></script>
+</head>
+<body>
+<div id="right_div">
+<div id="p1">个人资料</div>
+<div id="p2">
+    <p>填写真实的资料更方便大家了解你,以下信息将显示在个人资料页。(请不要在资料里面留电话 , QQ ,网址,邮箱等联系方式信息</p>
+    <p>，会导致您的资料无法通过审核)</p>
+</div>
+<div id="form_saveinfo">
+	<dl>
+    <form action="">
+		<dd class="d01">
+			<span class="s01" id="selecttylenote">用户名:</span>
+			<span class="s02" id="selecttylenote">18084731499</span>
+		</dd>	
+		<dd class="d01">
+			<span class="s01" id="selecttylenote">昵称:</span>
+			<span class="s02" ><input type="" name="" id="" value="" /></span>
+		</dd>
+		<dd class="d01">
+			<span class="s01" id="selecttylenote">手机号:</span>
+			<span class="s02" ><input type="" name="" id="" value="" /></span>
+		</dd>
+		<dd class="d01">
+			<span class="s01" id="selecttylenote">性别:</span>
+			<span class="s02" > <input type="radio" name="sex" id="">男
+            <input type="radio" name="sex" id="">女</span>
+		</dd>
+
+		<dd class="d01">
+			<span class="s01" id="selecttylenote">生日:</span>
+			<span class="s02" >
+				<select  id="selYear">
+
+				</select>
+				年
+				<select  id="selMonth">
+
+				</select>
+				月
+				<select id="selDay">
+
+				</select>
+				日
+
+			</span>
+		</dd>
+		<dd class="d01">
+			<span class="s01" id="selecttylenote">简介:</span>
+			<span class="s02" ><textarea rows="5" cols="30"></textarea>
+			</span>
+
+		</dd>
+
+
+		<dd class="d02">
+			<span class="s01" id="selecttylenote"></span>
+			<span class="s02" > 请输入至少4-200个字，支持中文、英文
+			</span>
+		</dd>
+
+			<div id="btn_bottom">
+				<input type="button" name="" id="btn" value="保存" />
+			</div>
+
+
+
+
+</form>
+</dl>
+
+
+
+
+</div>
+		
+</div>
+
+
+
+<script type="text/javascript">
+	var selYear = window.document.getElementById("selYear");
+	var selMonth = window.document.getElementById("selMonth");
+	var selDay = window.document.getElementById("selDay");
+	// 新建一个DateSelector类的实例，将三个select对象传进去
+	new DateSelector(selYear, selMonth, selDay, 1995, 1, 17);
+	// 也可以试试下边的代码
+	// var dt = new Date(2004, 1, 29);
+	// new DateSelector(selYear, selMonth ,selDay, dt);
+</script>
+</body>
+</html>

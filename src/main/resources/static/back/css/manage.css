@@ -1,0 +1,115 @@
+body, html{
+    height: 630px;
+    width: 100%;
+    margin: 0%;
+    background-color: #f5f5f5;
+}
+li{
+    color: #000;
+    font-size: 15px;
+    /*! text-align: center; */
+    position: relative;
+    left: 19px;
+    color: white;
+}
+
+li:hover{
+    color: #00abff;
+    cursor: pointer;
+}
+ul{
+    list-style:none;
+    background: #3e3e34;
+    /*! position: relative; */
+    /*! left: -10; */
+    color: wheat;
+}
+#title{
+    font-family: 微软雅黑;
+    font-size: 20px;
+    color: white;
+    float: left;
+}
+#top_div{
+    height: 15%;
+    width: 100%;
+    background-color: #ff6900;
+
+    margin-left: 0px;
+}
+#top_div_help{
+    font-family: 微软雅黑;
+    font-size: 17px;
+    color: white;
+    float: right;
+    padding-top: 70px;
+    padding-right: 190px;
+}
+#top_div_name{
+    font-family: 微软雅黑;
+    font-size: 17px;
+    color: white;
+    float: right;
+    padding-top: 70px;
+    padding-right: 150px;
+}
+#top_div_exit{
+    font-family: 微软雅黑;
+    font-size: 17px;
+    color: white;
+    float: right;
+    padding-top: 70px;
+    padding-right: 110px;
+}
+#bottom_div{
+    height: 80%;
+    width: 100%;
+}
+#left_div{
+    height: 100%;
+    width: 15%;
+    background-color: #11f034d1;
+    float: left;
+    margin-right: 66px;
+    margin-left: 0%;
+}
+#right_div{
+    height: 100%;
+    width: 80%;
+    float: left;
+    box-sizing: border-box;
+    border: none;
+
+}
+#frame_div
+{
+    height: 100%;
+    width: 100%;
+    border: none;
+
+}
+
+.left_div_menu{
+    font-family: 微软雅黑;
+    font-size: 19px;
+    color: white;
+    margin: 0%;
+
+}
+a{
+    text-decoration: none;
+}
+
+h3:hover{
+    cursor: pointer;
+}
+h3{
+    background-color: #0a8011;
+    margin: 0px;
+    color: white;
+    text-align: center;
+}
+.menutitle{
+    margin-top: 0px;
+    border-bottom: 1px solid #fff;
+}

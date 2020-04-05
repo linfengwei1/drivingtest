@@ -1,0 +1,71 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<link rel="stylesheet" type="text/css" href="layui/css/layui.css"/>
+<style>
+    .login {
+        margin-top: 15%;
+        padding: 2% 0;
+        width: 28%;
+        background-color: #FFF;
+    }
+
+    .btn-center {
+        text-center: center;
+        margin: 0 auto;
+    }
+
+    .username-lable{
+        background-image: url(images/login_ico.png);
+
+        background-position: -125px 0;
+        width: 6px;
+        height: 15px;
+        margin-top: 2%;
+        margin-right: 0;
+        padding-left: 2%;
+    }
+
+    .login-div{
+        border: rgb(19, 39, 50) 2px solid !important;
+        padding-left: 5%;
+        border-radius: 50px;
+    }
+
+    /*input{
+        background: none;
+        border: none;
+    }*/
+</style>
+<script type="text/javascript" src="layui/layui.js"></script>
+<body style="background-image: url(images/demo-1-bg.jpg)">
+
+<div class="layui-main login">
+    <h3 style="text-align: center">demo系统</h3>
+    <form class="layui-form" action="">
+        <div class="layui-form-item login-div">
+            <label class="layui-form-label username-lable"></label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">辅助文字</div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>

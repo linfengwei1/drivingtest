@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理主界面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/jquery-3.4.1.js"></script>
+    <script src="../../js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">layui 后台布局</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul>
+    </div>
+
+    <div id="navBarId" class="layui-side layui-bg-black">
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <table class="layui-hide layui-col-md12" id="test"></table>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
+    </div>
+</div>
+
+<script src="layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+<script>
+	// 导航菜单的间隔像素
+	var menuCell = 5;
+
+	$.ajax({
+		type:"Post",
+		async:true,
+		url:path+'/UserLoginRegServlet?method=reg',
+		data:{"uname":uname,"pwd":pwd},
+		dataType:"text",
+		success:function (str) {
+
+		},
+		error: function (str) {
+			alert(str);
+		}
+	})
+
+	layui.use('element', function(){
+		var element = layui.element;
+		var $ = layui.jquery;
+
+		data= '[{"name":"主页","url":"www.sys.com","childMenus":null},{"name":"系统设置","url":"www.sys.com","childMenus":[{"name":"权限模块","url":"www.sys.com","childMenus":null}]},{"name":"业务系统","url":"www.manager.com","childMenus":[{"name":"销售系统","url":"www.child01.com","childMenus":[{"name":"订单系统","url":"www.order.com","childMenus":[{"name":"未完成订单","url":"www.undo.com","childMenus":[{"name":"服装部订单","url":"www.clothes.com","childMenus":[{"name":"成人部分","url":"www.clothes.com","childMenus":null},{"name":"儿童部分","url":"www.clothes.com","childMenus":null}]},{"name":"玩具部订单","url":"www.clothes.com","childMenus":[{"name":"成人部分","url":"www.clothes.com","childMenus":null},{"name":"儿童部分","url":"www.clothes.com","childMenus":null}]}]}]},{"name":"结算系统","url":"www.order.com","childMenus":null}]},{"name":"公关系统","url":"www.child02.com","childMenus":null}]}]';
+		console.log("data: "+data);
+		data = JSON.parse(data);
+		var liStr= "";
+		// 遍历生成主菜单
+		for( var i = 0; i <data.length; i++){
+			//console.log("--> "+JSON.stringify(data[i]));
+			// 判断是否存在子菜单
+			if(data[i].childMenus!=null&&data[i].childMenus.length>0){
+				console.log("--> "+JSON.stringify(data[i].childMenus));
+				liStr+="<li class=\"layui-nav-item\"><a class=\"\" href=\"javascript:;\"><i class='layui-icon' >&#xe653;</i> "+data[i].name+"</a>\n"+
+					"<dl class=\"layui-nav-child\">\n";
+				// 遍历获取子菜单
+				for( var k = 0; k <data[i].childMenus.length; k++){
+					liStr+=getChildMenu(data[i].childMenus[k],0);
+				}
+				liStr+="</dl></li>";
+			}else{
+				liStr+="<li class=\"layui-nav-item\"><a class=\"\" href=\""+data[i].url+"\"><i class='layui-icon' >&#xe66c;</i> "+data[i].name+"</a></li>";
+			}
+		};
+		console.log(">>>> "+liStr);
+		$("#navBarId").html("<ul class=\"layui-nav layui-nav-tree\"  lay-filter=\"test\">\n" +liStr+"</ul>");
+		element.init();
+
+	});
+
+
+
+	// 递归生成子菜单
+	function getChildMenu(subMenu,num) {
+		console.log("num: "+num);
+		num++;
+		var subStr = "";
+		if(subMenu.childMenus!=null&&subMenu.childMenus.length>0){
+			subStr+="<dd><ul><li class=\"layui-nav-item\" ><a style=\"margin-Left:"+num*menuCell+"px\" class=\"\" href=\"javascript:;\"><i class='layui-icon' >&#xe653;</i> "+subMenu.name+"</a>" +
+				"<dl class=\"layui-nav-child\">\n";
+			for( var j = 0; j <subMenu.childMenus.length; j++){
+				subStr+=getChildMenu(subMenu.childMenus[j],num);
+			}
+			subStr+="</dl></li></ul></dd>";
+		}else{
+			subStr+="<dd><a style=\"margin-Left:"+num*menuCell+"px\" href=\""+subMenu.url+"\"><i class='layui-icon' >&#xe66c;</i> "+subMenu.name+"</a></dd>";
+		}
+		return subStr;
+	}
+
+</script>
+
+</body>
+</html>

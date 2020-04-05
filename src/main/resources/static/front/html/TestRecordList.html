@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我要预约</title>
+    <script src="../../js/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="../../js/layui/layui.js" type="text/javascript" charset="UTF-8"></script>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../front/css/TestRecord.css" charset="UTF-8">
+</head>
+<body>
+<div class="layui-container">
+
+<h1 style="margin-left: 40%;">文件上传</h1>
+
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+    </fieldset>
+
+
+
+    <form class="layui-form" action="" lay-filter="example">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <h2>新增图片</h2>
+        </div>
+        <div class="layui-inline" style="width:500px;">
+            <hr>
+        </div>
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <div class="layui-form-item">
+                <label class="layui-form-label">新增的书名：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="documentScore" id="hideBookName" lay-verify="title" autocomplete="off"
+                           class="layui-input"style="width: 300px" >
+                </div>
+            </div>
+
+            <div style="padding-bottom: 10px;">
+
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn layui-btn-normal" id="test8">选择文件</button>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">内容信息：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="documentScore" id="pageContent" lay-verify="title" autocomplete="off"
+                           placeholder="请输入绘本信息"
+                           class="layui-input" style="width: 300px;height: 120px">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">新页数：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="documentScore" id="pageNum" lay-verify="title" autocomplete="off"
+
+                           class="layui-input"style="width: 300px">
+                </div>
+            </div>
+
+            <div class="demoTable">
+                <div style="padding-bottom: 10px;">
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn" id="test9">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <script>
+		layui.use(['upload','jquery'], function(){
+			var upload = layui.upload,
+				$=layui.jquery;
+
+			//执行实例
+			var uploadInst = upload.render({
+				elem: '#test8' //绑定元素
+				,url: '../uploadServlet' //上传接口
+				,auto: false
+				,accept: 'file'
+				,bindAction: '#test9'
+				,before: function(obj){
+					this.data = {
+						bookName: $("#hideBookName").val(),
+						pageContent: $("#pageContent").val(),
+						pageNum: $("#pageNum").val()
+					}
+				}
+				,done: function(res){
+					//上传完毕回调
+					alert("上传成功！");
+				}
+				,error: function(){
+					//请求异常回调
+					alert("上传失败！");
+				}
+			});
+		});
+
+
+    </script>
+
+</div>
+
+</body>
+</html>
