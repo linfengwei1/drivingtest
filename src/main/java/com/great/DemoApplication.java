@@ -19,8 +19,10 @@ public class DemoApplication extends SpringBootServletInitializer
 		SpringApplication.run(DemoApplication.class, args);
 		System.out.println("一giao我里giao giao ");
 		System.out.println("林丰为 ");
+		System.out.println("111 ");
+		System.out.println("1asdasda ");
 
-
+		System.out.println("黄剑英1212 ");
 		/***********************************************
 		 * 	       									   *
 		 * 										       *
