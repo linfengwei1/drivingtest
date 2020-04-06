@@ -17,7 +17,7 @@ public class DemoApplication extends SpringBootServletInitializer
 		SpringApplication.run(DemoApplication.class, args);
 		System.out.println("林丰为修改");
 		System.out.println("林丰为修改2");
-		System.out.println("王良德测试");
+		System.out.println("王良德测试2");
 
 
 
