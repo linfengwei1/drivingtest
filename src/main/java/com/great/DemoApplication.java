@@ -14,9 +14,15 @@ public class DemoApplication extends SpringBootServletInitializer
 		return builder.sources(DemoApplication.class);
 	}
 	public static void main(String[] args) {
+		System.out.println("我来打个酱油");
+		System.out.println("注意不要提交.idea文件夹和target文件夹");
 		SpringApplication.run(DemoApplication.class, args);
-		System.out.println("林丰为修改");
+		System.out.println("一giao我里giao giao ");
+		System.out.println("林丰为 ");
+		System.out.println("111 ");
+		System.out.println("1asdasda ");
 
+		System.out.println("黄剑英1212 ");
 		/***********************************************
 		 * 	       									   *
 		 * 										       *
