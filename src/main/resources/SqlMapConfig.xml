@@ -10,16 +10,6 @@
         <package name="com.great.entity" /><!--这是给entity包下所有类取别名，在用完全限定命名的情况下可以通过类名直接调用 -->
     </typeAliases>
 
-<!--    <environments default="dev">-->
-<!--        <environment id="dev">-->
-<!--            <transactionManager type="jdbc"></transactionManager>&lt;!&ndash; MANAGED &ndash;&gt;-->
-<!--            <dataSource type="pooled">&lt;!&ndash; unpooled、JNDI&ndash;&gt;-->
-<!--                <property name="driver" value="${driver}" />-->
-<!--                <property name="url" value="${url}" />-->
-<!--                <property name="username" value="${username}" />-->
-<!--                <property name="password" value="${password}" />-->
-<!--            </dataSource>-->
-<!--        </environment>-->
-<!--    </environments>-->
+
 
 </configuration>
