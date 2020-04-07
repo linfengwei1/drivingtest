@@ -23,11 +23,10 @@
 <div id="loginBox">
 	<form class="layui-form" action="${pageContext.request.contextPath}/user/login" method="post" >
 
-
 		<div class="layui-form-item" style="margin-right: 20px;margin-top: 10px">
 			<label class="layui-form-label">账号</label>
 			<div class="layui-input-block">
-				<input type="text" name="uname" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+				<input type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item"  style="margin-right: 20px">
