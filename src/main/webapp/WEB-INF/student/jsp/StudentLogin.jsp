@@ -10,12 +10,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>用户登录</title>
-	<% String path = request.getContextPath();%>
-	<link rel="stylesheet" href="<%= path+"/front/css/login.css"%>">
-	<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
-	<script src="${pageContext.request.contextPath}/front/js/login.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="${pageContext.request.contextPath}/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/js/layui/css/layui.css">
+	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${pageContext.request.contextPath}/static/student/js/login.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/login.css">
 </head>
 <body>
 
