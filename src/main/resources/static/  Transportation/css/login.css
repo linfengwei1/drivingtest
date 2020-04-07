@@ -1,0 +1,140 @@
+.title{
+    color: orangered;
+    font-family: 微软雅黑;
+    font-size: 30px;
+    font-weight:bold;
+    width: 300px;
+    height: 65px;
+    margin: 0 auto;
+    margin-top: 66px;
+    margin-bottom: 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+ body{
+     /*background-image: url(../img/bg.jpg);*/
+     /*background-size: 900px 561px;*/
+ }
+#img
+{
+    cursor: pointer;
+}
+#form_login {
+    position: absolute;
+    top: 39%;
+    width: 406px;
+    height: 504px;
+    background-color: #1d0ddb5e;
+    /*! opacity:0.95; */
+    float: left;
+    margin-left: 800px;
+    margin-top: -180px;
+    text-align: center;
+}
+.form_div{
+    width: 280px;
+    height: 40px;
+    margin: 0 auto;
+    position: relative;
+}
+.form_img{
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    z-index: 2;
+}
+
+.form_input{
+    width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #a7c2e3 ;
+    border: none;
+    color: #333;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-left: 40px;
+}
+
+.form_tips{
+    width: 280px;
+    height: 20px;
+    margin: 0 auto;
+}
+
+.form_btns{
+    width: 280px;
+    height: 44px;
+    margin: 0 auto;
+}
+
+#reg{
+    cursor: pointer;
+}
+
+.form_btns>input{
+    width: 120px;
+    height: 44px;
+    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+}
+#btn_Login:hover{
+    background-color: orange;
+
+    cursor: pointer;
+    border: 1px solid #ddd;
+    line-height: 44px;
+}
+#btn_Login{
+    background-color: orangered;
+    color: white;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    border: 1px solid white;
+}
+
+#loginBox{
+    width: 30%;
+    height: 50%;
+    /*background-image: url(../img/a1.jpg);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    /*position: absolute;*/
+    margin-left: 460px;
+    margin-top: 212px;
+    box-shadow: 1px 5px 20px #999;
+}
+
+div, p {
+    word-wrap: break-word;
+}
+* {
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+}
+
+#prompt_uname{
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    position: relative;
+    left: 156px;
+    top: 10px;
+}
+#prompt_pwd{
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    position: relative;
+    left: 155px;
+    top: 10px;
+}
