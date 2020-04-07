@@ -68,11 +68,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-	<title>驾校登录</title>
+	<title>学员登录</title>
 	<%String path = request.getContextPath();%>
+
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="${pageContext.request.contextPath}/static/school/js/SchoolLogin.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="${pageContext.request.contextPath}/static/student/js/StudentLogin.js" type="text/javascript" charset="UTF-8"></script>
 	<style>
 		.layui-main-login {
 			padding: 2%;
@@ -96,6 +97,12 @@
 			font-weight: bold;
 			color: #666;
 		}
+		.layui-main-login img:hover{
+			cursor:pointer;
+		}
+		.layui-main-login a:hover{
+			cursor:pointer;
+		}
 	</style>
 </head>
 <body>
@@ -106,7 +113,7 @@
 </div>
 <div id="one">
 	<div class="layui-main-login" >
-		<form class="layui-form" action="" onsubmit="false">
+		<form class="layui-form" action="${pageContext.request.contextPath}/student/login" method="post">
 			<p style="">学员登录</p>
 			<div class="layui-form-item">
 				<label class="layui-form-label">账号框</label>
@@ -127,7 +134,7 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<img id="passPhoto"  style="padding-left: 110px;" src="<%=request.getContextPath()%>/school/CheckCodeServlet" onclick="refreshCode()">
+				<img id="passPhoto"  style="padding-left: 110px;" src="<%=request.getContextPath()%>/student/CheckCode" onclick="refreshCode()">
 				<a  style=" font-size:12px;color: red" onclick="refreshCode()" >看不清?点图片刷新</a>
 			</div>
 
