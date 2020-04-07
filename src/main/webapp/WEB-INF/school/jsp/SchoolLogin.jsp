@@ -45,7 +45,7 @@
     <br>
     <h1><span style="color: #42627c; padding-top: 10%;margin-left: 10%">机动车驾驶员培训机构信息互动平台</span></h1>
 </div>
-<div id="one">
+<div id="one" >
     <div class="layui-main-login" >
         <form class="layui-form" action="" onsubmit="false">
             <p style="">驾校登录</p>
@@ -64,7 +64,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">验证码</label>
                 <div class="layui-input-block" style="width: 190px">
-                    <input style="background-color: #f7f8fa" type="text" name="rePass" required  lay-verify="required" placeholder="不区分大小写" autocomplete="off" class="layui-input">
+                    <input style="background-color: #f7f8fa" type="text" name="verification" required  lay-verify="required" placeholder="不区分大小写" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">

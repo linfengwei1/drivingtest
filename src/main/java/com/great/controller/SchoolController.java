@@ -2,8 +2,10 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
+import com.great.entity.SchoolAdmin;
 import com.great.entity.User;
 //import com.great.service.MyService;
+import com.great.service.SchoolAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +27,8 @@ import java.util.Random;
 public class SchoolController {
     Gson g = new Gson();
     private Random random = new Random();
-//    @Autowired
-//    private MyService myService;
+    @Autowired
+    private SchoolAdminService schoolAdminService;
 //    @Autowired
 //    private DateTable dateTable;
 
@@ -99,23 +101,23 @@ public class SchoolController {
     }
 
 
-//    @RequestMapping("/Login")
-//    public void Login(User user1 , HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
-//        Boolean confirm = user1.getRePass().equalsIgnoreCase(YZM);//不区分大小写
-//        if (confirm) {
-//            User user =myService.findById(user1.getAccount(),user1.getPwd());
-//            if (null!=user){
-//                request.getSession().setAttribute("admin",user);
-//                response.getWriter().print("success");
-//            }else{
-//                response.getWriter().print("error");
-//            }
-//        }else{
-//            response.getWriter().print("yzm");
-//        }
-//
-//    }
+    @RequestMapping("/Login")
+    public void Login(SchoolAdmin schoolAdmin , HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
+        Boolean confirm = schoolAdmin.getVerification().equalsIgnoreCase(YZM);//不区分大小写
+        if (confirm) {
+            SchoolAdmin admin =schoolAdminService.login(schoolAdmin.getAccount(),schoolAdmin.getPwd());
+            if (null!=admin){
+                request.getSession().setAttribute("SchoolAdmin",admin);
+                response.getWriter().print("success");
+            }else{
+                response.getWriter().print("error");
+            }
+        }else{
+            response.getWriter().print("yzm");
+        }
+
+    }
 
 //    @RequestMapping("/menu")
 //    public String menu(HttpServletRequest request, HttpSession hs){
@@ -137,7 +139,7 @@ public class SchoolController {
         //注销
         hs.invalidate();
         //返回页面
-        return "back/jsp/login";
+        return "school/jsp/SchoolLogin";
     }
 
 
