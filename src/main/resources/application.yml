@@ -3,13 +3,13 @@
 server:
   port: 8080
   servlet:
-    context-path: /wd
+    context-path: /dt
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/demo?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://47.96.112.105/demo?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: 123
+    password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 8 #初始化时建立物理连接的个数
