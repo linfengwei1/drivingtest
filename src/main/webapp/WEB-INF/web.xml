@@ -53,7 +53,7 @@
 <!--    </welcome-file-list>-->
 
     <welcome-file-list>
-        <welcome-file>user/loginPage</welcome-file>
+        <welcome-file>/WEB-INF/A.jsp</welcome-file>
     </welcome-file-list>
 
 

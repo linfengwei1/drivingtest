@@ -7,17 +7,23 @@ public class SchoolAdmin {
     private String name;
     private String phone;
     private Integer school_id;
+    private Integer school_state_id;
+    private SchoolState schoolState;
+    private String verification;//验证码
+
 
     public SchoolAdmin() {
     }
 
-    public SchoolAdmin(Integer id, String account, String pwd, String name, String phone, Integer school_id) {
+    public SchoolAdmin(Integer id, String account, String pwd, String name, String phone, Integer school_id, Integer school_state_id, SchoolState schoolState) {
         this.id = id;
         this.account = account;
         this.pwd = pwd;
         this.name = name;
         this.phone = phone;
         this.school_id = school_id;
+        this.school_state_id = school_state_id;
+        this.schoolState = schoolState;
     }
 
     public Integer getId() {
@@ -68,6 +74,29 @@ public class SchoolAdmin {
         this.school_id = school_id;
     }
 
+    public String getVerification() {
+        return verification;
+    }
+
+    public void setVerification(String verification) {
+        this.verification = verification;
+    }
+
+    public Integer getSchool_state_id() {
+        return school_state_id;
+    }
+
+    public void setSchool_state_id(Integer school_state_id) {
+        this.school_state_id = school_state_id;
+    }
+
+    public SchoolState getSchoolState() {
+        return schoolState;
+    }
+
+    public void setSchoolState(SchoolState schoolState) {
+        this.schoolState = schoolState;
+    }
 
     @Override
     public String toString() {
@@ -78,6 +107,8 @@ public class SchoolAdmin {
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", school_id=" + school_id +
+                ", school_state_id=" + school_state_id +
+                ", schoolState=" + schoolState +
                 '}';
     }
 }

@@ -32,5 +32,6 @@ public class StudentController
 	public String loginPage()
 	{
 		return "student/jsp/StudentLogin";
+
 	}
 }
