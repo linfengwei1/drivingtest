@@ -80,6 +80,7 @@
 			background-color: #ffffff;
 			float: right;
 			margin:50px 100px 0 0 ;
+			box-shadow: 1px 5px 20px #999;
 		}
 		#two{
 			height: 15%;
