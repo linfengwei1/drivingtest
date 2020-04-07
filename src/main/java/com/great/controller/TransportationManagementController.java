@@ -34,7 +34,7 @@ public class TransportationManagementController {
     //地址映射,path是个方法名,可以随便改动,{url}是参数
     @RequestMapping("/path/{url}")
     public String getUrl(@PathVariable(value = "url") String path){
-        return "/school/jsp/" +path;
+        return "/transportation/jsp/" +path;
     }
 
     //获取验证码
