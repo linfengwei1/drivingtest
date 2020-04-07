@@ -1,6 +1,7 @@
 package com.great.aoplog;
 
 
+import com.great.entity.Student;
 import com.great.entity.User;
 import com.great.service.SystemLogService;
 import org.apache.log4j.Logger;
@@ -23,7 +24,7 @@ import java.util.Date;
 
 @Aspect
 @Component
-public class SystemLogAspect  implements Ordered
+public class StudentSystemLogAspect implements Ordered
 {
 
 //    private Logger logger = Logger.getLogger("zxtest");
@@ -132,21 +133,22 @@ public class SystemLogAspect  implements Ordered
             result = ((ProceedingJoinPoint) joinPoint).proceed();
             //后置通知，在返回值 之前执行
             System.out.println("正常执行日志："+operationType+"------"+operationName);
+            System.out.println(result);
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("user");
+            Student student = (Student) session.getAttribute("student");
             String ip = request.getRemoteAddr();
-            if(user == null)
+            if(student == null)
             {
-                user = (User)result;
+	            student = (Student)result;
             }
-            System.out.println("得到了用户信息"+user.getUname());
+            System.out.println("得到了用户信息"+student.getName());
             SystemLog log = new SystemLog();
             log.setDescription(operationName);
             log.setLogType((long)1);
             log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
             log.setParams(params);
-            log.setCreateBy(user.getUname());
+            log.setCreateBy(student.getName());
             log.setCreateDate(new Date());
             log.setRequestIp(ip);
             systemLogService.insertLog(log);

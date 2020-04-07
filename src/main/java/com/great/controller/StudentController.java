@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/student")
@@ -19,14 +20,17 @@ public class StudentController
 
 
 	@RequestMapping("/login")
-	public String login(String uname, String pwd, HttpServletRequest request, HttpServletResponse response)
+	public String login(String account, String pwd, HttpServletRequest request, HttpServletResponse response)
 	{
-		Student student = studentManageServiceImpl.login(uname,pwd);
-//		HttpSession hs=request.getSession();
-//		hs.setAttribute("user",user);
-//		return "front/jsp/UserMain";
+		Student student = studentManageServiceImpl.login(account,pwd);
+		HttpSession hs=request.getSession();
+		hs.setAttribute("user",student);
 		System.out.println(student);
 		return null;
 	}
-
+	@RequestMapping("/loginPage")
+	public String loginPage()
+	{
+		return "student/jsp/StudentLogin";
+	}
 }

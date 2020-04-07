@@ -1,6 +1,7 @@
 package com.great.service.serviceimpl;
 
 
+import com.great.aoplog.Log;
 import com.great.dao.IStudentDao;
 import com.great.entity.Student;
 import com.great.service.StudentManageService;
@@ -20,6 +21,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 
 	@Override
+	@Log(operationType = "登录操作", operationName = "学员登录")
 	public Student login(String account, String pwd)
 	{
 		HashMap<String,String> map = new HashMap<>();

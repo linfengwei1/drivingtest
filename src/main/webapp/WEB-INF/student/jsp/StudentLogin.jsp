@@ -21,7 +21,7 @@
 
 
 <div id="loginBox">
-	<form class="layui-form" action="${pageContext.request.contextPath}/user/login" method="post" >
+	<form class="layui-form" action="${pageContext.request.contextPath}/student/login" method="post" >
 
 		<div class="layui-form-item" style="margin-right: 20px;margin-top: 10px">
 			<label class="layui-form-label">账号</label>
@@ -42,7 +42,7 @@
 			</div>
 		</div>
 		<div class="layui-form-item" style="margin-left: 100px;">
-		<img alt="" src="${pageContext.request.contextPath}/CheckCodeServlet" border='1' onclick="this.src='${pageContext.request.contextPath}/CheckCodeServlet?'+Math.random();" id = "code">
+		<img alt="" src="${pageContext.request.contextPath}/checkcode" border='1' onclick="this.src='${pageContext.request.contextPath}/CheckCodeServlet?'+Math.random();" id = "code">
 		<a href="JavaScript:void(0)" onclick="document.getElementById('code').src='${pageContext.request.contextPath}/CheckCodeServlet?'+Math.random();">看不清,换一张</a>
 		</div>
 		<div class="layui-form-item">

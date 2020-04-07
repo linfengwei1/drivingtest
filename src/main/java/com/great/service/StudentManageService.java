@@ -8,7 +8,7 @@ import java.util.HashMap;
 public interface StudentManageService
 {
 
-	Student login(String uname, String pwd);
+	Student login(String account, String pwd);
 	//	public User findUser(String uname, String pwd);
 //	public List<User> findAll(HashMap<String, Object> map) throws SQLException;
 //

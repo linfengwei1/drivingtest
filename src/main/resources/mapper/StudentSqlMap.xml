@@ -20,7 +20,7 @@
 	</resultMap>
 
 
-	<select id="login" resultType="com.great.entity.Student" parameterType="java.util.HashMap">
+	<select id="login" resultMap="studentMap" parameterType="java.util.HashMap">
 		select * from student where account = #{account} and pwd = #{pwd}
 	</select>
 

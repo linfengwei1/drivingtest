@@ -1,6 +1,5 @@
 ﻿$(function () {
 
-
 	layui.use(['layer'], function(){
 		var layer = layui.layer;
 
@@ -83,14 +82,6 @@
 		});
 	});
 
-
-
-
-
-
-
-
-
 	layui.use('form', function(){
 		var $ = layui.jquery;
 
@@ -100,30 +91,6 @@
 		form.on('submit(formDemo)', function(data){
 			var user = JSON.stringify(data.field);
 			console.log(data.field);
-
-			// $.ajax({
-			// 	type:"Post",
-			// 	async:true,
-			// 	url:path+"/LoginServlet",
-			// 	data:{user:user},
-			// 	dataType:"text",
-			// 	success:function (msg) {
-			// 		if(msg == "success")
-			// 		{
-			// 			window.location.href = path+"/front/html/UserMain.html";
-			//
-			// 		}else if(msg == "error1")
-			// 		{
-			// 			layer.ready(function(){
-			// 				layer.msg('您已经被禁用，禁止登录', {icon: 2});
-			// 			});
-			// 		}
-			//
-			// 	},
-			// 	error: function (msg) {
-			// 		alert(msg);
-			// 	}
-			// });
 		});
 	});
 
