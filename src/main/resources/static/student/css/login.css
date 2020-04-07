@@ -108,6 +108,7 @@
     /*position: absolute;*/
     margin-left: 460px;
     margin-top: 212px;
+    box-shadow: 1px 5px 20px #999;
 }
 
 div, p {
