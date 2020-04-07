@@ -90,7 +90,12 @@
 			height: 70%;
 			background-image: url(${pageContext.request.contextPath}/static/images/bgLogin.jpg);
 		}
-
+		.layui-main-login p{
+			margin: 0px 0 20px 30px;
+			font-size: 18px;
+			font-weight: bold;
+			color: #666;
+		}
 	</style>
 </head>
 <body>
@@ -102,6 +107,7 @@
 <div id="one">
 	<div class="layui-main-login" >
 		<form class="layui-form" action="" onsubmit="false">
+			<p style="">学员登录</p>
 			<div class="layui-form-item">
 				<label class="layui-form-label">账号框</label>
 				<div class="layui-input-block" style="width: 190px">
