@@ -27,7 +27,7 @@
         }
         #one{
             height: 70%;
-            background-image: url(static/images/bgLogin.jpg);
+            background-image: url(${pageContext.request.contextPath}/static/images/bgLogin.jpg);
         }
 
     </style>

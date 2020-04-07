@@ -24,7 +24,7 @@ public class StudentController
 	{
 		Student student = studentManageServiceImpl.login(account,pwd);
 		HttpSession hs=request.getSession();
-		hs.setAttribute("user",student);
+		hs.setAttribute("student",student);
 		System.out.println(student);
 		return null;
 	}
