@@ -21,6 +21,96 @@
 		select * from schooladmin where account = #{account} and pwd = #{pwd}
 	</select>
 
+
+    <!--查询驾校管理员记录并分页    -->
+    <select id="findSchoolAdminByPage" resultType="SchoolAdmin" parameterType="com.great.entity.TableUtils">
+        select * from schooladmin
+        <where>
+            <if test="name !='' and name!=null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="phone !='' and phone!=null">
+                and phone = #{phone}
+            </if>
+            <if test="state !='' and state!=null">
+                and school_state_id = #{state}
+            </if>
+            <if test="time1 != '' and time1 != null">
+                and time &gt;= #{time1}
+            </if>
+            <if test="time2 != '' and time2 != null">
+                and time &lt;= #{time2}
+            </if>
+        </where>
+        limit #{minLimit},#{maxLimit}
+    </select>
+
+    <!--查找当前用户信息总数-->
+    <select id="findSchoolAdminCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
+        select count(*) from schooladmin
+        <where>
+            <if test="name !='' and name!=null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="phone !='' and phone!=null">
+                and phone = #{phone}
+            </if>
+            <if test="state !='' and state!=null">
+                and school_state_id = #{state}
+            </if>
+            <if test="time1 != '' and time1 != null">
+                and time &gt;= #{time1}
+            </if>
+            <if test="time2 != '' and time2 != null">
+                and time &lt;= #{time2}
+            </if>
+        </where>
+
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!--查找角色所有信息-->
     <select id="findByAll" resultType="User" >
 		select * from user

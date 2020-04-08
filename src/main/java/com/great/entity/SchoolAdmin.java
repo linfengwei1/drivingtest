@@ -1,5 +1,8 @@
 package com.great.entity;
 
+import java.sql.Timestamp;
+
+
 public class SchoolAdmin {
     private Integer id;
     private String account;
@@ -7,6 +10,7 @@ public class SchoolAdmin {
     private String name;
     private String phone;
     private Integer school_id;
+    private Timestamp time;
     private Integer school_state_id;
     private SchoolState schoolState;
     private String verification;//验证码
@@ -98,6 +102,14 @@ public class SchoolAdmin {
         this.schoolState = schoolState;
     }
 
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "SchoolAdmin{" +
@@ -107,6 +119,7 @@ public class SchoolAdmin {
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", school_id=" + school_id +
+                ", time=" + time +
                 ", school_state_id=" + school_state_id +
                 ", schoolState=" + schoolState +
                 '}';
