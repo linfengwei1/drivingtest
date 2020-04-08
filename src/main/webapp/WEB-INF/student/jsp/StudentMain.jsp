@@ -71,9 +71,9 @@
 	<title>学员登录</title>
 	<%String path = request.getContextPath();%>
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/studentmain.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${pageContext.request.contextPath}/static/student/css/studentmain.css" type="text/javascript" charset="UTF-8"></script>
 
 </head>
 <body class="layui-layout-body"  style="overflow-y:scroll;overflow-x:scroll">
