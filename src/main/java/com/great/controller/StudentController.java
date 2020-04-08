@@ -35,33 +35,20 @@ public class StudentController
 	public String login(Student student, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
-		System.out.println(student);
-		return "error";
-//		Student student = studentManageServiceImpl.login(account,pwd);
-//		if(student != null)
-//		{
-//			HttpSession hs=request.getSession();
-//			hs.setAttribute("student",student);
-//			System.out.println(student);
-//			return "success";
-//		}else {
-//			return "error";
-//		}
+		Boolean confirm = student.getVerification().equalsIgnoreCase(YZM);//不区分大小写
 
+		if (confirm) {
+			Student newStudent =studentManageServiceImpl.login(student.getAccount(),student.getPwd());
+			if (null!=newStudent){
+				request.getSession().setAttribute("student",newStudent);
+				return "success";
+			}else{
+				return "error";
+			}
+		}else{
+			return "yzm";
+		}
 
-//		String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
-//		Boolean confirm = schoolAdmin.getVerification().equalsIgnoreCase(YZM);//不区分大小写
-//		if (confirm) {
-//			SchoolAdmin admin =schoolAdminService.login(schoolAdmin.getAccount(),schoolAdmin.getPwd());
-//			if (null!=admin){
-//				request.getSession().setAttribute("SchoolAdmin",admin);
-//				response.getWriter().print("success");
-//			}else{
-//				response.getWriter().print("error");
-//			}
-//		}else{
-//			response.getWriter().print("yzm");
-//		}
 	}
 	@RequestMapping("/loginPage")
 	public String loginPage()
