@@ -1,6 +1,5 @@
-﻿$(function () {
+﻿﻿$(function () {
 
-	var $ = layui.jquery;
 	var path = $("#path").val();
 	console.log(path);
 	var roleid = $("#roleid").val();
