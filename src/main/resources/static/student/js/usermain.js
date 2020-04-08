@@ -1,4 +1,4 @@
-﻿﻿﻿﻿$(function () {
+﻿﻿﻿$(function () {
 
 	var $ = layui.jquery;
 	var path = $("#path").val();
