@@ -133,25 +133,22 @@ public class StudentSystemLogAspect implements Ordered
             result = ((ProceedingJoinPoint) joinPoint).proceed();
             //后置通知，在返回值 之前执行
             System.out.println("正常执行日志："+operationType+"------"+operationName);
-            System.out.println("方法返回结果"+result);
+            System.out.println(result);
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             HttpSession session = request.getSession();
             Student student = (Student) session.getAttribute("student");
             String ip = request.getRemoteAddr();
-
-
+            if(student == null)
+            {
+	            student = (Student)result;
+            }
+            System.out.println("得到了用户信息"+student.getName());
             SystemLog log = new SystemLog();
             log.setDescription(operationName);
             log.setLogType((long)1);
             log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
             log.setParams(params);
-            if(student != null)
-            {
-                log.setCreateBy(student.getName());
-            }else
-            {
-                student = (Student) result;
-            }
+            log.setCreateBy(student.getName());
             log.setCreateDate(new Date());
             log.setRequestIp(ip);
             systemLogService.insertLog(log);
@@ -165,6 +162,7 @@ public class StudentSystemLogAspect implements Ordered
             if(logger.isInfoEnabled()){//判断级别 再拼接字符串，提升性能
                 logger.info("around " + joinPoint + "  with exception : " + ex.getMessage());
             }
+            result = "error";
             throw new RuntimeException(ex);
         }finally
         {
