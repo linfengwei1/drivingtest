@@ -2,10 +2,13 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
+import com.great.entity.SchoolAdmin;
 import com.great.entity.Student;
 import com.great.service.StudentManageService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -28,18 +31,54 @@ public class StudentController
 
 
 	@RequestMapping("/login")
-	public String login(String account, String pwd, HttpServletRequest request, HttpServletResponse response)
+	@ResponseBody
+	public String login(Student student, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		Student student = studentManageServiceImpl.login(account,pwd);
-		HttpSession hs=request.getSession();
-		hs.setAttribute("student",student);
+		String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
 		System.out.println(student);
-		return null;
+		return "error";
+//		Student student = studentManageServiceImpl.login(account,pwd);
+//		if(student != null)
+//		{
+//			HttpSession hs=request.getSession();
+//			hs.setAttribute("student",student);
+//			System.out.println(student);
+//			return "success";
+//		}else {
+//			return "error";
+//		}
+
+
+//		String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
+//		Boolean confirm = schoolAdmin.getVerification().equalsIgnoreCase(YZM);//不区分大小写
+//		if (confirm) {
+//			SchoolAdmin admin =schoolAdminService.login(schoolAdmin.getAccount(),schoolAdmin.getPwd());
+//			if (null!=admin){
+//				request.getSession().setAttribute("SchoolAdmin",admin);
+//				response.getWriter().print("success");
+//			}else{
+//				response.getWriter().print("error");
+//			}
+//		}else{
+//			response.getWriter().print("yzm");
+//		}
 	}
 	@RequestMapping("/loginPage")
 	public String loginPage()
 	{
 		return "student/jsp/StudentLogin";
+
+	}
+	@RequestMapping("/home")
+	public String homePage()
+	{
+		return "A";
+
+	}
+	@RequestMapping("/studentmain")
+	public String studentMain()
+	{
+		return "student/jsp/StudentMain";
 
 	}
 

@@ -12,9 +12,24 @@ public class Student
 	private String phone;
 	private int student_state_id;
 	private int school_id;
-
+	private String verification;//验证码
 	public Student()
 	{
+	}
+
+	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification)
+	{
+		this.id = id;
+		this.account = account;
+		this.pwd = pwd;
+		this.name = name;
+		this.sex = sex;
+		this.age = age;
+		this.idNumber = idNumber;
+		this.phone = phone;
+		this.student_state_id = student_state_id;
+		this.school_id = school_id;
+		this.verification = verification;
 	}
 
 	public int getId()
@@ -115,6 +130,16 @@ public class Student
 	public void setSchool_id(int school_id)
 	{
 		this.school_id = school_id;
+	}
+
+	public String getVerification()
+	{
+		return verification;
+	}
+
+	public void setVerification(String verification)
+	{
+		this.verification = verification;
 	}
 
 	@Override
