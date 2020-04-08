@@ -15,6 +15,5 @@
     <a href="<%=request.getContextPath()%>/student/loginPage" ><li>学员登录</li></a>
 <%--    <a href="<%=request.getContextPath()%>/school/path/SchoolLogin" ><li>前台登录</li></a>--%>
 <%--    <a href="<%=request.getContextPath()%>/school/path/SchoolLogin" ><li>前台登录</li></a>--%>
-    <a href="<%=request.getContextPath()%>/TM/login" ><li>运管登录</li></a>
 </body>
 </html>
