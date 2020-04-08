@@ -2,16 +2,10 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
-import com.great.entity.ObjectResult;
-import com.great.entity.Transportation;
-import com.great.service.TransportationService;
-import com.great.service.serviceimpl.TransportationServiceImp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,16 +22,15 @@ import java.util.Random;
 public class TransportationManagementController {
     Gson g = new Gson();
     private Random random = new Random();
-
-    @Resource
-    private TransportationService transportationService;
+//    @Autowired
+//    private MyService myService;
 //    @Autowired
 //    private DateTable dateTable;
 
-    @RequestMapping("/login")
-    public String index2(){
-        return "/transportation/jsp/TransportationLogin";
-    }
+//    @RequestMapping("/index2")
+//    public String index2(){
+//        return "back/jsp/A";
+//    }
     //地址映射,path是个方法名,可以随便改动,{url}是参数
     @RequestMapping("/path/{url}")
     public String getUrl(@PathVariable(value = "url") String path){
@@ -103,69 +96,33 @@ public class TransportationManagementController {
     }
 
 
-    /**
-     * 运管登录
-     * @param account
-     * @param pwd
-     * @param rePass
-     * @param request
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping("/Login")
-    @ResponseBody
-    public String Login(String account,String pwd,String rePass , HttpServletRequest request) throws IOException {
-        String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
-        Boolean confirm = rePass.equalsIgnoreCase(YZM);//不区分大小写
-        if (confirm) {
-            Transportation transportation =transportationService.login(account,pwd);
-            if (null!=transportation){
-                request.getSession().setAttribute("Transportation",transportation);
-                return "success";
-            }else{
-                return "error";
-            }
-        }else{
-            return "yzm";
-        }
-    }
+//    @RequestMapping("/Login")
+//    public void Login(User user1 , HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
+//        Boolean confirm = user1.getRePass().equalsIgnoreCase(YZM);//不区分大小写
+//        if (confirm) {
+//            User user =myService.findById(user1.getAccount(),user1.getPwd());
+//            if (null!=user){
+//                request.getSession().setAttribute("admin",user);
+//                response.getWriter().print("success");
+//            }else{
+//                response.getWriter().print("error");
+//            }
+//        }else{
+//            response.getWriter().print("yzm");
+//        }
+//
+//    }
 
-    /**
-     * 获取科目一题目列表
-     * @return
-     */
-    @RequestMapping("/getOneSubject")
-    @ResponseBody
-    public String getOneSubject(Integer page, Integer limit,String question,String type,HttpServletResponse response){
-
-        // 设置浏览器字符集编码.
-        response.setHeader("Content-Type","text/html;charset=UTF-8");
-        // 设置response的缓冲区的编码.
-        response.setCharacterEncoding("UTF-8");
-
-        ObjectResult objectResult=transportationService.getOneSubject(page,limit,question,type);
-
-        return g.toJson(objectResult);
-    }
-
-    /**
-     * 获取科目一题目列表
-     * @return
-     */
-    @RequestMapping("/getFourthSubject")
-    @ResponseBody
-    public String getFourthSubject(Integer page, Integer limit,String question,String type,HttpServletResponse response){
-
-        // 设置浏览器字符集编码.
-        response.setHeader("Content-Type","text/html;charset=UTF-8");
-        // 设置response的缓冲区的编码.
-        response.setCharacterEncoding("UTF-8");
-
-        ObjectResult objectResult=transportationService.getFourthSubject(page,limit,question,type);
-
-        return g.toJson(objectResult);
-    }
-
+//    @RequestMapping("/menu")
+//    public String menu(HttpServletRequest request, HttpSession hs){
+//        User user = (User) request.getSession().getAttribute("admin");
+//        hs.setAttribute("name",user.getName());
+//        hs.setAttribute("roleType",user.getRole().getType());
+//        Map<String, List<Menu>> menuMap =myService.FindMenuByRoleId(user.getRole().getRoleid());//拿到菜单
+//        request.setAttribute("menuMap",menuMap);
+//        return "back/jsp/sss";
+//    }
 
     //注销登录
     @RequestMapping("/deleteAdmin")
@@ -177,7 +134,7 @@ public class TransportationManagementController {
         //注销
         hs.invalidate();
         //返回页面
-        return "/transportation/jsp/TransportationLogin";
+        return "back/jsp/login";
     }
 
 

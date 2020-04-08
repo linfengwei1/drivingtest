@@ -474,7 +474,14 @@
 		console.log('视频可以播放了',this);
 	});
 
+	videojs("my-video").ready(function(){
+		var myPlayer = this;
+		myPlayer.play();
 
+		this.on('ended', function() {
+			alert('播放结束');
+		});
+	});
 </script>
 
 
