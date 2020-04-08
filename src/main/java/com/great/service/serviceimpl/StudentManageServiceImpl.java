@@ -24,11 +24,12 @@ public class StudentManageServiceImpl implements StudentManageService
 	@Log(operationType = "登录操作", operationName = "学员登录")
 	public Student login(String account, String pwd)
 	{
+		Student student = null;
 		HashMap<String,String> map = new HashMap<>();
 		map.put("account", account);
 		map.put("pwd", pwd);
 		IStudentDao iStudentDao = sqlSessionTemplate.getMapper(IStudentDao.class);//获得代理对象
-		Student student = iStudentDao.login(map);
+		student = iStudentDao.login(map);
 		return student;
 	}
 }
