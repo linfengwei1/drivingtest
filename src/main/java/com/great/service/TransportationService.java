@@ -1,5 +1,8 @@
 package com.great.service;
 
+import com.alibaba.druid.util.StringUtils;
+import com.great.entity.Transportation;
+
 /**
  * ClassName: TransportationService <br/>
  * Description: <br/>
@@ -10,6 +13,12 @@ package com.great.service;
  */
 public interface TransportationService {
 
-
+    /**
+     * 验证运管登陆
+     * @param account
+     * @param pwd
+     * @return
+     */
+    public Transportation login(String account, String pwd);
 
 }

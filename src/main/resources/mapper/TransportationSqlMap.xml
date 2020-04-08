@@ -10,8 +10,8 @@
     </select>
 
 	<!--登录-->
-    <select id="login" resultMap="SchoolAdmin" parameterType="java.util.Map">
--- 		select * from schooladmin where account = #{account} and pwd = #{pwd}
+    <select id="login" resultType="com.great.entity.Transportation" parameterType="java.util.Map">
+		select * from transportation where account = #{account} and pwd = #{pwd}
 	</select>
 
     <!--查找角色所有信息-->
