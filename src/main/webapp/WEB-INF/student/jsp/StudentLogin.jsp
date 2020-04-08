@@ -73,7 +73,6 @@
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${pageContext.request.contextPath}/static/student/js/StudentLogin.js" type="text/javascript" charset="UTF-8"></script>
 	<style>
 		.layui-main-login {
@@ -131,7 +130,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">验证码</label>
 				<div class="layui-input-block" style="width: 190px">
-					<input style="background-color: #f7f8fa" type="text" name="verification" required  lay-verify="required" placeholder="不区分大小写" autocomplete="off" class="layui-input">
+					<input style="background-color: #f7f8fa" type="text" name="rePass" required  lay-verify="required" placeholder="不区分大小写" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
