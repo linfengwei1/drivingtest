@@ -38,7 +38,7 @@
         <h3 class="h_mun">人员管理</h3>
         <ul class="ul_menu">
              <li><a href="javascript:void (0)"
-                 title="${pageContext.request.contextPath}/${j.MURL}"
+                 title="${pageContext.request.contextPath}/school/path/SchoolCoachManage"
                  onclick="GoodsManager(this)">教练员管理</a>
              </li>
             <li><a href="javascript:void (0)"
