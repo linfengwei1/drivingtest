@@ -24,21 +24,8 @@ public class SchoolAdminService {
         return schoolAdminDao.login(loginMap);
     }
 
-//    //查询驾校管理员记录并分页
-//    public List<SchoolAdmin> findSchoolAdminByPage(Map map){
-//        return schoolAdminDao.findSchoolAdminByPage(map);
-//    }
-//
-//    //查找当前用户信息总数
-//    public Integer findSchoolAdminCount(Map map){
-//
-//        return schoolAdminDao.findSchoolAdminCount(map);
-//    }
-
-
-    //
-    public Object sds(TableUtils utils){
-
+    //查询驾校管理员记录并分页
+    public Object getSchoolAdminTable(TableUtils utils){
 
         Map<String,Object>InfMap = new LinkedHashMap<>();
         List<SchoolAdmin> list=schoolAdminDao.findSchoolAdminByPage(utils);
@@ -47,5 +34,25 @@ public class SchoolAdminService {
         InfMap.put("count",a);
 
         return InfMap;
+    }
+
+    //删除驾校管理员信息
+    public Integer deleteSchoolAdmin(Integer id){
+        return schoolAdminDao.deleteSchoolAdmin(id);
+    }
+
+    //更新驾校管理员信息
+    public Integer updateSchoolAdmin(SchoolAdmin schoolAdmin){
+        return schoolAdminDao.updateSchoolAdmin(schoolAdmin);
+    }
+
+    //查看账号是否被注册
+    public Integer CheckAccount(String account){
+        return schoolAdminDao.CheckAccount(account);
+    }
+
+    //添加驾校管理员
+    public Integer addSchoolAdmin(SchoolAdmin schoolAdmin){
+        return schoolAdminDao.addSchoolAdmin(schoolAdmin);
     }
 }

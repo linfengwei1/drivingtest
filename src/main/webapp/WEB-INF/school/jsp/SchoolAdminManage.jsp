@@ -59,6 +59,7 @@
                             <input class="layui-input" type="date" name="time2"  id="time2"autocomplete="off">
                         </div>
                         <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                        <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>添加管理员</button>
                     </div>
                     </div>
             </div>
@@ -70,6 +71,7 @@
     </div>
     <script type="text/html" id="butdiv">
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>
     </script>
 
 </form>

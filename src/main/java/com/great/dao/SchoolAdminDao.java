@@ -20,5 +20,15 @@ public interface SchoolAdminDao
 	//查找当前用户信息总数
 	public Integer findSchoolAdminCount(TableUtils u);
 
+	//删除驾校管理员
+	public Integer deleteSchoolAdmin(Integer id);
 
+	//更新驾校管理员信息
+	public Integer updateSchoolAdmin(SchoolAdmin schoolAdmin);
+
+	//查看账号是否被注册
+	public Integer CheckAccount(String account);
+
+	//添加驾校管理员
+	public Integer addSchoolAdmin(SchoolAdmin schoolAdmin);
 }

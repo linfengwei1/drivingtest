@@ -45,7 +45,7 @@
         limit #{minLimit},#{maxLimit}
     </select>
 
-    <!--查找当前用户信息总数-->
+    <!--查询驾校管理员信息总数-->
     <select id="findSchoolAdminCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
         select count(*) from schooladmin
         <where>
@@ -68,8 +68,27 @@
 
     </select>
 
+    <!--删除驾校管理员-->
+    <delete id="deleteSchoolAdmin"  parameterType="java.lang.Integer">
+        delete  from schooladmin where id =#{id}
+    </delete>
+
+    <!--更新驾校管理员信息-->
+    <update id="updateSchoolAdmin" parameterType="com.great.entity.SchoolAdmin" >
+        update schooladmin  set name = #{name},phone =#{phone}  where id =#{id}
+    </update>
+
+    <!--查看账号是否被使用-->
+    <select id="CheckAccount" parameterType = "String" resultType="java.lang.Integer">
+        select count(id) FROM user where account= #{account}
+    </select>
 
 
+    <!--添加驾校管理员-->
+    <insert id="addSchoolAdmin"   parameterType="com.great.entity.SchoolAdmin">
+		insert into schooladmin (account,pwd,name,phone,time,school_state_id)
+		VALUES(#{account},#{pwd},#{name},#{phone},#{time},#{school_state_id})
+	</insert>
 
 
 
@@ -145,15 +164,11 @@
         </where>
 
 	</select>
-    <!--删除用户-->
-    <delete id="deleteUserInf"  parameterType="java.lang.Integer">
-        delete  from user where userid =#{userid}
-    </delete>
+
     <!--更新用户信息-->
     <update id="updateUserInf" parameterType="com.great.entity.User" >
         update user  set name = #{name},sex = #{sex},education = #{education},profession=#{profession},
         phone =#{phone} , email = #{email},state = #{state} where userid =#{userid}
-
     </update>
     <!--更新用户状态-->
     <update id="changeUserState" parameterType="java.util.Map" >

@@ -2,7 +2,9 @@ package com.great.entity;
 
 import java.sql.Timestamp;
 
-
+/**
+ * 驾校管理员表
+ */
 public class SchoolAdmin {
     private Integer id;
     private String account;

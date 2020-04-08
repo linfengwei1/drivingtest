@@ -61,13 +61,12 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
     table.on('tool(test)', function(obj){
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-        var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
         var path1 = $("#path").val();
-        if(layEvent === 'delete'){ //查看
+        if(layEvent === 'delete'){ //删除
             $.ajax({
                 async:true,
                 method : "POST",
-                url :path1+'/user/deleteDocumentInf',
+                url :path1+'/school/deleteSchoolAdmin',
                 data: data,
                 dataType : "text",
                 success:function(data){
@@ -78,10 +77,41 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                     }else {
                         layer.alert("删除失败",{icon:2});
                     }
+                },
+                error:function (err) {
+                    layer.alert("网络繁忙",{icon:2});
                 }
             })
         }
+        if(layEvent === 'update'){ //更新
+            var $td = $(this).parents('tr').children('td');
+            var id = $td.eq(0).text();//获取点击按钮相对应的id
+            var name = $td.eq(2).text();
+            var phone = $td.eq(3).text();
+            layer.open({
+                title:'更改驾校管理员信息',
+                type: 2,
+                area: ['500px', '400px'],
+                content:path+"/school/path/UpdateSchoolAdmin",//弹出的页面
+                success: function (layero, index) {
+                    var body = layer.getChildFrame("body", index);//弹出页面的body标签
+                    body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
+                    body.find("#name").val(name);//设置弹窗的值
+                    body.find("#phone").val(phone);
+                },
+
+            });
+        }
     });
+
+    $("#add").click(function () {
+        layer.open({
+            title:'添加驾校管理员信息',
+            type: 2,
+            area: ['700px', '500px'],
+            content:path+"/school/path/AddSchoolAdmin",//弹出的页面
+        });
+    })
 });
 
 
