@@ -2,14 +2,18 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
+import com.great.aoplog.Log;
+import com.great.entity.DateTable;
 import com.great.entity.SchoolAdmin;
-import com.great.entity.User;
 //import com.great.service.MyService;
+import com.great.entity.TableUtils;
+import com.great.entity.User;
 import com.great.service.SchoolAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +22,10 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.List;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
@@ -29,8 +36,8 @@ public class SchoolController {
     private Random random = new Random();
     @Autowired
     private SchoolAdminService schoolAdminService;
-//    @Autowired
-//    private DateTable dateTable;
+    @Autowired
+    private DateTable dateTable;
 
 //    @RequestMapping("/index2")
 //    public String index2(){
@@ -142,6 +149,83 @@ public class SchoolController {
         return "school/jsp/SchoolLogin";
     }
 
+    //获取驾校管理信息表格显示
+    @RequestMapping("/SchoolAdminTable")
+    @ResponseBody//ajax返回值json格式转换
+    public DateTable SchoolAdminTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer page= Integer.parseInt(request.getParameter("page"));
+        Integer limit= Integer.parseInt(request.getParameter("limit"));
+        utils.setMinLimit((page-1)*limit);
+        utils.setMaxLimit(limit);
+//        System.out.println("utils=="+utils.toString());
+        Map map = (Map) schoolAdminService.getSchoolAdminTable(utils);
+        if (null!=map.get("list")){
+            dateTable.setData((java.util.List<?>) map.get("list"));
+            dateTable.setCode(0);
+            dateTable.setCount((Integer) map.get("count"));//总条数
+            return dateTable;
+        }
+        return null;
+    }
+
+    //删除用户
+    @RequestMapping("/deleteSchoolAdmin")
+//    @Log(operationType = "删除操作", operationName = "删除上传文档")
+    public void deleteSchoolAdmin(SchoolAdmin schoolAdmin,  HttpServletResponse response) throws IOException {
+        Integer a = schoolAdminService.deleteSchoolAdmin(schoolAdmin.getId());
+        if (1==a){
+            response.getWriter().print("success");
+        }else{
+            response.getWriter().print("error");
+        }
+    }
+
+    //更新用户信息
+    @RequestMapping("/UpdateSchoolAdmin")
+    public void UpdateSchoolAdmin(SchoolAdmin admin,HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+//        String updateSchoolAdmin = request.getParameter("UpdateSchoolAdmin");
+//        SchoolAdmin admin =  g.fromJson(updateSchoolAdmin,SchoolAdmin.class);
+//        Integer id = Integer.valueOf(request.getParameter("id"));
+//        admin.setId(id);
+        System.out.println("admin=="+admin.toString());
+        Integer a= schoolAdminService.updateSchoolAdmin(admin);
+        if (1==a){
+            response.getWriter().print("1111");
+        }else{
+            response.getWriter().print("2222");
+        }
+    }
+
+    //判断用户名是否被注册
+    @RequestMapping("/CheckAccount")
+    public void CheckAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String account = request.getParameter("name");
+        if (null!=account||!"".equals(account)){
+            Integer a = schoolAdminService.CheckAccount(account);
+            if (1>a){
+                response.getWriter().print("1111");
+            }else{
+                response.getWriter().print("2222");
+            }
+        }
+    }
+
+    //新增用户
+    @RequestMapping("/addSchoolAdmin")
+    public void addSchoolAdmin(SchoolAdmin admin, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        admin.setSchool_state_id(3);
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置时间格式
+        Timestamp d = new Timestamp(System.currentTimeMillis());//获取当前系统时间
+        admin.setTime(d);
+        Integer a  =schoolAdminService.addSchoolAdmin(admin);
+        if (0<a){
+            response.getWriter().print("success");
+        }else{
+            response.getWriter().print("error");
+        }
+
+    }
 
 
 }

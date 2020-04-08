@@ -12,7 +12,7 @@
     <%String path = request.getContextPath();%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-    <script src="${pageContext.request.contextPath}/static/school/js/SchoolLogin.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="${pageContext.request.contextPath}/static/transportation/js/SchoolLogin.js" type="text/javascript" charset="UTF-8"></script>
     <style>
         .layui-main-login {
             padding: 2%;
@@ -48,7 +48,7 @@
 <div id="one">
     <div class="layui-main-login" >
         <form class="layui-form" action="" onsubmit="false">
-            <p style="">驾校登录</p>
+            <p style="">运管登录</p>
             <div class="layui-form-item">
                 <label class="layui-form-label">账号框</label>
                 <div class="layui-input-block" style="width: 190px">
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <img id="passPhoto"  style="padding-left: 110px;" src="<%=request.getContextPath()%>/school/CheckCodeServlet" onclick="refreshCode()">
+                <img id="passPhoto"  style="padding-left: 110px;" src="<%=request.getContextPath()%>/TM/CheckCodeServlet" onclick="refreshCode()">
                 <a  style=" font-size:12px;color: red" onclick="refreshCode()" >看不清?点图片刷新</a>
             </div>
 
