@@ -63,4 +63,84 @@
 		limit #{minlimit} , #{maxlimit}
 	</select>
 
+	<select id="getOneSubjectMsg" resultType="com.great.entity.Subject" parameterType="java.lang.Integer">
+		select * from question1 where id=#{id}
+	</select>
+
+	<select id="getFourthSubjectMsg" resultType="com.great.entity.Subject" parameterType="java.lang.Integer">
+		select * from question4 where id=#{id}
+	</select>
+
+	<delete id="deleteOneSubjectMsg" parameterType="java.lang.Integer">
+		delete from question1 where id=#{id}
+	</delete>
+
+	<delete id="deleteFourthSubjectMsg" parameterType="java.lang.Integer">
+		delete from question4 where id=#{id}
+	</delete>
+
+	<update id="updateOneSubjectMsg" parameterType="com.great.entity.Subject">
+
+		update question1
+		<set>
+			<if test="question!=null">
+				question=#{question}
+			</if>
+			<if test="answer!=null">
+				,answer=#{answer}
+			</if>
+			<if test="item1!=null">
+				,item1=#{item1}
+			</if>
+			<if test="item2!=null">
+				,item2=#{item2}
+			</if>
+			<if test="item3!=null">
+				,item3=#{item3}
+			</if>
+			<if test="item4!=null">
+				,item4=#{item4}
+			</if>
+			<if test="type!=null">
+				,type=#{type}
+			</if>
+			<if test="url!=null">
+				,url=#{url}
+			</if>
+		</set>
+		where id=#{id}
+
+	</update>
+
+	<update id="updateFourthSubjectMsg" parameterType="com.great.entity.Subject">
+		update question4
+		<set>
+			<if test="question!=null">
+				question=#{question}
+			</if>
+			<if test="answer!=null">
+				,answer=#{answer}
+			</if>
+			<if test="item1!=null">
+				,item1=#{item1}
+			</if>
+			<if test="item2!=null">
+				,item2=#{item2}
+			</if>
+			<if test="item3!=null">
+				,item3=#{item3}
+			</if>
+			<if test="item4!=null">
+				,item4=#{item4}
+			</if>
+			<if test="type!=null">
+				,type=#{type}
+			</if>
+			<if test="url!=null">
+				,url=#{url}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
 </mapper>

@@ -78,4 +78,34 @@ public class TransportationServiceImp implements TransportationService {
 
         return objectResult;
     }
+
+    @Override
+    public Subject getOneSubjectMsg(Subject subject) {
+        return td.getOneSubjectMsg(subject.getId());
+    }
+
+    @Override
+    public Subject getFourthSubjectMsg(Subject subject) {
+        return td.getFourthSubjectMsg(subject.getId());
+    }
+
+    @Override
+    public Integer deleteOneSubjectMsg(Subject subject) {
+        return td.deleteOneSubjectMsg(subject.getId());
+    }
+
+    @Override
+    public Integer deleteFourthSubjectMsg(Subject subject) {
+        return td.deleteFourthSubjectMsg(subject.getId());
+    }
+
+    @Override
+    public Integer updateOneSubjectMsg(Subject subject) {
+        return td.updateOneSubjectMsg(subject);
+    }
+
+    @Override
+    public Integer updateFourthSubjectMsg(Subject subject) {
+        return td.updateFourthSubjectMsg(subject);
+    }
 }

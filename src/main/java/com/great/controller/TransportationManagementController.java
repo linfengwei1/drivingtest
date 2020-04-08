@@ -3,6 +3,7 @@ package com.great.controller;
 
 import com.google.gson.Gson;
 import com.great.entity.ObjectResult;
+import com.great.entity.Subject;
 import com.great.entity.Transportation;
 import com.great.service.TransportationService;
 import com.great.service.serviceimpl.TransportationServiceImp;
@@ -41,7 +42,7 @@ public class TransportationManagementController {
     //地址映射,path是个方法名,可以随便改动,{url}是参数
     @RequestMapping("/path/{url}")
     public String getUrl(@PathVariable(value = "url") String path){
-        return "/transportation/jsp/" +path;
+        return "transportation/jsp/" +path;
     }
 
     //获取验证码
@@ -93,8 +94,7 @@ public class TransportationManagementController {
         //输出内存图片到输出流
         ImageIO.write(image, "jpg", response.getOutputStream());
     }
-    private Color getRandomColor()
-    {
+    private Color getRandomColor() {
         int r = random.nextInt(256);
         int g = random.nextInt(256);
         int b = random.nextInt(256);
@@ -149,7 +149,7 @@ public class TransportationManagementController {
     }
 
     /**
-     * 获取科目一题目列表
+     * 获取科目四题目列表
      * @return
      */
     @RequestMapping("/getFourthSubject")
@@ -166,8 +166,98 @@ public class TransportationManagementController {
         return g.toJson(objectResult);
     }
 
+    /**
+     * 删除题目
+     * @param sub
+     * @param who
+     * @param response
+     * @return
+     */
+    @RequestMapping("/deleteSubject")
+    @ResponseBody
+    public String deleteSubject(String sub,String who, HttpServletResponse response,HttpServletRequest request){
 
-    //注销登录
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        Subject subject=g.fromJson(sub,Subject.class);
+
+        if (who.equals("one")){
+            request.getSession().setAttribute("Subject",transportationService.deleteOneSubjectMsg(subject));
+        }else {
+            request.getSession().setAttribute("Subject",transportationService.deleteFourthSubjectMsg(subject));
+        }
+
+        return "";
+    }
+
+    /**
+     * 更新题目信息
+     * @param sub
+     * @param who
+     * @param response
+     * @return
+     */
+    @RequestMapping("/updateSubject")
+    @ResponseBody
+    public String updateSubject(String sub,String who,HttpServletResponse response,HttpServletRequest request){
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        Subject subject=g.fromJson(sub,Subject.class);
+
+        if (who.equals("one")){
+            request.getSession().setAttribute("Subject",transportationService.updateOneSubjectMsg(subject));
+        }else {
+            request.getSession().setAttribute("Subject",transportationService.updateFourthSubjectMsg(subject));
+        }
+
+
+        return "";
+    }
+
+    /**
+     * 获取题目信息
+     * @param sub
+     * @param response
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getSubjectMsg")
+    @ResponseBody
+    public String getSubjectMsg(String sub,String who,HttpServletResponse response,HttpServletRequest request){
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        Subject subject=g.fromJson(sub,Subject.class);
+
+        if (who.equals("one")){
+
+            request.getSession().setAttribute("subject",transportationService.getOneSubjectMsg(subject));
+            System.out.println(transportationService.getOneSubjectMsg(subject));
+        }else {
+            request.getSession().setAttribute("subject",transportationService.getFourthSubjectMsg(subject));
+        }
+
+        return "";
+    }
+
+
+    /**
+     * 注销登录
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/deleteAdmin")
     public String deleteAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

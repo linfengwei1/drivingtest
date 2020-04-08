@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>科目一管理</title>
+    <title>科目一题库管理</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -108,16 +108,19 @@
                 layer.confirm('确定删除数据?', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                     layer.close(index);
+
+                    var sub=JSON.stringify(data);
+
                     //向服务端发送删除指令
                     $.ajax({
                         //相应路劲
-                        url:"${pageContext.request.contextPath}/admin/deleteUser",
+                        url:"${pageContext.request.contextPath}/TM/deleteSubject",
                         //是否异步提交
                         async:true,
                         //请求类型
                         type:"post",
                         //数据名
-                        data:data,
+                        data:{"sub":sub,"who":"one"},
                         //数据类型:文本
                         datatype:"text",
                         //返回成功消息
@@ -132,15 +135,19 @@
                 });
             } else if(layEvent === 'edit'){ //编辑
                 //do something
+                console.log(data);
+
+                var sub=JSON.stringify(data);
+
                 $.ajax({
                     //相应路劲
-                    url:"${pageContext.request.contextPath}/admin/getUserMsg",
+                    url:"${pageContext.request.contextPath}/TM/getSubjectMsg",
                     //是否异步提交
                     async:true,
                     //请求类型
                     type:"post",
                     //数据名
-                    data:data,
+                    data:{"sub":sub,"who":"one"},
                     //数据类型:文本
                     datatype:"text",
                     //返回成功消息
@@ -151,7 +158,7 @@
                             shadeClose: true,
                             shade: 0.8,
                             area: ['700px', '500px'],
-                            content: "${pageContext.request.contextPath}/admin/path/modifyUser",
+                            content: "${pageContext.request.contextPath}/TM/path/ModifyOneSubject",
                             yes: function (index, layero) {
 
                             }
