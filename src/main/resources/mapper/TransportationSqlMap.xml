@@ -2,12 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.great.dao.SchoolAdminDao">
+<mapper namespace="com.great.dao.TransportationDao">
 
-    <!--根据角色id查询-->
-    <select id="findSchoolStateById" resultType="SchoolState" parameterType="java.lang.Integer">
---         select * from schoolstate where id = #{school_state_id};
-    </select>
 
 	<!--登录-->
     <select id="login" resultType="com.great.entity.Transportation" parameterType="java.util.Map">
