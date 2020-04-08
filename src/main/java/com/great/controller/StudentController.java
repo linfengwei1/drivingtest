@@ -6,7 +6,6 @@ import com.great.entity.SchoolAdmin;
 import com.great.entity.Student;
 import com.great.service.StudentManageService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,32 +50,24 @@ public class StudentController
 		}
 
 	}
+	@RequestMapping("/loginPage")
+	public String loginPage()
+	{
+		return "student/jsp/StudentLogin";
 
-	//地址映射,path是个方法名,可以随便改动,{url}是参数
-	@RequestMapping("/{url}")
-	public String getUrl(@PathVariable(value = "url") String path){
-		return "student/jsp/" +path;
 	}
+	@RequestMapping("/home")
+	public String homePage()
+	{
+		return "A";
 
+	}
+	@RequestMapping("/studentmain")
+	public String studentMain()
+	{
+		return "student/jsp/StudentMain";
 
-//	@RequestMapping("/StudentLogin")
-//	public String loginPage()
-//	{
-//		return "student/jsp/StudentLogin";
-//
-//	}
-//	@RequestMapping("/home")
-//	public String homePage()
-//	{
-//		return "A";
-//
-//	}
-//	@RequestMapping("/StudentMain")
-//	public String studentMain()
-//	{
-//		return "student/jsp/StudentMain";
-//
-//	}
+	}
 
 	//获取验证码
 	@RequestMapping("/CheckCode")

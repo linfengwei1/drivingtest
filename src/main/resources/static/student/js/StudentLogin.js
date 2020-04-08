@@ -14,7 +14,7 @@ $(function () {
 
                     console.log("data="+data);
                     if ("success"==data){
-                        location.href=path+"/student/StudentMain"
+                        location.href=path+"/student/studentmain"
                     }else if ("yzm"==data) {
                         layer.msg("验证码错误",function () {
                             refreshCode();
