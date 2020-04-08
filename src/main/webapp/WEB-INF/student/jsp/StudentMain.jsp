@@ -72,8 +72,8 @@
 	<%String path = request.getContextPath();%>
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/studentmain.css">
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="${pageContext.request.contextPath}/static/student/css/studentmain.css" type="text/javascript" charset="UTF-8"></script>
 
 </head>
 <body class="layui-layout-body"  style="overflow-y:scroll;overflow-x:scroll">
@@ -89,19 +89,19 @@
 		<ul class="layui-nav">
 
 
-			<li class="layui-nav-item"><a href="">首页</a></li>
+			<li class="layui-nav-item"><a href="${pageContext.request.contextPath}/student/StudentInfo" target="frame_div">首页</a></li>
 			<li class="layui-nav-item">
 				<a href="javascript:;">理论学习</a>
 				<dl class="layui-nav-child">
-					<dd><a href="">科目一</a></dd>
-					<dd><a href="">科目四</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/VedioStudy" target="frame_div">科目一</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/VedioStudy" target="frame_div">科目四</a></dd>
 				</dl>
 			</li>
 			<li class="layui-nav-item">
 				<a href="javascript:;">模拟考试</a>
 				<dl class="layui-nav-child">
-					<dd><a href="">科目一</a></dd>
-					<dd><a href="">科目四</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/VedioStudy" target="frame_div">科目一</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/VedioStudy" target="frame_div">科目四</a></dd>
 				</dl>
 			</li>
 			<li class="layui-nav-item">
@@ -124,111 +124,21 @@
 		</ul>
 	</div>
 
+<%--	<div style="height: 60%;width: 100%">--%>
+<%--		<iframe  name="frame_div" src="${pageContext.request.contextPath}/student/StudentInfo"  style="width: 100%;height: 100%"></iframe>--%>
+<%--	</div>--%>
 
-	<div class="df_bd">
-		<div class="bgl">
-			<div class="usio">
-				<div class="fra_title"><span><b class="backbg ico_usico"></b>个人信息<a href="javascript:void(0)"></a></span></div>
-				<ul class="usio_ul">
-					<li class="usio_ul_1">
-						<span>姓名：老张</span>
-						<span>车型：C1</span>
-						<span>网络学员：<b class="yes">是</b></span>
-						<span>卡号：1506515390</span>
-						<a href="javascript:void(0)"><img alt="" class="xueyuan" src="${pageContext.request.contextPath}/static/student/images/self.png"></a>
-					</li>
-					<li class="usio_ul_2">
-						<a class="backbg usio_ul_2_1" href="/home/userInfo"></a>
-						<a class="backbg usio_ul_2_2" href="/home/Repass"></a>
-						<a class="backbg usio_ul_2_3" href="/study/index"></a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="bgr">
-			<div class="usti">
-				<div class="fra_title"><span><b class="backbg ico_time"></b>学时信息<a href="javascript:void(0)"></a></span></div>
-				<div class="tmio">
-					<table class="tmio_tb">
-						<tbody><tr>
-							<td class="tmio_td">
-								<div class="backbg tmio_ca">
-									<div class="tmio_carbg" getw="1.00" style="width: 70px;">
-										<div class="tmio_car"></div>
-										<div class="backbg tmio_card"></div>
-									</div>
-								</div>
-								<div id="edittd">
-									<table>
-										<tbody><tr>
-											<th>学习阶段</th>
-											<th>需要总学时</th>
-											<th>-</th>
-											<th>网上学时<a href="javascript:void(0)" onclick="edit()">刷新</a></th>
-											<th>-</th>
-											<th>教室学时<a href="javascript:void(0)" onclick="edit()">刷新</a></th>
-											<th>=</th>
-											<th>未完成学时</th>
-											<th>状态</th>
-										</tr>
-										<tr>
-											<td>第一部分</td>
-											<td>12学时</td>
-											<td>-</td>
-											<td>12学时</td>
-											<td>-</td>
-											<td>0分钟</td>
-											<td>=</td>
-											<td>0分钟</td>
-											<td><span class="backbg yes"></span></td>
-										</tr>
-										<tr>
-											<td>第四部分</td>
-											<td>10学时</td>
-											<td>-</td>
-											<td>16学时</td>
-											<td>-</td>
-											<td>0分钟</td>
-											<td>=</td>
-											<td>0分钟</td>
-											<td><span class="backbg yes"></span></td>
-										</tr>
-										</tbody></table>
-								</div>
-							</td>
-						</tr>
-						</tbody></table>
-				</div>
-				<span style="font-size:12px;color:#808080;display:none;">❄第一部分教室有效学时最多为四学时，第四部分教室有效学时最多为二学时</span>
+	<div class="layui-container">
+		<div class="layui-row">
+			<div class="layui-col-md12">
+
+				<iframe name="frame_div" src="${pageContext.request.contextPath}/student/StudentInfo" style="width: 1140px;height: 500px;border: none;overflow-y: hidden;overflow-x: hidden;"></iframe>
+
+
+<%--				<iframe  name="frame_div" src="${pageContext.request.contextPath}/student/StudentInfo" style="width: 1140px;"></iframe>--%>
 			</div>
 		</div>
 	</div>
-	<!--    <div class="unfot clearfix" style="margin-bottom: 0%">-->
-	<!--        <div class="unfotf">-->
-	<!--            <ul class="left">-->
-	<!--                <li><a href="javascript:void(0)">关于我们</a></li>-->
-	<!--                <li><a href="javascript:void(0)">联系我们</a></li>-->
-	<!--                <li><a href="javascript:void(0)">广告投放</a></li>-->
-	<!--                <li><span>版权所有</span></li>-->
-	<!--            </ul>-->
-	<!--            <ul class="left">-->
-	<!--                <li><span>ICP备案：蜀ICP备11021464号-2</span></li>-->
-	<!--                <li><span>著作权登记号：2014SR148530</span></li>-->
-	<!--            </ul>-->
-	<!--            <ul class="left">-->
-	<!--                <li><span>客服QQ：1031488448</span></li>-->
-	<!--                <li><span>电话：0591-87620650</span></li>-->
-	<!--                <li><span>地址：福州市八一七北路８１号（东街口）五洲大厦14层</span></li>-->
-	<!--            </ul>-->
-	<!--            <ul class="right">-->
-
-
-	<!--            </ul>-->
-	<!--        </div>-->
-	<!--    </div>-->
-
-</div>
-<script src="../src/layui.js"></script>
 <script>
 	//JavaScript代码区域
 	layui.use('element', function(){
