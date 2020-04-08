@@ -80,7 +80,7 @@
 
     <!--查看账号是否被使用-->
     <select id="CheckAccount" parameterType = "String" resultType="java.lang.Integer">
-        select count(id) FROM schooladmin where account= #{account}
+        select count(id) FROM user where account= #{account}
     </select>
 
 
