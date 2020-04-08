@@ -2,6 +2,7 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
+import com.great.entity.ObjectResult;
 import com.great.entity.Transportation;
 import com.great.service.TransportationService;
 import com.great.service.serviceimpl.TransportationServiceImp;
@@ -102,6 +103,15 @@ public class TransportationManagementController {
     }
 
 
+    /**
+     * 运管登录
+     * @param account
+     * @param pwd
+     * @param rePass
+     * @param request
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/Login")
     @ResponseBody
     public String Login(String account,String pwd,String rePass , HttpServletRequest request) throws IOException {
@@ -120,15 +130,42 @@ public class TransportationManagementController {
         }
     }
 
-//    @RequestMapping("/menu")
-//    public String menu(HttpServletRequest request, HttpSession hs){
-//        User user = (User) request.getSession().getAttribute("admin");
-//        hs.setAttribute("name",user.getName());
-//        hs.setAttribute("roleType",user.getRole().getType());
-//        Map<String, List<Menu>> menuMap =myService.FindMenuByRoleId(user.getRole().getRoleid());//拿到菜单
-//        request.setAttribute("menuMap",menuMap);
-//        return "back/jsp/sss";
-//    }
+    /**
+     * 获取科目一题目列表
+     * @return
+     */
+    @RequestMapping("/getOneSubject")
+    @ResponseBody
+    public String getOneSubject(Integer page, Integer limit,String question,String type,HttpServletResponse response){
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectResult objectResult=transportationService.getOneSubject(page,limit,question,type);
+
+        return g.toJson(objectResult);
+    }
+
+    /**
+     * 获取科目一题目列表
+     * @return
+     */
+    @RequestMapping("/getFourthSubject")
+    @ResponseBody
+    public String getFourthSubject(Integer page, Integer limit,String question,String type,HttpServletResponse response){
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectResult objectResult=transportationService.getFourthSubject(page,limit,question,type);
+
+        return g.toJson(objectResult);
+    }
+
 
     //注销登录
     @RequestMapping("/deleteAdmin")
@@ -140,7 +177,7 @@ public class TransportationManagementController {
         //注销
         hs.invalidate();
         //返回页面
-        return "back/jsp/login";
+        return "/transportation/jsp/TransportationLogin";
     }
 
 

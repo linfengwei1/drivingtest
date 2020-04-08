@@ -13,8 +13,8 @@ layui.use(['form','jquery'],  function(){
                 // layer.msg(data);
                 console.log("data="+data);
                 if ("success"==data){
-                    alert("ddd")
-                    //location.href=path+"/user/menu"
+                    layer.alert("登录成功",{icon:6});
+                    location.href=path+"/TM/path/manage"
                 }else if ("yzm"==data) {
                     layer.msg("验证码错误",function () {
                         window.location.reload();
