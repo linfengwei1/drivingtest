@@ -1,4 +1,4 @@
-﻿﻿$(function () {
+﻿﻿﻿$(function () {
 
 	var path = $("#path").val();
 	console.log(path);
