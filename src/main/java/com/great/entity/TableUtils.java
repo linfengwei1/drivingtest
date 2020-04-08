@@ -6,6 +6,8 @@ public class TableUtils {
     private Integer maxLimit;
     private String time1;
     private String time2;
+    private String idnumber;
+    private String sex;
     private String state;
     private String name;
     private String phone;
@@ -85,6 +87,23 @@ public class TableUtils {
 
     public void setMaxLimit(Integer maxLimit) {
         this.maxLimit = maxLimit;
+    }
+
+
+    public String getIdnumber() {
+        return idnumber;
+    }
+
+    public void setIdnumber(String idnumber) {
+        this.idnumber = idnumber;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     @Override

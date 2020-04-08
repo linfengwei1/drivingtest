@@ -8,12 +8,12 @@ html,body{
 }
 
 #header_div{
-    height: 20%;
+    height: 15%;
     width: 100%;
     background-color: #008b8b;
 }
 #header_div h1{
-    padding-top: 45px ;
+    padding-top: 10px ;
     margin-left: 50px;
     color: white;
 }
@@ -26,7 +26,7 @@ a:hover {
     color: green;
 }
 #menu_div{
-    height: 80%;
+    height: 85%;
     width: 15%;
     background-color: #414141;
     float: left;

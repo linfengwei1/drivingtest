@@ -108,7 +108,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         layer.open({
             title:'添加驾校管理员信息',
             type: 2,
-            area: ['700px', '500px'],
+            area: ['700px', '400px'],
             content:path+"/school/path/AddSchoolAdmin",//弹出的页面
         });
     })
