@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.great.dao.TransportationDao">
+
+
+	<!--登录-->
+    <select id="login" resultType="com.great.entity.Transportation" parameterType="java.util.Map">
+		select * from transportation where account = #{account} and pwd = #{pwd}
+	</select>
+
+    <!--查找角色所有信息-->
+    <select id="findByAll" resultType="User" >
+-- 		select * from user
+	</select>
+    <!--添加用户-->
+	<insert id="addUser"   parameterType="com.great.entity.User">
+-- 		insert into user (account,pwd,name,sex,education,profession,phone,email,rtime,state,roleid,score,upcount,downcount)
+-- 		VALUES(#{account},#{pwd},#{name},#{sex},#{education},#{profession},#{phone},#{email},#{rtime},#{state},#{roleid},#{score},#{upcount},#{downcount})
+
+	</insert>
+    <!--查找角色信息并带条件的分页-->
+    <select id="findAllUserByPage" resultType="User" parameterType="java.util.Map" >
+<!--		select * from  user where 1=1-->
+<!--        <if test="rtime1 != '' and rtime1 != null">-->
+<!--            and rtime &gt;= #{rtime1}-->
+<!--        </if>-->
+<!--        <if test="rtime2 != '' and rtime2 != null">-->
+<!--            and rtime &lt;= #{rtime2}-->
+<!--        </if>-->
+<!--        <if test="userid != '' and userid != null">-->
+<!--            and userid like concat ('%',#{userid},'%')-->
+<!--        </if>-->
+<!--        limit #{minLimit},#{maxLimit}-->
+	</select>
+    <!--查找用户信息总数-->
+    <select id="findAllUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+-- 		select count(*) from user
+		<where>
+<!--            <if test="userid !='' and userid!=null">-->
+<!--                and userid like#{userid}-->
+<!--            </if>-->
+        </where>
+
+	</select>
+    <!--删除用户-->
+    <delete id="deleteUserInf"  parameterType="java.lang.Integer">
+--         delete  from user where userid =#{userid}
+    </delete>
+    <!--更新用户信息-->
+    <update id="updateUserInf" parameterType="com.great.entity.User" >
+--         update user  set name = #{name},sex = #{sex},education = #{education},profession=#{profession},
+--         phone =#{phone} , email = #{email},state = #{state} where userid =#{userid}
+
+    </update>
+    <!--更新用户状态-->
+    <update id="changeUserState" parameterType="java.util.Map" >
+--         update user  set state = #{state} where userid =#{userid}
+
+    </update>
+    <select id="cUser" parameterType = "String" resultType="java.lang.Integer">
+--         select count(userid) FROM user where account= #{account}
+    </select>
+
+
+
+</mapper>
