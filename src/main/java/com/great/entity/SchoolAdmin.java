@@ -1,6 +1,11 @@
 package com.great.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.xml.crypto.Data;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * 驾校管理员表
@@ -12,7 +17,9 @@ public class SchoolAdmin {
     private String name;
     private String phone;
     private Integer school_id;
-    private Timestamp time;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
+    private Date time;
     private Integer school_state_id;
     private SchoolState schoolState;
     private String verification;//验证码
@@ -104,11 +111,11 @@ public class SchoolAdmin {
         this.schoolState = schoolState;
     }
 
-    public Timestamp getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
