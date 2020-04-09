@@ -56,6 +56,15 @@ public class StudentController
 		return result;
 	}
 
+	@RequestMapping("/addStudy1Time")
+	@ResponseBody
+	public String addStudy1Time(String studentId,String subject,HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+
+		String result = studentManageServiceImpl.addStudy1Time(studentId,subject);
+		return result;
+	}
+
 	//地址映射,path是个方法名,可以随便改动,{url}是参数
 	@RequestMapping("/{url}")
 	public String getUrl(@PathVariable(value = "url") String path){

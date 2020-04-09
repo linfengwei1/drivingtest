@@ -13,6 +13,8 @@ public class Student
 	private int student_state_id;
 	private int school_id;
 	private String verification;//验证码
+
+
 	public Student()
 	{
 	}

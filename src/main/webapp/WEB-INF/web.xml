@@ -45,12 +45,12 @@
 <!--    </servlet-mapping>-->
 
 
-<!--    <welcome-file-list>-->
-<!--        <welcome-file>/admin/test</welcome-file>-->
-<!--    </welcome-file-list>-->
-<!--    <welcome-file-list>-->
-<!--        <welcome-file>/handleRequest.action</welcome-file>-->
-<!--    </welcome-file-list>-->
+<!--    <welcome-vedio-list>-->
+<!--        <welcome-vedio>/admin/test</welcome-vedio>-->
+<!--    </welcome-vedio-list>-->
+<!--    <welcome-vedio-list>-->
+<!--        <welcome-vedio>/handleRequest.action</welcome-vedio>-->
+<!--    </welcome-vedio-list>-->
 
     <welcome-file-list>
         <welcome-file>/WEB-INF/A.jsp</welcome-file>
