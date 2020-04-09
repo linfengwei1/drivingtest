@@ -94,7 +94,6 @@ public class ExcelCreate
 			    out.flush();
 			    return true;
 
-//			    JOptionPane.showMessageDialog(null, "导出成功", "提示", JOptionPane.OK_OPTION);
 			} catch (FileNotFoundException e1) {
 			    // TODO Auto-generated catch block
 			    e1.printStackTrace();
