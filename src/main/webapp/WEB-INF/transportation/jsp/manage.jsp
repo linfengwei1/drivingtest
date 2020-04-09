@@ -62,7 +62,7 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">学员管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">学员信息</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/StudentTbl" onclick="changeUrl(this)">学员信息</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">审批</a></dd>
 
                     </dl>

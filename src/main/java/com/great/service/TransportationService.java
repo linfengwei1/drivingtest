@@ -81,4 +81,10 @@ public interface TransportationService {
      * @return
      */
     public Integer updateFourthSubjectMsg(Subject subject);
+
+    /**
+     * 获取学员列表
+     * @return
+     */
+    public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name);
 }

@@ -94,4 +94,19 @@ public interface TransportationDao {
      * @return
      */
     public Integer updateFourthSubjectMsg(Subject subject);
+
+    /**
+     * 获取学员信息条数
+     * @param map
+     * @return
+     */
+    public Integer getStudentCount(Map<String, Object> map);
+
+
+    /**
+     * 获取学员信息
+     * @param map
+     * @return
+     */
+    public List<?> getStudentTbl(Map<String, Object> map);
 }

@@ -143,4 +143,67 @@
 		where id=#{id}
 	</update>
 
+
+	<select id="getStudentCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+		select count(*)
+		from student
+		<where>
+			<if test="name!=null">
+				and  name like concat('%',#{name},'%')
+			</if>
+			<if test="state!=null">
+				and student_state_id = #{state}
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="studentMap" type="com.great.entity.Student">
+		<id property="id" column="id"/>
+		<result property="account" column="account"/>
+		<result property="pwd" column="pwd"/>
+		<result property="name" column="name"/>
+		<result property="sex" column="sex"/>
+		<result property="age" column="age"/>
+		<result property="idNumber" column="idNumber"/>
+		<result property="phone" column="phone"/>
+		<result property="student_state_id" column="student_state_id"/>
+		<result property="school_id" column="school_id"/>
+		<result property="schoolName" column="s_name"/>
+
+	<association property="school" javaType="com.great.entity.School">
+		<id property="id" column="s_id"/>
+		<result property="name" column="s_name"/>
+		<result property="phone" column="s_phone"/>
+		<result property="address" column="s_address"/>
+		<result property="admin" column="s_admin"/>
+		<result property="intro" column="s_intro"/>
+		<result property="school_state_id" column="school_state_id"/>
+		<result property="information" column="s_information"/>
+	</association>
+
+	</resultMap>
+
+	<select id="getStudentTbl" resultMap="studentMap" parameterType="java.util.Map">
+		select s1.*
+		     ,s.id "s_id"
+		     ,s.name "s_name"
+			,s.admin "s_admin"
+			,s.address "s_address"
+			,s.information "s_information"
+			,s.intro "s_intro"
+			,s.phone "s_phone"
+			,s.school_state_id "school_state_id"
+		from student s1
+		left join school s on s1.school_id = s.id
+		<where>
+			<if test="name!=null">
+				and  s1.name like concat('%',#{name},'%')
+			</if>
+			<if test="state!=null">
+				and s1.student_state_id = #{state}
+			</if>
+		</where>
+		limit #{minlimit} , #{maxlimit}
+	</select>
+
 </mapper>
