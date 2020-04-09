@@ -111,4 +111,28 @@ public class TransportationServiceImp implements TransportationService {
     public Integer updateFourthSubjectMsg(Subject subject) {
         return td.updateFourthSubjectMsg(subject);
     }
+
+    @Override
+    public ObjectResult getStudentTbl(Integer page, Integer limit, String state, String name) {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        map.put("state",state);
+        map.put("name",name);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getStudentCount(map));
+        //获取记录
+        objectResult.setData(td.getStudentTbl(map));
+
+        return objectResult;
+    }
+
+
 }

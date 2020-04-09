@@ -143,4 +143,32 @@
 		where id=#{id}
 	</update>
 
+
+	<select id="getStudentCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+		select count(*)
+		from student
+		<where>
+			<if test="name!=null">
+				and  name like concat('%',#{name},'%')
+			</if>
+			<if test="state!=null">
+				and student_state_id = #{state}
+			</if>
+		</where>
+	</select>
+
+	<select id="getStudentTbl" resultType="com.great.entity.Student" parameterType="java.util.Map">
+		select *
+		from student
+		<where>
+			<if test="name!=null">
+				and  name like concat('%',#{name},'%')
+			</if>
+			<if test="state!=null">
+				and student_state_id = #{state}
+			</if>
+		</where>
+		limit #{minlimit} , #{maxlimit}
+	</select>
+
 </mapper>

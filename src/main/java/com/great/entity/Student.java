@@ -13,11 +13,12 @@ public class Student
 	private int student_state_id;
 	private int school_id;
 	private String verification;//验证码
+	private School school;//学校
 	public Student()
 	{
 	}
 
-	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification)
+	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school)
 	{
 		this.id = id;
 		this.account = account;
@@ -30,6 +31,7 @@ public class Student
 		this.student_state_id = student_state_id;
 		this.school_id = school_id;
 		this.verification = verification;
+		this.school = school;
 	}
 
 	public int getId()
@@ -142,9 +144,32 @@ public class Student
 		this.verification = verification;
 	}
 
+	public School getSchool()
+	{
+		return school;
+	}
+
+	public void setSchool(School school)
+	{
+		this.school = school;
+	}
+
 	@Override
 	public String toString()
 	{
-		return "Student{" + "id=" + id + ", account='" + account + '\'' + ", pwd='" + pwd + '\'' + ", name='" + name + '\'' + ", sex='" + sex + '\'' + ", age='" + age + '\'' + ", idNumber='" + idNumber + '\'' + ", phone='" + phone + '\'' + ", student_state_id=" + student_state_id + ", school_id=" + school_id + ", verification='" + verification + '\'' + '}';
+		return "Student{" +
+				"id=" + id +
+				", account='" + account + '\'' +
+				", pwd='" + pwd + '\'' +
+				", name='" + name + '\'' +
+				", sex='" + sex + '\'' +
+				", age='" + age + '\'' +
+				", idNumber='" + idNumber + '\'' +
+				", phone='" + phone + '\'' +
+				", student_state_id=" + student_state_id +
+				", school_id=" + school_id +
+				", verification='" + verification + '\'' +
+				", school=" + school +
+				'}';
 	}
 }
