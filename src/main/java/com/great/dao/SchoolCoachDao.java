@@ -33,4 +33,11 @@ public interface SchoolCoachDao
 
     //查询所有教练
     public List<Coach> findAllCoach(Integer schoolid);
+
+	/**
+	 * 修改教练密码 2020-4-9 16：46 王良德
+	 * @param coach 教练信息
+	 * @return 修改密码是否成功
+	 */
+	Integer changeCoachpwd(Coach coach);
 }

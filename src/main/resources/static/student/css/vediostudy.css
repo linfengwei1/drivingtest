@@ -142,7 +142,7 @@ li:hover {
     background-color: #f1f3ef;
 }
 
-.right{
+#right{
     float: right;
     width: 650px;
     margin: 10px 0;
