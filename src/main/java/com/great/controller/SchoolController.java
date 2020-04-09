@@ -2,19 +2,14 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
-import com.great.entity.Coach;
-import com.great.entity.DateTable;
 import com.great.entity.SchoolAdmin;
+import com.great.entity.User;
 //import com.great.service.MyService;
-import com.great.entity.TableUtils;
-import com.great.service.SchoolManageService;
-import com.great.utils.ExcelCreate;
-import com.great.utils.IDNumber;
+import com.great.service.SchoolAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +18,6 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -36,9 +28,9 @@ public class SchoolController {
     Gson g = new Gson();
     private Random random = new Random();
     @Autowired
-    private SchoolManageService schoolAdminService;
-    @Autowired
-    private DateTable dateTable;
+    private SchoolAdminService schoolAdminService;
+//    @Autowired
+//    private DateTable dateTable;
 
 //    @RequestMapping("/index2")
 //    public String index2(){
@@ -129,7 +121,7 @@ public class SchoolController {
 
 //    @RequestMapping("/menu")
 //    public String menu(HttpServletRequest request, HttpSession hs){
-//        User user = (User) request.getSession().getAttribute("SchoolAdmin");
+//        User user = (User) request.getSession().getAttribute("admin");
 //        hs.setAttribute("name",user.getName());
 //        hs.setAttribute("roleType",user.getRole().getType());
 //        Map<String, List<Menu>> menuMap =myService.FindMenuByRoleId(user.getRole().getRoleid());//拿到菜单
@@ -150,169 +142,6 @@ public class SchoolController {
         return "school/jsp/SchoolLogin";
     }
 
-    //获取驾校管理信息表格显示
-    @RequestMapping("/SchoolAdminTable")
-    @ResponseBody//ajax返回值json格式转换
-    public DateTable SchoolAdminTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Integer page= Integer.parseInt(request.getParameter("page"));
-        Integer limit= Integer.parseInt(request.getParameter("limit"));
-        utils.setMinLimit((page-1)*limit);
-        utils.setMaxLimit(limit);
-//        System.out.println("utils=="+utils.toString());
-        Map map = (Map) schoolAdminService.getSchoolAdminTable(utils);
-        if (null!=map.get("list")){
-            dateTable.setData((java.util.List<?>) map.get("list"));
-            dateTable.setCode(0);
-            dateTable.setCount((Integer) map.get("count"));//总条数
-            return dateTable;
-        }
-        return null;
-    }
-
-    //删除用户
-    @RequestMapping("/deleteSchoolAdmin")
-//    @Log(operationType = "删除操作", operationName = "删除上传文档")
-    public void deleteSchoolAdmin(SchoolAdmin schoolAdmin,  HttpServletResponse response) throws IOException {
-        Integer a = schoolAdminService.deleteSchoolAdmin(schoolAdmin.getId());
-        if (1==a){
-            response.getWriter().print("success");
-        }else{
-            response.getWriter().print("error");
-        }
-    }
-
-    //更新用户信息
-    @RequestMapping("/UpdateSchoolAdmin")
-    public void UpdateSchoolAdmin(SchoolAdmin admin,HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-        System.out.println("admin=="+admin.toString());
-        Integer a= schoolAdminService.updateSchoolAdmin(admin);
-        if (1==a){
-            response.getWriter().print("1111");
-        }else{
-            response.getWriter().print("2222");
-        }
-    }
-
-    //判断用户名是否被注册
-    @RequestMapping("/CheckAccount")
-    public void CheckAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String account = request.getParameter("name");
-        if (null!=account||!"".equals(account)){
-            Integer a = schoolAdminService.CheckAccount(account);
-            if (1>a){
-                response.getWriter().print("1111");
-            }else{
-                response.getWriter().print("2222");
-            }
-        }
-    }
-
-    //新增用户
-    @RequestMapping("/addSchoolAdmin")
-    public void addSchoolAdmin(SchoolAdmin admin, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        admin.setSchool_state_id(3);
-        Timestamp d = new Timestamp(System.currentTimeMillis());//获取当前系统时间
-        admin.setTime(d);
-        Integer a  =schoolAdminService.addSchoolAdmin(admin);
-        if (0<a){
-            response.getWriter().print("success");
-        }else{
-            response.getWriter().print("error");
-        }
-
-    }
-
-
-    //获取教学信息表格显示
-    @RequestMapping("/SchoolCoachTable")
-    @ResponseBody//ajax返回值json格式转换
-    public DateTable SchoolCoachTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Integer page= Integer.parseInt(request.getParameter("page"));
-        Integer limit= Integer.parseInt(request.getParameter("limit"));
-        utils.setMinLimit((page-1)*limit);
-        utils.setMaxLimit(limit);
-        Map map = (Map) schoolAdminService.getSchoolCoachTable(utils);
-        if (null!=map.get("list")){
-            dateTable.setData((java.util.List<?>) map.get("list"));
-            dateTable.setCode(0);
-            dateTable.setCount((Integer) map.get("count"));//总条数
-            return dateTable;
-        }
-        return null;
-    }
-
-    //更新用户信息
-    @RequestMapping("/UpdateCoach")
-    public void UpdateCoach(Coach coach, HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-        Integer a= schoolAdminService.updateCoach(coach);
-        if (1==a){
-            response.getWriter().print("1111");
-        }else{
-            response.getWriter().print("2222");
-        }
-    }
-
-    //删除教练
-    @RequestMapping("/deleteCount")
-//    @Log(operationType = "删除操作", operationName = "删除上传文档")
-    public void deleteCount(Coach coach,  HttpServletResponse response) throws IOException {
-        Integer a = schoolAdminService.deleteCount(coach.getId());
-        if (1==a){
-            response.getWriter().print("success");
-        }else{
-            response.getWriter().print("error");
-        }
-    }
-
-    //判断教练账号是否被注册
-    @RequestMapping("/CheckCoachAccount")
-    public void CheckCoachAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String account = request.getParameter("name");
-        if (null!=account||!"".equals(account)){
-            Integer a = schoolAdminService.CheckCoachAccount(account);
-            if (1>a){
-                response.getWriter().print("1111");
-            }else{
-                response.getWriter().print("2222");
-            }
-        }
-    }
-
-    //新增教练
-    @RequestMapping("/addCoach")
-    public void addCoach(Coach coach, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-          SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
-          Boolean demo= IDNumber.isIDNumber(coach.getIdnumber());
-          if (demo){
-              coach.setCoach_state_id(4);
-              coach.setSchool_id(schoolAdmin.getSchool_id());
-              Integer a= schoolAdminService.addCoach(coach);
-             if (0<a){
-                 response.getWriter().print("success");
-            }else{
-                response.getWriter().print("error");
-            }
-          }else {
-              response.getWriter().print("IdError");
-          }
-
-    }
-
-    //导出
-    @RequestMapping("/export")
-    public void export( HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println(1);
-        SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
-        List<Coach> list=schoolAdminService.findAllCoach(schoolAdmin.getSchool_id());
-       Boolean demo= ExcelCreate.ExcelCreate(list);
-       if (demo){
-           response.getWriter().print("success");
-
-//           response.getWriter().write("<script>alert('导出成功！'); window.location='/WEB-INF/A.jsp'; window.close();</script>");
-       }
-    }
 
 
 }

@@ -23,6 +23,9 @@
 	<select id="login" resultMap="studentMap" parameterType="java.util.HashMap">
 		select * from student where account = #{account} and pwd = #{pwd}
 	</select>
+	<select id="checkStudyAuthority" resultType="int" parameterType="java.util.HashMap">
+		select time from studycondition where student_id = #{studentId} and subject_id = #{subject}
+	</select>
 
 
 <!--	<resultMap id="menuMap" type="TreeData">-->

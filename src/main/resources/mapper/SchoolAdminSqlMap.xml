@@ -21,115 +21,6 @@
 		select * from schooladmin where account = #{account} and pwd = #{pwd}
 	</select>
 
-
-    <!--查询驾校管理员记录并分页    -->
-    <select id="findSchoolAdminByPage" resultType="SchoolAdmin" parameterType="com.great.entity.TableUtils">
-        select * from schooladmin
-        <where>
-            <if test="name !='' and name!=null">
-                and name like concat('%',#{name},'%')
-            </if>
-            <if test="phone !='' and phone!=null">
-                and phone = #{phone}
-            </if>
-            <if test="state !='' and state!=null">
-                and school_state_id = #{state}
-            </if>
-            <if test="time1 != '' and time1 != null">
-                and time &gt;= #{time1}
-            </if>
-            <if test="time2 != '' and time2 != null">
-                and time &lt;= #{time2}
-            </if>
-        </where>
-        limit #{minLimit},#{maxLimit}
-    </select>
-
-    <!--查询驾校管理员信息总数-->
-    <select id="findSchoolAdminCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
-        select count(*) from schooladmin
-        <where>
-            <if test="name !='' and name!=null">
-                and name like concat('%',#{name},'%')
-            </if>
-            <if test="phone !='' and phone!=null">
-                and phone = #{phone}
-            </if>
-            <if test="state !='' and state!=null">
-                and school_state_id = #{state}
-            </if>
-            <if test="time1 != '' and time1 != null">
-                and time &gt;= #{time1}
-            </if>
-            <if test="time2 != '' and time2 != null">
-                and time &lt;= #{time2}
-            </if>
-        </where>
-
-    </select>
-
-    <!--删除驾校管理员-->
-    <delete id="deleteSchoolAdmin"  parameterType="java.lang.Integer">
-        delete  from schooladmin where id =#{id}
-    </delete>
-
-    <!--更新驾校管理员信息-->
-    <update id="updateSchoolAdmin" parameterType="com.great.entity.SchoolAdmin" >
-        update schooladmin  set name = #{name},phone =#{phone}  where id =#{id}
-    </update>
-
-    <!--查看账号是否被使用-->
-    <select id="CheckAccount" parameterType = "String" resultType="java.lang.Integer">
-        select count(id) FROM schooladmin where account= #{account}
-    </select>
-
-
-    <!--添加驾校管理员-->
-    <insert id="addSchoolAdmin"   parameterType="com.great.entity.SchoolAdmin">
-		insert into schooladmin (account,pwd,name,phone,time,school_state_id)
-		VALUES(#{account},#{pwd},#{name},#{phone},#{time},#{school_state_id})
-	</insert>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!--查找角色所有信息-->
     <select id="findByAll" resultType="User" >
 		select * from user
@@ -164,11 +55,15 @@
         </where>
 
 	</select>
-
+    <!--删除用户-->
+    <delete id="deleteUserInf"  parameterType="java.lang.Integer">
+        delete  from user where userid =#{userid}
+    </delete>
     <!--更新用户信息-->
     <update id="updateUserInf" parameterType="com.great.entity.User" >
         update user  set name = #{name},sex = #{sex},education = #{education},profession=#{profession},
         phone =#{phone} , email = #{email},state = #{state} where userid =#{userid}
+
     </update>
     <!--更新用户状态-->
     <update id="changeUserState" parameterType="java.util.Map" >
