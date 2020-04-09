@@ -23,15 +23,19 @@
 
         <label class="layui-form-label">驾校：</label>
         <div class="layui-input-inline">
-            <input type="text"  id="school" name="school" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" value="${userName}">
+            <select name="school" id="school" lay-filter="aihao">
+                <option value=""></option>
+<%--                <option value="1" <c:if test="${type}==1">selected="selected"</c:if> >单项选择</option>--%>
+<%--                <option value="2" <c:if test="${type}==2">selected="selected"</c:if> >判断题</option>--%>
+            </select>
         </div>
 
         <label class="layui-form-label">状态：</label>
         <div class="layui-input-inline">
             <select name="type" id="type" lay-filter="aihao">
                 <option value=""></option>
-                <option value="1" <c:if test="${type}==1">selected="selected"</c:if> >单项选择</option>
-                <option value="2" <c:if test="${type}==2">selected="selected"</c:if> >判断题</option>
+<%--                <option value="1" <c:if test="${type}==1">selected="selected"</c:if> >单项选择</option>--%>
+<%--                <option value="2" <c:if test="${type}==2">selected="selected"</c:if> >判断题</option>--%>
             </select>
         </div>
 
@@ -59,7 +63,7 @@
             elem: '#demo'
             ,height: 470
             ,id:'testReload'
-            ,url: '${pageContext.request.contextPath}/TM/getOneSubject' //数据接口
+            ,url: '${pageContext.request.contextPath}/TM/getStudentTbl' //数据接口
             ,page: true //开启分页
             ,limit:10
             ,cols: [[ //表头
@@ -70,7 +74,7 @@
                 ,{field: 'age', title: '年龄', width:50}
                 ,{field: 'phone', title: '联系电话', width:100}
                 ,{field: 'student_state_id', title: '状态', width: 100}
-                ,{field: 'school', title: '所属驾校', width: 150}
+                ,{field: 'schoolName', title: '所属驾校', width: 150}
                 ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
         });
@@ -93,7 +97,8 @@
                         curr:1
                     }
                     ,where:{
-                        question:$("#question").val(),
+                        name:$("#name").val(),
+                        school:$("#school").val(),
                         type:$("#type").val(),
                     }
                 });
@@ -111,69 +116,70 @@
             if(layEvent === 'detail'){ //查看
                 //do somehing
             } else if(layEvent === 'del'){ //删除
-                layer.confirm('确定删除数据?', function(index){
-                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                    layer.close(index);
-
-                    var sub=JSON.stringify(data);
-
-                    //向服务端发送删除指令
-                    $.ajax({
-                        //相应路劲
-                        url:"${pageContext.request.contextPath}/TM/deleteSubject",
-                        //是否异步提交
-                        async:true,
-                        //请求类型
-                        type:"post",
-                        //数据名
-                        data:{"sub":sub,"who":"one"},
-                        //数据类型:文本
-                        datatype:"text",
-                        //返回成功消息
-                        success:function (msg) {
-                            layer.alert("删除成功",{icon:6});
-                        },
-                        //返回失败消息
-                        error:function () {
-                        }
-                    });
-
-                });
-            } else if(layEvent === 'edit'){ //编辑
-                //do something
                 console.log(data);
+                <%--layer.confirm('确定删除数据?', function(index){--%>
+                <%--    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存--%>
+                <%--    layer.close(index);--%>
 
-                var sub=JSON.stringify(data);
+                <%--    var sub=JSON.stringify(data);--%>
 
-                $.ajax({
-                    //相应路劲
-                    url:"${pageContext.request.contextPath}/TM/getSubjectMsg",
-                    //是否异步提交
-                    async:true,
-                    //请求类型
-                    type:"post",
-                    //数据名
-                    data:{"sub":sub,"who":"one"},
-                    //数据类型:文本
-                    datatype:"text",
-                    //返回成功消息
-                    success:function (msg) {
-                        layer.open({
-                            type: 2,
-                            title: '修改',
-                            shadeClose: true,
-                            shade: 0.8,
-                            area: ['700px', '500px'],
-                            content: "${pageContext.request.contextPath}/TM/path/ModifyOneSubject",
-                            yes: function (index, layero) {
+                <%--    //向服务端发送删除指令--%>
+                <%--    $.ajax({--%>
+                <%--        //相应路劲--%>
+                <%--        url:"${pageContext.request.contextPath}/TM/deleteSubject",--%>
+                <%--        //是否异步提交--%>
+                <%--        async:true,--%>
+                <%--        //请求类型--%>
+                <%--        type:"post",--%>
+                <%--        //数据名--%>
+                <%--        data:{"sub":sub,"who":"one"},--%>
+                <%--        //数据类型:文本--%>
+                <%--        datatype:"text",--%>
+                <%--        //返回成功消息--%>
+                <%--        success:function (msg) {--%>
+                <%--            layer.alert("删除成功",{icon:6});--%>
+                <%--        },--%>
+                <%--        //返回失败消息--%>
+                <%--        error:function () {--%>
+                <%--        }--%>
+                <%--    });--%>
 
-                            }
-                        });
-                    },
-                    //返回失败消息
-                    error:function () {
-                    }
-                });
+                <%--});--%>
+            } else if(layEvent === 'edit'){ //编辑
+                <%--//do something--%>
+                <%--console.log(data);--%>
+
+                <%--var sub=JSON.stringify(data);--%>
+
+                <%--$.ajax({--%>
+                <%--    //相应路劲--%>
+                <%--    url:"${pageContext.request.contextPath}/TM/getSubjectMsg",--%>
+                <%--    //是否异步提交--%>
+                <%--    async:true,--%>
+                <%--    //请求类型--%>
+                <%--    type:"post",--%>
+                <%--    //数据名--%>
+                <%--    data:{"sub":sub,"who":"one"},--%>
+                <%--    //数据类型:文本--%>
+                <%--    datatype:"text",--%>
+                <%--    //返回成功消息--%>
+                <%--    success:function (msg) {--%>
+                <%--        layer.open({--%>
+                <%--            type: 2,--%>
+                <%--            title: '修改',--%>
+                <%--            shadeClose: true,--%>
+                <%--            shade: 0.8,--%>
+                <%--            area: ['700px', '500px'],--%>
+                <%--            content: "${pageContext.request.contextPath}/TM/path/ModifyOneSubject",--%>
+                <%--            yes: function (index, layero) {--%>
+
+                <%--            }--%>
+                <%--        });--%>
+                <%--    },--%>
+                <%--    //返回失败消息--%>
+                <%--    error:function () {--%>
+                <%--    }--%>
+                <%--});--%>
             }
         });
 

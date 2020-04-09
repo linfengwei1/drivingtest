@@ -14,12 +14,12 @@ public class Student
 	private int school_id;
 	private String verification;//验证码
 	private School school;//学校
+	private String schoolName;//学校名
 	public Student()
 	{
 	}
 
-	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school)
-	{
+	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school, String schoolName) {
 		this.id = id;
 		this.account = account;
 		this.pwd = pwd;
@@ -32,6 +32,7 @@ public class Student
 		this.school_id = school_id;
 		this.verification = verification;
 		this.school = school;
+		this.schoolName = schoolName;
 	}
 
 	public int getId()
@@ -154,9 +155,16 @@ public class Student
 		this.school = school;
 	}
 
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "Student{" +
 				"id=" + id +
 				", account='" + account + '\'' +
@@ -170,6 +178,7 @@ public class Student
 				", school_id=" + school_id +
 				", verification='" + verification + '\'' +
 				", school=" + school +
+				", schoolName='" + schoolName + '\'' +
 				'}';
 	}
 }

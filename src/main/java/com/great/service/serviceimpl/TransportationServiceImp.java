@@ -46,8 +46,12 @@ public class TransportationServiceImp implements TransportationService {
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
-        map.put("question",question);
-        map.put("type",type);
+        if (question!=null&&!question.equals("")){
+            map.put("question",question);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -68,8 +72,12 @@ public class TransportationServiceImp implements TransportationService {
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
-        map.put("question",question);
-        map.put("type",type);
+        if (question!=null&&!question.equals("")){
+            map.put("question",question);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -120,8 +128,12 @@ public class TransportationServiceImp implements TransportationService {
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
-        map.put("state",state);
-        map.put("name",name);
+        if (state!=null&&!state.equals("")){
+            map.put("state",state);
+        }
+        if (name!=null&&!name.equals("")){
+            map.put("name",name);
+        }
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -130,6 +142,8 @@ public class TransportationServiceImp implements TransportationService {
         objectResult.setCount(td.getStudentCount(map));
         //获取记录
         objectResult.setData(td.getStudentTbl(map));
+
+        System.out.println(objectResult);
 
         return objectResult;
     }
