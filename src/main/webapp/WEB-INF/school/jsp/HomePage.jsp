@@ -42,7 +42,7 @@
                  onclick="GoodsManager(this)">教练员管理</a>
              </li>
             <li><a href="javascript:void (0)"
-                   title="${pageContext.request.contextPath}/school/path/SchoolAdminManage"
+                   title="${pageContext.request.contextPath}/${j.MURL}"
                    onclick="GoodsManager(this)">管理员管理</a>
             </li>
             <li><a href="javascript:void (0)"

@@ -2,10 +2,14 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
+import com.great.entity.SchoolAdmin;
 import com.great.entity.Student;
 import com.great.service.StudentManageService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -28,20 +32,58 @@ public class StudentController
 
 
 	@RequestMapping("/login")
-	public String login(String account, String pwd, HttpServletRequest request, HttpServletResponse response)
+	@ResponseBody
+	public String login(Student student, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		Student student = studentManageServiceImpl.login(account,pwd);
-		HttpSession hs=request.getSession();
-		hs.setAttribute("student",student);
-		System.out.println(student);
-		return null;
-	}
-	@RequestMapping("/loginPage")
-	public String loginPage()
-	{
-		return "student/jsp/StudentLogin";
+		String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
+		Boolean confirm = student.getVerification().equalsIgnoreCase(YZM);//不区分大小写
+
+		if (confirm) {
+			Student newStudent =studentManageServiceImpl.login(student.getAccount(),student.getPwd());
+			if (null!=newStudent){
+				request.getSession().setAttribute("student",newStudent);
+				return "success";
+			}else{
+				return "error";
+			}
+		}else{
+			return "yzm";
+		}
 
 	}
+	@RequestMapping("/checkStudyAuthority")
+	@ResponseBody
+	public String checkStudyAuthority(String studentId, String vedioId,String subject,HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String result = studentManageServiceImpl.checkStudyAuthority(studentId,vedioId,subject);
+		return result;
+	}
+
+	//地址映射,path是个方法名,可以随便改动,{url}是参数
+	@RequestMapping("/{url}")
+	public String getUrl(@PathVariable(value = "url") String path){
+		return "student/jsp/" +path;
+	}
+
+
+//	@RequestMapping("/StudentLogin")
+//	public String loginPage()
+//	{
+//		return "student/jsp/StudentLogin";
+//
+//	}
+//	@RequestMapping("/home")
+//	public String homePage()
+//	{
+//		return "A";
+//
+//	}
+//	@RequestMapping("/StudentMain")
+//	public String studentMain()
+//	{
+//		return "student/jsp/StudentMain";
+//
+//	}
 
 	//获取验证码
 	@RequestMapping("/CheckCode")

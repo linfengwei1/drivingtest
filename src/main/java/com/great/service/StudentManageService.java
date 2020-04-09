@@ -9,6 +9,8 @@ public interface StudentManageService
 {
 
 	Student login(String account, String pwd);
+
+	String checkStudyAuthority(String studentId, String vedioId, String subject);
 	//	public User findUser(String uname, String pwd);
 //	public List<User> findAll(HashMap<String, Object> map) throws SQLException;
 //
