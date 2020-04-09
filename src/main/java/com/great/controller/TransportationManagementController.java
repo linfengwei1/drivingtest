@@ -250,6 +250,32 @@ public class TransportationManagementController {
         return "";
     }
 
+    /**
+     * 学员信息表
+     * @param page
+     * @param limit
+     * @param state
+     * @param name
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getStudentTbl")
+    @ResponseBody
+    public String getStudentTbl(Integer page, Integer limit ,String state,String name,HttpServletResponse response){
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectResult objectResult=transportationService.getStudentTbl(page,limit ,state,name);
+
+        return g.toJson(objectResult);
+    }
+
+
+
+
 
     /**
      * 注销登录

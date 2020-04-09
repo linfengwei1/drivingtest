@@ -46,8 +46,12 @@ public class TransportationServiceImp implements TransportationService {
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
-        map.put("question",question);
-        map.put("type",type);
+        if (question!=null&&!question.equals("")){
+            map.put("question",question);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -68,8 +72,12 @@ public class TransportationServiceImp implements TransportationService {
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
-        map.put("question",question);
-        map.put("type",type);
+        if (question!=null&&!question.equals("")){
+            map.put("question",question);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -111,4 +119,34 @@ public class TransportationServiceImp implements TransportationService {
     public Integer updateFourthSubjectMsg(Subject subject) {
         return td.updateFourthSubjectMsg(subject);
     }
+
+    @Override
+    public ObjectResult getStudentTbl(Integer page, Integer limit, String state, String name) {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        if (state!=null&&!state.equals("")){
+            map.put("state",state);
+        }
+        if (name!=null&&!name.equals("")){
+            map.put("name",name);
+        }
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getStudentCount(map));
+        //获取记录
+        objectResult.setData(td.getStudentTbl(map));
+
+        System.out.println(objectResult);
+
+        return objectResult;
+    }
+
+
 }
