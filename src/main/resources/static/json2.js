@@ -6,10 +6,10 @@
 //  USE YOUR OWN COPY. IT IS EXTREMELY UNWISE TO LOAD CODE FROM SERVERS YOU DO
 //  NOT CONTROL.
 
-//  This file creates a global JSON object containing two methods: stringify
-//  and parse. This file provides the ES5 JSON capability to ES3 systems.
-//  If a project might run on IE8 or earlier, then this file should be included.
-//  This file does nothing on ES5 systems.
+//  This vedio creates a global JSON object containing two methods: stringify
+//  and parse. This vedio provides the ES5 JSON capability to ES3 systems.
+//  If a project might run on IE8 or earlier, then this vedio should be included.
+//  This vedio does nothing on ES5 systems.
 
 //      JSON.stringify(value, replacer, space)
 //          value       any JavaScript value, usually an object or array.

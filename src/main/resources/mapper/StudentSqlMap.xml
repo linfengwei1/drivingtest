@@ -26,6 +26,9 @@
 	<select id="checkStudyAuthority" resultType="int" parameterType="java.util.HashMap">
 		select time from studycondition where student_id = #{studentId} and subject_id = #{subject}
 	</select>
+	<update id="addStudy1Time">
+		update studycondition set time = time +1 where student_id = #{studentId} and subject_id = #{subject}
+	</update>
 
 
 <!--	<resultMap id="menuMap" type="TreeData">-->

@@ -1,10 +1,9 @@
 package com.great.utils;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
 
 import com.great.entity.Coach;
@@ -14,10 +13,12 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 
-
+/**
+ * 把从数据库导出Excel
+ */
 public class ExcelCreate
 {
-	 public static Boolean ExcelCreate(List<Coach> list) {
+	 public static Boolean ExcelCreate(List<Coach> list, HttpServletResponse response) {
 
 			HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
 
@@ -86,12 +87,14 @@ public class ExcelCreate
 
 			}
 
+
 			try {
 //			    FileOutputStream out = new FileOutputStream(UI.strr + "Excel\\excel.xls");
                 FileOutputStream out = new FileOutputStream(  "D:\\test\\excel.xls");
-
+//				OutputStream outputStream =response.getOutputStream();
 			    hssfWorkbook.write(out);
-			    out.flush();
+				out.flush();
+				out.close();
 			    return true;
 
 			} catch (FileNotFoundException e1) {

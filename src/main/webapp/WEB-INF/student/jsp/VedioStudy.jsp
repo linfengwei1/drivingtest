@@ -154,7 +154,7 @@
 
 <%--				<video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="960" height="400"--%>
 <%--				       poster="m.jpg" data-setup="{}">--%>
-<%--					<source src="${pageContext.request.contextPath}/static/student/file/1.mp4" type="video/mp4">--%>
+<%--					<source src="${pageContext.request.contextPath}/static/student/vedio/1.mp4" type="video/mp4">--%>
 <%--					<p class="vjs-no-js"> To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> </p>--%>
 <%--				</video>--%>
 <%--				<script type="text/javascript">--%>
@@ -412,10 +412,11 @@
 	<div class="left">
 		<div id="left_div">
 			<div  class="menutitle">
-				<h3 style = "text-align: center">1法律、法规及道路交通信号</h3>
+				<h3 style = "text-align: center">科目一学习视频</h3>
 				<ul class="left_div_menu" style="display: none">
 					<li class="s" title="1">1.1机动车驾驶证申领与使用</li>
 					<li class="s" title="2">1.2道路交通信号</li>
+					<li class="s" title="3">1.3道路安全指示牌</li>
 				</ul>
 			</div>
 <%--			<div  class="menutitle">--%>
@@ -427,12 +428,16 @@
 <%--			</div>--%>
 		</div>
 	</div>
-	<div class="right">
-		<video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="600" height="400"
-		       poster="m.jpg" data-setup="{}">
-<%--			<source src="${pageContext.request.contextPath}/static/file/1.mp4" type="video/mp4">--%>
-			<p class="vjs-no-js"> To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> </p>
-		</video>
+	<div id="right">
+	<video id="my-video" class="video-js vjs-big-play-centered vjs-fluid">
+		<p class="vjs-no-js">
+			To view this video please enable JavaScript, and consider upgrading to a
+			web browser that
+			<a href="https://videojs.com/html5-video-support/" target="_blank">
+				supports HTML5 video
+			</a>
+		</p>
+	</video>
 	</div>
 </div>
 

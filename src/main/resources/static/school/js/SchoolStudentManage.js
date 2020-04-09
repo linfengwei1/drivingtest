@@ -10,33 +10,38 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
     table.render({
         elem: '#dataTable'
         , height: 280
-        , url: path + '/school/SchoolCoachTable' //数据接口
+        , url: path + '/school/SchoolStudentTable' //数据接口
         , page: true //开启分页
         , id: 'searchTable'
         , limit: 5
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
-            {field: 'id', title: '教练ID', width: 120, sort: true, fixed: 'left', align: 'center'}
-            , {field: 'account', title: '教练账号', width: 100, align: 'center'}
+            {field: 'id', title: '学员ID', width: 120, sort: true, fixed: 'left', align: 'center'}
+            , {field: 'account', title: '学员账号', width: 100, align: 'center'}
             , {field: 'name', title: '姓名', width: 80,  align: 'center'}
             , {field: 'sex', title: '性别', width: 80, align: 'center'}
             , {field: 'age', title: '年龄', width: 90, sort: true, align: 'center'}
-            , {field: 'idnumber', title: '身份证号码', width: 180, sort: true, align: 'center'}
+            , {field: 'idNumber', title: '身份证号码', width: 180, sort: true, align: 'center'}
             , {field: 'phone', title: '联系方式', width: 120, align: 'center'}
-            // , {field: 'time', title: '创建时间', width: 160, sort: true,align: 'center'}
             , {field: 'coach_state_id', title: '当前状态', width: 130, align: 'center',
                 templet: function(d){
                 var state;
                 if (1==d.coach_state_id){
-                    return '启用'
+                    return '科目一'
                 }else if (2==d.coach_state_id){
-                    return '封停'
+                    return '科目二'
                 }else if(3==d.coach_state_id){
-                    return '禁止报名'
+                    return '科目三'
                 }else if(4==d.coach_state_id){
-                    return '运管待审核'
+                    return '科目四'
+                }else if(5==d.coach_state_id){
+                    return '待审核'
+                }else if(6==d.coach_state_id){
+                    return '审核不通过'
+                }else if(8==d.coach_state_id){
+                    return '资料不完整'
                 }
-                    return '运管审核不通过'
+                    return '毕业'
                 }}
             , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
         ]]
@@ -53,7 +58,6 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                 , where: {
                      idnumber: $("#idnumber").val(),
                      sex: $("#sex").val(),
-                    // schoolStateId :$("#state option:selected").text(),//状态
                      state :$("#state").val(),
                      name : $("#name").val(),
                      phone : $("#phone").val()
@@ -74,7 +78,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                 $.ajax({
                     async:true,
                     method : "POST",
-                    url :path1+'/school/deleteCount',
+                    url :path1+'/school/deleteStudent',
                     data: data,
                     dataType : "text",
                     success:function(data){
@@ -99,10 +103,10 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             var name = $td.eq(2).text();
             var phone = $td.eq(6).text();
             layer.open({
-                title:'更改教练信息',
+                title:'更改学员信息',
                 type: 2,
                 area: ['500px', '400px'],
-                content:path+"/school/path/UpdateCoach",//弹出的页面
+                content:path1+"/school/path/UpdateStudent",//弹出的页面
                 success: function (layero, index) {
                     var body = layer.getChildFrame("body", index);//弹出页面的body标签
                     body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
@@ -116,35 +120,20 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
 
     $("#add").click(function () {
         layer.open({
-            title:'教练申请',
+            title:'学员注册',
             type: 2,
             area: ['1000px', '425px'],
-            content:path+"/school/path/AddCoach",//弹出的页面
+            content:path+"/school/path/AddStudent",//弹出的页面
         });
     })
 
-    $("#out").click(function () {
-        window.location.href =path+"/school/export";
-        // layer.confirm('您确定要导出吗?', {icon: 3, title:'提示'}, function(index){
-        //     $.ajax({
-        //         async:true,
-        //         method : "POST",
-        //         url :path+"/school/export",
-        //         dataType : "text",
-        //         success:function(data){
-        //             if ("success"==data){
-        //                 layer.alert("导出成功",{icon:6},function () {
-        //                     window.parent.location.reload();
-        //                 });
-        //             }else {
-        //                 layer.alert("导出失败",{icon:2});
-        //             }
-        //         },
-        //         error:function (err) {
-        //             layer.alert("网络繁忙",{icon:2});
-        //         }
-        //     })
-        // })
+    $("#in").click(function () {
+        layer.open({
+            title:'文件导入学员信息',
+            type: 2,
+            area: ['500px', '400px'],
+            content:path+"/school/path/AddStudentInf",//弹出的页面
+        });
     })
 });
 

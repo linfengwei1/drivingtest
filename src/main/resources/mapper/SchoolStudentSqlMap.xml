@@ -2,25 +2,11 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.great.dao.SchoolCoachDao">
-<!--    <resultMap id="SchoolAdmin" type="com.great.entity.Coach">-->
-<!--        <association property="schoolState" column="school_state_id"  select="findSchoolStateById" >-->
-<!--        </association>-->
-<!--    </resultMap>-->
-<!--    &lt;!&ndash;根据角色id查询&ndash;&gt;-->
-<!--    <select id="findSchoolStateById" resultType="SchoolState" parameterType="java.lang.Integer">-->
-<!--        select * from schoolstate where id = #{school_state_id};-->
-<!--    </select>-->
-
-<!--	&lt;!&ndash;登录&ndash;&gt;-->
-<!--    <select id="login" resultMap="SchoolAdmin" parameterType="java.util.Map">-->
-<!--		select * from schooladmin where account = #{account} and pwd = #{pwd}-->
-<!--	</select>-->
-
+<mapper namespace="com.great.dao.SchoolStudentDao">
 
     <!--查询教练记录并分页    -->
-    <select id="findCoachByPage" resultType="Coach" parameterType="com.great.entity.TableUtils">
-        select * from coach
+    <select id="findStudentByPage" resultType="Student" parameterType="com.great.entity.TableUtils">
+        select * from student
         <where>
             <if test="name !='' and name!=null">
                 and name like concat('%',#{name},'%')
@@ -42,8 +28,8 @@
     </select>
 
     <!--查询驾校管理员信息总数-->
-    <select id="findCoachCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
-        select count(*) from coach
+    <select id="findCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
+        select count(*) from student
         <where>
             <if test="name !='' and name!=null">
                 and name like concat('%',#{name},'%')
@@ -54,8 +40,8 @@
             <if test="state !='' and state!=null">
                 and coach_state_id = #{state}
             </if>
-            <if test="idnumber!= '' and idnumber != null">
-                and idnumber= #{idnumber}
+            <if test="idNumber!= '' and idNumber != null">
+                and idnumber= #{idNumber}
             </if>
             <if test="sex != '' and sex != null">
                 and sex = #{sex}
@@ -65,37 +51,51 @@
     </select>
 
     <!--删除教练-->
-    <delete id="deleteCount"  parameterType="java.lang.Integer">
-        delete  from coach where id =#{id}
+    <delete id="deleteStudent"  parameterType="java.lang.Integer">
+        delete  from student where id =#{id}
     </delete>
 
     <!--更新教练信息-->
-    <update id="updateCoach" parameterType="com.great.entity.Coach" >
-        update coach  set name = #{name},phone =#{phone}  where id =#{id}
+    <update id="updateStudent" parameterType="com.great.entity.Student" >
+        update student  set name = #{name},phone =#{phone}  where id =#{id}
     </update>
 
     <!--查看账号是否被使用-->
-    <select id="CheckCoachAccount" parameterType = "String" resultType="java.lang.Integer">
-        select count(id) FROM coach where account= #{account}
+    <select id="CheckStudentAccount" parameterType = "String" resultType="java.lang.Integer">
+        select count(id) FROM student where account= #{account}
     </select>
 
 
     <!--添加驾校管理员-->
-    <insert id="addCoach"   parameterType="com.great.entity.Coach">
-		insert into coach (account,pwd,name,sex,age,idnumber,phone,coach_state_id,school_id)
-		VALUES(#{account},#{pwd},#{name},#{sex},#{age},#{idnumber},#{phone},#{coach_state_id},#{school_id})
+    <insert id="addStudent"   parameterType="com.great.entity.Student">
+		insert into student (account,pwd,name,sex,age,idnumber,phone,coach_state_id,school_id)
+		VALUES(#{account},#{pwd},#{name},#{sex},#{age},#{idNumber},#{phone},#{coach_state_id},#{school_id})
 	</insert>
 
 
     <!--查找教练所有信息-->
-    <select id="findAllCoach" resultType="Coach" parameterType = "java.lang.Integer" >
-		select * from coach where school_id = #{school_id}
+    <select id="findAllStudent" resultType="Student" parameterType = "java.lang.Integer" >
+		select * from student where school_id = #{school_id}
 	</select>
 
-    <!--修改教练密码-->
-    <update id="changeCoachpwd"  parameterType="com.great.entity.Coach">
-		update coach set pwd = #{pwd} where id = #{id}
-	</update>
+    <!--excel插入数据库-->
+    <insert id="insertStudentByExcel" parameterType="java.util.List">
+        insert into student (account,pwd,name,sex,age,idnumber,phone,student_state_id,school_id)values
+        <foreach collection="list" item="item" index="index"
+                 separator="," >
+            (
+            #{item.account},
+            #{item.pwd},
+            #{item.name},
+            #{item.sex},
+            #{item.age},
+            #{item.idNumber},
+            #{item.phone},
+            #{item.student_state_id},
+            #{item.school_id}
+            )
+        </foreach>
+    </insert>
 
 
 

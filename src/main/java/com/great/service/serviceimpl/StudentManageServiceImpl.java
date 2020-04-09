@@ -34,6 +34,7 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
+	@Log(operationType = "普通操作", operationName = "学员观看视频")
 	public String checkStudyAuthority(String studentId, String vedioId, String subject)
 	{
 		String result = null;
@@ -44,12 +45,42 @@ public class StudentManageServiceImpl implements StudentManageService
 			    map.put("subject", Integer.parseInt(subject));//传科目ID
 			    IStudentDao iStudentDao = sqlSessionTemplate.getMapper(IStudentDao.class);//获得代理对象
 			    int finishTime = iStudentDao.checkStudyAuthority(map);
-			    if(finishTime == 0)
+			    if(finishTime == 0)//学员没看过视频
 			    {
-				    result = "first";
-			    }else if(Integer.parseInt(vedioId) <= finishTime)
+			    	if(Integer.parseInt(vedioId)==1)//学员选择看视频1
+				    {
+					    result = "first";//表示第一次看
+				    }else
+				    {
+					    result = "error";//表示没有权限看视频
+				    }
+			    }else if(finishTime == 1)//学员只看过视频1
 			    {
-
+				    if(Integer.parseInt(vedioId)==1)//学员选择看视频0
+				    {
+					    result = "free";//表示可以自由看，不记录学时
+				    }else if(Integer.parseInt(vedioId)==2)//学员选择看视频2
+				    {
+					    result = "first";//表示第一次看
+				    }else
+			        {
+				        result = "error";//表示没有权限看视频
+				    }
+			    }else if(finishTime == 2)//学员只看过视频2
+			    {
+				    if(Integer.parseInt(vedioId)==1)//学员选择看视频0
+				    {
+					    result = "free";//表示可以自由看，不记录学时
+				    }else if(Integer.parseInt(vedioId)==2)//学员选择看视频2
+				    {
+					    result = "free";//表示可以自由看，不记录学时
+				    }else
+				    {
+					    result = "first";//表示第一次看
+				    }
+			    }else if(finishTime == 3)//学员只看过视频3
+			    {
+				    result = "free";
 			    }
 		        break;
 		    case 4:
@@ -57,5 +88,21 @@ public class StudentManageServiceImpl implements StudentManageService
 
 		}
 		return result;
+	}
+
+	@Override
+	@Transactional
+	@Log(operationType = "普通操作", operationName = "学员科目1增加学时")
+	public String addStudy1Time(String studentId, String subject)
+	{
+		IStudentDao iStudentDao = sqlSessionTemplate.getMapper(IStudentDao.class);//获得代理对象
+		int i = iStudentDao.addStudy1Time(Integer.parseInt(studentId),Integer.parseInt(subject));
+		if(i>0)
+		{
+			return "success";
+
+		}else {
+			return "error";
+		}
 	}
 }
