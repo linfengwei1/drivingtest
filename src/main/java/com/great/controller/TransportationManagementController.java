@@ -2,9 +2,7 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
-import com.great.entity.ObjectResult;
-import com.great.entity.Subject;
-import com.great.entity.Transportation;
+import com.great.entity.*;
 import com.great.service.TransportationService;
 import com.great.service.serviceimpl.TransportationServiceImp;
 import org.springframework.stereotype.Controller;
@@ -20,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 //import com.great.service.MyService;
@@ -251,6 +251,29 @@ public class TransportationManagementController {
     }
 
     /**
+     * 获取所有学校名和状态信息
+     * @param request
+     * @return
+     */
+    @RequestMapping("/gAS")
+    public String getAllSchoolAndStudentState(HttpServletRequest request){
+
+        List<School> schools =transportationService.getSchoolList();
+
+        Map<Integer,String>  map=transportationService.getStudentState();
+
+        if (schools!=null){
+            request.setAttribute("schools",schools);
+        }
+
+        if (map!=null){
+            request.setAttribute("stateMap",map);
+        }
+
+        return "transportation/jsp/StudentTbl";
+    }
+
+    /**
      * 学员信息表
      * @param page
      * @param limit
@@ -271,6 +294,32 @@ public class TransportationManagementController {
         ObjectResult objectResult=transportationService.getStudentTbl(page,limit ,state,name);
 
         return g.toJson(objectResult);
+    }
+
+    /**
+     * 获取学员信息
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getStudentMsg")
+    public String getStudentMsg (HttpServletResponse response){
+
+
+        return "";
+    }
+
+    /**
+     * 审核学生（修改状态，插入审核结果）
+     * @param response
+     * @return
+     */
+    @RequestMapping("/examineStudent")
+    @ResponseBody
+    public String examineStudent(HttpServletResponse response){
+
+
+
+        return "error";
     }
 
 
@@ -295,7 +344,5 @@ public class TransportationManagementController {
         //返回页面
         return "/transportation/jsp/TransportationLogin";
     }
-
-
 
 }
