@@ -1,5 +1,6 @@
 package com.great.dao;
 
+import com.great.entity.School;
 import com.great.entity.Subject;
 import com.great.entity.Transportation;
 import org.apache.ibatis.annotations.Mapper;
@@ -109,4 +110,17 @@ public interface TransportationDao {
      * @return
      */
     public List<?> getStudentTbl(Map<String, Object> map);
+
+    /**
+     * 获取学校列表
+     * @return
+     */
+    public List<School> getSchoolList();
+
+
+    /**
+     * 获取学生状态列表
+     * @return
+     */
+    public List<String> getStudentState();
 }

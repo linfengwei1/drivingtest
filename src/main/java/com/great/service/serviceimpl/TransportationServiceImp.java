@@ -3,6 +3,7 @@ package com.great.service.serviceimpl;
 import com.great.dao.TransportationDao;
 import com.great.entity.ObjectResult;
 
+import com.great.entity.School;
 import com.great.entity.Transportation;
 import com.great.service.TransportationService;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.great.entity.Subject;
 
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -146,6 +148,27 @@ public class TransportationServiceImp implements TransportationService {
         System.out.println(objectResult);
 
         return objectResult;
+    }
+
+    @Override
+    public List<School> getSchoolList() {
+        return td.getSchoolList();
+    }
+
+    @Override
+    public Map<Integer, String> getStudentState() {
+
+        Map<Integer,String> map=new LinkedHashMap<>();
+
+        List<String> list=td.getStudentState();
+
+        for (int i=0;i<list.size();i++) {
+            map.put(i,list.get(i));
+        }
+
+        System.out.println(map);
+
+        return map;
     }
 
 

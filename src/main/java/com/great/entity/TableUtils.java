@@ -7,6 +7,7 @@ public class TableUtils {
     private String time1;
     private String time2;
     private String idnumber;
+    private String idNumber;
     private String sex;
     private String state;
     private String name;
@@ -15,6 +16,14 @@ public class TableUtils {
 
 
     public TableUtils() {
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
     }
 
     public String getPage() {
