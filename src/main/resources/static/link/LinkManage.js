@@ -9,30 +9,19 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
     //第一个实例
     table.render({
         elem: '#dataTable'
-        , height: 280
+       // , height: 280
         // , url: path + '/school/SchoolAdminTable' //数据接口
-        , url: path + "/front/findAllLink"//数据接口，显示出连接列表
-        , page: true //开启分页
+        , url: path + "/link/findAllLink"//数据接口，显示出连接列表
+        , page: false //开启分页
         , id: 'searchTable'
         , limit: 5
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
             {field: 'linkId', title: '连接ID', width: 120, sort: true, fixed: 'left', align: 'center'}
             , {field: 'linkName', title: '连接名称', width: 100, align: 'center'}
-            , {field: 'linkUrl', title: '连接地址', width: 180, sort: true, align: 'center'}
+            , {field: 'linkUrl', title: '连接地址',  sort: true, align: 'center'}
             , {field: 'linkSort', title: '连接排序', width: 120, sort: true, align: 'center'}
-        //     , {field: 'time', title: '创建时间', width: 160, sort: true,align: 'center'}
-        //     , {field: 'school_state_id', title: '当前状态', width: 130, sort: true, align: 'center',
-        //         templet: function(d){
-        //         var state;
-        //         if (1==d.school_state_id){
-        //             return '禁止报名'
-        //         }else if (2==d.school_state_id){
-        //             return '封停'
-        //         }
-        //             return '启用'
-        //         }}
-        //     , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
+        
         ]]
     });
 
@@ -45,12 +34,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    //  time1: $("#time1").val(),
-                    //  time2: $("#time2").val(),
-                    // // schoolStateId :$("#state option:selected").text(),//状态
-                    //  state :$("#state").val(),
-                    //  name : $("#name").val(),
-                    //  phone : $("#phone").val()
+                    
                     linkUrl: $("#linkUrl").val(),
                     linkName: $("#linkName").val(),
                     linkSort: $("#linkSort").val()
@@ -110,11 +94,10 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
 
     $("#add").click(function () {
         layer.open({
-            title:'添加驾校管理员信息',
+            title:'添加友情链接',
             type: 2,
             area: ['700px', '400px'],
-            // content:path+"/school/path/AddSchoolAdmin",//弹出的页面
-            content: path+"/frontjsp/jsp/AddLink",//弹出添加连接的jsp
+            content: path+"/link/path/AddLink",//弹出添加连接的jsp
         });
     })
 });
