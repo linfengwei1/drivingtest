@@ -13,7 +13,7 @@
     <%String path = request.getContextPath(); %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-    <script src="${pageContext.request.contextPath}/static/front/js/LinkManage.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="${pageContext.request.contextPath}/static/link/LinkManage.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">

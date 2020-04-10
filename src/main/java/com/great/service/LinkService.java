@@ -1,10 +1,8 @@
 package com.great.service;
 
 
-import com.great.dao.LinkMapper;
 import com.great.entity.Link;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.great.entity.LinkUtils;
 
 
 import java.util.List;

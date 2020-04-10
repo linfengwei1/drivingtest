@@ -11,7 +11,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         elem: '#dataTable'
         , height: 280
         // , url: path + '/school/SchoolAdminTable' //数据接口
-        , url: path + "/front/"
+        , url: path + "/front/findAllLink"//数据接口，显示出连接列表
         , page: true //开启分页
         , id: 'searchTable'
         , limit: 5
@@ -45,12 +45,15 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                     time1: $("#time1").val(),
-                     time2: $("#time2").val(),
-                    // schoolStateId :$("#state option:selected").text(),//状态
-                     state :$("#state").val(),
-                     name : $("#name").val(),
-                     phone : $("#phone").val()
+                    //  time1: $("#time1").val(),
+                    //  time2: $("#time2").val(),
+                    // // schoolStateId :$("#state option:selected").text(),//状态
+                    //  state :$("#state").val(),
+                    //  name : $("#name").val(),
+                    //  phone : $("#phone").val()
+                    linkUrl: $("#linkUrl").val(),
+                    linkName: $("#linkName").val(),
+                    linkSort: $("#linkSort").val()
                 }
             });
         }
@@ -110,7 +113,8 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             title:'添加驾校管理员信息',
             type: 2,
             area: ['700px', '400px'],
-            content:path+"/school/path/AddSchoolAdmin",//弹出的页面
+            // content:path+"/school/path/AddSchoolAdmin",//弹出的页面
+            content: path+"/frontjsp/jsp/AddLink",//弹出添加连接的jsp
         });
     })
 });

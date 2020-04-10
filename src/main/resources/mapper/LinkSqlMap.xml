@@ -10,9 +10,8 @@
             (#{linkName}, #{linkUrl}, #{linkSort})
     </insert>
 
-    <select id="findAllLink" resultType="java.util.List">
+    <select id="findAllLink" resultType="com.great.entity.Link">
         select * from link
     </select>
-
 
 </mapper>
