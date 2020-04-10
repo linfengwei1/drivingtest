@@ -17,12 +17,13 @@ public class School {
     private String intro;
     private Integer school_state_id;
     private String information;
+    private String audit_results;//审核结果
 
     public School() {
 
     }
 
-    public School(Integer id, String name, String phone, String address, String admin, String intro, Integer school_state_id, String information) {
+    public School(Integer id, String name, String phone, String address, String admin, String intro, Integer school_state_id, String information, String audit_results) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -31,6 +32,7 @@ public class School {
         this.intro = intro;
         this.school_state_id = school_state_id;
         this.information = information;
+        this.audit_results = audit_results;
     }
 
     public Integer getId() {
@@ -97,6 +99,14 @@ public class School {
         this.information = information;
     }
 
+    public String getAudit_results() {
+        return audit_results;
+    }
+
+    public void setAudit_results(String audit_results) {
+        this.audit_results = audit_results;
+    }
+
     @Override
     public String toString() {
         return "School{" +
@@ -108,6 +118,7 @@ public class School {
                 ", intro='" + intro + '\'' +
                 ", school_state_id=" + school_state_id +
                 ", information='" + information + '\'' +
+                ", audit_results='" + audit_results + '\'' +
                 '}';
     }
 }
