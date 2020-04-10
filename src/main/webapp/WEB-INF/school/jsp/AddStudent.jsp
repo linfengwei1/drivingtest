@@ -87,11 +87,23 @@
             </div>
         </div>
         <div class="layui-form-item">
+        <label class="layui-form-label">照片</label>
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="upload1">上传图片</button>
+            <input type="hidden" id="img_url" name="img" value=""/>
+            <div class="layui-upload-list">
+                <img class="layui-upload-img" width="100px" height="80px" id="demo1"/>
+                <p id="demoText"></p>
+            </div>
+        </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="formDemo" id="OK">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
+
     </form>
 </div>
 

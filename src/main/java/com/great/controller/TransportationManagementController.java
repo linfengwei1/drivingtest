@@ -323,6 +323,12 @@ public class TransportationManagementController {
     }
 
 
+//    @RequestMapping("/getSchoolTbl")
+//    @ResponseBody
+//    public String getSchoolTbl(HttpServletResponse response){
+//
+//    }
+
 
 
 

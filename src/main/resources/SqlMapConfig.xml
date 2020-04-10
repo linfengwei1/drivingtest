@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<settings>
+		
+		<!-- 打印查询语句 -->
+		<setting name="logImpl" value="LOG4J" />
+		
+		<!-- 开启驼峰 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
     <!--加载外部配置 -->
 <!--    <properties resource="jdbc.properties"></properties>-->
     <!--配置别名：<typeAlias type="pojo.Book" alias="book"/> 给某个对象去别名 -->

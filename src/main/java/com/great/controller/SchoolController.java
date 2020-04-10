@@ -16,10 +16,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -378,10 +375,12 @@ public class SchoolController {
 
     //新增学员
     @RequestMapping("/addStudent")
-    public void addStudent(Student student, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void addStudent(MultipartFile file,Student student, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         Boolean demo= IDNumber.isIDNumber(student.getIdNumber());
+        String name= file.getOriginalFilename();
+        System.out.println("文件名=="+name);
         if (demo){
             student.setStudent_state_id(5);
             student.setSchool_id(schoolAdmin.getSchool_id());
@@ -395,6 +394,50 @@ public class SchoolController {
             response.getWriter().print("IdError");
         }
 
+    }
+
+    @RequestMapping("/headImg")
+    @ResponseBody
+    public Object headImg(@RequestParam(value="file",required=false) MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String prefix="";
+        String dateStr="";
+        //保存上传
+        OutputStream out = null;
+        InputStream fileInput=null;
+        try{
+            if(file!=null){
+                String originalName = file.getOriginalFilename();
+                prefix=originalName.substring(originalName.lastIndexOf(".")+1);
+//                dateStr = format.format(new Date());
+                String filepath = request.getServletContext().getRealPath("/static")  + dateStr + "." + prefix;
+                filepath = filepath.replace("\\", "/");
+                File files=new File(filepath);
+                //打印查看上传路径
+                System.out.println(filepath);
+                if(!files.getParentFile().exists()){
+                    files.getParentFile().mkdirs();
+                }
+                file.transferTo(files);
+            }
+        }catch (Exception e){
+        }finally{
+            try {
+                if(out!=null){
+                    out.close();
+                }
+                if(fileInput!=null){
+                    fileInput.close();
+                }
+            } catch (IOException e) {
+            }
+        }
+        Map<String,Object> map2=new HashMap<>();
+        Map<String,Object> map=new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("data",map2);
+        map2.put("src","../../../static" + dateStr + "." + prefix);
+        return map;
     }
 
     @RequestMapping("/ImportExcel")
@@ -427,6 +470,46 @@ public class SchoolController {
             return e.getMessage();
         }
         return "保存成功";
+    }
+
+    @RequestMapping("/upload1")
+    @ResponseBody
+    public Object add( MultipartFile file, HttpServletRequest request) throws Exception {
+        String name= file.getOriginalFilename();//是得到上传时的文件名。
+        System.out.println("name="+name);
+
+
+//        String pid = request.getParameter("pid");
+//        String type = request.getParameter("type");
+//        int t = Integer.parseInt(type);
+
+//        Image i= new Image();
+//        i.setType(type);
+//        i.setPid(t);
+//        imgMapper.add(i);
+//        String folder = "img/";
+//        if(type.equals("1")){
+//            folder +="imgshow";
+//        }
+//        else{
+//            folder +="imgDetail";
+//        }
+//        File  imageFolder= new File(request.getServletContext().getRealPath(folder));
+//        File file = new File(imageFolder,pid+".jpg");
+//        String fileName = file.getName();
+//        if(!file.getParentFile().exists())
+//            file.getParentFile().mkdirs();
+//        try {
+//            image.transferTo(file);
+//            BufferedImage img = ImageUtil.change2jpg(file);
+//            ImageIO.write(img, "jpg", file);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        Map<String,Object> map=new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        return map;
     }
 
 
