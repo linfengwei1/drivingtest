@@ -6,4 +6,6 @@ import com.great.entity.SchoolAdmin;
 public interface CoachManageService
 {
     Integer changeCoachpwd(Coach coach);
+
+    Coach login(String account, String pwd);
 }
