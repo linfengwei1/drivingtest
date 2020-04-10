@@ -3,21 +3,24 @@ package com.great.service.serviceimpl;
 
 import com.great.aoplog.Log;
 import com.great.dao.IStudentDao;
+import com.great.entity.Question;
+import com.great.entity.QuestionList;
 import com.great.entity.Student;
 import com.great.service.StudentManageService;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
+
 @Service("studentManageServiceImpl")
 @Transactional
 public class StudentManageServiceImpl implements StudentManageService
 {
 
-	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
+	@Resource
+	private IStudentDao studentDao;
 
 
 	@Override
@@ -28,8 +31,7 @@ public class StudentManageServiceImpl implements StudentManageService
 		HashMap<String,String> map = new HashMap<>();
 		map.put("account", account);
 		map.put("pwd", pwd);
-		IStudentDao iStudentDao = sqlSessionTemplate.getMapper(IStudentDao.class);//获得代理对象
-		student = iStudentDao.login(map);
+		student = studentDao.login(map);
 		return student;
 	}
 
@@ -43,8 +45,7 @@ public class StudentManageServiceImpl implements StudentManageService
 			    HashMap<String,Integer> map = new HashMap<>();
 			    map.put("studentId", Integer.parseInt(studentId));//传学员ID
 			    map.put("subject", Integer.parseInt(subject));//传科目ID
-			    IStudentDao iStudentDao = sqlSessionTemplate.getMapper(IStudentDao.class);//获得代理对象
-			    int finishTime = iStudentDao.checkStudyAuthority(map);
+			    int finishTime = studentDao.checkStudyAuthority(map);
 			    if(finishTime == 0)//学员没看过视频
 			    {
 			    	if(Integer.parseInt(vedioId)==1)//学员选择看视频1
@@ -95,8 +96,7 @@ public class StudentManageServiceImpl implements StudentManageService
 	@Log(operationType = "普通操作", operationName = "学员科目1增加学时")
 	public String addStudy1Time(String studentId, String subject)
 	{
-		IStudentDao iStudentDao = sqlSessionTemplate.getMapper(IStudentDao.class);//获得代理对象
-		int i = iStudentDao.addStudy1Time(Integer.parseInt(studentId),Integer.parseInt(subject));
+		int i = studentDao.addStudy1Time(Integer.parseInt(studentId),Integer.parseInt(subject));
 		if(i>0)
 		{
 			return "success";
@@ -104,5 +104,30 @@ public class StudentManageServiceImpl implements StudentManageService
 		}else {
 			return "error";
 		}
+	}
+
+	@Override
+	@Log(operationType = "普通操作", operationName = "学员获取在线练习页面")
+	public QuestionList getQuestionsBySubject(String subject)
+	{
+
+		List<Question> choices;
+		List<Question> judges;
+
+		if(subject.equals("1"))//获取科目一题目
+		{
+			choices = studentDao.getChoicesBySubject_1();//获得选择题和判断题
+			judges = studentDao.getjudgesBySubject_1();
+		}else
+		{
+			choices = studentDao.getChoicesBySubject_4();
+			judges = studentDao.getjudgesBySubject_4();
+		}
+		QuestionList questionList = new QuestionList();
+		questionList.setChoice(choices);
+		questionList.setJudge(judges);
+		System.out.println("判断题大小"+judges.size());
+		System.out.println("选择题大小"+choices.size());
+		return questionList;
 	}
 }

@@ -148,9 +148,6 @@ public class StudentSystemLogAspect implements Ordered
             if(student != null)
             {
                 log.setCreateBy(student.getName());
-            }else
-            {
-                student = (Student) result;
             }
             log.setCreateDate(new Date());
             log.setRequestIp(ip);
