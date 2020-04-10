@@ -46,14 +46,14 @@
                    onclick="GoodsManager(this)">管理员管理</a>
             </li>
             <li><a href="javascript:void (0)"
-                   title="${pageContext.request.contextPath}//school/path/SchoolStudentManage"
+                   title="${pageContext.request.contextPath}/school/path/SchoolStudentManage"
                    onclick="GoodsManager(this)">学员管理</a>
             </li>
         </ul>
         <h3 class="h_mun">教练车管理</h3>
         <ul class="ul_menu">
             <li><a href="javascript:void (0)"
-                   title="${pageContext.request.contextPath}/${j.MURL}"
+                   title="${pageContext.request.contextPath}/school/path/upload1"
                    onclick="GoodsManager(this)">教练车信息</a>
             </li>
         </ul>

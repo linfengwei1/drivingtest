@@ -22,7 +22,7 @@ public class ExcelUtils {
         Workbook workbook = null;
         try {
             workbook = WorkbookFactory.create(inputStream);
-            System.out.println("workbook="+workbook);
+//            System.out.println("workbook="+workbook);
             inputStream.close();
             //工作表对象
             Sheet sheet = workbook.getSheetAt(0);
@@ -45,7 +45,8 @@ public class ExcelUtils {
                     cell = row.getCell(j);
 //                    System.out.print(cell + ",");
                     if (cell != null) {
-                        cell.setCellType(Cell.CELL_TYPE_STRING);
+//                        cell.setCellType(Cell.CELL_TYPE_STRING);
+                        cell.setCellType(CellType.STRING);//设置字段的数据为字符串
                         String data = cell.getStringCellValue();
                         data = data.trim();
                         if (j == 0) {
@@ -65,7 +66,7 @@ public class ExcelUtils {
                         }else if (j == 7) {
                             student.setPhone(data);
                         }else if (j == 8) {
-                            student.setStudent_state_id(5);
+                            student.setStudent_state_id(8);
                         }else if (j == 9) {
                             student.setSchool_id(schoolAdmin.getSchool_id());
                         }
