@@ -1,7 +1,30 @@
-layui.use(['form','upload'], function(){
+layui.use(['form','upload','element'], function(){
     var form = layui.form;
-    var $ = layui.$,upload = layui.upload;
+    var $ = layui.jquery
+        ,upload = layui.upload,
+        element = layui.element;
     var path = $("#path").val();
+
+    var uploadInst = upload.render({
+        elem: '#upload1'
+        ,auto: false//是否自动上传
+        ,url: path + "/school/addStudent" //改成您自己的上传接口
+        ,bindAction: '#OK'
+        ,before: function(obj){
+            //预读本地文件示例，不支持ie8
+            obj.preview(function(index, file, result){
+                $('#demo1').attr('src', result); //图片链接（base64）
+            });
+        }
+        ,done: function(res){
+            //如果上传失败
+            if(res.code > 0){
+                return layer.msg('上传失败');
+            }
+            //上传成功
+        }
+    });
+
     $("#account").blur(function (){
         //获取用户名的值
         var UserName3=$("#account").val();
@@ -115,4 +138,33 @@ layui.use(['form','upload'], function(){
         });
         return false;
     });
+
+
 });
+
+// layui.use('upload', function(){
+//     var $ = layui.jquery
+//         ,upload = layui.upload;
+//     var path = $("#path").val();
+//     alert(1)
+//     //普通图片上传
+//     var uploadInst = upload.render({
+//         elem: '#test1'
+//         ,auto: false//是否自动上传
+//         ,url: path + "/school/addStudent" //改成您自己的上传接口
+//         ,bindAction: '#OK'
+//         ,before: function(obj){
+//             //预读本地文件示例，不支持ie8
+//             obj.preview(function(index, file, result){
+//                 $('#demo1').attr('src', result); //图片链接（base64）
+//             });
+//         }
+//         ,done: function(res){
+//             //如果上传失败
+//             if(res.code > 0){
+//                 return layer.msg('上传失败');
+//             }
+//             //上传成功
+//         }
+//     });
+// });
