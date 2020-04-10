@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.great.dao.LinkMapper">
+
+    <insert id="addLinkUrl" parameterType="com.great.entity.Link">
+        insert into link (link_name, link_url, link_sort) values
+            (#{linkName}, #{linkUrl}, #{linkSort})
+    </insert>
+
+    <select id="findAllLink" resultType="java.util.List">
+        select * from link
+    </select>
+
+
+</mapper>
