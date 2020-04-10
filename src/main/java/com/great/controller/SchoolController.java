@@ -2,32 +2,40 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
-import com.great.entity.Coach;
-import com.great.entity.DateTable;
+import com.great.entity.*;
 //import com.great.service.MyService;
-import com.great.entity.SchoolAdmin;
-import com.great.entity.TableUtils;
 import com.great.service.SchoolManageService;
 import com.great.utils.ExcelCreate;
+import com.great.utils.ExcelUtils;
+import com.great.utils.ExportExcelSeedBack;
 import com.great.utils.IDNumber;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.io.*;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 @Controller
 @RequestMapping("/school")//@RequestMapping：可以为控制器指定处理可以请求哪些URL请求。
@@ -209,10 +217,10 @@ public class SchoolController {
     //新增用户
     @RequestMapping("/addSchoolAdmin")
     public void addSchoolAdmin(SchoolAdmin admin, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+        SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         admin.setSchool_state_id(3);
-        Timestamp d = new Timestamp(System.currentTimeMillis());//获取当前系统时间
-        admin.setTime(d);
+        admin.setSchool_id(schoolAdmin.getSchool_id());
+        admin.setTime(new Date());//获取当前系统时间
         Integer a  =schoolAdminService.addSchoolAdmin(admin);
         if (0<a){
             response.getWriter().print("success");
@@ -223,7 +231,7 @@ public class SchoolController {
     }
 
 
-    //获取教学信息表格显示
+    //获取教练信息表格显示
     @RequestMapping("/SchoolCoachTable")
     @ResponseBody//ajax返回值json格式转换
     public DateTable SchoolCoachTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -241,7 +249,7 @@ public class SchoolController {
         return null;
     }
 
-    //更新用户信息
+    //更新教练信息
     @RequestMapping("/UpdateCoach")
     public void UpdateCoach(Coach coach, HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         Integer a= schoolAdminService.updateCoach(coach);
@@ -299,19 +307,128 @@ public class SchoolController {
 
     }
 
-    //导出
+    //以excel的形式导出所有教练信息
     @RequestMapping("/export")
     public void export( HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println(1);
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
-        List<Coach> list=schoolAdminService.findAllCoach(schoolAdmin.getSchool_id());
-       Boolean demo= ExcelCreate.ExcelCreate(list);
-       if (demo){
-           response.getWriter().print("success");
-
-//           response.getWriter().write("<script>alert('导出成功！'); window.location='/WEB-INF/A.jsp'; window.close();</script>");
-       }
+        schoolAdminService.findAllCoach(schoolAdmin.getSchool_id(),response);
+//        Boolean demo= ExcelCreate.ExcelCreate(list,response);
+//       if (demo){
+//           response.getWriter().print("success");
+//
+////           response.getWriter().write("<script>alert('导出成功！'); window.location='/WEB-INF/A.jsp'; window.close();</script>");
+//       }
     }
+
+
+    //获取学员信息表格显示
+    @RequestMapping("/SchoolStudentTable")
+    @ResponseBody//ajax返回值json格式转换
+    public DateTable SchoolStudentTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer page= Integer.parseInt(request.getParameter("page"));
+        Integer limit= Integer.parseInt(request.getParameter("limit"));
+        utils.setMinLimit((page-1)*limit);
+        utils.setMaxLimit(limit);
+        Map map = (Map) schoolAdminService.getSchoolStudentTable(utils);
+        if (null!=map.get("list")){
+            dateTable.setData((List<?>) map.get("list"));
+            dateTable.setCode(0);
+            dateTable.setCount((Integer) map.get("count"));//总条数
+            return dateTable;
+        }
+        return null;
+    }
+
+    //更新学员信息
+    @RequestMapping("/UpdateStudent")
+    public void UpdateStudent(Student student, HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        Integer a= schoolAdminService.updateStudent(student);
+        if (1==a){
+            response.getWriter().print("1111");
+        }else{
+            response.getWriter().print("2222");
+        }
+    }
+
+    //删除学员
+    @RequestMapping("/deleteStudent")
+//    @Log(operationType = "删除操作", operationName = "删除上传文档")
+    public void deleteStudent(Student student,  HttpServletResponse response) throws IOException {
+        Integer a = schoolAdminService.deleteStudent(student.getId());
+        if (1==a){
+            response.getWriter().print("success");
+        }else{
+            response.getWriter().print("error");
+        }
+    }
+
+    //判断学员账号是否被注册
+    @RequestMapping("/CheckStudentAccount")
+    public void CheckStudentAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String account = request.getParameter("name");
+        if (null!=account||!"".equals(account)){
+            Integer a = schoolAdminService.CheckStudentAccount(account);
+            if (1>a){
+                response.getWriter().print("1111");
+            }else{
+                response.getWriter().print("2222");
+            }
+        }
+    }
+
+    //新增学员
+    @RequestMapping("/addStudent")
+    public void addStudent(Student student, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
+        Boolean demo= IDNumber.isIDNumber(student.getIdNumber());
+        if (demo){
+            student.setStudent_state_id(5);
+            student.setSchool_id(schoolAdmin.getSchool_id());
+            Integer a= schoolAdminService.addStudent(student);
+            if (0<a){
+                response.getWriter().print("success");
+            }else{
+                response.getWriter().print("error");
+            }
+        }else {
+            response.getWriter().print("IdError");
+        }
+
+    }
+
+    @RequestMapping("/ImportExcel")
+    @ResponseBody
+    public String ImportExcel(@RequestParam("file") MultipartFile file,HttpServletRequest request, HttpServletResponse response ) {
+
+        String name = file.getOriginalFilename();
+        if (name.length() < 6 || !name.substring(name.length() - 5).equals(".xlsx")) {
+            return "文件格式错误";
+        }
+        List<Student> list = null;
+        try {
+            list = ExcelUtils.excelToShopIdList(file.getInputStream(),request);
+            if (list == null || list.size() <= 0) {
+                return "导入的数据为空";
+            }
+            //excel的数据保存到数据库
+            try {
+                for (Student student : list) {
+                    System.out.println(student.toString());
+                }
+                schoolAdminService.insertStudentByExcel(list);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+        return "保存成功";
+    }
+
 
 
 }

@@ -154,6 +154,9 @@
 			<if test="state!=null">
 				and student_state_id = #{state}
 			</if>
+			<if test="school_id!=null">
+				and school_id = #{school_id}
+			</if>
 		</where>
 	</select>
 
@@ -169,6 +172,8 @@
 		<result property="student_state_id" column="student_state_id"/>
 		<result property="school_id" column="school_id"/>
 		<result property="schoolName" column="s_name"/>
+		<result property="image" column="image"/>
+		<result property="audit_results" column="audit_results"/>
 
 	<association property="school" javaType="com.great.entity.School">
 		<id property="id" column="s_id"/>
@@ -199,11 +204,24 @@
 			<if test="name!=null">
 				and  s1.name like concat('%',#{name},'%')
 			</if>
-			<if test="state!=null">
-				and s1.student_state_id = #{state}
+			<if test="student_state_id!=null">
+				and s1.student_state_id = #{student_state_id}
+			</if>
+			<if test="school_id!=null">
+				and s1.school_id = #{school_id}
 			</if>
 		</where>
 		limit #{minlimit} , #{maxlimit}
+	</select>
+
+	<select id="getSchoolList" resultType="com.great.entity.School">
+		select * from school
+	</select>
+
+
+
+	<select id="getStudentState" resultType="java.lang.String">
+		select statename from studentstate;
 	</select>
 
 </mapper>

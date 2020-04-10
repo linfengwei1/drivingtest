@@ -124,26 +124,27 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
     })
 
     $("#out").click(function () {
-        layer.confirm('您确定要导出吗?', {icon: 3, title:'提示'}, function(index){
-            $.ajax({
-                async:true,
-                method : "POST",
-                url :path+"/school/export",
-                dataType : "text",
-                success:function(data){
-                    if ("success"==data){
-                        layer.alert("导出成功",{icon:6},function () {
-                            window.parent.location.reload();
-                        });
-                    }else {
-                        layer.alert("导出成功",{icon:2});
-                    }
-                },
-                error:function (err) {
-                    layer.alert("网络繁忙",{icon:2});
-                }
-            })
-        })
+        window.location.href =path+"/school/export";
+        // layer.confirm('您确定要导出吗?', {icon: 3, title:'提示'}, function(index){
+        //     $.ajax({
+        //         async:true,
+        //         method : "POST",
+        //         url :path+"/school/export",
+        //         dataType : "text",
+        //         success:function(data){
+        //             if ("success"==data){
+        //                 layer.alert("导出成功",{icon:6},function () {
+        //                     window.parent.location.reload();
+        //                 });
+        //             }else {
+        //                 layer.alert("导出失败",{icon:2});
+        //             }
+        //         },
+        //         error:function (err) {
+        //             layer.alert("网络繁忙",{icon:2});
+        //         }
+        //     })
+        // })
     })
 });
 

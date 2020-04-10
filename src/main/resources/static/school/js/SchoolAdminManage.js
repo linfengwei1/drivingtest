@@ -20,7 +20,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             , {field: 'account', title: '管理员账号', width: 100, align: 'center'}
             , {field: 'name', title: '管理员昵称', width: 180, sort: true, align: 'center'}
             , {field: 'phone', title: '联系方式', width: 120, sort: true, align: 'center'}
-            , {field: 'time', title: '创建时间', width: 160, sort: true,align: 'center'}
+            , {field: 'time', title: '创建时间', width: 160, sort: true,align: 'center',templet: "<div>{{layui.util.toDateString(d.time, 'yyyy-MM-dd HH:mm:ss')}}</div>"}
             , {field: 'school_state_id', title: '当前状态', width: 130, sort: true, align: 'center',
                 templet: function(d){
                 var state;

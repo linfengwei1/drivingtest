@@ -15,11 +15,14 @@ public class Student
 	private String verification;//验证码
 	private School school;//学校
 	private String schoolName;//学校名
+	private String image;//图片路径
+	private String audit_results;//审核结果
+
 	public Student()
 	{
 	}
 
-	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school, String schoolName) {
+	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school, String schoolName, String image, String audit_results) {
 		this.id = id;
 		this.account = account;
 		this.pwd = pwd;
@@ -33,6 +36,8 @@ public class Student
 		this.verification = verification;
 		this.school = school;
 		this.schoolName = schoolName;
+		this.image = image;
+		this.audit_results = audit_results;
 	}
 
 	public int getId()
@@ -163,6 +168,22 @@ public class Student
 		this.schoolName = schoolName;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getAudit_results() {
+		return audit_results;
+	}
+
+	public void setAudit_results(String audit_results) {
+		this.audit_results = audit_results;
+	}
+
 	@Override
 	public String toString() {
 		return "Student{" +
@@ -179,6 +200,8 @@ public class Student
 				", verification='" + verification + '\'' +
 				", school=" + school +
 				", schoolName='" + schoolName + '\'' +
+				", image='" + image + '\'' +
+				", audit_results='" + audit_results + '\'' +
 				'}';
 	}
 }

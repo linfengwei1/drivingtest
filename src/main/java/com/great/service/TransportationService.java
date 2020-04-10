@@ -2,8 +2,12 @@ package com.great.service;
 
 import com.alibaba.druid.util.StringUtils;
 import com.great.entity.ObjectResult;
+import com.great.entity.School;
 import com.great.entity.Transportation;
 import com.great.entity.Subject;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -87,4 +91,16 @@ public interface TransportationService {
      * @return
      */
     public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name);
+
+    /**
+     * 获取学校表
+     * @return
+     */
+    public List<School> getSchoolList();
+
+    /**
+     * 获取学员状态
+     * @return
+     */
+    public Map<Integer, String> getStudentState();
 }
