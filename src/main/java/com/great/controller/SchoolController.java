@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.great.entity.*;
 //import com.great.service.MyService;
 import com.great.service.SchoolManageService;
+import com.great.service.TransportationService;
 import com.great.utils.ExcelCreate;
 import com.great.utils.ExcelUtils;
 import com.great.utils.ExportExcelSeedBack;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -41,6 +43,8 @@ public class SchoolController {
     private Random random = new Random();
     @Autowired
     private SchoolManageService schoolAdminService;
+    @Resource
+    private TransportationService transportationService;
     @Autowired
     private DateTable dateTable;
 
@@ -130,16 +134,6 @@ public class SchoolController {
         }
 
     }
-
-//    @RequestMapping("/menu")
-//    public String menu(HttpServletRequest request, HttpSession hs){
-//        User user = (User) request.getSession().getAttribute("SchoolAdmin");
-//        hs.setAttribute("name",user.getName());
-//        hs.setAttribute("roleType",user.getRole().getType());
-//        Map<String, List<Menu>> menuMap =myService.FindMenuByRoleId(user.getRole().getRoleid());//拿到菜单
-//        request.setAttribute("menuMap",menuMap);
-//        return "back/jsp/sss";
-//    }
 
     //注销登录
     @RequestMapping("/deleteAdmin")
@@ -317,6 +311,22 @@ public class SchoolController {
 //       }
     }
 
+    /**
+     * 获取学员状态信息
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getStudentState")
+    public String getStudentState(HttpServletRequest request){
+
+        Map<Integer,String>  map=transportationService.getStudentState();
+        if (map!=null){
+            request.setAttribute("stateMap",map);
+        }
+
+        return "school/jsp/SchoolStudentManage";
+    }
+
 
     //获取学员信息表格显示
     @RequestMapping("/SchoolStudentTable")
@@ -440,6 +450,13 @@ public class SchoolController {
         return map;
     }
 
+    /**
+     * 学员信息ecxcel导入
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("/ImportExcel")
     @ResponseBody
     public String ImportExcel(@RequestParam("file") MultipartFile file,HttpServletRequest request, HttpServletResponse response ) {
@@ -514,4 +531,58 @@ public class SchoolController {
 
 
 
+
+    //获取教练车信息表格显示
+    @RequestMapping("/SchoolCarTable")
+    @ResponseBody//ajax返回值json格式转换
+    public DateTable SchoolCarTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer page= Integer.parseInt(request.getParameter("page"));
+        Integer limit= Integer.parseInt(request.getParameter("limit"));
+        utils.setMinLimit((page-1)*limit);
+        utils.setMaxLimit(limit);
+        Map map = (Map) schoolAdminService.getCarTable(utils);
+        if (null!=map.get("list")){
+            dateTable.setData((List<?>) map.get("list"));
+            dateTable.setCode(0);
+            dateTable.setCount((Integer) map.get("count"));//总条数
+            return dateTable;
+        }
+        return null;
+    }
+
+
+    //查找驾校的所有信息
+    @RequestMapping("/findCoach")
+    public String findCoach(CoachCar coachCar, HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+      SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
+        List<Coach> coach= schoolAdminService.findCoach(schoolAdmin.getSchool_id());
+        if (coach!=null){
+            request.setAttribute("Coach",coach);
+        }
+        return "school/jsp/UpdateCar";
+    }
+
+    //更新教练车信息
+    @RequestMapping("/UpdateCar")
+    public void UpdateCar(CoachCar coachCar, HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        System.out.println("coachCar="+coachCar.toString());
+         Integer a= schoolAdminService.updateCar(coachCar);
+        if (1==a){
+            response.getWriter().print("1111");
+        }else{
+            response.getWriter().print("2222");
+        }
+    }
+
+    //删除教练车
+    @RequestMapping("/deleteCar")
+//    @Log(operationType = "删除操作", operationName = "删除上传文档")
+    public void deleteCar(Student student,  HttpServletResponse response) throws IOException {
+        Integer a = schoolAdminService.deleteStudent(student.getId());
+        if (1==a){
+            response.getWriter().print("success");
+        }else{
+            response.getWriter().print("error");
+        }
+    }
 }

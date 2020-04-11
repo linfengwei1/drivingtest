@@ -10,10 +10,12 @@
 <head>
     <title>文件上传</title>
     <%String path = request.getContextPath();%>
-<%--    <link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css"/>--%>
     <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<%--    <script src="${pageContext.request.contextPath}/layui/layui.js"></script>--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css">--%>
+
 
 </head>
 <body>
@@ -112,7 +114,6 @@
 </div>
 </body>
 </body>
-<%--<script src="${pageContext.request.contextPath}/static/school/js/upload1.js" type="text/javascript" charset="UTF-8"></script>--%>
 <script>
     layui.use(['upload','jquery','element'], function(){
         var upload = layui.upload;

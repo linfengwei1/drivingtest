@@ -1,13 +1,11 @@
 package com.great.service;
 
 import com.great.dao.SchoolAdminDao;
+import com.great.dao.SchoolCarDao;
 import com.great.dao.SchoolCoachDao;
 import com.great.dao.SchoolStudentDao;
-import com.great.entity.Coach;
+import com.great.entity.*;
 
-import com.great.entity.SchoolAdmin;
-import com.great.entity.Student;
-import com.great.entity.TableUtils;
 import com.great.utils.ExportExcelSeedBack;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +26,8 @@ public class SchoolManageService {
     private SchoolCoachDao schoolCoachDao;
     @Resource
     private SchoolStudentDao schoolStudentDao;
+    @Resource
+    private SchoolCarDao schoolCarDao;
 
     //驾校管理员登录
     public SchoolAdmin login(String account, String pwd){
@@ -173,5 +173,24 @@ public class SchoolManageService {
     //excel插入数据库
     public Integer insertStudentByExcel(List<Student>list){
         return schoolStudentDao.insertStudentByExcel(list);
+    }
+
+    //获取车辆信息表
+    public Object getCarTable(TableUtils u){
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        List<CoachCar> list=schoolCarDao.getCar(u);
+        Integer a =schoolCarDao.findCount(u);
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+        return InfMap;
+    }
+
+    //查询驾校的所有教练
+    public List<Coach> findCoach(Integer cid){
+        return schoolCarDao.findCoach(cid);
+    }
+    //车辆人员变更
+    public Integer updateCar(CoachCar coachCar){
+        return schoolCarDao.updateCar(coachCar);
     }
 }

@@ -6,14 +6,14 @@ layui.use(['form','jquery'],  function(){
     form.on('submit(formDemo)', function(data){
 
         $.ajax({
-            url:path+'/school/Login',
+            url:path+'/coach/checkLogin',
             type:'post',
             data: data.field,
             success:function(data){
                 // layer.msg(data);
                 console.log("data="+data)
                 if ("success"==data){
-                    location.href=path+"/school/path/Manage"
+                    location.href=path+"/coach/path/back"
                 }else if ("yzm"==data) {
                     layer.alert("验证码错误",{icon:3},function () {
                         window.location.reload();
@@ -38,6 +38,6 @@ function refreshCode() {//给图片添加一个点击事件
     var path = $("#path").val();
     //点击时更换验证码，其中的？num是随便添加的一个参数,为了让程序知道每次都是不一样的,才能更新
     // Math.random()是实现随机的一个方法
-    YZM.src=path+"/school/CheckCodeServlet?num="+Math.random()+1;
+    YZM.src=path+"/coach/CheckCodeServlet?num="+Math.random()+1;
 
 }

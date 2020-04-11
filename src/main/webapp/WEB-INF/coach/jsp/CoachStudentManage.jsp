@@ -13,7 +13,7 @@
     <%String path = request.getContextPath(); %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-    <script src="${pageContext.request.contextPath}/static/school/js/SchoolStudentManage.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="${pageContext.request.contextPath}/static/coach/js/CoachStudentManage.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
@@ -30,17 +30,14 @@
                         <div class="layui-input-block" style="width: 190px;">
                             <select  name="state" id="state" lay-verify="required">
                                 <option value=""></option>
-                                <c:forEach items="${stateMap}" begin="" var="ss">
-                                    <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
-                                </c:forEach>
-<%--                                <option value="1">科目一</option>--%>
-<%--                                <option value="2">科目二</option>--%>
-<%--                                <option value="3">科目三</option>--%>
-<%--                                <option value="4">科目四</option>--%>
-<%--                                <option value="5">待审核</option>--%>
-<%--                                <option value="6">审核不通过</option>--%>
-<%--                                <option value="7">毕业</option>--%>
-<%--                                <option value="8">资料不完整</option>--%>
+                                <option value="1">科目一</option>
+                                <option value="2">科目二</option>
+                                <option value="3">科目三</option>
+                                <option value="4">科目四</option>
+                                <option value="5">待审核</option>
+                                <option value="6">审核不通过</option>
+                                <option value="7">毕业</option>
+                                <option value="8">资料不完整</option>
                             </select>
                         </div>
                     </div>
@@ -75,10 +72,8 @@
                     </div>
                     <div style="float: left;margin-left: 3% ">
                         <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
-                        <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>学员申请</button>
-                        <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>EXCEL导入</button>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
