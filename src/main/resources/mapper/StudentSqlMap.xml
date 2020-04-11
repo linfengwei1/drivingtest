@@ -17,6 +17,7 @@
 		<result property="phone" column="phone"></result>
 		<result property="student_state_id" column="student_state_id"></result>
 		<result property="school_id" column="school_id"></result>
+		<result property="identity_state" column="identity_state"></result>
 	</resultMap>
 	<resultMap id="questionMap" type="Question">
 		<!-- 主键字段的对应 -->
@@ -108,6 +109,12 @@
 
 	<update id="addStudy1Time">
 		update studycondition set time = time +1 where student_id = #{studentId} and subject_id = #{subject}
+	</update>
+	<update id="addStudyTime">
+		update studycondition set time = time +1 where student_id = #{studentId} and subject_id = #{subject}
+	</update>
+	<update id="setStudentIsIdentified">
+		update student set identity_state = 1 where id = #{studentId}
 	</update>
 
 

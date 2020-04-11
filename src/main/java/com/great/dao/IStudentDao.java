@@ -23,4 +23,8 @@ public interface IStudentDao
 
 	public List<Question> getChoicesBySubject_4();
 	public List<Question> getjudgesBySubject_4();
+
+	public void setStudentIsIdentified(@Param("studentId")int studentId);
+
+	public void addStudyTime(@Param("studentId")int studentId, @Param("subject")int subject);
 }

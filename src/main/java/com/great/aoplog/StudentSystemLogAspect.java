@@ -32,7 +32,7 @@ public class StudentSystemLogAspect implements Ordered
     private SystemLogService systemLogService;
     //这里的zxtest要和log4j.properties里的配置一致，否则写不到文件中
     private static Logger logger = Logger.getLogger("zxtest");
-    @Pointcut("execution(* com.great.service.serviceimpl.StudentManageServiceImpl.*(..))")//切入点
+    @Pointcut("execution(* com.great.service.serviceimpl.StudentManageServiceImpl.addStudy1Time(..))")//切入点
     public void logPointcut(){
 
     }

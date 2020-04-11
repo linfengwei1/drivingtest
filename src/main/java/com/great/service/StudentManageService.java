@@ -16,6 +16,10 @@ public interface StudentManageService
 	String addStudy1Time(String studentId, String subject);
 
 	QuestionList getQuestionsBySubject(String subject);
+
+	String importFace(String studentId, String face);
+
+	String faceCheck(String studentid, String face,String subject);
 	//	public User findUser(String uname, String pwd);
 //	public List<User> findAll(HashMap<String, Object> map) throws SQLException;
 //

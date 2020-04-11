@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
 	<title>学员登录</title>
@@ -40,6 +42,25 @@
 			</li>
 
 			<li class="layui-nav-item">
+				<a href="javascript:;">在线打卡</a>
+				<dl class="layui-nav-child">
+					<dd><a href="${pageContext.request.contextPath}/student/path/FaceSignin?subject=2" target="frame_div">科目二打卡</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/path/FaceSignin?subject=3" target="frame_div">科目三打卡</a></dd>
+					<c:choose>
+						<c:when test="${student.identity_state == 0}">
+							<dd><a href="${pageContext.request.contextPath}/student/path/FaceImport" target="frame_div">人脸信息录入</a></dd>
+						</c:when>
+					</c:choose>
+
+
+
+
+
+
+
+				</dl>
+			</li>
+			<li class="layui-nav-item">
 				<a href="javascript:;">模拟考试</a>
 				<dl class="layui-nav-child">
 					<dd><a href="${pageContext.request.contextPath}/student/path/VedioStudy" target="frame_div">科目一</a></dd>
@@ -73,6 +94,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 <script>
 	//JavaScript代码区域
 	layui.use('element', function(){

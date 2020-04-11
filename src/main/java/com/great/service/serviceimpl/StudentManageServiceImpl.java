@@ -7,6 +7,7 @@ import com.great.entity.Question;
 import com.great.entity.QuestionList;
 import com.great.entity.Student;
 import com.great.service.StudentManageService;
+import com.great.utils.FaceRecognitionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -129,5 +130,41 @@ public class StudentManageServiceImpl implements StudentManageService
 		System.out.println("判断题大小"+judges.size());
 		System.out.println("选择题大小"+choices.size());
 		return questionList;
+	}
+
+	@Override
+	@Transactional
+	@Log(operationType = "普通操作", operationName = "学员录入人脸信息")
+	public String importFace(String studentId, String face)
+	{
+		String result = null;
+		result = FaceRecognitionUtils.faceRegister(face,studentId);
+
+		if("success".equals(result))
+		{
+			//导入成功，修改用户脸型信息录入成功
+			System.out.println("插入数据库");
+			studentDao.setStudentIsIdentified(Integer.parseInt(studentId));
+		}
+
+		return result;
+	}
+
+	@Override
+	@Log(operationType = "普通操作", operationName = "学员登录打卡")
+	public String faceCheck(String studentid, String face,String subject)
+	{
+
+		String result = null;
+		result = FaceRecognitionUtils.identify(face,Integer.parseInt(studentid));
+
+		if("success".equals(result))
+		{
+			//认证成功，记录打卡
+			System.out.println("插入数据库");
+			studentDao.addStudyTime(Integer.parseInt(studentid),Integer.parseInt(subject));
+		}
+
+		return result;
 	}
 }
