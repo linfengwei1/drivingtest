@@ -30,14 +30,17 @@
                         <div class="layui-input-block" style="width: 190px;">
                             <select  name="state" id="state" lay-verify="required">
                                 <option value=""></option>
-                                <option value="1">科目一</option>
-                                <option value="2">科目二</option>
-                                <option value="3">科目三</option>
-                                <option value="4">科目四</option>
-                                <option value="5">待审核</option>
-                                <option value="6">审核不通过</option>
-                                <option value="7">毕业</option>
-                                <option value="8">资料不完整</option>
+                                <c:forEach items="${stateMap}" begin="" var="ss">
+                                    <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
+                                </c:forEach>
+<%--                                <option value="1">科目一</option>--%>
+<%--                                <option value="2">科目二</option>--%>
+<%--                                <option value="3">科目三</option>--%>
+<%--                                <option value="4">科目四</option>--%>
+<%--                                <option value="5">待审核</option>--%>
+<%--                                <option value="6">审核不通过</option>--%>
+<%--                                <option value="7">毕业</option>--%>
+<%--                                <option value="8">资料不完整</option>--%>
                             </select>
                         </div>
                     </div>

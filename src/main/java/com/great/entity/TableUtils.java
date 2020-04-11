@@ -12,11 +12,14 @@ public class TableUtils {
     private String state;
     private String name;
     private String phone;
+    private String carNumber;
     private Integer schoolStateId;
 
 
     public TableUtils() {
     }
+
+
 
     public String getIdNumber() {
         return idNumber;
@@ -113,6 +116,14 @@ public class TableUtils {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
     }
 
     @Override
