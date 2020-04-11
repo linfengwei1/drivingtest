@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.great.entity.Coach" %><%--
   Created by IntelliJ IDEA.
   User: HJY
   Date: 2020-3-14
@@ -20,20 +20,21 @@
 <input type="hidden" id="path" value="<%=path%>">
 <div class="layui-main-login" >
     <form class="layui-form" action="" onsubmit="return false;">
-        <div> <input type="hidden" id="id" name="id"></div>
+        <% Coach coach = (Coach)session.getAttribute("coach");Integer id = coach.getId();%>
+        <div> <input type="hidden" id="id" name="id" value="<%=id%>"></div>
         <div class="layui-form-item">
             <label class="layui-form-label">新密码</label>
             <div class="layui-input-inline">
-                <input type="text" id="ide" name="id" required lay-verify="name" placeholder="请在此输入新密码" autocomplete="off" class="layui-input">
+                <input type="password" id="pwd" name="pwd" required lay-verify="name" placeholder="请在此输入新密码" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">确认密码</label>
-            <div class="layui-input-inline">
-                <input type="text" id="pwd" name="pwd" placeholder="请确认密码" autocomplete="off" class="layui-input">
-            </div>
-            <span id="err3" style="color: red"></span>
-        </div>
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label">确认密码</label>--%>
+<%--            <div class="layui-input-inline">--%>
+<%--                <input type="password" id="pwd" name="pwd" placeholder="请确认密码" autocomplete="off" class="layui-input">--%>
+<%--            </div>--%>
+<%--            <span id="err3" style="color: red"></span>--%>
+<%--        </div>--%>
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
@@ -45,6 +46,7 @@
 <script>
     //Demo
     layui.use('form', function(){
+        console.log("123456");
         var form = layui.form;
         //监听提交
         form.on('submit(formDemo)', function(data){
