@@ -53,20 +53,31 @@
                 <a class="" href="javascript:;">驾校管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">驾校审核</a></dd>
-                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">驾校查看</a></dd>
+                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASN" onclick="changeUrl(this)">驾校查看</a></dd>
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">驾校违规处罚</a></dd>
-                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">教练查询</a></dd>
+                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASC" onclick="changeUrl(this)">教练查询</a></dd>
+                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/" onclick="changeUrl(this)">教练车查询</a></dd>
                 </dl>
                 </li>
 
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">学员管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gAS" onclick="changeUrl(this)">学员信息</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">学员信息</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">审批</a></dd>
 
                     </dl>
                 </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">成绩管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">科一成绩</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">科二成绩</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">科三成绩</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">科四成绩</a></dd>
+                    </dl>
+                </li>
+
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">统计报表</a>
                     <dl class="layui-nav-child">
@@ -95,7 +106,7 @@
     </div>
 
     <div class="layui-body">
-        <iframe id="ifram_div_iframe" style="width: 100%;height: 100%;" name="ifram_div_ifram" src="${pageContext.request.contextPath}/TM/path/userTbl"></iframe>
+        <iframe id="ifram_div_iframe" style="width: 100%;height: 100%;" name="ifram_div_ifram" src="${pageContext.request.contextPath}/TM/path/welcome"></iframe>
 <%--        <div style="padding: 15px;">内容主体区域</div>--%>
     </div>
 

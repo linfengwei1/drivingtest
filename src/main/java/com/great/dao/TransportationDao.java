@@ -123,4 +123,44 @@ public interface TransportationDao {
      * @return
      */
     public List<String> getStudentState();
+
+    /**
+     * 获取学校条数
+     * @param map
+     * @return
+     */
+    public Integer getSchoolCount(Map<String, Object> map);
+
+    /**
+     * 获取学校列表
+     * @param map
+     * @return
+     */
+    public List<?> getSchoolTbl(Map<String, Object> map);
+
+    /**
+     * 获取学校状态
+     * @return
+     */
+    public List<String> getSchoolState();
+
+    /**
+     * 获取教练状态
+     * @return
+     */
+    public List<String> getCoachState();
+
+    /**
+     * 获取教练记录数
+     * @param map
+     * @return
+     */
+    public Integer getCoachCount(Map<String, Object> map);
+
+    /**
+     * 获取教练表
+     * @param map
+     * @return
+     */
+    public List<?> getCoachTbl(Map<String, Object> map);
 }

@@ -82,26 +82,35 @@
                 ,{field: 'sex', title: '性别', width:50}
                 ,{field: 'age', title: '年龄', width:50}
                 ,{field: 'phone', title: '联系电话', width:100}
-                ,{field: 'student_state_id', title: '状态', width: 100,template:function(d){
-                    if(d.student_state_id==1){
-                        return "科目一学习";
-                    }else if(d.student_state_id==2){
-                        return "科目二学习";
-                    }else if(d.student_state_id==3){
-                        return "科目三学习";
-                    }else if(d.student_state_id==4){
-                        return "科目四学习";
-                    }else if(d.student_state_id==5){
-                        return "待审核";
-                    }else if(d.student_state_id==6){
-                        return "审核不通过";
-                    }else if(d.student_state_id==7){
-                        return "毕业";
-                    }else if(d.student_state_id==8){
-                        return "资料不完整";
-                    }
-                }}
                 ,{field: 'schoolName', title: '所属驾校', width: 150}
+                ,{field: 'student_state_id', title: '状态', width: 100,templet:function(d){
+                    if (1==d.student_state_id){
+                        return '科目一学习'
+                    }else if (2==d.student_state_id){
+                        return '科目二学习'
+                    }else if(3==d.student_state_id){
+                        return '科目三学习'
+                    }else if(4==d.student_state_id){
+                        return '科目四学习'
+                    }else if(5==d.student_state_id){
+                        return '待审核'
+                    }else if(6==d.student_state_id){
+                        return '审核不通过'
+                    }else if(7==d.student_state_id){
+                        return '毕业'
+                    }else if(8==d.student_state_id){
+                        return '资料不完整'
+                    }else if(9==d.student_state_id){
+                        return '科目一申请考试'
+                    }else if(10==d.student_state_id){
+                        return '科目二申请考试'
+                    }else if(11==d.student_state_id){
+                        return '科目三申请考试'
+                    }
+
+                        return '科目四申请考试'
+                }}
+
                 ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
         });
