@@ -22,12 +22,36 @@
 			<h2 style="margin-left: 43%">友情链接管理</h2>
 		</div>
 		<div class="layui-fluid" id="searchTable" style="margin-top: 1%;">
+			<%--添加友情链接按钮--%>
 			<div style="clear: left; padding-top: 10px; margin-left: 25%">
 
 				<button type="button" class="layui-btn layui-btn-normal" id="add">
 					<i class="layui-icon">&#xe654;</i>添加友情链接
 				</button>
+
+<%--				<button type="button" class="layui-btn layui-btn-warm" id="update">--%>
+<%--					<i class="layui-icon">&#xe642;</i>更新友情链接--%>
+<%--				</button>--%>
+
+<%--				<button type="button" class="layui-btn layui-btn-danger" id="delete">--%>
+<%--					<i class="layui-icon">&#xe640;</i>删除友情链接--%>
+<%--				</button>--%>
 			</div>
+<%--			&lt;%&ndash;更新友情链接按钮&ndash;%&gt;--%>
+<%--			<div style="clear: left; padding-top: 0px; margin-left: 55%">--%>
+
+<%--				<button type="button" class="layui-btn layui-btn-warm" id="update">--%>
+<%--					<i class="layui-icon">&#xe642;</i>更新友情链接--%>
+<%--				</button>--%>
+<%--			</div>--%>
+<%--			&lt;%&ndash;删除友情链接按钮&ndash;%&gt;--%>
+<%--			<div style="clear: left; padding-top: 0px; margin-left: 85%">--%>
+
+<%--				<button type="button" class="layui-btn layui-btn-danger" id="delete">--%>
+<%--					<i class="layui-icon">&#xe640;</i>删除友情链接--%>
+<%--				</button>--%>
+<%--			</div>--%>
+
 		</div>
 		<div class="layui-anim layui-anim-scale">
 

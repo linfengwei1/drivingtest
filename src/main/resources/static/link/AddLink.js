@@ -6,14 +6,14 @@ layui.use('form', function(){
     form.on('submit(formDemo)', function(data){
         var path = $("#path").val();
         // var a =JSON.stringify(data.field)
-        $.ajax({
-            url: path + "/link/addLink",
+        $.ajax({//发起异步请求
+            url: path + "/link/addLink",//controller层接口地址，数据要提交的地址
             async: true,
             type: "POST",
             data:  data.field,
             // data:"a="+a,
             datatype: "text",
-            beforeSend:function () {
+            beforeSend:function () {//提交之前验证：非空验证、规则验证等
                
 
             },
