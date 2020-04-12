@@ -164,15 +164,25 @@
             } else if(layEvent === 'lookMsg'){ //查看信息
                 console.log(data);
 
-                layer.open({
-                    type: 2,
-                    title: '查看用户',
-                    shadeClose: true,
-                    shade: 0.8,
-                    area: ['700px', '500px'],
-                    content: "${pageContext.request.contextPath}/TM/getStudentMsg",
-                    yes: function (index, layero) {
+                $.ajax({
+                    async:true,
+                    method : "POST",
+                    url :'${pageContext.request.contextPath}/TM/getSchoolMsg',
+                    data: {"id":data.id},
+                    dataType : "text",
+                    success:function(data){
+                        console.log("sss");
+                        layer.open({
+                            type: 2,
+                            title: '查看用户',
+                            shadeClose: true,
+                            shade: 0.8,
+                            area: ['400px', '500px'],
+                            content: "${pageContext.request.contextPath}/TM/path/SchoolMsg",
+                            yes: function (index, layero) {
 
+                            }
+                        });
                     }
                 });
 

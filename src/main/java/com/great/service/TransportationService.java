@@ -142,4 +142,18 @@ public interface TransportationService {
      * @return
      */
     public  Student getStudentMsg(Integer id);
+
+    /**
+     * 获取学校形信息
+     * @param id
+     * @return
+     */
+    public School getSchoolMsg(Integer id);
+
+    /**
+     * 获取教练信息
+     * @param id
+     * @return
+     */
+    public Coach getCoachMsg(Integer id);
 }

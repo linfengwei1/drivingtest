@@ -1,9 +1,6 @@
 package com.great.dao;
 
-import com.great.entity.School;
-import com.great.entity.Student;
-import com.great.entity.Subject;
-import com.great.entity.Transportation;
+import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -171,4 +168,18 @@ public interface TransportationDao {
      * @return
      */
     public Student getStudentMsg(Integer id);
+
+    /**
+     * 获取学学校信息
+     * @param id
+     * @return
+     */
+    public School getSchoolMsg(Integer id);
+
+    /**
+     * 获取教练信息
+     * @param id
+     * @return
+     */
+    public Coach getCoachMsg(Integer id);
 }

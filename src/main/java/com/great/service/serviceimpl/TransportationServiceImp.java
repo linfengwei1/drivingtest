@@ -273,5 +273,15 @@ public class TransportationServiceImp implements TransportationService {
         return td.getStudentMsg(id);
     }
 
+    @Override
+    public School getSchoolMsg(Integer id) {
+        return td.getSchoolMsg(id);
+    }
+
+    @Override
+    public Coach getCoachMsg(Integer id) {
+        return td.getCoachMsg(id);
+    }
+
 
 }

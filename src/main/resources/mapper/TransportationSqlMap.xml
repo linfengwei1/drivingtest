@@ -272,6 +272,10 @@
 		select statename from schoolstate;
 	</select>
 
+	<select id="getSchoolMsg" resultType="com.great.entity.School" parameterType="java.lang.Integer">
+		select *
+		from school where id=#{id};
+	</select>
 
 	<resultMap id="coachMap" type="com.great.entity.Coach">
 		<id property="id" column="id"/>
@@ -316,7 +320,6 @@
 		</where>
 	</select>
 
-
 	<select id="getCoachCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
 		select count(*)
 		from coach
@@ -339,6 +342,23 @@
 
 	<select id="getCoachState" resultType="java.lang.String">
 		select statename from coachstate;
+	</select>
+
+	<select id="getCoachMsg" resultMap="coachMap" parameterType="java.lang.Integer">
+		select c.*
+		,s.id "s_id"
+		,s.name "s_name"
+		,s.admin "s_admin"
+		,s.address "s_address"
+		,s.information "s_information"
+		,s.intro "s_intro"
+		,s.phone "s_phone"
+		,s.school_state_id "school_state_id"
+		from coach c
+		left join school s on c.school_id = s.id
+		<where>
+			c.id=#{id}
+		</where>
 	</select>
 
 	<resultMap id="studentMsg" type="com.great.entity.Student">
@@ -367,5 +387,6 @@
 			s1.id=#{id}
 		</where>
 	</select>
+
 
 </mapper>

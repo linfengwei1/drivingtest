@@ -318,6 +318,49 @@ public class TransportationManagementController {
     }
 
     /**
+     * 获取学员信息
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getSchoolMsg")
+    @ResponseBody
+    public String getSchoolMsg (Integer id,HttpServletResponse response,HttpServletRequest request){
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        request.getSession().setAttribute("school",transportationService.getSchoolMsg(id));
+
+        System.out.println(request.getSession().getAttribute("school"));
+
+        return "";
+    }
+
+    /**
+     * 获取学员信息
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getCoachMsg")
+    @ResponseBody
+    public String getCoachMsg (Integer id,HttpServletResponse response,HttpServletRequest request){
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        request.getSession().setAttribute("coach",transportationService.getCoachMsg(id));
+
+        System.out.println(request.getSession().getAttribute("coach"));
+
+        return "";
+    }
+
+
+    /**
      * 审核学生（修改状态，插入审核结果）
      * @param response
      * @return
