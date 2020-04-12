@@ -302,8 +302,17 @@ public class TransportationManagementController {
      * @return
      */
     @RequestMapping("/getStudentMsg")
-    public String getStudentMsg (HttpServletResponse response){
+    @ResponseBody
+    public String getStudentMsg (Integer id,HttpServletResponse response,HttpServletRequest request){
 
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        request.getSession().setAttribute("student",transportationService.getStudentMsg(id));
+
+        System.out.println(request.getSession().getAttribute("student"));
 
         return "";
     }
@@ -315,11 +324,11 @@ public class TransportationManagementController {
      */
     @RequestMapping("/examineStudent")
     @ResponseBody
-    public String examineStudent(HttpServletResponse response){
+    public String examineStudent(Student student,HttpServletResponse response){
 
 
 
-        return "error";
+        return "Success";
     }
 
     /**
@@ -331,7 +340,7 @@ public class TransportationManagementController {
     @ResponseBody
     public String getSchoolTbl(Integer page, Integer limit ,String state,String name,HttpServletResponse response){
        // 设置浏览器字符集编码.
-                response.setHeader("Content-Type","text/html;charset=UTF-8");
+       response.setHeader("Content-Type","text/html;charset=UTF-8");
         // 设置response的缓冲区的编码.
         response.setCharacterEncoding("UTF-8");
 
@@ -386,7 +395,17 @@ public class TransportationManagementController {
         return "transportation/jsp/CoachTbl";
     }
 
-
+    /**
+     * 获取教练表
+     * @param page
+     * @param limit
+     * @param school
+     * @param name
+     * @param sex
+     * @param type
+     * @param response
+     * @return
+     */
     @RequestMapping("/getCoachTbl")
     @ResponseBody
     public String getCoachTbl(Integer page, Integer limit ,String school,String name,String sex,String type,HttpServletResponse response){

@@ -1,15 +1,12 @@
 package com.great.service.serviceimpl;
 
 import com.great.dao.TransportationDao;
-import com.great.entity.ObjectResult;
+import com.great.entity.*;
 
-import com.great.entity.School;
-import com.great.entity.Transportation;
 import com.great.service.TransportationService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import com.great.entity.Subject;
 
 
 import java.util.HashMap;
@@ -148,7 +145,7 @@ public class TransportationServiceImp implements TransportationService {
         //获取记录
         objectResult.setData(td.getStudentTbl(map));
 
-        System.out.println(objectResult);
+        //System.out.println(objectResult);
 
         return objectResult;
     }
@@ -169,7 +166,7 @@ public class TransportationServiceImp implements TransportationService {
             map.put(i+1,list.get(i));
         }
 
-        System.out.println(map);
+        //System.out.println(map);
 
         return map;
     }
@@ -189,7 +186,7 @@ public class TransportationServiceImp implements TransportationService {
             map.put("name",name);
         }
 
-        System.out.println(map);
+        //System.out.println(map);
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -199,7 +196,7 @@ public class TransportationServiceImp implements TransportationService {
         //获取记录
         objectResult.setData(td.getSchoolTbl(map));
 
-        System.out.println(objectResult);
+        //System.out.println(objectResult);
 
         return objectResult;
     }
@@ -214,7 +211,7 @@ public class TransportationServiceImp implements TransportationService {
             map.put(i+1,list.get(i));
         }
 
-        System.out.println(map);
+        //System.out.println(map);
 
         return map;
     }
@@ -229,7 +226,7 @@ public class TransportationServiceImp implements TransportationService {
             map.put(i+1,list.get(i));
         }
 
-        System.out.println(map);
+        //System.out.println(map);
 
         return map;
     }
@@ -255,7 +252,7 @@ public class TransportationServiceImp implements TransportationService {
             map.put("school",school);
         }
 
-        System.out.println(map);
+        //System.out.println(map);
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -265,9 +262,15 @@ public class TransportationServiceImp implements TransportationService {
         //获取记录
         objectResult.setData(td.getCoachTbl(map));
 
-        System.out.println(objectResult);
+        //System.out.println(objectResult);
 
         return objectResult;
+    }
+
+    @Override
+    public Student getStudentMsg(Integer id) {
+
+        return td.getStudentMsg(id);
     }
 
 

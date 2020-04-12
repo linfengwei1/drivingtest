@@ -12,6 +12,12 @@
     <title>教练表</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
 </head>
 <body>
 <form class="layui-form" action=""  >
@@ -51,23 +57,31 @@
             </select>
         </div>
 
-        <button class="layui-btn" id="button" lay-submit="" lay-filter="formDemo" data-type="reload" >查询</button>
+        <button class="layui-btn" id="button" lay-submit="" lay-filter="formDemo" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
 
     </div>
 
 </form>
 
 <table id="demo" lay-filter="test"></table>
+
 </body>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量审核</button>
+    </div>
+</script>
+
+
 <script type="text/html" id="barDemo">
 
     {{#  if(d.student_state_id == 4){ }}
-    <a class="layui-btn layui-btn-xs" lay-event="lookMsg">查看信息</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine">审核</a>
+    <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine"><i class="layui-icon">&#xe642;</i>审核</a>
     {{#  } else { }}
-    <a class="layui-btn layui-btn-xs" lay-event="lookMsg">查看信息</a>
+    <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
     {{#  } }}
-
 
 </script>
 
@@ -80,12 +94,15 @@
         //表格实例
         table.render({
             elem: '#demo'
-            ,height: 470
+            ,height: 500
             ,id:'testReload'
             ,url: '${pageContext.request.contextPath}/TM/getCoachTbl' //数据接口
             ,page: true //开启分页
             ,limit:10
+            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            ,defaultToolbar: ['filter', 'exports', 'print']
             ,cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
                 ,{field: 'account', title: '账号', width:100}
                 ,{field: 'name', title: '姓名', width:100}
@@ -109,10 +126,25 @@
                         }
                     }}
 
-                ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
         });
 
+        //表头左侧工具条
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    if(data.length==0){
+                        layer.alert("请选取需要批量操作的条目");
+                    }else{
+                        layer.alert(JSON.stringify(data));
+                    }
+
+                    break;
+            };
+        });
 
         //阻止表单提交
         form.on('submit(formDemo)', function(data){
