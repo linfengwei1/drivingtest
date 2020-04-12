@@ -92,6 +92,16 @@
 		select * from student where school_id = #{school_id}
 	</select>
 
+
+    <resultMap id="StudyCondition" type="com.great.entity.StudyCondition">
+        <result column="student_id" property="student_id"></result>
+        <result column="subject_id" property="subject_id"></result>
+    </resultMap>
+    <!--查找学员学习时间-->
+    <select id="findStudyTime" resultMap="StudyCondition" parameterType = "java.lang.Integer" >
+		select * from studycondition where student_id = #{student_id}
+	</select>
+
     <!--excel插入数据库-->
     <insert id="insertStudentByExcel" parameterType="java.util.List">
         insert into student (account,pwd,name,sex,age,idnumber,phone,student_state_id,school_id)values
@@ -112,7 +122,27 @@
     </insert>
 
 
+    <!--统计一阶段的人数-->
+    <select id="CountSubject1" resultType="Integer"  >
+		SELECT count(*) FROM student where student_state_id = 1
+	</select>
+    <!--统计2阶段的人数-->
+    <select id="CountSubject2" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 2
+	</select>
+    <!--统计3阶段的人数-->
+    <select id="CountSubject3" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 3
+	</select>
+    <!--统计4阶段的人数-->
+    <select id="CountSubject4" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 4
+	</select>
 
+    <!--统毕业的人数-->
+    <select id="CountOver" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 7
+	</select>
 
 
 

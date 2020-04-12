@@ -140,6 +140,23 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
 
             });
         }
+
+        if(layEvent === 'check'){ //查看学时
+            var $td = $(this).parents('tr').children('td');
+            var id = $td.eq(0).text();//获取点击按钮相对应的id
+            layer.open({
+                title:'查看学时',
+                type: 2,
+                area: ['600px', '400px'],
+                content:path1+"/school/path/CheckStudyInf",//弹出的页面
+                success: function (layero, index) {
+                    var body = layer.getChildFrame("body", index);//弹出页面的body标签
+                    body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
+
+                },
+
+            });
+        }
     });
 
     $("#add").click(function () {

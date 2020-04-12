@@ -225,4 +225,53 @@ public class SchoolManageService {
         map.put("id",id);
         return schoolStudentDao.ChangeStudentState(map);
     }
+
+    //查找学员学习时间
+    public List<StudyCondition> findStudyTime(Integer a){
+        return  schoolStudentDao.findStudyTime(a);
+    }
+
+    //查询驾校信息
+    public List<School> getSchoolInf(Integer id){
+        return schoolAdminDao.getSchoolInf(id);
+    }
+
+    //统计人数
+    public List Count(){
+        Integer one= schoolStudentDao.CountSubject1();
+        Integer two=   schoolStudentDao.CountSubject2();
+        Integer three=   schoolStudentDao.CountSubject3();
+        Integer four=   schoolStudentDao.CountSubject4();
+        Integer over=   schoolStudentDao.CountOver();
+        List list = new ArrayList();
+        list.add(one);  list.add(two);  list.add(three);  list.add(four);  list.add(over);
+        return  list;
+    }
+
+    //更改驾校信息
+    public Integer updateSchoolInf(School school){
+        return schoolAdminDao.updateSchoolInf(school);
+    }
+
+    //查询评价
+    public Object getEvaluation(TableUtils u){
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        List<Evaluation> list=schoolAdminDao.getEvaluation(u);
+        System.out.println("评价="+list.toString());
+        Integer a =schoolAdminDao.EvaluationCount(u);
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+        return InfMap;
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

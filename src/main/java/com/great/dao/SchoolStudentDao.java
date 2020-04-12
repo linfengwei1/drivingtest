@@ -2,6 +2,7 @@ package com.great.dao;
 
 
 import com.great.entity.Student;
+import com.great.entity.StudyCondition;
 import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -41,5 +42,23 @@ public interface SchoolStudentDao
 
 	//改变学员状态
 	public Integer ChangeStudentState(Map map);
+
+	//查找学员学习时间
+	public List<StudyCondition> findStudyTime(Integer a);
+
+	//统计一阶段人数
+	public Integer CountSubject1();
+
+	//统计2阶段人数
+	public Integer CountSubject2();
+
+	//统计3阶段人数
+	public Integer CountSubject3();
+
+	//统计4阶段人数
+	public Integer CountSubject4();
+
+	//统计毕业人数
+	public Integer CountOver();
 
 }

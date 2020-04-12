@@ -333,7 +333,6 @@ public class SchoolController {
         Map map = (Map) schoolAdminService.getSchoolStudentTable(utils);
         if (null!=map.get("list")){
             dateTable.setData((List<?>) map.get("list"));
-            System.out.println(map.get("list"));
             dateTable.setCode(0);
             dateTable.setCount((Integer) map.get("count"));//总条数
             return dateTable;
@@ -719,5 +718,88 @@ public class SchoolController {
         }
         return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
     }
+
+
+    //显示学员学时
+    @RequestMapping("/findStudyTime")
+    @ResponseBody
+    public DateTable findStudyTime(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+       Integer id = Integer.valueOf(request.getParameter("id").trim());
+        List<StudyCondition>list= schoolAdminService.findStudyTime(id);
+        if (list!=null){
+                dateTable.setData(list);
+                dateTable.setCode(0);
+                dateTable.setCount(4);//总条数
+                return dateTable;
+        }
+        return null;
+    }
+
+    //统计各阶段学员人数
+    @RequestMapping("/Statistics")
+    @ResponseBody
+    public List Statistics(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        List list= schoolAdminService.Count();
+        System.out.println("list=="+list.toString());
+        if (list!=null){
+            return list;
+        }
+        return null;
+    }
+
+    //获取驾校信息
+    @RequestMapping("/getSchoolInf")
+    public String getSchoolInf(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
+        List<School> list= schoolAdminService.getSchoolInf(schoolAdmin.getSchool_id());
+        System.out.println("驾校信息=="+list.toString());
+        if (list!=null){
+            request.setAttribute("List",list);
+        }
+        return "school/jsp/SchoolInf";
+    }
+
+    //获取驾校信息
+    @RequestMapping("/updateSchoolInf")
+    public void updateSchoolInf(School school,HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
+        school.setId(schoolAdmin.getId());
+        Integer a= schoolAdminService.updateSchoolInf(school);
+        if (0<a){
+            response.getWriter().print("success");
+        }else {
+            response.getWriter().print("error");
+        }
+
+
+
+    }
+
+    //获取驾校评价表格显示
+    @RequestMapping("/getEvaluation")
+    @ResponseBody//ajax返回值json格式转换
+    public DateTable getEvaluation(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer page= Integer.parseInt(request.getParameter("page"));
+        Integer limit= Integer.parseInt(request.getParameter("limit"));
+        SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
+        utils.setSchool_id(schoolAdmin.getSchool_id());
+        utils.setMinLimit((page-1)*limit);
+        utils.setMaxLimit(limit);
+        Map map = (Map) schoolAdminService.getEvaluation(utils);
+        if (null!=map.get("list")){
+            dateTable.setData((List<?>) map.get("list"));
+            dateTable.setCode(0);
+            dateTable.setCount((Integer) map.get("count"));//总条数
+            return dateTable;
+        }
+        return null;
+    }
+
+
+
 
 }

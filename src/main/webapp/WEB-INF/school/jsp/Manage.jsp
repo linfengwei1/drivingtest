@@ -67,13 +67,14 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">统计报表</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">科目考试人数统计</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/Statistics" onclick="changeUrl(this)">科目考试人数统计</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">其他</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">驾校中心</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/getSchoolInf" onclick="changeUrl(this)">驾校中心</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/GetEvaluation" onclick="changeUrl(this)">查看评价</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">消息查看</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">日志查看</a></dd>
                     </dl>

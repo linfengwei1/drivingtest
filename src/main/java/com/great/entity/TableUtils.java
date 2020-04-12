@@ -13,13 +13,20 @@ public class TableUtils {
     private String name;
     private String phone;
     private String carNumber;
+    private Integer school_id;
     private Integer schoolStateId;
 
 
     public TableUtils() {
     }
 
+    public Integer getSchool_id() {
+        return school_id;
+    }
 
+    public void setSchool_id(Integer school_id) {
+        this.school_id = school_id;
+    }
 
     public String getIdNumber() {
         return idNumber;

@@ -89,12 +89,43 @@
 
 
 
+    <!--查看驾校信息-->
+    <select id="getSchoolInf" parameterType = "java.lang.Integer" resultType="School">
+        select * FROM school where id= #{id}
+    </select>
+
+    <!--更改驾校信息-->
+    <update id="updateSchoolInf" parameterType = "School" >
+      update school  set address = #{address},phone =#{phone},admin=#{admin},intro=#{intro}  where id =#{id}
+    </update>
 
 
+    <!--查询评价-->
+    <select id="getEvaluation" resultType="Evaluation" parameterType="com.great.entity.TableUtils" >
+		select * FROM evaluation where school_id =${school_id}
+        <if test="time1 != '' and time1 != null">
+            and time &gt;= #{time1}
+        </if>
+        <if test="time2 != '' and time2 != null">
+            and time &lt;= #{time2}
+        </if>
+        limit #{minLimit},#{maxLimit}
+	</select>
 
+    <!--查询驾校管理员信息总数-->
+    <select id="EvaluationCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
+        select count(*) from evaluation
+        <where>
+            school_id =${school_id}
+            <if test="time1 != '' and time1 != null">
+                and time &gt;= #{time1}
+            </if>
+            <if test="time2 != '' and time2 != null">
+                and time &lt;= #{time2}
+            </if>
+        </where>
 
-
-
+    </select>
 
 
 
