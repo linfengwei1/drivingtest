@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>车辆人员变更</title>
+    <title>添加车辆</title>
     <%String path = request.getContextPath();%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
@@ -22,12 +22,12 @@
 <div class="layui-main-login" >
     <form class="layui-form" action="" onsubmit="return false;">
         <div> <input type="hidden" id="id" name="id"></div>
-<%--        <div> <input type="hidden" id="coach_id" name="coach_id"></div>--%>
         <div class="layui-form-item">
             <label class="layui-form-label">车牌号码</label>
             <div class="layui-input-inline">
                 <input type="text"  id="carNumber" name="carNumber" required lay-verify="carNumber"  autocomplete="off" class="layui-input">
             </div>
+            <span id="err1" style="color: red"></span>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">教练名</label>
@@ -52,18 +52,58 @@
     //Demo
     layui.use('form', function(){
         var form = layui.form;
+        var path = $("#path").val();
+        $("#carNumber").blur(function (){
+            //获取用户名的值
+            var UserName3=$("#carNumber").val();
+            //定义正则表达式
+            var regExp = /(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$)/
+            //判断值是否符合正则表达式的规则
+            if (!regExp.test(UserName3)){
+                $("#err1").html("请输入正确的车牌号码");
+            }else {
+                $.ajax({
+                    url: path + "/school/CheckCarNumber",
+                    async: true,
+                    type: "post",
+                    data: "name=" + $("#carNumber").val(),
+                    datatype: "text",
+                    success: function (msg) {
+                        if (msg == 1111) {
+                            $("#err1").html("√");
+                        } else  {
+                            $("#err1").html("该车牌号已经被注册");
+                            return false;
+                        }
+                    },
+                    error: function () {
+                        alert("网络繁忙");
+                    }
+                })
+            }
+        })
         //监听提交
         form.on('submit(formDemo)', function(data){
-            var path = $("#path").val();
+
             $.ajax({
-                url:path+'/school/UpdateCar',
+                url:path+'/school/addCar',
                 type:'post',
                 data:data.field,
+                beforeSend:function () {
+                    if ("该车牌号已经被注册"==$("#err1").text()){
+                        layer.alert("该车牌号已经被注册",{icon:2})
+                        return false;
+                    }
+                    if ("请输入正确的车牌号码"==$("#err1").text()){
+                        layer.alert("请输入正确的车牌号码",{icon:2})
+                        return false;
+                    }
+                },
                 success:function(data){
-                    if ("2222"==data){
-                        layer.alert("更新失败",{icon:2});
-                    }else if ("1111"==data) {
-                        layer.alert("更新成功",{icon:6},function () {
+                    if ("error"==data){
+                        layer.alert("添加失败",{icon:2});
+                    }else if ("success"==data) {
+                        layer.alert("添加成功",{icon:6},function () {
                             window.parent.location.reload();
                         });
                     }

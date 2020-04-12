@@ -255,7 +255,7 @@ public class TransportationManagementController {
      * @param request
      * @return
      */
-    @RequestMapping("/gAS")
+    @RequestMapping("/gASA")
     public String getAllSchoolAndStudentState(HttpServletRequest request){
 
         List<School> schools =transportationService.getSchoolList();
@@ -277,21 +277,21 @@ public class TransportationManagementController {
      * 学员信息表
      * @param page
      * @param limit
-     * @param state
-     * @param name
+     * @param school
+     * @param type
      * @param response
      * @return
      */
     @RequestMapping("/getStudentTbl")
     @ResponseBody
-    public String getStudentTbl(Integer page, Integer limit ,String state,String name,HttpServletResponse response){
+    public String getStudentTbl(Integer page, Integer limit ,String school,String name,String type,HttpServletResponse response){
 
         // 设置浏览器字符集编码.
         response.setHeader("Content-Type","text/html;charset=UTF-8");
         // 设置response的缓冲区的编码.
         response.setCharacterEncoding("UTF-8");
 
-        ObjectResult objectResult=transportationService.getStudentTbl(page,limit ,state,name);
+        ObjectResult objectResult=transportationService.getStudentTbl(page,limit ,school,name,type);
 
         return g.toJson(objectResult);
     }
@@ -322,14 +322,83 @@ public class TransportationManagementController {
         return "error";
     }
 
+    /**
+     * 获取学校列表
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getSchoolTbl")
+    @ResponseBody
+    public String getSchoolTbl(Integer page, Integer limit ,String state,String name,HttpServletResponse response){
+       // 设置浏览器字符集编码.
+                response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
 
-//    @RequestMapping("/getSchoolTbl")
-//    @ResponseBody
-//    public String getSchoolTbl(HttpServletResponse response){
-//
-//    }
+        ObjectResult objectResult=transportationService.getSchoolTbl(page,limit ,state,name);
+
+        return g.toJson(objectResult);
+    }
+
+    /**
+     * 获取学校的筛选条件，打开学校表
+     * @param request
+     * @return
+     */
+    @RequestMapping("/gASN")
+    public String getAllSchoolNameAndState(HttpServletRequest request){
+
+        List<School> schools =transportationService.getSchoolList();
+
+        Map<Integer,String>  map=transportationService.getSchoolState();
+
+        if (schools!=null){
+            request.setAttribute("schools",schools);
+        }
+
+        if (map!=null){
+            request.setAttribute("stateMap",map);
+        }
+
+        return "transportation/jsp/SchoolTbl";
+    }
+
+    /**
+     * 获取学校的筛选条件，打开教练表
+     * @param request
+     * @return
+     */
+    @RequestMapping("/gASC")
+    public String getAllSchoolNameAndCoachState(HttpServletRequest request){
+
+        List<School> schools =transportationService.getSchoolList();
+
+        Map<Integer,String>  map=transportationService.getCoachState();
+
+        if (schools!=null){
+            request.setAttribute("schools",schools);
+        }
+
+        if (map!=null){
+            request.setAttribute("stateMap",map);
+        }
+
+        return "transportation/jsp/CoachTbl";
+    }
 
 
+    @RequestMapping("/getCoachTbl")
+    @ResponseBody
+    public String getCoachTbl(Integer page, Integer limit ,String school,String name,String sex,String type,HttpServletResponse response){
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectResult objectResult=transportationService.getCoachTbl(page,limit,name,sex,type,school);
+
+        return g.toJson(objectResult);
+    }
 
 
     /**

@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SchoolManageService {
@@ -192,5 +189,40 @@ public class SchoolManageService {
     //车辆人员变更
     public Integer updateCar(CoachCar coachCar){
         return schoolCarDao.updateCar(coachCar);
+    }
+
+    //删除教练车
+    public Integer deleteCar(Integer id){
+        return schoolCarDao.deleteCar(id);
+    }
+    //添加车辆
+    public Integer addCar(CoachCar coachCar){
+        return schoolCarDao.addCar(coachCar);
+    }
+
+    //查看车牌号是否被注册
+    public Integer CheckCarNumber(String account){
+        return schoolCarDao.CheckCarNumber(account);
+    }
+
+    //excel插入数据库
+    public Integer insertCarByExcel(List<CoachCar> list){
+        return schoolCarDao.insertCarByExcel(list);
+    }
+
+    //单独学员插入图片
+    public Integer AddStudentImage(Integer id,String image){
+        Map<String,Object> loginMap = new HashMap<>();
+        loginMap.put("id",id);
+        loginMap.put("image",image);
+        return schoolStudentDao.AddStudentImage(loginMap);
+    }
+
+    //改变学员状态
+    public Integer ChangeStudentState(Integer id){
+        Map<String,Object> map = new HashMap<>();
+        map.put("student_state_id",5);
+        map.put("id",id);
+        return schoolStudentDao.ChangeStudentState(map);
     }
 }

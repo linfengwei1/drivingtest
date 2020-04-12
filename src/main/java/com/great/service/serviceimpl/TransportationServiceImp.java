@@ -123,7 +123,7 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
-    public ObjectResult getStudentTbl(Integer page, Integer limit, String state, String name) {
+    public ObjectResult getStudentTbl(Integer page, Integer limit, String state, String name,String type) {
         int maxlimit=limit;
         int minlimit=(page-1)*limit;
 
@@ -135,6 +135,9 @@ public class TransportationServiceImp implements TransportationService {
         }
         if (name!=null&&!name.equals("")){
             map.put("name",name);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
         }
 
         ObjectResult objectResult=new ObjectResult();
@@ -163,12 +166,108 @@ public class TransportationServiceImp implements TransportationService {
         List<String> list=td.getStudentState();
 
         for (int i=0;i<list.size();i++) {
-            map.put(i,list.get(i));
+            map.put(i+1,list.get(i));
         }
 
         System.out.println(map);
 
         return map;
+    }
+
+    @Override
+    public ObjectResult getSchoolTbl(Integer page, Integer limit, String state, String name) {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        if (state!=null&&!state.equals("")){
+            map.put("state",state);
+        }
+        if (name!=null&&!name.equals("")){
+            map.put("name",name);
+        }
+
+        System.out.println(map);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getSchoolCount(map));
+        //获取记录
+        objectResult.setData(td.getSchoolTbl(map));
+
+        System.out.println(objectResult);
+
+        return objectResult;
+    }
+
+    @Override
+    public Map<Integer, String> getSchoolState() {
+        Map<Integer,String> map=new LinkedHashMap<>();
+
+        List<String> list=td.getSchoolState();
+
+        for (int i=0;i<list.size();i++) {
+            map.put(i+1,list.get(i));
+        }
+
+        System.out.println(map);
+
+        return map;
+    }
+
+    @Override
+    public Map<Integer, String> getCoachState() {
+        Map<Integer,String> map=new LinkedHashMap<>();
+
+        List<String> list=td.getCoachState();
+
+        for (int i=0;i<list.size();i++) {
+            map.put(i+1,list.get(i));
+        }
+
+        System.out.println(map);
+
+        return map;
+    }
+
+    @Override
+    public ObjectResult getCoachTbl(Integer page, Integer limit, String name, String sex, String type, String school) {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        if (sex!=null&&!sex.equals("")){
+            map.put("sex",sex);
+        }
+        if (name!=null&&!name.equals("")){
+            map.put("name",name);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
+        if (school!=null&&!school.equals("")){
+            map.put("school",school);
+        }
+
+        System.out.println(map);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getCoachCount(map));
+        //获取记录
+        objectResult.setData(td.getCoachTbl(map));
+
+        System.out.println(objectResult);
+
+        return objectResult;
     }
 
 

@@ -6,6 +6,7 @@ import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface SchoolStudentDao
@@ -29,10 +30,16 @@ public interface SchoolStudentDao
 	//添加学员
 	public Integer addStudent(Student coach);
 
-    //查询所有学员
+  	//单独插入图片
+	public Integer AddStudentImage(Map map);
+
+	//查询所有学员
     public List<Student> findAllStudent(Integer schoolid);
 
     //excel插入数据库
     public Integer insertStudentByExcel(List<Student>list);
+
+	//改变学员状态
+	public Integer ChangeStudentState(Map map);
 
 }

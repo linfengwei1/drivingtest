@@ -90,7 +90,7 @@ public interface TransportationService {
      * 获取学员列表
      * @return
      */
-    public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name);
+    public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name,String type);
 
     /**
      * 获取学校表
@@ -103,4 +103,38 @@ public interface TransportationService {
      * @return
      */
     public Map<Integer, String> getStudentState();
+
+    /**
+     * 获取驾校列表
+     * @param page
+     * @param limit
+     * @param state
+     * @param name
+     * @return
+     */
+    public ObjectResult getSchoolTbl(Integer page, Integer limit, String state, String name);
+
+    /**
+     * 获取学校状态
+     * @return
+     */
+    public Map<Integer, String> getSchoolState();
+
+    /**
+     * 获取教练状态
+     * @return
+     */
+    public Map<Integer, String> getCoachState();
+
+    /**
+     * 获取教练表
+     * @param page
+     * @param limit
+     * @param name
+     * @param sex
+     * @param type
+     * @param school
+     * @return
+     */
+    public ObjectResult getCoachTbl(Integer page, Integer limit, String name, String sex, String type, String school);
 }

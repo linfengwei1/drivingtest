@@ -28,7 +28,7 @@
                     <div style="float: left">
                         <label class="layui-form-label" >教练姓名</label>
                         <div class="layui-input-block" style="width: 190px">
-                            <input class="layui-input" name="name" id="name" autocomplete="off">
+                            <input class="layui-input" name="coachName" id="coachName" autocomplete="off">
                         </div>
                     </div>
                     <div style="float: left;margin-left: 2%">
@@ -40,7 +40,7 @@
                     <div style="float: left;margin-left: 2%">
                         <label class="layui-form-label">状态</label>
                         <div class="layui-input-block" style="width: 190px;">
-                            <select  name="state" id="state" lay-verify="required">
+                            <select  name="carState" id="carState" lay-verify="required">
                                 <option value=""></option>
                                 <option value="审核通过">审核通过</option>
                                 <option value="待审核">待审核</option>
@@ -50,7 +50,7 @@
                     </div>
                     <div style="clear: left;margin-left: 30%;padding-top: 1% ">
                         <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
-                        <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>学员申请</button>
+                        <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>添加车辆</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>EXCEL导入</button>
                     </div>
                     </div>
@@ -61,13 +61,22 @@
     <div class="layui-anim layui-anim-scale" style="clear: left">
         <table id="dataTable" lay-filter="test"></table>
     </div>
-    <script type="text/html" id="butdiv">
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>人员分配</button>
-    </script>
 
 </form>
 </body>
+<script type="text/html" id="butdiv">
+
+    {{#  if(d.carState == '审核失败'){ }}
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>人员分配</button>
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>提交审核</button>
+    {{#  } else { }}
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>人员分配</button>
+    {{#  } }}
+
+
+</script>
 <script>
     layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导入模块
         $ = layui.jquery;
@@ -91,7 +100,7 @@
                 , {field: 'coach_id', title: '教练id', width: 120, align: 'center',hide:true}
                 , {field: 'coachName', title: '所属教练员', width: 120,  align: 'center'}
                 , {field: 'carState', title: '当前状态', width: 130, align: 'center'}
-                , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
+                , {field: '', title: '操作', toolbar: "#butdiv", width: 300, align: 'center'}
             ]]
         });
 
@@ -105,10 +114,8 @@
                     }
                     , where: {
                         carNumber: $("#carNumber").val(),
-                        // sex: $("#sex").val(),
                         state :$("#state").val(),
                         name : $("#name").val(),
-                        // phone : $("#phone").val()
                     }
                 });
             }
@@ -119,6 +126,9 @@
         //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
         table.on('tool(test)', function(obj){
             var data = obj.data; //获得当前行数据
+            // console.log("删除1="+data.id)
+            // var addTypeInf =JSON.stringify(data)
+            // console.log("删除="+addTypeInf)
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var path1 = $("#path").val();
             if(layEvent === 'delete'){ //删除
@@ -126,8 +136,8 @@
                     $.ajax({
                         async:true,
                         method : "POST",
-                        url :path1+'/school/deleteStudent',
-                        data: data,
+                        url :path1+'/school/deleteCar',
+                        data:"id="+data.id,
                         dataType : "text",
                         success:function(data){
                             if ("success"==data){
@@ -160,7 +170,6 @@
                     success: function (layero, index) {
                         var body = layer.getChildFrame("body", index);//弹出页面的body标签
                         body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
-                        // body.find("#coach_id").val(cid);//教练id
                         body.find("#carNumber").val(carNumber);//设置弹窗的值
                         var iframe = layero.find('iframe')[0].contentWindow;//新iframe窗口的对象
                         body.find("#coach_id").val(cid);
@@ -173,19 +182,19 @@
 
         $("#add").click(function () {
             layer.open({
-                title:'学员注册',
+                title:'车辆添加',
                 type: 2,
-                area: ['1000px', '425px'],
-                content:path+"/school/path/AddStudent",//弹出的页面
+                area: ['600px', '425px'],
+                content:path+"/school/JumpAddCar",//弹出的页面
             });
         })
 
         $("#in").click(function () {
             layer.open({
-                title:'文件导入学员信息',
+                title:'文件导入车辆信息',
                 type: 2,
                 area: ['500px', '400px'],
-                content:path+"/school/path/AddStudentInf",//弹出的页面
+                content:path+"/school/path/AddCarByExcel",//弹出的页面
             });
         })
     });

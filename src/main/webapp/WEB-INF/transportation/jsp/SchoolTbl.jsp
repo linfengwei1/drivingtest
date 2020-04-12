@@ -15,20 +15,20 @@
 </head>
 <body>
 <form class="layui-form" action=""  >
-
-        <label class="layui-form-label">驾校：</label>
+    <div class="layui-form-item">
+        <label class="layui-form-label">驾校名：</label>
         <div class="layui-input-inline">
-            <select name="school" id="school" lay-filter="aihao">
+            <select name="name" id="school" lay-filter="aihao">
                 <option value=""></option>
                 <c:forEach items="${schools}" begin="" var="school">
-                    <option value="${school.id}" <c:if test="${school}==${school.name}">selected="selected"</c:if> >${school.name}</option>--%>
+                    <option value="${school.name}" <c:if test="${school}==${school.name}">selected="selected"</c:if> >${school.name}</option>--%>
                 </c:forEach>
             </select>
         </div>
 
         <label class="layui-form-label">状态：</label>
         <div class="layui-input-inline">
-            <select name="type" id="type" lay-filter="aihao">
+            <select name="state" id="type" lay-filter="aihao">
                 <option value=""></option>
                 <c:forEach items="${stateMap}" begin="" var="ss">
                     <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
@@ -67,28 +67,28 @@
             elem: '#demo'
             ,height: 470
             ,id:'testReload'
-            ,url: '${pageContext.request.contextPath}/TM/getStudentTbl' //数据接口
+            ,url: '${pageContext.request.contextPath}/TM/getSchoolTbl' //数据接口
             ,page: true //开启分页
             ,limit:10
             ,cols: [[ //表头
                 {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
                 ,{field: 'name', title: '驾校名', width:100}
                 ,{field: 'phone', title: '联系电话', width:100}
-                ,{field: 'address', title: '地址', width:50}
+                ,{field: 'address', title: '地址', width:250}
                 ,{field: 'admin', title: '负责人', width:50}
                 ,{field: 'intro', title: '口号', width:100}
-                ,{field: 'school_state_id', title: '状态', width: 100,template:function(d){
-                        if(d.school_state_id==1){
-                            return "禁止报名";
-                        }else if(d.school_state_id==2){
-                            return "封停";
-                        }else if(d.school_state_id==3){
-                            return "启用";
-                        }else if(d.school_state_id==4){
-                            return "待审核";
-                        }else if(d.school_state_id==5){
-                            return "审核未通过";
+                ,{field: 'school_state_id', title: '状态', width: 100, templet: function(d){
+                        var state;
+                        if (1==d.school_state_id){
+                            return '禁止报名'
+                        }else if (2==d.school_state_id){
+                            return '封停'
+                        }else if(3==d.school_state_id){
+                            return '启用'
+                        }else if(4==d.school_state_id){
+                            return '待审核'
                         }
+                            return '审核未通过'
                     }}
                 ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
@@ -112,9 +112,8 @@
                         curr:1
                     }
                     ,where:{
-                        name:$("#name").val(),
-                        school:$("#school").val(),
-                        type:$("#type").val(),
+                        name:$("#school").val(),
+                        state:$("#type").val(),
                     }
                 });
             }
