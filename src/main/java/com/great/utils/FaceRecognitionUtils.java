@@ -78,6 +78,13 @@ public class FaceRecognitionUtils
 
 			System.out.println("user_id：" + jsonObject.getString("user_id"));
 
+			int userid = Integer.parseInt(jsonObject.getString("user_id"));
+
+			if(userid != id)
+			{
+				return "error";//未匹配到符合人脸信息
+			}
+
 			if(jsonObject.getInt("score") < 95)
 			{
 				return "again";//再次验证

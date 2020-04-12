@@ -283,6 +283,7 @@
 <input type="hidden" id="studentid" value="${student.id}">
 <input type="hidden" id="student_state_id" value="${student.student_state_id}">
 <input type="hidden" id="subject" value="${param.subject}">
+<input type="hidden" id="identity_state" value="${student.identity_state}">
 <div>
 </div>
 <h2>科目${param.subject}人脸打卡</h2>
@@ -306,9 +307,30 @@
 	layui.use(['layer'], function () {
 	var layer = layui.layer;
 	var subject = $("#subject").val();
+	var path = $("#path").val();
 	var student_state_id = $("#student_state_id").val();
-	openMedia();
+	var identity_state = $("#identity_state").val();
+
 	var mediaStreamTrack = null; // 视频对象(全局)
+
+
+	if(student_state_id != subject)
+	{
+		layer.msg('您当前不处于科目'+subject+'暂时无法打卡', {icon: 5});
+	}else if(identity_state == 0)
+	{
+		layer.msg('请先录入人脸信息', {icon: 5},function () {
+			location.href=path+"/student/path/FaceImport";
+		});
+
+	}else
+	{
+		openMedia();
+		setTimeout(function () {
+			takePhoto();
+		},2000);//等待摄像头开启
+	}
+
 	function openMedia() {
 		let constraints = {
 			video: { width: 400, height: 300 },
@@ -323,14 +345,6 @@
 		video.play();
 	});
 	}
-	if(student_state_id != subject)
-	{
-		layer.msg('您当前不处于科目'+subject+'暂时无法打卡', {icon: 5});
-	}else
-	{
-		setTimeout(takePhoto(),7000);//等待摄像头开启
-	}
-
 	// 拍照
 	function takePhoto() {
 
