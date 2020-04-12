@@ -21,7 +21,7 @@ $(function () {
 		var util = layui.util;
 		//示例
 		var serverTime = new Date().getTime() //假设为结束日期   3600000
-			,endTime = new Date().getTime()+30000; //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
+			,endTime = new Date().getTime()+300000; //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
 
 		util.countdown(endTime, serverTime, function(date, serverTime, timer){
 			timer2 = timer;

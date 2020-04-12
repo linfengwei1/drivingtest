@@ -49,6 +49,14 @@ public class StudentController
 		}
 
 	}
+	@RequestMapping("/reload")
+	public String reload(HttpServletRequest request)
+	{
+		Student student = (Student) request.getSession().getAttribute("student");
+		Student newStudent =studentManageServiceImpl.login(student.getAccount(),student.getPwd());
+		request.getSession().setAttribute("student",newStudent);
+		return "student/jsp/StudentMain";
+	}
 	@RequestMapping("/checkStudyAuthority")
 	@ResponseBody
 	public String checkStudyAuthority(String studentId, String vedioId,String subject,HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -72,11 +80,29 @@ public class StudentController
 		String result = studentManageServiceImpl.addStudy1Time(studentId,subject);
 		return result;
 	}
+	@RequestMapping("/importFace")
+	@ResponseBody
+	public String importFace(String studentid,String face,HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String result = studentManageServiceImpl.importFace(studentid,face);
+		return result;
+	}
+	@RequestMapping("/faceCheck")
+	@ResponseBody
+	public String faceCheck(String studentid,String face,String subject,HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String result = studentManageServiceImpl.faceCheck(studentid,face,subject);
+		return result;
+	}
 
 	//地址映射,path是个方法名,可以随便改动,{url}是参数
 	@RequestMapping("/path/{url}")
 	public String getUrl(@PathVariable(value = "url") String path){
 		return "student/jsp/" +path;
+	}
+	@RequestMapping("/home")
+	public String home(){
+		return "frontjsp/jsp/AddLink";
 	}
 
 

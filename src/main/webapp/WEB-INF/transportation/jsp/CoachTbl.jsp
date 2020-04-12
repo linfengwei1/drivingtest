@@ -26,10 +26,20 @@
             <select name="school" id="school" lay-filter="aihao">
                 <option value=""></option>
                 <c:forEach items="${schools}" begin="" var="school">
-                    <option value="${school.id}" <c:if test="${school}==${school.name}">selected="selected"</c:if> >${school.name}</option>--%>
+                    <option value="${school.name}" <c:if test="${school}==${school.name}">selected="selected"</c:if> >${school.name}</option>--%>
                 </c:forEach>
             </select>
         </div>
+
+        <label class="layui-form-label">性别：</label>
+        <div class="layui-input-inline">
+            <select name="sex" id="sex" lay-filter="aihao">
+                <option value=""></option>
+                <option value="男" <c:if test="${sex}==男">selected="selected"</c:if> >男</option>
+                <option value="女" <c:if test="${sex}==女">selected="selected"</c:if> >女</option>
+            </select>
+        </div>
+
 
         <label class="layui-form-label">状态：</label>
         <div class="layui-input-inline">
@@ -51,7 +61,7 @@
 </body>
 <script type="text/html" id="barDemo">
 
-    {{#  if(d.student_state_id == 5){ }}
+    {{#  if(d.student_state_id == 4){ }}
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg">查看信息</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine">审核</a>
     {{#  } else { }}
@@ -72,7 +82,7 @@
             elem: '#demo'
             ,height: 470
             ,id:'testReload'
-            ,url: '${pageContext.request.contextPath}/TM/getStudentTbl' //数据接口
+            ,url: '${pageContext.request.contextPath}/TM/getCoachTbl' //数据接口
             ,page: true //开启分页
             ,limit:10
             ,cols: [[ //表头
@@ -82,26 +92,23 @@
                 ,{field: 'sex', title: '性别', width:50}
                 ,{field: 'age', title: '年龄', width:50}
                 ,{field: 'phone', title: '联系电话', width:100}
-                ,{field: 'student_state_id', title: '状态', width: 100,template:function(d){
-                        if(d.student_state_id==1){
-                            return "科目一学习";
-                        }else if(d.student_state_id==2){
-                            return "科目二学习";
-                        }else if(d.student_state_id==3){
-                            return "科目三学习";
-                        }else if(d.student_state_id==4){
-                            return "科目四学习";
-                        }else if(d.student_state_id==5){
+                ,{field: 'schoolName', title: '所属驾校', width: 150}
+                ,{field: 'coach_state_id', title: '状态', width: 100,templet:function(d){
+                        if(d.coach_state_id==1){
+                            return "启用";
+                        }else if(d.coach_state_id==2){
+                            return "封停";
+                        }else if(d.coach_state_id==3){
+                            return "禁止报名";
+                        }else if(d.coach_state_id==4){
                             return "待审核";
-                        }else if(d.student_state_id==6){
+                        }else if(d.coach_state_id==5){
+                            return "审核未通过";
+                        }else if(d.coach_state_id==6){
                             return "审核不通过";
-                        }else if(d.student_state_id==7){
-                            return "毕业";
-                        }else if(d.student_state_id==8){
-                            return "资料不完整";
                         }
                     }}
-                ,{field: 'schoolName', title: '所属驾校', width: 150}
+
                 ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
         });
@@ -126,6 +133,7 @@
                     ,where:{
                         name:$("#name").val(),
                         school:$("#school").val(),
+                        sex:$("#sex").val(),
                         type:$("#type").val(),
                     }
                 });
