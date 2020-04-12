@@ -6,6 +6,7 @@ import com.great.entity.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,4 +28,7 @@ public interface IStudentDao
 	public void setStudentIsIdentified(@Param("studentId")int studentId);
 
 	public void addStudyTime(@Param("studentId")int studentId, @Param("subject")int subject);
+
+	public void addSignUpRecord(@Param("studentId")int studentId, @Param("subject")int subject, @Param("time")Timestamp time);
+	public int checkReapSignUp(@Param("studentId")int studentId, @Param("subject")int subject);
 }

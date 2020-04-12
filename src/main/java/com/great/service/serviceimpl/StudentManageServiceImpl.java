@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -151,19 +152,47 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
+	@Transactional
 	@Log(operationType = "普通操作", operationName = "学员登录打卡")
 	public String faceCheck(String studentid, String face,String subject)
 	{
 
 		String result = null;
-		result = FaceRecognitionUtils.identify(face,Integer.parseInt(studentid));
+		//1.先检查学时有没有打满，打满了不需要打卡
+		HashMap<String,Integer> map = new HashMap<>();
+		map.put("studentId", Integer.parseInt(studentid));//传学员ID
+		map.put("subject", Integer.parseInt(subject));//传科目ID
+		int finishTime = studentDao.checkStudyAuthority(map);
+		Timestamp time  = new Timestamp(System.currentTimeMillis());//获取当前时间
 
-		if("success".equals(result))
+		//是否一天内重复打卡
+		int repeatSign = studentDao.checkReapSignUp(Integer.parseInt(studentid),Integer.parseInt(subject));
+
+		System.out.println("今天打卡数量:"+repeatSign);
+		//检查是否打满学时
+		if(finishTime == 3)
 		{
-			//认证成功，记录打卡
-			System.out.println("插入数据库");
-			studentDao.addStudyTime(Integer.parseInt(studentid),Integer.parseInt(subject));
+			result =  "full";
+		}else
+		{
+			if(repeatSign > 0)
+			{
+				result =  "repeat";//一天内重复打卡
+			}else
+			{
+				result = FaceRecognitionUtils.identify(face,Integer.parseInt(studentid));
+				if("success".equals(result))
+				{
+					//认证成功，记录打卡
+					studentDao.addStudyTime(Integer.parseInt(studentid),Integer.parseInt(subject));
+					studentDao.addSignUpRecord(Integer.parseInt(studentid),Integer.parseInt(subject),time);
+
+				}
+			}
 		}
+
+
+
 
 		return result;
 	}

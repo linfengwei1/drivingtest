@@ -52,12 +52,6 @@
 						</c:when>
 					</c:choose>
 
-
-
-
-
-
-
 				</dl>
 			</li>
 			<li class="layui-nav-item">

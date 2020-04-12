@@ -281,6 +281,7 @@
 
 <input type="hidden" id="path" value="${pageContext.request.contextPath}">
 <input type="hidden" id="studentid" value="${student.id}">
+<input type="hidden" id="student_state_id" value="${student.student_state_id}">
 <input type="hidden" id="subject" value="${param.subject}">
 <div>
 </div>
@@ -296,13 +297,16 @@
 	</div>
 	<div class="layui-row">
 		<div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px">
-			<button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击人脸打卡</button>
+<%--			<button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击人脸打卡</button>--%>
 		</div>
 	</div>
 </div>
 
 <script>
-
+	layui.use(['layer'], function () {
+	var layer = layui.layer;
+	var subject = $("#subject").val();
+	var student_state_id = $("#student_state_id").val();
 	openMedia();
 	var mediaStreamTrack = null; // 视频对象(全局)
 	function openMedia() {
@@ -319,16 +323,24 @@
 		video.play();
 	});
 	}
-
+	if(student_state_id != subject)
+	{
+		layer.msg('您当前不处于科目'+subject+'暂时无法打卡', {icon: 5});
+	}else
+	{
+		setTimeout(takePhoto(),7000);//等待摄像头开启
+	}
 
 	// 拍照
 	function takePhoto() {
-		//获得Canvas对象
-		layui.use(['layer'], function () {
-			var layer = layui.layer;
-			var path = $("#path").val();
-			var studentid = $("#studentid").val();
-			var subject = $("#subject").val();
+
+		var path = $("#path").val();
+		var studentid = $("#studentid").val();
+		var subject = $("#subject").val();
+		var student_state_id = $("#student_state_id").val();
+		setTimeout(function(){
+			// $("#import").css("disabled",true);
+			//获得Canvas对象
 			let video = document.getElementById('video');
 			let canvas = document.getElementById('canvas');
 			let ctx = canvas.getContext('2d');
@@ -346,25 +358,47 @@
 				async: false,
 				cache: false,
 				data: {"face": face, "studentid": studentid,"subject":subject},
-				success: function (data) {
-					if (data == "success") {
-						$("#import").css("disabled",true);
-						layer.msg('打卡成功', {icon: 6}, function () {
+				success: function (data)
+				{
+					if (data == "success")
+					{
+
+						layer.msg('打卡成功', {icon: 6}, function ()
+						{
 							parent.location.href = path + "/student/reload";
 						});
 
-					} else if (data == "again") {
+					} else if (data == "again")
+					{
+						// $("#import").css("disabled",false);
 						layer.msg('请靠近摄像头', {icon: 5});
-					} else {
+						takePhoto();
+					} else if(data == "full")
+					{
+						// $("#import").css("disabled",false);
+						layer.msg('您已经完成该阶段所有学时，无需打卡', {icon: 6});
+					} else if(data == "repeat")
+					{
+						layer.msg('您今天已经打过卡了哦，不需要重复打卡', {icon: 6});
+					}else
+					{
+						// $("#import").css("disabled",false);
 						layer.msg('未匹配到人脸信息', {icon: 5});
+						takePhoto();
 					}
+
 
 				},
 				error: function (msg) {
+					// $("#import").css("disabled",false);
 					console.log(msg);
 				}
 			});
-		})
+
+
+
+		},2000);
+
 	}
 
 
@@ -380,6 +414,7 @@
 			takePhoto();
 		}
 	});
+})
 </script>
 </body>
 </html>
