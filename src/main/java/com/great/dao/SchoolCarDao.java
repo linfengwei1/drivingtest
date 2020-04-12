@@ -19,22 +19,22 @@ public interface SchoolCarDao
 	//查找车辆总数
 	public Integer findCount(TableUtils u);
 
-	//删除学员
-	public Integer deleteStudent(Integer id);
+	//删除教练车
+	public Integer deleteCar(Integer id);
 
 	//车辆人员变更
 	public Integer updateCar(CoachCar coachCar);
 
-	//查看账号是否被注册
-	public Integer CheckStudentAccount(String account);
+	//查看车牌号是否被注册
+	public Integer CheckCarNumber(String account);
 
-	//添加学员
-	public Integer addStudent(Student coach);
+	//添加车辆
+	public Integer addCar(CoachCar coachCar);
 
     //查询驾校的所有教练
     public List<Coach> findCoach(Integer cid);
 
     //excel插入数据库
-    public Integer insertStudentByExcel(List<Student> list);
+    public Integer insertCarByExcel(List<CoachCar> list);
 
 }

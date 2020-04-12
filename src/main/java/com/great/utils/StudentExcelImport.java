@@ -13,7 +13,7 @@ import java.util.List;
 /*
  * 把Excel中的数据导入数据库
  * */
-public class ExcelUtils {
+public class StudentExcelImport {
 
     public static List<Student> excelToShopIdList(InputStream inputStream, HttpServletRequest request) {
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");

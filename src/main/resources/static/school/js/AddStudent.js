@@ -5,15 +5,17 @@ layui.use(['form','upload','element'], function(){
         element = layui.element;
     var path = $("#path").val();
 
+    //普通图片上传
     var uploadInst = upload.render({
-        elem: '#upload1'
-        ,auto: false//是否自动上传
-        ,url: path + "/school/addStudent" //改成您自己的上传接口
-        ,bindAction: '#OK'
+        elem: '#test1'
+        ,url: path+'/school/uploadImg/'
+        ,accept:'images'
+        ,size:50000
         ,before: function(obj){
-            //预读本地文件示例，不支持ie8
+
             obj.preview(function(index, file, result){
-                $('#demo1').attr('src', result); //图片链接（base64）
+
+                $('#demo1').attr('src', result);
             });
         }
         ,done: function(res){
@@ -22,8 +24,25 @@ layui.use(['form','upload','element'], function(){
                 return layer.msg('上传失败');
             }
             //上传成功
+            var demoText = $('#demoText');
+            demoText.html('<span style="color: #4cae4c;">上传成功</span>');
+
+            var fileupload = $(".image");
+            fileupload.attr("value",res.data.src);
+            console.log(fileupload.attr("value"));
+        }
+        ,error: function(){
+            //演示失败状态，并实现重传
+            var demoText = $('#demoText');
+            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+            demoText.find('.demo-reload').on('click', function(){
+                uploadInst.upload();
+            });
         }
     });
+
+
+
 
     $("#account").blur(function (){
         //获取用户名的值
@@ -90,6 +109,9 @@ layui.use(['form','upload','element'], function(){
     form.on('submit(formDemo)', function(data){
         var path = $("#path").val();
         // var a =JSON.stringify(data.field)
+        var fileupload = $(".image");
+        console.log("返回的路径="+fileupload.attr("value"))
+
         $.ajax({
             url: path + "/school/addStudent",
             async: true,
@@ -115,6 +137,9 @@ layui.use(['form','upload','element'], function(){
                 }
                 if ("请输入正确的手机号码！"==$("#err3").html()){
                     layer.alert("请输入正确的手机号码",{icon:2})
+                    return false;
+                }if (""==fileupload.val()){
+                    layer.alert("请上传图片",{icon:2})
                     return false;
                 }
 

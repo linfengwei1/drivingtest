@@ -25,7 +25,7 @@
         <div class="layadmin-user-login-box layadmin-user-login-header">
             <div style="padding-bottom: 10px;">
                 <div class="layui-upload">
-                    <div style="float: left;margin-left: 12%">
+                    <div style="float: left;margin-left: 10%">
                         <label class="layui-form-label">状态</label>
                         <div class="layui-input-block" style="width: 190px;">
                             <select  name="state" id="state" lay-verify="required">
@@ -33,14 +33,6 @@
                                 <c:forEach items="${stateMap}" begin="" var="ss">
                                     <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
                                 </c:forEach>
-<%--                                <option value="1">科目一</option>--%>
-<%--                                <option value="2">科目二</option>--%>
-<%--                                <option value="3">科目三</option>--%>
-<%--                                <option value="4">科目四</option>--%>
-<%--                                <option value="5">待审核</option>--%>
-<%--                                <option value="6">审核不通过</option>--%>
-<%--                                <option value="7">毕业</option>--%>
-<%--                                <option value="8">资料不完整</option>--%>
                             </select>
                         </div>
                     </div>
@@ -57,13 +49,13 @@
                             <input class="layui-input" name="phone" id="phone" autocomplete="off">
                         </div>
                     </div>
-                    <div style="float: left;margin-left: 12%">
+                    <div style="float: left;margin-left: 10%;padding-top: 1%">
                         <label class="layui-form-label" >身份证号码</label>
                         <div class="layui-input-block" style="width: 190px">
                             <input class="layui-input" name="idnumber" id="idnumber" autocomplete="off">
                         </div>
                     </div>
-                    <div style="float: left;">
+                    <div style="float: left;padding-top: 1%">
                         <label class="layui-form-label">性别</label>
                         <div class="layui-input-block" style="width: 190px;">
                             <select  name="state" id="sex" lay-verify="required">
@@ -73,7 +65,7 @@
                             </select>
                         </div>
                     </div>
-                    <div style="float: left;margin-left: 3% ">
+                    <div style="float: left;margin-left: 3%;padding-top: 1% ">
                         <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>学员申请</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>EXCEL导入</button>
@@ -86,9 +78,31 @@
     <div class="layui-anim layui-anim-scale" style="clear: left">
         <table id="dataTable" lay-filter="test"></table>
     </div>
+
+
     <script type="text/html" id="butdiv">
+        {{#  if(d.student_state_id == 8){ }}
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="AddStudentImage" ><i class="layui-icon">&#xe681;</i>上传图片</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>
+        {{# }if(d.student_state_id == 9) { }}
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="q" ><i class="layui-icon">&#xe605;</i>申请考试</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="w" ><i class="layui-icon">&#x1006;</i>驳回申请</button>
+        {{# }if(d.student_state_id == 10) { }}
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="q" ><i class="layui-icon">&#xe605;</i>申请考试</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="w" ><i class="layui-icon">&#x1006;</i>驳回申请</button>
+        {{# }if(d.student_state_id == 11) { }}
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="q" ><i class="layui-icon">&#xe605;</i>申请考试</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="w" ><i class="layui-icon">&#x1006;</i>驳回申请</button>
+        {{# }if(d.student_state_id == 12) { }}
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="q" ><i class="layui-icon">&#xe605;</i>申请考试</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="w" ><i class="layui-icon">&#x1006;</i>驳回申请</button>
+        {{# }if(d.student_state_id ==6) { }}
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>重新审核</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
+        {{# }if(d.student_state_id <6) { }}
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="check" ><i class="layui-icon">&#xe63c;</i>查看学习情况</button>
+        {{#  } }}
     </script>
 
 </form>

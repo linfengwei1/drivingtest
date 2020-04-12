@@ -16,34 +16,42 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         , limit: 5
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
-            {field: 'id', title: '学员ID', width: 120, sort: true, fixed: 'left', align: 'center'}
+            {field: 'id', title: '学员ID', width: 100, sort: true, fixed: 'left', align: 'center',hide:true}
             , {field: 'account', title: '学员账号', width: 100, align: 'center'}
-            , {field: 'name', title: '姓名', width: 80,  align: 'center'}
+            , {field: 'name', title: '姓名', width: 60,  align: 'center'}
             , {field: 'sex', title: '性别', width: 80, align: 'center'}
             , {field: 'age', title: '年龄', width: 90, sort: true, align: 'center'}
             , {field: 'idNumber', title: '身份证号码', width: 180, sort: true, align: 'center'}
             , {field: 'phone', title: '联系方式', width: 120, align: 'center'}
-            , {field: 'coach_state_id', title: '当前状态', width: 130, align: 'center',
+            , {field: 'student_state_id', title: '当前状态', width: 130, align: 'center',
                 templet: function(d){
                 var state;
-                if (1==d.coach_state_id){
+                if (1==d.student_state_id){
                     return '科目一'
-                }else if (2==d.coach_state_id){
+                }else if (2==d.student_state_id){
                     return '科目二'
-                }else if(3==d.coach_state_id){
+                }else if(3==d.student_state_id){
                     return '科目三'
-                }else if(4==d.coach_state_id){
+                }else if(4==d.student_state_id){
                     return '科目四'
-                }else if(5==d.coach_state_id){
+                }else if(5==d.student_state_id){
                     return '待审核'
-                }else if(6==d.coach_state_id){
+                }else if(6==d.student_state_id){
                     return '审核不通过'
-                }else if(8==d.coach_state_id){
+                }else if(8==d.student_state_id){
                     return '资料不完整'
+                }else if(9==d.student_state_id){
+                    return '科目一申请考试'
+                }else if(10==d.student_state_id){
+                    return '科目二申请考试'
+                }else if(11==d.student_state_id){
+                    return '科目三申请考试'
+                }else if(12==d.student_state_id){
+                    return '科目四申请考试'
                 }
                     return '毕业'
                 }}
-            , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
+            , {field: '', title: '操作', toolbar: "#butdiv", width: 300}
         ]]
     });
 
@@ -112,6 +120,22 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                     body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
                     body.find("#name").val(name);//设置弹窗的值
                     body.find("#phone").val(phone);
+                },
+
+            });
+        }
+        if(layEvent === 'AddStudentImage'){ //上传图片
+            var $td = $(this).parents('tr').children('td');
+            var id = $td.eq(0).text();//获取点击按钮相对应的id
+            layer.open({
+                title:'上传图片',
+                type: 2,
+                area: ['500px', '400px'],
+                content:path1+"/school/path/AddStudentImage",//弹出的页面
+                success: function (layero, index) {
+                    var body = layer.getChildFrame("body", index);//弹出页面的body标签
+                    body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
+
                 },
 
             });
