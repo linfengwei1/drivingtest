@@ -71,10 +71,25 @@
 
 
     <!--添加学员-->
-    <insert id="addStudent"   parameterType="com.great.entity.Student">
-		insert into student (account,pwd,name,sex,age,idnumber,phone,student_state_id,school_id,image)
-		VALUES(#{account},#{pwd},#{name},#{sex},#{age},#{idNumber},#{phone},#{student_state_id},#{school_id},#{image})
+    <!--useGeneratedKeys="true" keyProperty="id" 这两个属性一定不能少,设置插入获取自增长id，看service的操作-->
+    <insert id="addStudent"   parameterType="com.great.entity.Student" useGeneratedKeys="true" keyProperty="id">
+		insert into student (account,pwd,name,sex,age,idnumber,phone,student_state_id,school_id,image,coach_id)
+		VALUES(#{account},#{pwd},#{name},#{sex},#{age},#{idNumber},#{phone},#{student_state_id},#{school_id},#{image},#{coach_id})
 	</insert>
+
+    <!--添加学员学时表-->
+    <insert id="addStudyCondition"   parameterType="com.great.entity.StudyCondition">
+		insert into studycondition (subject_id,time,score,student_id) VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.subject_id},
+            #{item.time},
+            #{item.score},
+            #{item.student_id}
+            )
+        </foreach>
+	</insert>
+
 
     <!--单独插入图片-->
     <update id="AddStudentImage"   parameterType="java.util.Map">
@@ -102,9 +117,17 @@
 		select * from studycondition where student_id = #{student_id}
 	</select>
 
+
+
+    <!--判断excel插入的账号是否被注册-->
+    <select id="CheckAccount" parameterType = "String" resultType="java.lang.String">
+        select account FROM student where account= #{account}
+    </select>
+
+
     <!--excel插入数据库-->
-    <insert id="insertStudentByExcel" parameterType="java.util.List">
-        insert into student (account,pwd,name,sex,age,idnumber,phone,student_state_id,school_id)values
+    <insert id="insertStudentByExcel" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into student (account,pwd,name,sex,age,idnumber,phone,student_state_id,school_id,coach_id)values
         <foreach collection="list" item="item" index="index"
                  separator="," >
             (
@@ -116,7 +139,8 @@
             #{item.idNumber},
             #{item.phone},
             #{item.student_state_id},
-            #{item.school_id}
+            #{item.school_id},
+            #{item.coach_id}
             )
         </foreach>
     </insert>

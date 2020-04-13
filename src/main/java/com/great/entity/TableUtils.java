@@ -15,6 +15,9 @@ public class TableUtils {
     private String carNumber;
     private Integer school_id;
     private Integer schoolStateId;
+//    private String type;
+//    private String content;
+//    private String datetime;
 
 
     public TableUtils() {

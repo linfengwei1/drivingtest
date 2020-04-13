@@ -5,7 +5,7 @@ package com.great.entity;
  */
 public class CoachCar {
     private Integer id;
-    private String  picture;
+    private String  picture;//图片路径
     private String  carNumber;
     private String carState;
     private Integer school_id;

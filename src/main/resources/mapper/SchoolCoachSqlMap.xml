@@ -3,23 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.great.dao.SchoolCoachDao">
-<!--    <resultMap id="SchoolAdmin" type="com.great.entity.Coach">-->
-<!--        <association property="schoolState" column="school_state_id"  select="findSchoolStateById" >-->
-<!--        </association>-->
-<!--    </resultMap>-->
-<!--    &lt;!&ndash;根据角色id查询&ndash;&gt;-->
-<!--    <select id="findSchoolStateById" resultType="SchoolState" parameterType="java.lang.Integer">-->
-<!--        select * from schoolstate where id = #{school_state_id};-->
-<!--    </select>-->
-
-<!--	&lt;!&ndash;登录&ndash;&gt;-->
-<!--    <select id="login" resultMap="SchoolAdmin" parameterType="java.util.Map">-->
-<!--		select * from schooladmin where account = #{account} and pwd = #{pwd}-->
-<!--	</select>-->
 
 
+     <resultMap id="Coach" type="com.great.entity.Coach">
+            <result column="coach_state_id" property="coach_state_id"></result>
+     </resultMap>
     <!--查询教练记录并分页    -->
-    <select id="findCoachByPage" resultType="Coach" parameterType="com.great.entity.TableUtils">
+    <select id="findCoachByPage" resultMap="Coach" parameterType="com.great.entity.TableUtils">
         select * from coach
         <where>
             <if test="name !='' and name!=null">
@@ -82,8 +72,8 @@
 
     <!--添加驾校管理员-->
     <insert id="addCoach"   parameterType="com.great.entity.Coach">
-		insert into coach (account,pwd,name,sex,age,idnumber,phone,coach_state_id,school_id)
-		VALUES(#{account},#{pwd},#{name},#{sex},#{age},#{idnumber},#{phone},#{coach_state_id},#{school_id})
+		insert into coach (account,pwd,name,sex,age,idnumber,phone,coach_state_id,school_id,image)
+		VALUES(#{account},#{pwd},#{name},#{sex},#{age},#{idnumber},#{phone},#{coach_state_id},#{school_id},#{image})
 	</insert>
 
 
@@ -103,7 +93,15 @@
 	</select>
 
 
+    <!--单独插入图片-->
+    <update id="AddCoachImage"   parameterType="java.util.Map">
+		 update coach  set image = #{image} where id =#{id}
+	</update>
 
+    <!--修改状态-->
+    <update id="ChangeCoachState"   parameterType="java.util.Map">
+		 update coach  set coach_state_id = #{coach_state_id} where id =#{id}
+	</update>
 
 
 
