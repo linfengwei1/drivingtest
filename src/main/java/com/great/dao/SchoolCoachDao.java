@@ -4,8 +4,10 @@ package com.great.dao;
 import com.great.entity.Coach;
 import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface SchoolCoachDao
@@ -40,4 +42,10 @@ public interface SchoolCoachDao
 	 * @return 修改密码是否成功
 	 */
 	Integer changeCoachpwd(Coach coach);
+
+	/**教练登录 2020-4-10 9：49 王良德
+	 * 教练登录
+	 * @return 登录是否成功
+	 */
+	Coach login(Map<String, String> map);
 }

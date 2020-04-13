@@ -2,6 +2,7 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
+import com.great.entity.QuestionList;
 import com.great.entity.Student;
 import com.great.service.StudentManageService;
 import org.springframework.stereotype.Controller;
@@ -48,6 +49,14 @@ public class StudentController
 		}
 
 	}
+	@RequestMapping("/reload")
+	public String reload(HttpServletRequest request)
+	{
+		Student student = (Student) request.getSession().getAttribute("student");
+		Student newStudent =studentManageServiceImpl.login(student.getAccount(),student.getPwd());
+		request.getSession().setAttribute("student",newStudent);
+		return "student/jsp/StudentMain";
+	}
 	@RequestMapping("/checkStudyAuthority")
 	@ResponseBody
 	public String checkStudyAuthority(String studentId, String vedioId,String subject,HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -56,40 +65,49 @@ public class StudentController
 		return result;
 	}
 
+	@RequestMapping("/exercise/{subject}")
+	public String exercise(HttpServletRequest request,@PathVariable(value = "subject") String subject)
+	{
+		QuestionList questionList = studentManageServiceImpl.getQuestionsBySubject(subject);
+		request.setAttribute("questionList",questionList);//考试题目存入请求
+		return "student/jsp/Exercise";
+	}
+
 	@RequestMapping("/addStudy1Time")
 	@ResponseBody
 	public String addStudy1Time(String studentId,String subject,HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-
 		String result = studentManageServiceImpl.addStudy1Time(studentId,subject);
+		return result;
+	}
+	@RequestMapping("/importFace")
+	@ResponseBody
+	public String importFace(String studentid,String face,HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String result = studentManageServiceImpl.importFace(studentid,face);
+		return result;
+	}
+	@RequestMapping("/faceCheck")
+	@ResponseBody
+	public String faceCheck(String studentid,String face,String subject,HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String result = studentManageServiceImpl.faceCheck(studentid,face,subject);
 		return result;
 	}
 
 	//地址映射,path是个方法名,可以随便改动,{url}是参数
-	@RequestMapping("/{url}")
+	@RequestMapping("/path/{url}")
 	public String getUrl(@PathVariable(value = "url") String path){
 		return "student/jsp/" +path;
 	}
+	@RequestMapping("/home")
+	public String home(){
+		return "frontjsp/jsp/AddLink";
+	}
 
 
-//	@RequestMapping("/StudentLogin")
-//	public String loginPage()
-//	{
-//		return "student/jsp/StudentLogin";
-//
-//	}
-//	@RequestMapping("/home")
-//	public String homePage()
-//	{
-//		return "A";
-//
-//	}
-//	@RequestMapping("/StudentMain")
-//	public String studentMain()
-//	{
-//		return "student/jsp/StudentMain";
-//
-//	}
+
+
 
 	//获取验证码
 	@RequestMapping("/CheckCode")

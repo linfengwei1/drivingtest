@@ -4,8 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.great.dao.SchoolStudentDao">
 
+    <resultMap id="Student" type="com.great.entity.Student">
+        <result column="school_id" property="school_id"></result>
+        <result column="student_state_id" property="student_state_id"></result>
+    </resultMap>
     <!--查询教练记录并分页    -->
-    <select id="findStudentByPage" resultType="Student" parameterType="com.great.entity.TableUtils">
+    <select id="findStudentByPage" resultMap="Student" parameterType="com.great.entity.TableUtils">
         select * from student
         <where>
             <if test="name !='' and name!=null">
@@ -15,7 +19,7 @@
                 and phone = #{phone}
             </if>
             <if test="state !='' and state!=null">
-                and coach_state_id = #{state}
+                and student_state_id = #{state}
             </if>
             <if test="idnumber!= '' and idnumber != null">
                 and idnumber= #{idnumber}
@@ -38,7 +42,7 @@
                 and phone = #{phone}
             </if>
             <if test="state !='' and state!=null">
-                and coach_state_id = #{state}
+                and student_state_id = #{state}
             </if>
             <if test="idNumber!= '' and idNumber != null">
                 and idnumber= #{idNumber}
@@ -55,7 +59,7 @@
         delete  from student where id =#{id}
     </delete>
 
-    <!--更新教练信息-->
+    <!--更新学员信息-->
     <update id="updateStudent" parameterType="com.great.entity.Student" >
         update student  set name = #{name},phone =#{phone}  where id =#{id}
     </update>
@@ -66,16 +70,36 @@
     </select>
 
 
-    <!--添加驾校管理员-->
+    <!--添加学员-->
     <insert id="addStudent"   parameterType="com.great.entity.Student">
-		insert into student (account,pwd,name,sex,age,idnumber,phone,coach_state_id,school_id)
-		VALUES(#{account},#{pwd},#{name},#{sex},#{age},#{idNumber},#{phone},#{coach_state_id},#{school_id})
+		insert into student (account,pwd,name,sex,age,idnumber,phone,student_state_id,school_id,image)
+		VALUES(#{account},#{pwd},#{name},#{sex},#{age},#{idNumber},#{phone},#{student_state_id},#{school_id},#{image})
 	</insert>
 
+    <!--单独插入图片-->
+    <update id="AddStudentImage"   parameterType="java.util.Map">
+		 update student  set image = #{image} where id =#{id}
+	</update>
 
-    <!--查找教练所有信息-->
+    <!--修改状态-->
+    <update id="ChangeStudentState"   parameterType="java.util.Map">
+		 update student  set student_state_id = #{student_state_id} where id =#{id}
+	</update>
+
+
+    <!--查找学员所有信息-->
     <select id="findAllStudent" resultType="Student" parameterType = "java.lang.Integer" >
 		select * from student where school_id = #{school_id}
+	</select>
+
+
+    <resultMap id="StudyCondition" type="com.great.entity.StudyCondition">
+        <result column="student_id" property="student_id"></result>
+        <result column="subject_id" property="subject_id"></result>
+    </resultMap>
+    <!--查找学员学习时间-->
+    <select id="findStudyTime" resultMap="StudyCondition" parameterType = "java.lang.Integer" >
+		select * from studycondition where student_id = #{student_id}
 	</select>
 
     <!--excel插入数据库-->
@@ -98,7 +122,27 @@
     </insert>
 
 
+    <!--统计一阶段的人数-->
+    <select id="CountSubject1" resultType="Integer"  >
+		SELECT count(*) FROM student where student_state_id = 1
+	</select>
+    <!--统计2阶段的人数-->
+    <select id="CountSubject2" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 2
+	</select>
+    <!--统计3阶段的人数-->
+    <select id="CountSubject3" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 3
+	</select>
+    <!--统计4阶段的人数-->
+    <select id="CountSubject4" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 4
+	</select>
 
+    <!--统毕业的人数-->
+    <select id="CountOver" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 7
+	</select>
 
 
 

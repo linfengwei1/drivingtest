@@ -13,7 +13,7 @@ layui.use(['form','jquery'],  function(){
                 // layer.msg(data);
                 console.log("data="+data)
                 if ("success"==data){
-                    location.href=path+"/school/path/HomePage"
+                    location.href=path+"/school/path/Manage"
                 }else if ("yzm"==data) {
                     layer.alert("验证码错误",{icon:3},function () {
                         window.location.reload();

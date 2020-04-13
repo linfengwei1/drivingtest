@@ -1,23 +1,18 @@
 package com.great.service;
 
 import com.great.dao.SchoolAdminDao;
+import com.great.dao.SchoolCarDao;
 import com.great.dao.SchoolCoachDao;
 import com.great.dao.SchoolStudentDao;
-import com.great.entity.Coach;
+import com.great.entity.*;
 
-import com.great.entity.SchoolAdmin;
-import com.great.entity.Student;
-import com.great.entity.TableUtils;
 import com.great.utils.ExportExcelSeedBack;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SchoolManageService {
@@ -28,6 +23,8 @@ public class SchoolManageService {
     private SchoolCoachDao schoolCoachDao;
     @Resource
     private SchoolStudentDao schoolStudentDao;
+    @Resource
+    private SchoolCarDao schoolCarDao;
 
     //驾校管理员登录
     public SchoolAdmin login(String account, String pwd){
@@ -174,4 +171,107 @@ public class SchoolManageService {
     public Integer insertStudentByExcel(List<Student>list){
         return schoolStudentDao.insertStudentByExcel(list);
     }
+
+    //获取车辆信息表
+    public Object getCarTable(TableUtils u){
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        List<CoachCar> list=schoolCarDao.getCar(u);
+        Integer a =schoolCarDao.findCount(u);
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+        return InfMap;
+    }
+
+    //查询驾校的所有教练
+    public List<Coach> findCoach(Integer cid){
+        return schoolCarDao.findCoach(cid);
+    }
+    //车辆人员变更
+    public Integer updateCar(CoachCar coachCar){
+        return schoolCarDao.updateCar(coachCar);
+    }
+
+    //删除教练车
+    public Integer deleteCar(Integer id){
+        return schoolCarDao.deleteCar(id);
+    }
+    //添加车辆
+    public Integer addCar(CoachCar coachCar){
+        return schoolCarDao.addCar(coachCar);
+    }
+
+    //查看车牌号是否被注册
+    public Integer CheckCarNumber(String account){
+        return schoolCarDao.CheckCarNumber(account);
+    }
+
+    //excel插入数据库
+    public Integer insertCarByExcel(List<CoachCar> list){
+        return schoolCarDao.insertCarByExcel(list);
+    }
+
+    //单独学员插入图片
+    public Integer AddStudentImage(Integer id,String image){
+        Map<String,Object> loginMap = new HashMap<>();
+        loginMap.put("id",id);
+        loginMap.put("image",image);
+        return schoolStudentDao.AddStudentImage(loginMap);
+    }
+
+    //改变学员状态
+    public Integer ChangeStudentState(Integer id){
+        Map<String,Object> map = new HashMap<>();
+        map.put("student_state_id",5);
+        map.put("id",id);
+        return schoolStudentDao.ChangeStudentState(map);
+    }
+
+    //查找学员学习时间
+    public List<StudyCondition> findStudyTime(Integer a){
+        return  schoolStudentDao.findStudyTime(a);
+    }
+
+    //查询驾校信息
+    public List<School> getSchoolInf(Integer id){
+        return schoolAdminDao.getSchoolInf(id);
+    }
+
+    //统计人数
+    public List Count(){
+        Integer one= schoolStudentDao.CountSubject1();
+        Integer two=   schoolStudentDao.CountSubject2();
+        Integer three=   schoolStudentDao.CountSubject3();
+        Integer four=   schoolStudentDao.CountSubject4();
+        Integer over=   schoolStudentDao.CountOver();
+        List list = new ArrayList();
+        list.add(one);  list.add(two);  list.add(three);  list.add(four);  list.add(over);
+        return  list;
+    }
+
+    //更改驾校信息
+    public Integer updateSchoolInf(School school){
+        return schoolAdminDao.updateSchoolInf(school);
+    }
+
+    //查询评价
+    public Object getEvaluation(TableUtils u){
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        List<Evaluation> list=schoolAdminDao.getEvaluation(u);
+        System.out.println("评价="+list.toString());
+        Integer a =schoolAdminDao.EvaluationCount(u);
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+        return InfMap;
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

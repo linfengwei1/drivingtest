@@ -12,23 +12,30 @@
     <title>学校表</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
 </head>
+
 <body>
 <form class="layui-form" action=""  >
-
-        <label class="layui-form-label">驾校：</label>
+    <div class="layui-form-item">
+        <label class="layui-form-label">驾校名：</label>
         <div class="layui-input-inline">
-            <select name="school" id="school" lay-filter="aihao">
+            <select name="name" id="school" lay-filter="aihao">
                 <option value=""></option>
                 <c:forEach items="${schools}" begin="" var="school">
-                    <option value="${school.id}" <c:if test="${school}==${school.name}">selected="selected"</c:if> >${school.name}</option>--%>
+                    <option value="${school.name}" <c:if test="${school}==${school.name}">selected="selected"</c:if> >${school.name}</option>--%>
                 </c:forEach>
             </select>
         </div>
 
         <label class="layui-form-label">状态：</label>
         <div class="layui-input-inline">
-            <select name="type" id="type" lay-filter="aihao">
+            <select name="state" id="type" lay-filter="aihao">
                 <option value=""></option>
                 <c:forEach items="${stateMap}" begin="" var="ss">
                     <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
@@ -36,7 +43,7 @@
             </select>
         </div>
 
-        <button class="layui-btn" id="button" lay-submit="" lay-filter="formDemo" data-type="reload" >查询</button>
+        <button class="layui-btn" id="button" lay-submit="" lay-filter="formDemo" data-type="reload" ><i class="layui-icon">&#xe615;</i>搜索</button>
 
     </div>
 
@@ -44,13 +51,20 @@
 
 <table id="demo" lay-filter="test"></table>
 </body>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量审核</button>
+    </div>
+</script>
+
 <script type="text/html" id="barDemo">
 
     {{#  if(d.school_state_id == 4){ }}
-    <a class="layui-btn layui-btn-xs" lay-event="lookMsg">查看信息</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine">审核</a>
+    <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine"><i class="layui-icon">&#xe642;</i>审核</a>
     {{#  } else { }}
-    <a class="layui-btn layui-btn-xs" lay-event="lookMsg">查看信息</a>
+    <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
     {{#  } }}
 
 
@@ -65,32 +79,35 @@
         //表格实例
         table.render({
             elem: '#demo'
-            ,height: 470
+            ,height: 500
             ,id:'testReload'
-            ,url: '${pageContext.request.contextPath}/TM/getStudentTbl' //数据接口
+            ,url: '${pageContext.request.contextPath}/TM/getSchoolTbl' //数据接口
             ,page: true //开启分页
             ,limit:10
+            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            ,defaultToolbar: ['filter', 'exports', 'print']
             ,cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
                 ,{field: 'name', title: '驾校名', width:100}
                 ,{field: 'phone', title: '联系电话', width:100}
-                ,{field: 'address', title: '地址', width:50}
+                ,{field: 'address', title: '地址', width:250}
                 ,{field: 'admin', title: '负责人', width:50}
                 ,{field: 'intro', title: '口号', width:100}
-                ,{field: 'school_state_id', title: '状态', width: 100,template:function(d){
-                        if(d.school_state_id==1){
-                            return "禁止报名";
-                        }else if(d.school_state_id==2){
-                            return "封停";
-                        }else if(d.school_state_id==3){
-                            return "启用";
-                        }else if(d.school_state_id==4){
-                            return "待审核";
-                        }else if(d.school_state_id==5){
-                            return "审核未通过";
+                ,{field: 'school_state_id', title: '状态', width: 100, templet: function(d){
+                        var state;
+                        if (1==d.school_state_id){
+                            return '禁止报名'
+                        }else if (2==d.school_state_id){
+                            return '封停'
+                        }else if(3==d.school_state_id){
+                            return '启用'
+                        }else if(4==d.school_state_id){
+                            return '待审核'
                         }
+                            return '审核未通过'
                     }}
-                ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
         });
 
@@ -112,15 +129,29 @@
                         curr:1
                     }
                     ,where:{
-                        name:$("#name").val(),
-                        school:$("#school").val(),
-                        type:$("#type").val(),
+                        name:$("#school").val(),
+                        state:$("#type").val(),
                     }
                 });
             }
 
         });
 
+        //头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    if(data.length==0){
+                        layer.alert("请选取需要批量操作的条目");
+                    }else{
+                        layer.alert(JSON.stringify(data));
+                    }
+
+                    break;
+            };
+        });
 
         //监听工具条
         table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
@@ -133,15 +164,25 @@
             } else if(layEvent === 'lookMsg'){ //查看信息
                 console.log(data);
 
-                layer.open({
-                    type: 2,
-                    title: '查看用户',
-                    shadeClose: true,
-                    shade: 0.8,
-                    area: ['700px', '500px'],
-                    content: "${pageContext.request.contextPath}/TM/getStudentMsg",
-                    yes: function (index, layero) {
+                $.ajax({
+                    async:true,
+                    method : "POST",
+                    url :'${pageContext.request.contextPath}/TM/getSchoolMsg',
+                    data: {"id":data.id},
+                    dataType : "text",
+                    success:function(data){
+                        console.log("sss");
+                        layer.open({
+                            type: 2,
+                            title: '查看用户',
+                            shadeClose: true,
+                            shade: 0.8,
+                            area: ['400px', '500px'],
+                            content: "${pageContext.request.contextPath}/TM/path/SchoolMsg",
+                            yes: function (index, layero) {
 
+                            }
+                        });
                     }
                 });
 

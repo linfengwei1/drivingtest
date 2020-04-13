@@ -10,49 +10,15 @@
 <head>
     <title>文件上传</title>
     <%String path = request.getContextPath();%>
-<%--    <link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css"/>--%>
     <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 
+
+
 </head>
 <body>
-<%--<input type="hidden" id="path" value="<%=path%>">--%>
-<%--<div class="layui-upload ">--%>
-<%--    <button type="button" class="layui-btn" id="test1" >上传图片</button>--%>
-<%--    <div class="layui-upload-list">--%>
-<%--        <img style="height: 80px;width: 80px;" class="layui-upload-img" id="demo1" >--%>
-<%--        <p id="demoText"></p>--%>
-<%--    </div>--%>
-<%--<div class="layui-upload-drag" id="ongImg">--%>
-<%--    <i class="layui-icon"></i>--%>
-<%--    <p>点击上传，或将文件拖拽到此处</p>--%>
-<%--</div><br>--%>
-<%--<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" id="imgSave">上传</button>--%>
-<%--</div>--%>
-<%--<body>--%>
 
-<%--<button type="button" class="layui-btn" id="test1">--%>
-<%--    <i class="layui-icon">&#xe67c;</i>上传图片--%>
-<%--</button>--%>
-
-<%--<script>--%>
-<%--    layui.use('upload', function(){--%>
-<%--        var upload = layui.upload;--%>
-<%--        var path = $("#path").val();--%>
-<%--        //执行实例--%>
-<%--        var uploadInst = upload.render({--%>
-<%--            elem: '#test1' //绑定元素--%>
-<%--            ,url:path+ '/school/upload1' //上传接口--%>
-<%--            ,done: function(res){--%>
-<%--                //上传完毕回调--%>
-<%--            }--%>
-<%--            ,error: function(){--%>
-<%--                //请求异常回调--%>
-<%--            }--%>
-<%--        });--%>
-<%--    });--%>
-<%--</script>--%>
 
 <body>
 <input type="hidden" id="path" value="<%=path%>">
@@ -111,8 +77,6 @@
     </div>
 </div>
 </body>
-</body>
-<%--<script src="${pageContext.request.contextPath}/static/school/js/upload1.js" type="text/javascript" charset="UTF-8"></script>--%>
 <script>
     layui.use(['upload','jquery','element'], function(){
         var upload = layui.upload;
