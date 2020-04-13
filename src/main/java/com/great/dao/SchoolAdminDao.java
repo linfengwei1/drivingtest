@@ -1,6 +1,8 @@
 package com.great.dao;
 
 
+import com.great.entity.Evaluation;
+import com.great.entity.School;
 import com.great.entity.SchoolAdmin;
 import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
@@ -31,4 +33,17 @@ public interface SchoolAdminDao
 
 	//添加驾校管理员
 	public Integer addSchoolAdmin(SchoolAdmin schoolAdmin);
+
+	//查询驾校信息
+	public List<School> getSchoolInf(Integer id);
+
+	//更改驾校信息
+	public Integer updateSchoolInf(School school);
+
+	//查询评价
+	public List<Evaluation> getEvaluation(TableUtils u);
+
+	//评价数
+	public Integer EvaluationCount(TableUtils u);
+
 }

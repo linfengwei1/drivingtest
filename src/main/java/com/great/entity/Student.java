@@ -14,11 +14,16 @@ public class Student
 	private int school_id;
 	private String verification;//验证码
 	private School school;//学校
+	private String schoolName;//学校名
+	private String image;//图片路径
+	private String audit_results;//审核结果
+	private int identity_state;//是否录入人脸信息
+
 	public Student()
 	{
 	}
 
-	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school)
+	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school, String schoolName, String image, String audit_results, int identity_state)
 	{
 		this.id = id;
 		this.account = account;
@@ -32,6 +37,10 @@ public class Student
 		this.school_id = school_id;
 		this.verification = verification;
 		this.school = school;
+		this.schoolName = schoolName;
+		this.image = image;
+		this.audit_results = audit_results;
+		this.identity_state = identity_state;
 	}
 
 	public int getId()
@@ -154,22 +163,43 @@ public class Student
 		this.school = school;
 	}
 
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getAudit_results() {
+		return audit_results;
+	}
+
+	public void setAudit_results(String audit_results) {
+		this.audit_results = audit_results;
+	}
+
+	public int getIdentity_state()
+	{
+		return identity_state;
+	}
+
+	public void setIdentity_state(int identity_state)
+	{
+		this.identity_state = identity_state;
+	}
+
 	@Override
 	public String toString()
 	{
-		return "Student{" +
-				"id=" + id +
-				", account='" + account + '\'' +
-				", pwd='" + pwd + '\'' +
-				", name='" + name + '\'' +
-				", sex='" + sex + '\'' +
-				", age='" + age + '\'' +
-				", idNumber='" + idNumber + '\'' +
-				", phone='" + phone + '\'' +
-				", student_state_id=" + student_state_id +
-				", school_id=" + school_id +
-				", verification='" + verification + '\'' +
-				", school=" + school +
-				'}';
+		return "Student{" + "id=" + id + ", account='" + account + '\'' + ", pwd='" + pwd + '\'' + ", name='" + name + '\'' + ", sex='" + sex + '\'' + ", age='" + age + '\'' + ", idNumber='" + idNumber + '\'' + ", phone='" + phone + '\'' + ", student_state_id=" + student_state_id + ", school_id=" + school_id + ", verification='" + verification + '\'' + ", school=" + school + ", schoolName='" + schoolName + '\'' + ", image='" + image + '\'' + ", audit_results='" + audit_results + '\'' + ", identity_state=" + identity_state + '}';
 	}
 }

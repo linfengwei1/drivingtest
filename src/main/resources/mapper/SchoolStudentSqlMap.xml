@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.great.dao.SchoolStudentDao">
+
+    <resultMap id="Student" type="com.great.entity.Student">
+        <result column="school_id" property="school_id"></result>
+        <result column="student_state_id" property="student_state_id"></result>
+    </resultMap>
+    <!--查询教练记录并分页    -->
+    <select id="findStudentByPage" resultMap="Student" parameterType="com.great.entity.TableUtils">
+        select * from student
+        <where>
+            <if test="name !='' and name!=null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="phone !='' and phone!=null">
+                and phone = #{phone}
+            </if>
+            <if test="state !='' and state!=null">
+                and student_state_id = #{state}
+            </if>
+            <if test="idnumber!= '' and idnumber != null">
+                and idnumber= #{idnumber}
+            </if>
+            <if test="sex != '' and sex != null">
+                and sex = #{sex}
+            </if>
+        </where>
+        limit #{minLimit},#{maxLimit}
+    </select>
+
+    <!--查询驾校管理员信息总数-->
+    <select id="findCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
+        select count(*) from student
+        <where>
+            <if test="name !='' and name!=null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="phone !='' and phone!=null">
+                and phone = #{phone}
+            </if>
+            <if test="state !='' and state!=null">
+                and student_state_id = #{state}
+            </if>
+            <if test="idNumber!= '' and idNumber != null">
+                and idnumber= #{idNumber}
+            </if>
+            <if test="sex != '' and sex != null">
+                and sex = #{sex}
+            </if>
+        </where>
+
+    </select>
+
+    <!--删除教练-->
+    <delete id="deleteStudent"  parameterType="java.lang.Integer">
+        delete  from student where id =#{id}
+    </delete>
+
+    <!--更新学员信息-->
+    <update id="updateStudent" parameterType="com.great.entity.Student" >
+        update student  set name = #{name},phone =#{phone}  where id =#{id}
+    </update>
+
+    <!--查看账号是否被使用-->
+    <select id="CheckStudentAccount" parameterType = "String" resultType="java.lang.Integer">
+        select count(id) FROM student where account= #{account}
+    </select>
+
+
+    <!--添加学员-->
+    <insert id="addStudent"   parameterType="com.great.entity.Student">
+		insert into student (account,pwd,name,sex,age,idnumber,phone,student_state_id,school_id,image)
+		VALUES(#{account},#{pwd},#{name},#{sex},#{age},#{idNumber},#{phone},#{student_state_id},#{school_id},#{image})
+	</insert>
+
+    <!--单独插入图片-->
+    <update id="AddStudentImage"   parameterType="java.util.Map">
+		 update student  set image = #{image} where id =#{id}
+	</update>
+
+    <!--修改状态-->
+    <update id="ChangeStudentState"   parameterType="java.util.Map">
+		 update student  set student_state_id = #{student_state_id} where id =#{id}
+	</update>
+
+
+    <!--查找学员所有信息-->
+    <select id="findAllStudent" resultType="Student" parameterType = "java.lang.Integer" >
+		select * from student where school_id = #{school_id}
+	</select>
+
+
+    <resultMap id="StudyCondition" type="com.great.entity.StudyCondition">
+        <result column="student_id" property="student_id"></result>
+        <result column="subject_id" property="subject_id"></result>
+    </resultMap>
+    <!--查找学员学习时间-->
+    <select id="findStudyTime" resultMap="StudyCondition" parameterType = "java.lang.Integer" >
+		select * from studycondition where student_id = #{student_id}
+	</select>
+
+    <!--excel插入数据库-->
+    <insert id="insertStudentByExcel" parameterType="java.util.List">
+        insert into student (account,pwd,name,sex,age,idnumber,phone,student_state_id,school_id)values
+        <foreach collection="list" item="item" index="index"
+                 separator="," >
+            (
+            #{item.account},
+            #{item.pwd},
+            #{item.name},
+            #{item.sex},
+            #{item.age},
+            #{item.idNumber},
+            #{item.phone},
+            #{item.student_state_id},
+            #{item.school_id}
+            )
+        </foreach>
+    </insert>
+
+
+    <!--统计一阶段的人数-->
+    <select id="CountSubject1" resultType="Integer"  >
+		SELECT count(*) FROM student where student_state_id = 1
+	</select>
+    <!--统计2阶段的人数-->
+    <select id="CountSubject2" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 2
+	</select>
+    <!--统计3阶段的人数-->
+    <select id="CountSubject3" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 3
+	</select>
+    <!--统计4阶段的人数-->
+    <select id="CountSubject4" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 4
+	</select>
+
+    <!--统毕业的人数-->
+    <select id="CountOver" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 7
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--添加用户-->
+	<insert id="addUser"   parameterType="com.great.entity.User">
+		insert into user (account,pwd,name,sex,education,profession,phone,email,rtime,state,roleid,score,upcount,downcount)
+		VALUES(#{account},#{pwd},#{name},#{sex},#{education},#{profession},#{phone},#{email},#{rtime},#{state},#{roleid},#{score},#{upcount},#{downcount})
+
+	</insert>
+    <!--查找角色信息并带条件的分页-->
+    <select id="findAllUserByPage" resultType="User" parameterType="java.util.Map" >
+		select * from  user where 1=1
+        <if test="rtime1 != '' and rtime1 != null">
+            and rtime &gt;= #{rtime1}
+        </if>
+        <if test="rtime2 != '' and rtime2 != null">
+            and rtime &lt;= #{rtime2}
+        </if>
+        <if test="userid != '' and userid != null">
+            and userid like concat ('%',#{userid},'%')
+        </if>
+        limit #{minLimit},#{maxLimit}
+	</select>
+    <!--查找用户信息总数-->
+    <select id="findAllUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) from user
+		<where>
+            <if test="userid !='' and userid!=null">
+                and userid like#{userid}
+            </if>
+        </where>
+
+	</select>
+
+    <!--更新用户信息-->
+    <update id="updateUserInf" parameterType="com.great.entity.User" >
+        update user  set name = #{name},sex = #{sex},education = #{education},profession=#{profession},
+        phone =#{phone} , email = #{email},state = #{state} where userid =#{userid}
+    </update>
+    <!--更新用户状态-->
+    <update id="changeUserState" parameterType="java.util.Map" >
+        update user  set state = #{state} where userid =#{userid}
+
+    </update>
+    <select id="cUser" parameterType = "String" resultType="java.lang.Integer">
+        select count(userid) FROM user where account= #{account}
+    </select>
+
+
+
+</mapper>

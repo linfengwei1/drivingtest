@@ -12,6 +12,12 @@
     <title>学员管理表</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
 </head>
 <body>
 <form class="layui-form" action=""  >
@@ -23,19 +29,25 @@
 
         <label class="layui-form-label">驾校：</label>
         <div class="layui-input-inline">
-            <input type="text"  id="school" name="school" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" value="${userName}">
+            <select name="school" id="school" lay-filter="aihao">
+                <option value=""></option>
+               <c:forEach items="${schools}" begin="" var="school">
+                   <option value="${school.id}" <c:if test="${school}==${school.name}">selected="selected"</c:if> >${school.name}</option>--%>
+               </c:forEach>
+            </select>
         </div>
 
         <label class="layui-form-label">状态：</label>
         <div class="layui-input-inline">
             <select name="type" id="type" lay-filter="aihao">
                 <option value=""></option>
-                <option value="1" <c:if test="${type}==1">selected="selected"</c:if> >单项选择</option>
-                <option value="2" <c:if test="${type}==2">selected="selected"</c:if> >判断题</option>
+                 <c:forEach items="${stateMap}" begin="" var="ss">
+                   <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
+                </c:forEach>
             </select>
         </div>
 
-        <button class="layui-btn" id="button" lay-submit="" lay-filter="formDemo" data-type="reload" >查询</button>
+        <button class="layui-btn" id="button" lay-submit="" lay-filter="formDemo" data-type="reload" ><i class="layui-icon">&#xe615;</i>搜索</button>
 
     </div>
 
@@ -43,36 +55,97 @@
 
 <table id="demo" lay-filter="test"></table>
 </body>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量审核</button>
+    </div>
+</script>
+
+
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">查看信息</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">审核</a>
+
+    {{#  if(d.student_state_id == 5){ }}
+    <a class="layui-btn   layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine"><i class="layui-icon">&#xe642;</i>审核</a>
+    {{#  } else { }}
+    <a class="layui-btn   layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+    {{#  } }}
+
+
 </script>
 
 <script>
-    layui.use(['table','laydate','form','jquery'], function(){
+    layui.use(['table','laydate','form','jquery','layer'], function(){
         var table = layui.table,
             laydate=layui.laydate,
             form=layui.form,
             $=layui.jquery;
+        var layer = layui.layer;
         //表格实例
         table.render({
             elem: '#demo'
-            ,height: 470
+            ,height: 500
             ,id:'testReload'
-            ,url: '${pageContext.request.contextPath}/TM/getOneSubject' //数据接口
+            ,url: '${pageContext.request.contextPath}/TM/getStudentTbl' //数据接口
             ,page: true //开启分页
             ,limit:10
+            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            ,defaultToolbar: ['filter', 'exports', 'print']
             ,cols: [[ //表头
-                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                {type: 'checkbox', fixed: 'left'}
+                ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
                 ,{field: 'account', title: '账号', width:100}
                 ,{field: 'name', title: '姓名', width:100}
                 ,{field: 'sex', title: '性别', width:50}
                 ,{field: 'age', title: '年龄', width:50}
                 ,{field: 'phone', title: '联系电话', width:100}
-                ,{field: 'student_state_id', title: '状态', width: 100}
-                ,{field: 'school', title: '所属驾校', width: 150}
-                ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                ,{field: 'schoolName', title: '所属驾校', width: 150}
+                ,{field: 'student_state_id', title: '状态', width: 180,templet:function(d){
+                    if (1==d.student_state_id){
+                        return '科目一学习'
+                    }else if (2==d.student_state_id){
+                        return '科目二学习'
+                    }else if(3==d.student_state_id){
+                        return '科目三学习'
+                    }else if(4==d.student_state_id){
+                        return '科目四学习'
+                    }else if(5==d.student_state_id){
+                        return '待审核'
+                    }else if(6==d.student_state_id){
+                        return '审核不通过'
+                    }else if(7==d.student_state_id){
+                        return '毕业'
+                    }else if(8==d.student_state_id){
+                        return '资料不完整'
+                    }else if(9==d.student_state_id){
+                        return '科目一申请考试'
+                    }else if(10==d.student_state_id){
+                        return '科目二申请考试'
+                    }else if(11==d.student_state_id){
+                        return '科目三申请考试'
+                    }
+
+                        return '科目四申请考试'
+                }}
+
+                ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
+        });
+
+    //表头左侧工具条
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    if(data.length==0){
+                        layer.alert("请选取需要批量操作的条目");
+                    }else{
+                        layer.alert(JSON.stringify(data));
+                    }
+
+                    break;
+            };
         });
 
 
@@ -93,7 +166,8 @@
                         curr:1
                     }
                     ,where:{
-                        question:$("#question").val(),
+                        name:$("#name").val(),
+                        school:$("#school").val(),
                         type:$("#type").val(),
                     }
                 });
@@ -108,72 +182,70 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
-            if(layEvent === 'detail'){ //查看
+            if(layEvent === 'detail'){
                 //do somehing
-            } else if(layEvent === 'del'){ //删除
-                layer.confirm('确定删除数据?', function(index){
-                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                    layer.close(index);
-
-                    var sub=JSON.stringify(data);
-
-                    //向服务端发送删除指令
-                    $.ajax({
-                        //相应路劲
-                        url:"${pageContext.request.contextPath}/TM/deleteSubject",
-                        //是否异步提交
-                        async:true,
-                        //请求类型
-                        type:"post",
-                        //数据名
-                        data:{"sub":sub,"who":"one"},
-                        //数据类型:文本
-                        datatype:"text",
-                        //返回成功消息
-                        success:function (msg) {
-                            layer.alert("删除成功",{icon:6});
-                        },
-                        //返回失败消息
-                        error:function () {
-                        }
-                    });
-
-                });
-            } else if(layEvent === 'edit'){ //编辑
-                //do something
-                console.log(data);
-
-                var sub=JSON.stringify(data);
+            } else if(layEvent === 'lookMsg'){ //查看信息
+                console.log(data.id);
 
                 $.ajax({
-                    //相应路劲
-                    url:"${pageContext.request.contextPath}/TM/getSubjectMsg",
-                    //是否异步提交
                     async:true,
-                    //请求类型
-                    type:"post",
-                    //数据名
-                    data:{"sub":sub,"who":"one"},
-                    //数据类型:文本
-                    datatype:"text",
-                    //返回成功消息
-                    success:function (msg) {
+                    method : "POST",
+                    url :'${pageContext.request.contextPath}/TM/getStudentMsg',
+                    data: {"id":data.id},
+                    dataType : "text",
+                    success:function(data){
+                        console.log("sss");
                         layer.open({
                             type: 2,
-                            title: '修改',
+                            title: '查看用户',
                             shadeClose: true,
                             shade: 0.8,
-                            area: ['700px', '500px'],
-                            content: "${pageContext.request.contextPath}/TM/path/ModifyOneSubject",
+                            area: ['400px', '500px'],
+                            content: "${pageContext.request.contextPath}/TM/path/StudentMsg",
                             yes: function (index, layero) {
 
                             }
                         });
-                    },
-                    //返回失败消息
-                    error:function () {
                     }
                 });
+
+            } else if(layEvent === 'examine'){ //审核通过
+                //do something
+                console.log(data);
+                var sub=JSON.stringify(data);
+
+
+                //prompt层
+                layer.prompt({title: '审核信息', formType: 1}, function(pass, index){
+                    layer.close(index);
+
+                    layer.confirm('是否通过审核?', function(index){
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        layer.close(index);
+                        var sub=JSON.stringify(data);
+
+                        $.ajax({
+                            async:true,
+                            method : "POST",
+                            url :'${pageContext.request.contextPath}/TM/examineStudent',
+                            data: data,
+                            dataType : {"data":data,"text":pass},
+                            success:function(data){
+                                if ("success"==data){
+                                    layer.alert("审核通过",{icon:6},function () {
+                                        //修改信息
+                                        window.parent.location.reload();
+                                    });
+                                }else {
+                                    layer.alert("审核未通过",{icon:2});
+                                }
+                            }
+                        });
+
+                    });
+
+                });
+
             }
         });
 

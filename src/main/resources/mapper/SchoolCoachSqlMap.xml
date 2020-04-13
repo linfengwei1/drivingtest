@@ -92,8 +92,15 @@
 		select * from coach where school_id = #{school_id}
 	</select>
 
+    <!--修改教练密码-->
+    <update id="changeCoachpwd"  parameterType="com.great.entity.Coach">
+		update coach set pwd = #{pwd} where id = #{id}
+	</update>
 
-
+    <!--登录-->
+    <select id="login" resultType="com.great.entity.Coach" parameterType="java.util.Map">
+		select * from coach where account = #{account} and pwd = #{pwd}
+	</select>
 
 
 

@@ -1,6 +1,7 @@
 package com.great.service;
 
 
+import com.great.entity.QuestionList;
 import com.great.entity.Student;
 
 import java.util.HashMap;
@@ -11,6 +12,14 @@ public interface StudentManageService
 	Student login(String account, String pwd);
 
 	String checkStudyAuthority(String studentId, String vedioId, String subject);
+
+	String addStudy1Time(String studentId, String subject);
+
+	QuestionList getQuestionsBySubject(String subject);
+
+	String importFace(String studentId, String face);
+
+	String faceCheck(String studentid, String face,String subject);
 	//	public User findUser(String uname, String pwd);
 //	public List<User> findAll(HashMap<String, Object> map) throws SQLException;
 //

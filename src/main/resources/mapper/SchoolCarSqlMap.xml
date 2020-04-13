@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.great.dao.SchoolCarDao">
+
+
+    <resultMap id="carMap" type="com.great.entity.CoachCar">
+        <id property="id" column="id"/>
+        <result property="picture" column="picture"/>
+        <result property="carNumber" column="carnumber"/>
+        <result property="carState" column="state"/>
+        <result property="school_id" column="school_id"/>
+        <result property="coach_id" column="coach_id"/>
+        <result property="coachName" column="s_name"/>
+        <result property="idNumber" column="s_idNumber"/>
+
+
+        <association property="coach" javaType="com.great.entity.Coach">
+            <id property="id" column="s_id"/>
+            <result property="name" column="s_name"/>
+            <result property="phone" column="s_phone"/>
+            <result property="idnumber" column="s_idNumber"/>
+        </association>
+
+    </resultMap>
+    <!-- 查询教练车信息   -->
+    <select id="getCar" resultMap="carMap" parameterType="com.great.entity.TableUtils">
+        select s1.*
+        ,s.id "s_id"
+        ,s.name "s_name"
+        ,s.phone "s_phone"
+        ,s.idnumber "s_idNumber"
+        from coachcar s1
+        left join coach s on s1.coach_id = s.id
+        <where>
+            <if test="name!=null">
+                and  s.name like concat('%',#{name},'%')
+            </if>
+            <if test="state !='' and state!=null">
+                and s1.state = #{state}
+            </if>
+            <if test="carNumber !='' and carNumber!=null">
+                and  s1.carnumber like concat('%',#{carNumber},'%')
+            </if>
+        </where>
+        ORDER BY s1.id limit #{minLimit},#{maxLimit}
+    </select>
+
+
+    <!--查询驾校管理员信息总数-->
+    <select id="findCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
+        select count(*) from coachcar s1 ,coach s2 where s1.coach_id = s2.id
+
+        <if test="name!=null">
+            and  s2.name like concat('%',#{name},'%')
+        </if>
+        <if test="state !='' and state!=null">
+            and s1.state = #{state}
+        </if>
+        <if test="carNumber !='' and carNumber!=null">
+            and  s1.carnumber like concat('%',#{carNumber},'%')
+        </if>
+
+
+    </select>
+
+    <!--删除教练车-->
+    <delete id="deleteCar"  parameterType="java.lang.Integer">
+        delete  from coachcar where id =#{id}
+    </delete>
+
+    <!--更新教练信息-->
+    <update id="updateCar" parameterType="com.great.entity.CoachCar" >
+        update coachcar  set coach_id = #{coach_id}  where id =#{id}
+    </update>
+
+
+    <!--查看车牌号是否被使用-->
+    <select id="CheckCarNumber" parameterType = "String" resultType="java.lang.Integer">
+        select count(id) FROM coachcar where carnumber= #{carNumber}
+    </select>
+
+    <!--添加车辆-->
+    <insert id="addCar"   parameterType="com.great.entity.CoachCar">
+		insert into coachcar (picture,carnumber,school_id,coach_id,state)
+		VALUES(#{picture},#{carNumber},#{school_id},#{coach_id},#{carState})
+	</insert>
+
+
+    <!--查找驾校的所有信息-->
+    <select id="findCoach" resultType="Coach" parameterType = "java.lang.Integer" >
+		select id,name from coach where school_id=#{school_id};
+	</select>
+
+    <!--excel插入数据库-->
+    <insert id="insertCarByExcel" parameterType="java.util.List">
+        insert into coachcar (carnumber,state,school_id,coach_id,)values
+        <foreach collection="list" item="item" index="index"
+                 separator="," >
+            (
+            #{item.carNumber},
+            #{item.carState},
+            #{school_id},
+            #{coach_id},
+
+            )
+        </foreach>
+    </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--添加用户-->
+	<insert id="addUser"   parameterType="com.great.entity.User">
+		insert into user (account,pwd,name,sex,education,profession,phone,email,rtime,state,roleid,score,upcount,downcount)
+		VALUES(#{account},#{pwd},#{name},#{sex},#{education},#{profession},#{phone},#{email},#{rtime},#{state},#{roleid},#{score},#{upcount},#{downcount})
+
+	</insert>
+    <!--查找角色信息并带条件的分页-->
+    <select id="findAllUserByPage" resultType="User" parameterType="java.util.Map" >
+		select * from  user where 1=1
+        <if test="rtime1 != '' and rtime1 != null">
+            and rtime &gt;= #{rtime1}
+        </if>
+        <if test="rtime2 != '' and rtime2 != null">
+            and rtime &lt;= #{rtime2}
+        </if>
+        <if test="userid != '' and userid != null">
+            and userid like concat ('%',#{userid},'%')
+        </if>
+        limit #{minLimit},#{maxLimit}
+	</select>
+    <!--查找用户信息总数-->
+    <select id="findAllUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) from user
+		<where>
+            <if test="userid !='' and userid!=null">
+                and userid like#{userid}
+            </if>
+        </where>
+
+	</select>
+
+    <!--更新用户信息-->
+    <update id="updateUserInf" parameterType="com.great.entity.User" >
+        update user  set name = #{name},sex = #{sex},education = #{education},profession=#{profession},
+        phone =#{phone} , email = #{email},state = #{state} where userid =#{userid}
+    </update>
+    <!--更新用户状态-->
+    <update id="changeUserState" parameterType="java.util.Map" >
+        update user  set state = #{state} where userid =#{userid}
+
+    </update>
+    <select id="cUser" parameterType = "String" resultType="java.lang.Integer">
+        select count(userid) FROM user where account= #{account}
+    </select>
+
+
+
+</mapper>

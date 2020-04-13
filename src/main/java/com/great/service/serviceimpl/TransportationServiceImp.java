@@ -1,20 +1,20 @@
 package com.great.service.serviceimpl;
 
 import com.great.dao.TransportationDao;
+import com.great.entity.*;
 import com.great.entity.Notice;
 import com.great.entity.ObjectResult;
 
-import com.great.entity.Transportation;
 import com.great.service.TransportationService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import com.great.entity.Subject;
 
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,8 +49,12 @@ public class TransportationServiceImp implements TransportationService {
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
-        map.put("question",question);
-        map.put("type",type);
+        if (question!=null&&!question.equals("")){
+            map.put("question",question);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -71,8 +75,12 @@ public class TransportationServiceImp implements TransportationService {
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
-        map.put("question",question);
-        map.put("type",type);
+        if (question!=null&&!question.equals("")){
+            map.put("question",question);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -116,15 +124,22 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
-    public ObjectResult getStudentTbl(Integer page, Integer limit, String state, String name) {
+    public ObjectResult getStudentTbl(Integer page, Integer limit, String state, String name,String type) {
         int maxlimit=limit;
         int minlimit=(page-1)*limit;
 
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
-        map.put("state",state);
-        map.put("name",name);
+        if (state!=null&&!state.equals("")){
+            map.put("state",state);
+        }
+        if (name!=null&&!name.equals("")){
+            map.put("name",name);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
 
         ObjectResult objectResult=new ObjectResult();
 
@@ -134,7 +149,142 @@ public class TransportationServiceImp implements TransportationService {
         //获取记录
         objectResult.setData(td.getStudentTbl(map));
 
+        //System.out.println(objectResult);
+
         return objectResult;
+    }
+
+    @Override
+    public List<School> getSchoolList() {
+        return td.getSchoolList();
+    }
+
+    @Override
+    public Map<Integer, String> getStudentState() {
+
+        Map<Integer,String> map=new LinkedHashMap<>();
+
+        List<String> list=td.getStudentState();
+
+        for (int i=0;i<list.size();i++) {
+            map.put(i+1,list.get(i));
+        }
+
+        //System.out.println(map);
+
+        return map;
+    }
+
+    @Override
+    public ObjectResult getSchoolTbl(Integer page, Integer limit, String state, String name) {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        if (state!=null&&!state.equals("")){
+            map.put("state",state);
+        }
+        if (name!=null&&!name.equals("")){
+            map.put("name",name);
+        }
+
+        //System.out.println(map);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getSchoolCount(map));
+        //获取记录
+        objectResult.setData(td.getSchoolTbl(map));
+
+        //System.out.println(objectResult);
+
+        return objectResult;
+    }
+
+    @Override
+    public Map<Integer, String> getSchoolState() {
+        Map<Integer,String> map=new LinkedHashMap<>();
+
+        List<String> list=td.getSchoolState();
+
+        for (int i=0;i<list.size();i++) {
+            map.put(i+1,list.get(i));
+        }
+
+        //System.out.println(map);
+
+        return map;
+    }
+
+    @Override
+    public Map<Integer, String> getCoachState() {
+        Map<Integer,String> map=new LinkedHashMap<>();
+
+        List<String> list=td.getCoachState();
+
+        for (int i=0;i<list.size();i++) {
+            map.put(i+1,list.get(i));
+        }
+
+        //System.out.println(map);
+
+        return map;
+    }
+
+    @Override
+    public ObjectResult getCoachTbl(Integer page, Integer limit, String name, String sex, String type, String school) {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        if (sex!=null&&!sex.equals("")){
+            map.put("sex",sex);
+        }
+        if (name!=null&&!name.equals("")){
+            map.put("name",name);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
+        if (school!=null&&!school.equals("")){
+            map.put("school",school);
+        }
+
+        //System.out.println(map);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getCoachCount(map));
+        //获取记录
+        objectResult.setData(td.getCoachTbl(map));
+
+        //System.out.println(objectResult);
+
+        return objectResult;
+    }
+
+    @Override
+    public Student getStudentMsg(Integer id) {
+
+        return td.getStudentMsg(id);
+    }
+
+    @Override
+    public School getSchoolMsg(Integer id) {
+        return td.getSchoolMsg(id);
+    }
+
+    @Override
+    public Coach getCoachMsg(Integer id) {
+        return td.getCoachMsg(id);
     }
 
 

@@ -3,6 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
 
 
     <filter>
@@ -45,12 +49,12 @@
 <!--    </servlet-mapping>-->
 
 
-<!--    <welcome-file-list>-->
-<!--        <welcome-file>/admin/test</welcome-file>-->
-<!--    </welcome-file-list>-->
-<!--    <welcome-file-list>-->
-<!--        <welcome-file>/handleRequest.action</welcome-file>-->
-<!--    </welcome-file-list>-->
+<!--    <welcome-vedio-list>-->
+<!--        <welcome-vedio>/admin/test</welcome-vedio>-->
+<!--    </welcome-vedio-list>-->
+<!--    <welcome-vedio-list>-->
+<!--        <welcome-vedio>/handleRequest.action</welcome-vedio>-->
+<!--    </welcome-vedio-list>-->
 
     <welcome-file-list>
         <welcome-file>/WEB-INF/A.jsp</welcome-file>

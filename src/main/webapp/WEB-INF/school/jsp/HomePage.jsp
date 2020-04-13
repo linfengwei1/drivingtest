@@ -35,26 +35,68 @@
         </div>
     </div>
     <div id="menu_div">
-        <h3 class="h_mun">人员管理</h3>
+        <h3 class="h_mun">教练管理</h3>
         <ul class="ul_menu">
              <li><a href="javascript:void (0)"
                  title="${pageContext.request.contextPath}/school/path/SchoolCoachManage"
-                 onclick="GoodsManager(this)">教练员管理</a>
+                 onclick="GoodsManager(this)">教练基本信息</a>
              </li>
             <li><a href="javascript:void (0)"
-                   title="${pageContext.request.contextPath}/school/path/SchoolAdminManage"
-                   onclick="GoodsManager(this)">管理员管理</a>
+                   title="${pageContext.request.contextPath}/school/path/"
+                   onclick="GoodsManager(this)">教练业务</a>
             </li>
+        </ul>
+        <h3 class="h_mun">管理员管理</h3>
+        <ul class="ul_menu">
             <li><a href="javascript:void (0)"
-                   title="${pageContext.request.contextPath}/${j.MURL}"
-                   onclick="GoodsManager(this)">学员管理</a>
+                   title="${pageContext.request.contextPath}/school/path/SchoolAdminManage"
+                   onclick="GoodsManager(this)">管理员信息</a>
+            </li>
+        </ul>
+        <h3 class="h_mun">学员管理</h3>
+        <ul class="ul_menu">
+            <li><a href="javascript:void (0)"
+                   title="${pageContext.request.contextPath}/school/getStudentState"
+                   onclick="GoodsManager(this)">学员信息</a>
             </li>
         </ul>
         <h3 class="h_mun">教练车管理</h3>
         <ul class="ul_menu">
             <li><a href="javascript:void (0)"
-                   title="${pageContext.request.contextPath}/${j.MURL}"
+                   title="${pageContext.request.contextPath}/school/path/SchoolCarManage"
                    onclick="GoodsManager(this)">教练车信息</a>
+            </li>
+            <li><a href="javascript:void (0)"
+                   title="${pageContext.request.contextPath}/school/path/upload1"
+                   onclick="GoodsManager(this)">上传测试</a>
+            </li>
+        </ul>
+        <h3 class="h_mun">统计报表</h3>
+        <ul class="ul_menu">
+            <li><a href="javascript:void (0)"
+                   title="${pageContext.request.contextPath}/school/path/"
+                   onclick="GoodsManager(this)">科目考试人数统计</a>
+            </li>
+        </ul>
+        <h3 class="h_mun">驾校中心</h3>
+        <ul class="ul_menu">
+            <li><a href="javascript:void (0)"
+                   title="${pageContext.request.contextPath}/school/path/"
+                   onclick="GoodsManager(this)">驾校信息</a>
+            </li>
+        </ul>
+        <h3 class="h_mun">日志管理</h3>
+        <ul class="ul_menu">
+            <li><a href="javascript:void (0)"
+                   title="${pageContext.request.contextPath}/school/path/"
+                   onclick="GoodsManager(this)">日志查看</a>
+            </li>
+        </ul>
+        <h3 class="h_mun">消息管理</h3>
+        <ul class="ul_menu">
+            <li><a href="javascript:void (0)"
+                   title="${pageContext.request.contextPath}/school/path/"
+                   onclick="GoodsManager(this)">消息查看</a>
             </li>
         </ul>
     </div>

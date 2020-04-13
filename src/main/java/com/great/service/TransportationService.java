@@ -1,6 +1,11 @@
 package com.great.service;
 
 import com.alibaba.druid.util.StringUtils;
+import com.great.entity.*;
+
+import javax.print.attribute.IntegerSyntax;
+import java.util.List;
+import java.util.Map;
 import com.great.entity.Notice;
 import com.great.entity.ObjectResult;
 import com.great.entity.Transportation;
@@ -90,6 +95,74 @@ public interface TransportationService {
      * 获取学员列表
      * @return
      */
+    public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name,String type);
+
+    /**
+     * 获取学校表
+     * @return
+     */
+    public List<School> getSchoolList();
+
+    /**
+     * 获取学员状态
+     * @return
+     */
+    public Map<Integer, String> getStudentState();
+
+    /**
+     * 获取驾校列表
+     * @param page
+     * @param limit
+     * @param state
+     * @param name
+     * @return
+     */
+    public ObjectResult getSchoolTbl(Integer page, Integer limit, String state, String name);
+
+    /**
+     * 获取学校状态
+     * @return
+     */
+    public Map<Integer, String> getSchoolState();
+
+    /**
+     * 获取教练状态
+     * @return
+     */
+    public Map<Integer, String> getCoachState();
+
+    /**
+     * 获取教练表
+     * @param page
+     * @param limit
+     * @param name
+     * @param sex
+     * @param type
+     * @param school
+     * @return
+     */
+    public ObjectResult getCoachTbl(Integer page, Integer limit, String name, String sex, String type, String school);
+
+    /**
+     * 获取学员信息
+     * @param id
+     * @return
+     */
+    public  Student getStudentMsg(Integer id);
+
+    /**
+     * 获取学校形信息
+     * @param id
+     * @return
+     */
+    public School getSchoolMsg(Integer id);
+
+    /**
+     * 获取教练信息
+     * @param id
+     * @return
+     */
+    public Coach getCoachMsg(Integer id);
     public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name);
 
 
