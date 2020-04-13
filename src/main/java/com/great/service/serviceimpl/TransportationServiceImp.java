@@ -269,7 +269,6 @@ public class TransportationServiceImp implements TransportationService {
 
     @Override
     public Student getStudentMsg(Integer id) {
-
         return td.getStudentMsg(id);
     }
 
@@ -296,6 +295,39 @@ public class TransportationServiceImp implements TransportationService {
     @Override
     public Integer getCoachCarCountBySchoolId(Integer id) {
         return td.getCoachCarCountBySchoolId(id);
+    }
+
+    @Override
+    public ObjectResult getCoachCarTbl(Integer page, Integer limit, String name, String type, String school) {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        if (name!=null&&!name.equals("")){
+            map.put("name",name);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
+        if (school!=null&&!school.equals("")){
+            map.put("school",school);
+        }
+
+        //System.out.println(map);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getCoachCarCount(map));
+        //获取记录
+        objectResult.setData(td.getCoachCarTbl(map));
+
+        //System.out.println(objectResult);
+
+        return objectResult;
     }
 
 

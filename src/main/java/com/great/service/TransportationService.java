@@ -177,4 +177,15 @@ public interface TransportationService {
      * @return
      */
     public Integer getCoachCarCountBySchoolId(Integer id);
+
+    /**
+     * 获取教练车表
+     * @param page
+     * @param limit
+     * @param name
+     * @param type
+     * @param school
+     * @return
+     */
+    public ObjectResult getCoachCarTbl(Integer page, Integer limit, String name, String type, String school);
 }

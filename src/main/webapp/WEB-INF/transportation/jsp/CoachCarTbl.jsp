@@ -16,6 +16,7 @@
         .layui-table-cell {
             height: 100%;
             max-width: 100%;
+            /*height:auto !important;*/
         }
     </style>
 </head>
@@ -41,9 +42,9 @@
         <div class="layui-input-inline">
             <select name="type" id="type" lay-filter="aihao">
                 <option value=""></option>
-                <c:forEach items="${stateMap}" begin="" var="ss">
-                    <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
-                </c:forEach>
+                <option value="待审核">待审核</option>
+                <option value="审核失败">审核失败</option>
+                <option value="审核通过">审核通过</option>
             </select>
         </div>
 
@@ -57,7 +58,7 @@
 </body>
 <script type="text/html" id="barDemo">
 
-    {{#  if(d.student_state_id == 5){ }}
+    {{#  if(d.carState == '待审核'){ }}
 
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine">审核</a>
     {{#  } else { }}
@@ -82,12 +83,12 @@
             ,page: true //开启分页
             ,limit:10
             ,cols: [[ //表头
-                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field:'pic', title: '车辆图片',  width:'auto',templet:'<div><img src="${pageContext.request.contextPath}/static/{{d.picture}}"></div>'}
-                ,{field: 'carnumber', title: '车牌号', width:100}
+                {field: 'id', title: 'ID', width:80 ,sort: true,align:'center'}
+                ,{field:'pic', title: '车辆图片',width:200,templet:'<div><img src="${pageContext.request.contextPath}/static/{{d.picture}}" onclick="previewImg(this)"></div>'}
+                ,{field: 'carNumber', title: '车牌号', width:100}
                 ,{field: 'schoolName', title: '驾校名', width:100}
-                ,{field: 'coachName', title: '驾驶教练名', width:50}
-                ,{field: 'state', title: '状态', width: 100}
+                ,{field: 'coachName', title: '驾驶教练名', width:100}
+                ,{field: 'carState', title: '状态', width: 100}
                 ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
         });
@@ -172,5 +173,29 @@
         });
 
     });
+
+    function previewImg(obj) {
+        var img = new Image();
+        img.src = obj.src;
+        //var height = img.height + 50; // 原图片大小
+        //var width = img.width; //原图片大小
+        var imgHtml = "<img src='" + obj.src + "' width='500' height='550px'/>";
+        //弹出层
+        layer.open({
+            type: 1,
+            shade: 0.8,
+            offset: '200px',
+            area: [500 + 'px',550+'px'],  // area: [width + 'px',height+'px']  //原图显示
+            shadeClose:true,
+            scrollbar: false,
+            resize:false,
+            title: "车辆预览", //不显示标题
+            content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+            cancel: function () {
+                //layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });
+            }
+        });
+    }
+
 </script>
 </html>

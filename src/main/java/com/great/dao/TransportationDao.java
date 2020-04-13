@@ -203,4 +203,18 @@ public interface TransportationDao {
      * @return
      */
     public Integer getCoachCarCountBySchoolId(Integer id);
+
+    /**
+     * 获取教练车数量
+     * @param map
+     * @return
+     */
+    public Integer getCoachCarCount(Map<String, Object> map);
+
+    /**
+     * 获取教练车列表
+     * @param map
+     * @return
+     */
+    public List<?> getCoachCarTbl(Map<String, Object> map);
 }

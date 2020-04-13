@@ -475,6 +475,23 @@ public class TransportationManagementController {
     }
 
     /**
+     * 获取学校的筛选条件，打开教练表
+     * @param request
+     * @return
+     */
+    @RequestMapping("/gASB")
+    public String getAllSchoolNameByCoachCar(HttpServletRequest request){
+
+        List<School> schools =transportationService.getSchoolList();
+
+        if (schools!=null){
+            request.setAttribute("schools",schools);
+        }
+
+        return "transportation/jsp/CoachCarTbl";
+    }
+
+    /**
      * 获取教练表
      * @param page
      * @param limit
@@ -511,10 +528,16 @@ public class TransportationManagementController {
     @RequestMapping("/getCoachCarTbl")
     @ResponseBody
     public String getCoachCarTbl(Integer page, Integer limit ,String school,String name,String type,HttpServletResponse response){
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
 
+        ObjectResult objectResult=transportationService.getCoachCarTbl(page,limit,name,type,school);
 
+        System.out.println(objectResult);
 
-        return "";
+        return g.toJson(objectResult);
     }
 
 

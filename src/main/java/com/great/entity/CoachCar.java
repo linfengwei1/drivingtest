@@ -13,6 +13,7 @@ public class CoachCar {
     private String coachName;
     private String idNumber;
     private Coach coach;
+    private String schoolName;//驾校名
 
     public CoachCar() {
     }
@@ -89,6 +90,14 @@ public class CoachCar {
         this.coach = coach;
     }
 
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
+
     @Override
     public String toString() {
         return "CoachCar{" +
@@ -101,6 +110,7 @@ public class CoachCar {
                 ", coachName='" + coachName + '\'' +
                 ", idNumber='" + idNumber + '\'' +
                 ", coach=" + coach +
+                ", schoolName='" + schoolName + '\'' +
                 '}';
     }
 }
