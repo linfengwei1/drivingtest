@@ -330,5 +330,41 @@ public class TransportationServiceImp implements TransportationService {
         return objectResult;
     }
 
+    @Override
+    public void examineStudent(Integer id, String text, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("text",text);
+        map.put("i",i);
+        td.examineStudent(map);
+    }
+
+    @Override
+    public void examineSchool(Integer id, String text, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("text",text);
+        map.put("i",i);
+        td.examineSchool(map);
+    }
+
+    @Override
+    public void examineCoach(Integer id, String text, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("text",text);
+        map.put("i",i);
+        td.examineCoach(map);
+    }
+
+    @Override
+    public void examineCoachCar(Integer id, String text, String i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("text",text);
+        map.put("i",i);
+        td.examineCoachCar(map);
+    }
+
 
 }

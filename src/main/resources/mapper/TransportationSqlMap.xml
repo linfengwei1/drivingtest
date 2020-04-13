@@ -427,6 +427,7 @@
 		select count(*) from coachcar where school_id=#{id}
 	</select>
 
+<!--封装教练车结果集-->
 	<resultMap id="coachCarMap" type="com.great.entity.CoachCar">
 
 		<id property="id" column="id"/>
@@ -477,5 +478,33 @@
 		</where>
 		limit #{minlimit} , #{maxlimit}
 	</select>
+
+<!--更新学员审核-->
+	<update id="examineStudent" parameterType="java.util.Map">
+		update student
+		set  audit_results= #{text} , student_state_id=#{i}
+		where id=#{id};
+	</update>
+
+<!--更新学员审核-->
+	<update id="examineSchool" parameterType="java.util.Map">
+		update school
+		set  audit_results= #{text} , school_state_id=#{i}
+		where id=#{id};
+	</update>
+
+<!--更新学员审核-->
+	<update id="examineCoach" parameterType="java.util.Map">
+		update coach
+		set  audit_results= #{text} , coach_state_id=#{i}
+		where id=#{id};
+	</update>
+
+<!--更新学员审核-->
+	<update id="examineCoachCar" parameterType="java.util.Map">
+		update coachcar
+		set  audit_results= #{text} , state=#{i}
+		where id=#{id};
+	</update>
 
 </mapper>

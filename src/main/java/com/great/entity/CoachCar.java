@@ -14,6 +14,7 @@ public class CoachCar {
     private String idNumber;
     private Coach coach;
     private String schoolName;//驾校名
+    private String audit_results;//审核结果
 
     public CoachCar() {
     }
@@ -98,6 +99,14 @@ public class CoachCar {
         this.schoolName = schoolName;
     }
 
+    public String getAudit_results() {
+        return audit_results;
+    }
+
+    public void setAudit_results(String audit_results) {
+        this.audit_results = audit_results;
+    }
+
     @Override
     public String toString() {
         return "CoachCar{" +
@@ -111,6 +120,7 @@ public class CoachCar {
                 ", idNumber='" + idNumber + '\'' +
                 ", coach=" + coach +
                 ", schoolName='" + schoolName + '\'' +
+                ", audit_results='" + audit_results + '\'' +
                 '}';
     }
 }

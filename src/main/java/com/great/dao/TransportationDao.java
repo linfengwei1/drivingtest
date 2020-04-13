@@ -217,4 +217,28 @@ public interface TransportationDao {
      * @return
      */
     public List<?> getCoachCarTbl(Map<String, Object> map);
+
+    /**
+     * 修改学员审核
+
+     */
+    public void examineStudent(Map<String, Object> map);
+
+    /**
+     * 修改学校审核
+
+     */
+    public void examineSchool(Map<String, Object> map);
+
+    /**
+     * 修改教练审核
+     *
+     */
+    public void examineCoach(Map<String, Object> map);
+
+    /**
+     * 修改教练车审核
+     *
+     */
+    public void examineCoachCar(Map<String, Object> map);
 }
