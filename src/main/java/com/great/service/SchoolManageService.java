@@ -184,7 +184,7 @@ public class SchoolManageService {
         return student;
     }
 
-    //excel插入数据库
+    //excel插入数据库1
     public List<Student> insertStudentByExcel(List<Student>list){
         List<Student> list1 = new ArrayList();//用来存放重复的账号
         //判断插入的学员账号是否被使用
