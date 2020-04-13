@@ -102,6 +102,61 @@
 		select * from coach where account = #{account} and pwd = #{pwd}
 	</select>
 
+    <!--教练查询学生信息-->
+    <select id="findStudentByPage" resultType="com.great.entity.Student" parameterType="com.great.entity.TableUtils">
+        select student.* from coach,student
+        <where>
+            student.coach_id=coach.id
+            <if test="coach_id !='' and coach_id!=null">
+                and coach.id = #{coach_id}
+            </if>
+            <if test="name !='' and name!=null">
+                and student.name like concat('%',#{name},'%')
+            </if>
+            <if test="phone !='' and phone!=null">
+                and student.phone = #{phone}
+            </if>
+            <if test="state !='' and state!=null">
+                and student_state_id = #{state}
+            </if>
+            <if test="idnumber!= '' and idnumber != null">
+                and student.idnumber= #{idnumber}
+            </if>
+            <if test="sex != '' and sex != null">
+                and student.sex = #{sex}
+            </if>
+        </where>
+        limit #{minLimit},#{maxLimit}
+    </select>
+
+    <!--教练查询学生信息总页数-->
+    <select id="findCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
+        select count(*) from coach,student,studentstate
+        <where>
+            student.coach_id=coach.id
+            <if test="coach_id !='' and coach_id!=null">
+                and coach.id = #{coach_id}
+            </if>
+            <if test="name !='' and name!=null">
+                and student.name like concat('%',#{name},'%')
+            </if>
+            <if test="phone !='' and phone!=null">
+                and student.phone = #{phone}
+            </if>
+            <if test="state !='' and state!=null">
+                and student_state_id = #{state}
+            </if>
+            <if test="idNumber!= '' and idNumber != null">
+                and student.idnumber= #{idNumber}
+            </if>
+            <if test="sex != '' and sex != null">
+                and student.sex = #{sex}
+            </if>
+
+        </where>
+
+    </select>
+
 
 
 

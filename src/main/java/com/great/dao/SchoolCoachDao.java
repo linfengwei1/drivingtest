@@ -2,6 +2,7 @@ package com.great.dao;
 
 
 import com.great.entity.Coach;
+import com.great.entity.Student;
 import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -48,4 +49,10 @@ public interface SchoolCoachDao
 	 * @return 登录是否成功
 	 */
 	Coach login(Map<String, String> map);
+
+	//查询学员记录并分页
+	public List<Student> findStudentByPage(TableUtils tableUtils);
+
+	//查找学员总数
+	public Integer findCount(TableUtils tableUtils);
 }
