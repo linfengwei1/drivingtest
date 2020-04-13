@@ -87,8 +87,8 @@
                         curr:1
                     }
                     ,where:{
-		                question:$("#question").val(),
-		                type:$("#type").val(),
+                        question:$("#question").val(),
+                        type:$("#type").val(),
                     }
                 });
             }

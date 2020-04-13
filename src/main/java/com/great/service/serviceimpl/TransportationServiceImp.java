@@ -2,8 +2,6 @@ package com.great.service.serviceimpl;
 
 import com.great.dao.TransportationDao;
 import com.great.entity.*;
-import com.great.entity.Notice;
-import com.great.entity.ObjectResult;
 
 import com.great.service.TransportationService;
 import org.springframework.stereotype.Service;
@@ -11,8 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -286,61 +282,19 @@ public class TransportationServiceImp implements TransportationService {
         return td.getCoachMsg(id);
     }
 
-
     @Override
-    public ObjectResult getNotice(Integer page, Integer limit, String title ,String date, String type)
-    {
-        int maxlimit=limit;
-        int minlimit=(page-1)*limit;
-
-        Map<String,Object> map=new HashMap<>();
-        map.put("maxlimit",maxlimit);
-        map.put("minlimit",minlimit);
-        map.put("title",title);
-//	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//	    String dateString = formatter.format(date);
-        map.put("date",date);
-        map.put("type",type);
-
-        ObjectResult objectResult=new ObjectResult();
-
-        objectResult.setCode(0);
-        //获取记录条数
-        objectResult.setCount(td.getNoticeCount(map));
-        //获取记录
-        objectResult.setData(td.getNotice(map));
-
-        return objectResult;
+    public Integer getStudentCountBySchoolId(Integer id) {
+        return td.getStudentCountBySchoolId(id);
     }
 
-	@Override
-	public List<?> getNoticeType()
-	{
-		return td.getNoticeType();
-	}
-
-	@Override
-	public Integer deleteNotice(Notice notice)
-	{
-		return td.deleteNotice(notice.getId());
-	}
-
     @Override
-    public Integer updateNoticeMsg(Notice notice)
-    {
-        return td.updateNoticeMsg(notice);
+    public Integer getCoachCountBySchoolId(Integer id) {
+        return td.getCoachCountBySchoolId(id);
     }
 
-	@Override
-	public Notice getNoticeMsg(Notice notice)
-	{
-		return td.getNoticeMsg(notice.getId());
-	}
-
     @Override
-    public Integer insertNotice(Notice notice)
-    {
-        return td.insertNotice(notice);
+    public Integer getCoachCarCountBySchoolId(Integer id) {
+        return td.getCoachCarCountBySchoolId(id);
     }
 
     @Override

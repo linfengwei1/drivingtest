@@ -100,7 +100,7 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">其他</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/NoticeManagement" onclick="changeUrl(this)">通知公告发布</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">通知公告发布</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">日志查看</a></dd>
                     </dl>
                 </li>

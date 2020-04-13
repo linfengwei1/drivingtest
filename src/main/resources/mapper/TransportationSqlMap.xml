@@ -38,6 +38,7 @@
 		limit #{minlimit} , #{maxlimit}
 	</select>
 
+<!--获取科目四题数-->
 	<select id="getFourthSubjectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
 		select count(*)
 		from question4
@@ -411,55 +412,16 @@
 		</where>
 	</select>
 
-
-
-	<select id="getNoticeCount" resultType="java.lang.Integer" parameterType="java.util.Map">
-		select
-		count(*)
-		from notice
-		<where>
-			<if test="title!=null">
-				and  title like concat('%',#{title},'%')
-			</if>
-			<if test="date!=null">
-				and time >=  DATE_FORMAT(#{date}, '%Y-%m-%d')
-			</if>
-			<if test="type!=null">
-				and type = #{type}
-			</if>
-		</where>
 <!--通过驾校id获取去学员数-->
 	<select id="getStudentCountBySchoolId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
 		select count(*) from student where school_id=#{id}
 	</select>
 
-
-	<select id="getNotice" resultType="com.great.entity.Notice" parameterType="java.util.Map">
-		select
-		*
-		from notice
-		<where>
-			<if test="title!=null and ''!=title">
-				and  title like concat('%',#{title},'%')
-			</if>
-			<if test="date!=null and ''!=date">
-				and time >=  DATE_FORMAT(#{date}, '%Y-%m-%d')
-			</if>
-			<if test="type!=null and ''!=type">
-				and type = #{type}
-			</if>
-		</where>
-		order by time desc limit #{minlimit} , #{maxlimit}
 <!--通过驾校id获取去教练数-->
 	<select id="getCoachCountBySchoolId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
 		select count(*) from coach where school_id=#{id}
 	</select>
 
-    <select id="getNoticeType" resultType="com.great.entity.Notice" >
-        select distinct
-        type
-        from notice
-    </select>
 <!--通过驾校id获取去教练车数-->
 	<select id="getCoachCarCountBySchoolId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
 		select count(*) from coachcar where school_id=#{id}
@@ -515,44 +477,5 @@
 		</where>
 		limit #{minlimit} , #{maxlimit}
 	</select>
-
-    <delete id="deleteNotice" parameterType="integer">
-        delete from
-        notice
-        where id=#{id}
-    </delete>
-
-    <update id="updateNoticeMsg" parameterType="com.great.entity.Notice">
-        update notice
-        <set>
-            <if test="title!=null">
-                title=#{title}
-            </if>
-            <if test="content!=null">
-                ,content=#{content}
-            </if>
-            <if test="type!=null">
-                ,type=#{type}
-            </if>
-        </set>
-        where id=#{id}
-    </update>
-
-    <select id="getNoticeMsg" resultType="com.great.entity.Notice" parameterType="java.lang.Integer">
-		select
-		*
-		from notice
-		where id=#{id}
-	</select>
-
-	<insert id="insertNotice" parameterType="com.great.entity.Notice">
-		insert into
-		notice(title, content, "time", type)
-		values (
-		#{title},
-		#{content},
-		now(),
-		#{type})
-	</insert>
 
 </mapper>
