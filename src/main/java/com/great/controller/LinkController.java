@@ -65,7 +65,7 @@ public class LinkController {
 
 		response.getWriter().print("success");//有成功打印出success
 	}
-	//删除友情链接：
+	//删除友情链接：ddd
 	@RequestMapping("/deleteLink")
 	public void deleteLink(Link link,  HttpServletRequest request, HttpServletResponse response) throws IOException {
 
