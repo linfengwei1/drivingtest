@@ -6,6 +6,13 @@ import com.great.entity.*;
 import javax.print.attribute.IntegerSyntax;
 import java.util.List;
 import java.util.Map;
+import com.great.entity.Notice;
+import com.great.entity.ObjectResult;
+import com.great.entity.Transportation;
+import com.great.entity.Subject;
+
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -156,25 +163,49 @@ public interface TransportationService {
      * @return
      */
     public Coach getCoachMsg(Integer id);
+//    public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name);
+
 
     /**
-     * 根据学校id获取学生数量
-     * @param id
+     * 获取公告表
+     * @param page
+     * @param limit
      * @return
      */
-    public Integer getStudentCountBySchoolId(Integer id);
+    public ObjectResult getNotice(Integer page, Integer limit, String title , String date, String type);
+
+	/**
+	 * 获取公告类型
+	 * @return
+	 */
+	public List<?> getNoticeType();
 
     /**
-     * 根据学校id获取教练数量
-     * @param id
+     * 删除通告
+     * @param notice
      * @return
      */
-    public Integer getCoachCountBySchoolId(Integer id);
+    public Integer deleteNotice(Notice notice);
 
     /**
-     * 根据学校id获取教练车数量
-     * @param id
+     * 更新通告
+     * @param notice
      * @return
      */
-    public Integer getCoachCarCountBySchoolId(Integer id);
+    public Integer updateNoticeMsg(Notice notice);
+
+	/**
+	 * 获取通告信息
+	 * @param notice
+	 * @return
+	 */
+	public Notice getNoticeMsg(Notice notice);
+
+	/**
+	 * 新增公告数
+	 * @param notice
+	 * @return
+	 */
+	public Integer insertNotice(Notice notice);
+
 }

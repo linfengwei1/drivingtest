@@ -76,7 +76,7 @@
 
 <script type="text/html" id="barDemo">
 
-    {{#  if(d.coach_state_id == 4){ }}
+    {{#  if(d.student_state_id == 4){ }}
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine"><i class="layui-icon">&#xe642;</i>审核</a>
     {{#  } else { }}
