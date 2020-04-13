@@ -1,5 +1,6 @@
 package com.great.dao;
 
+import com.great.entity.Notice;
 import com.great.entity.Subject;
 import com.great.entity.Transportation;
 import org.apache.ibatis.annotations.Mapper;
@@ -109,4 +110,56 @@ public interface TransportationDao {
      * @return
      */
     public List<?> getStudentTbl(Map<String, Object> map);
+
+
+    /**
+     * 获取公告数
+     * @param map
+     * @return
+     */
+    public Integer getNoticeCount(Map<String, Object> map);
+
+
+    /**
+     * 获取公告表
+     * @param map
+     * @return
+     */
+    public List<?> getNotice(Map<String, Object> map);
+
+	/**
+	 * 获取公告类型
+	 * @return
+	 */
+	public List<?> getNoticeType();
+
+    /**
+     * 删除通告
+     * @param id
+     * @return
+     */
+    public Integer deleteNotice(Integer id);
+
+    /**
+     * 更新通告
+     * @param notice
+     * @return
+     */
+    public Integer updateNoticeMsg(Notice notice);
+
+
+    /**
+     * 获取通告信息
+     * @param id
+     * @return
+     */
+    public Notice getNoticeMsg(Integer id);
+
+    /**
+     * 新增公告数
+     * @param notice
+     * @return
+     */
+    public Integer insertNotice(Notice notice);
+
 }
