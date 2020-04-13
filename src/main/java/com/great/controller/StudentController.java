@@ -4,11 +4,11 @@ package com.great.controller;
 import com.google.gson.Gson;
 import com.great.entity.QuestionList;
 import com.great.entity.Student;
+import com.great.entity.TestReplies;
+import com.great.entity.TestReply;
 import com.great.service.StudentManageService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 @Controller
@@ -70,7 +71,16 @@ public class StudentController
 	{
 		QuestionList questionList = studentManageServiceImpl.getQuestionsBySubject(subject);
 		request.setAttribute("questionList",questionList);//考试题目存入请求
+		request.setAttribute("subject",subject);
 		return "student/jsp/Exercise";
+	}
+	@RequestMapping("/testOl/{subject}")
+	public String testOl(HttpServletRequest request,@PathVariable(value = "subject") String subject)
+	{
+		QuestionList questionList = studentManageServiceImpl.getQuestionsBySubject(subject);
+		request.setAttribute("questionList",questionList);//考试题目存入请求
+		request.setAttribute("subject",subject);
+		return "student/jsp/Test";
 	}
 
 	@RequestMapping("/addStudy1Time")
@@ -94,6 +104,13 @@ public class StudentController
 		String result = studentManageServiceImpl.faceCheck(studentid,face,subject);
 		return result;
 	}
+	@RequestMapping("/getStudentState")
+	@ResponseBody
+	public String getStudentState(String studentId,String subject,HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String result = studentManageServiceImpl.getStudentState(studentId,subject);
+		return result;
+	}
 
 	//地址映射,path是个方法名,可以随便改动,{url}是参数
 	@RequestMapping("/path/{url}")
@@ -106,6 +123,15 @@ public class StudentController
 	}
 
 
+	@RequestMapping("/getTestScore")
+	@ResponseBody
+	public String getTestScore(@RequestBody TestReplies testReplieslist) throws IOException
+	{
+
+		int score = studentManageServiceImpl.getTestScore(testReplieslist);
+		return score+"";
+
+	}
 
 
 

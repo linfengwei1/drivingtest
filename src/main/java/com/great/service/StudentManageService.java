@@ -3,6 +3,7 @@ package com.great.service;
 
 import com.great.entity.QuestionList;
 import com.great.entity.Student;
+import com.great.entity.TestReplies;
 
 import java.util.HashMap;
 
@@ -20,6 +21,10 @@ public interface StudentManageService
 	String importFace(String studentId, String face);
 
 	String faceCheck(String studentid, String face,String subject);
+
+	int getTestScore(TestReplies testReplieslist);
+
+	String getStudentState(String studentId, String subject);
 	//	public User findUser(String uname, String pwd);
 //	public List<User> findAll(HashMap<String, Object> map) throws SQLException;
 //

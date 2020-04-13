@@ -6,6 +6,7 @@ import com.great.dao.IStudentDao;
 import com.great.entity.Question;
 import com.great.entity.QuestionList;
 import com.great.entity.Student;
+import com.great.entity.TestReplies;
 import com.great.service.StudentManageService;
 import com.great.utils.FaceRecognitionUtils;
 import org.springframework.stereotype.Service;
@@ -195,5 +196,51 @@ public class StudentManageServiceImpl implements StudentManageService
 
 
 		return result;
+	}
+
+	@Override
+	@Transactional
+	@Log(operationType = "查询操作", operationName = "学员提交试卷得到考试分数")
+	public int getTestScore(TestReplies testReplieslist)
+	{
+		int score = 0;
+		if(testReplieslist.getSubject() == 1)//得到科目一考试分数
+		{
+			score = studentDao.getTest_1Score(testReplieslist.getTestReplieslist());
+			if(score >= 1)//通过考试 ，进入科目二阶段
+			{
+				int i = studentDao.changeStudentState(testReplieslist.getStudentId(),2);
+				System.out.println("更新条数"+i);
+			}
+		}else//考科目四
+		{
+			score = studentDao.getTest_4Score(testReplieslist.getTestReplieslist());
+			if(score >= 90)//通过考试 ，毕业
+			{
+				studentDao.changeStudentState(testReplieslist.getStudentId(),7);
+			}
+		}
+
+		System.out.println("本次考试得了"+score);
+
+		return score;
+	}
+
+	@Override
+	public String getStudentState(String studentId, String subject)
+	{
+		String resulet = null;
+		int state = studentDao.getStudentState(Integer.parseInt(studentId));
+		if(subject.equals("1") && state == 1)//学员处于科目一状态同时申请科目一考试
+		{
+			resulet = "success";
+		}else if(subject.equals("4") && state == 4)
+		{
+			resulet = "success";
+		}else
+		{
+			resulet = "error";
+		}
+		return resulet;
 	}
 }

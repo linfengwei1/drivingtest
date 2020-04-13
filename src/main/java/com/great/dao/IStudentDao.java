@@ -3,6 +3,7 @@ package com.great.dao;
 
 import com.great.entity.Question;
 import com.great.entity.Student;
+import com.great.entity.TestReply;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,11 @@ public interface IStudentDao
 
 	public void addSignUpRecord(@Param("studentId")int studentId, @Param("subject")int subject, @Param("time")Timestamp time);
 	public int checkReapSignUp(@Param("studentId")int studentId, @Param("subject")int subject);
+
+	public int getTest_1Score(@Param("list")List<TestReply> list);
+	public int getTest_4Score(@Param("list")List<TestReply> list);
+
+	public int changeStudentState(@Param("studentId")int studentId, @Param("stateId")int stateId);
+
+	public int getStudentState(@Param("studentId")int studentId);
 }
