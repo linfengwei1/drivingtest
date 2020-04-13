@@ -540,7 +540,6 @@ public class TransportationManagementController {
         return g.toJson(objectResult);
     }
 
-
     /**
      * 注销登录
      * @param request
