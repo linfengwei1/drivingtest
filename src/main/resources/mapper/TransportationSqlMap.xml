@@ -8,7 +8,6 @@
 		select * from transportation where account = #{account} and pwd = #{pwd}
 	</select>
 
-
 	<select id="getOneSubjectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
 		select count(*)
 		from question1
@@ -143,7 +142,6 @@
 		where id=#{id}
 	</update>
 
-
 	<select id="getStudentCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
 		select count(*)
 		from student
@@ -249,7 +247,6 @@
 		<result property="information" column="information"/>
 		<result property="audit_results" column="audit_results"/>
 	</resultMap>
-
 
 	<select id="getSchoolTbl" resultMap="schoolMap" parameterType="java.util.Map" >
 		select *
@@ -377,7 +374,6 @@
 		<result property="audit_results" column="audit_results"/>
 	</resultMap>
 
-
 	<select id="getStudentMsg" resultMap="studentMsg" parameterType="java.lang.Integer">
 		select s1.*
 		,s.name "s_name"
@@ -388,5 +384,16 @@
 		</where>
 	</select>
 
+	<select id="getStudentCountBySchoolId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
+		select count(*) from student where school_id=#{id}
+	</select>
+
+	<select id="getCoachCountBySchoolId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
+		select count(*) from coach where school_id=#{id}
+	</select>
+
+	<select id="getCoachCarCountBySchoolId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
+		select count(*) from coachcar where school_id=#{id}
+	</select>
 
 </mapper>

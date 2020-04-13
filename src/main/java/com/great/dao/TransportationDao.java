@@ -182,4 +182,25 @@ public interface TransportationDao {
      * @return
      */
     public Coach getCoachMsg(Integer id);
+
+    /**
+     * 根据学校id获取学生数量
+     * @param id
+     * @return
+     */
+    public Integer getStudentCountBySchoolId(Integer id);
+
+    /**
+     * 根据学校id获取教练数量
+     * @param id
+     * @return
+     */
+    public Integer getCoachCountBySchoolId(Integer id);
+
+    /**
+     * 根据学校id获取教练车数量
+     * @param id
+     * @return
+     */
+    public Integer getCoachCarCountBySchoolId(Integer id);
 }
