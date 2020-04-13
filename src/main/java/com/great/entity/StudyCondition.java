@@ -1,8 +1,11 @@
 package com.great.entity;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 学习条件表
  */
+@Component
 public class StudyCondition {
     private Integer id;
     private Integer subject_id;

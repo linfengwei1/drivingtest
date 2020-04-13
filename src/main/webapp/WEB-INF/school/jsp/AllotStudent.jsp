@@ -9,17 +9,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>学员管理</title>
+    <title>学员分配</title>
     <%String path = request.getContextPath(); %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-    <script src="${pageContext.request.contextPath}/static/school/js/SchoolStudentManage.js" type="text/javascript" charset="UTF-8"></script>
+
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
 <form class="layui-form" action="" onsubmit="return false;">
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
-        <h2 style="margin-left: 43%">学员管理</h2>
+        <h2 style="margin-left: 43%">学员分配</h2>
     </div>
     <div class="layui-fluid" id="searchTable" style="margin-top: 1%;">
         <div class="layadmin-user-login-box layadmin-user-login-header">
@@ -67,8 +67,6 @@
                     </div>
                     <div style="float: left;margin-left: 3%;padding-top: 1% ">
                         <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
-                        <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>学员申请</button>
-                        <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>EXCEL导入</button>
                     </div>
                     </div>
             </div>
@@ -99,9 +97,9 @@
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="w" ><i class="layui-icon">&#x1006;</i>驳回申请</button>
         {{# }if(d.student_state_id ==6) { }}
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="resubmit" ><i class="layui-icon">&#xe643;</i>重新审核</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>重新审核</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
+
         {{# }if(d.student_state_id <6) { }}
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="check" ><i class="layui-icon">&#xe63c;</i>学习情况</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>

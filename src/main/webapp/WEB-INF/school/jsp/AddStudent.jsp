@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>学员注册</title>
@@ -86,6 +87,16 @@
                 <input type="text"   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" id="age" name="age" required lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">教练名</label>
+            <div class="layui-input-block" style="width: 190px;">
+                <select  name="coach_id" id="coach_id" lay-verify="required">
+                    <c:forEach items="${Coach}" begin="" var="ss">
+                        <option value="${ss.id}" <c:if test="${coach_id}==${ss.id}">selected="selected"</c:if> >${ss.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
         <!--************这里是上传图片的代码***************-->
         <!--************这里添加的隐藏的输入框，用来传递images的参数***************-->
         <input type="hidden" name="image" class="image"  >
@@ -94,7 +105,7 @@
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test1">上传图片</button>
                 <div class="layui-upload-list">
-                    <img class="layui-upload-img" id="demo1" style="width: 100px;height: 80px">
+                    <img class="layui-upload-img" id="demo1" style="width: 100px;height: 80px;margin-left: 22%;">
                     <p id="demoText"></p>
                 </div>
             </div>

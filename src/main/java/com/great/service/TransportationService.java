@@ -156,4 +156,68 @@ public interface TransportationService {
      * @return
      */
     public Coach getCoachMsg(Integer id);
+
+    /**
+     * 根据学校id获取学生数量
+     * @param id
+     * @return
+     */
+    public Integer getStudentCountBySchoolId(Integer id);
+
+    /**
+     * 根据学校id获取教练数量
+     * @param id
+     * @return
+     */
+    public Integer getCoachCountBySchoolId(Integer id);
+
+    /**
+     * 根据学校id获取教练车数量
+     * @param id
+     * @return
+     */
+    public Integer getCoachCarCountBySchoolId(Integer id);
+
+    /**
+     * 获取教练车表
+     * @param page
+     * @param limit
+     * @param name
+     * @param type
+     * @param school
+     * @return
+     */
+    public ObjectResult getCoachCarTbl(Integer page, Integer limit, String name, String type, String school);
+
+    /**
+     * 修改学员审核
+     * @param id
+     * @param text
+     * @param i
+     */
+    public void examineStudent(Integer id, String text, Integer i);
+
+    /**
+     * 修改驾校审核
+     * @param id
+     * @param text
+     * @param i
+     */
+    public void examineSchool(Integer id, String text, Integer i);
+
+    /**
+     * 修改教练审核
+     * @param id
+     * @param text
+     * @param i
+     */
+    public void examineCoach(Integer id, String text, Integer i);
+
+    /**
+     * 修改教练车审核
+     * @param id
+     * @param text
+     * @param i
+     */
+    public void examineCoachCar(Integer id, String text, String i);
 }

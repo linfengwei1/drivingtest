@@ -18,10 +18,10 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         , cols: [[ //表头
             {field: 'id', title: '学员ID', width: 100, sort: true, fixed: 'left', align: 'center',hide:true}
             , {field: 'account', title: '学员账号', width: 100, align: 'center'}
-            , {field: 'name', title: '姓名', width: 60,  align: 'center'}
-            , {field: 'sex', title: '性别', width: 80, align: 'center'}
+            , {field: 'name', title: '姓名', width: 80,  align: 'center'}
+            , {field: 'sex', title: '性别', width: 60, align: 'center'}
             , {field: 'age', title: '年龄', width: 90, sort: true, align: 'center'}
-            , {field: 'idNumber', title: '身份证号码', width: 180, sort: true, align: 'center'}
+            , {field: 'idNumber', title: '身份证号码', width: 180, align: 'center'}
             , {field: 'phone', title: '联系方式', width: 120, align: 'center'}
             , {field: 'student_state_id', title: '当前状态', width: 130, align: 'center',
                 templet: function(d){
@@ -51,7 +51,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                 }
                     return '毕业'
                 }}
-            , {field: '', title: '操作', toolbar: "#butdiv", width: 300}
+            , {field: '', title: '操作', toolbar: "#butdiv", width: 380}
         ]]
     });
 
@@ -157,6 +157,48 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
 
             });
         }
+
+        if(layEvent === 'resubmit'){ //重新提交
+            var $td = $(this).parents('tr').children('td');
+            var id = $td.eq(0).text();//获取点击按钮相对应的id
+            $.ajax({
+                async:true,
+                method : "POST",
+                url :path1+'/school/studentResubmit',
+                data: "id="+id,
+                dataType : "text",
+                success:function(data){
+                    if ("success"==data){
+                        layer.alert("提交成功",{icon:6},function () {
+                            window.parent.location.reload();
+                        });
+                    }else {
+                        layer.alert("提交失败",{icon:2});
+                    }
+                },
+                error:function (err) {
+                    layer.alert("网络繁忙",{icon:2});
+                }
+            })
+
+        }
+        if(layEvent === 'StudentMsg'){ //查看学员详情
+            var $td = $(this).parents('tr').children('td');
+            var id = $td.eq(0).text();//获取点击按钮相对应的id
+            console.log("个人详情id="+id)
+            layer.open({
+                title:'查看个人详情',
+                type: 2,
+                area: ['600px', '430px'],
+                content:path1+"/school/getStudentMsg?id="+id,//弹出的页面
+                success: function (layero, index) {
+                    var body = layer.getChildFrame("body", index);//弹出页面的body标签
+                    body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
+
+                },
+
+            });
+        }
     });
 
     $("#add").click(function () {
@@ -164,7 +206,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             title:'学员注册',
             type: 2,
             area: ['1000px', '425px'],
-            content:path+"/school/path/AddStudent",//弹出的页面
+            content:path+"/school/jumpAddStudent",//弹出的页面
         });
     })
 

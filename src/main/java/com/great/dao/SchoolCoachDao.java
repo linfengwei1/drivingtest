@@ -13,7 +13,7 @@ import java.util.Map;
 @Mapper
 public interface SchoolCoachDao
 {
-//	//登录
+
 ////	public SchoolAdmin login(Map<String, String> map);
 
 	//查询教练记录并分页
@@ -36,6 +36,12 @@ public interface SchoolCoachDao
 
     //查询所有教练
     public List<Coach> findAllCoach(Integer schoolid);
+
+	//单独插入图片
+	public Integer AddCoachImage(Map map);
+
+	//插入图片改变状态
+	public Integer ChangeCoachState(Map map);
 
 	/**
 	 * 修改教练密码 2020-4-9 16：46 王良德
