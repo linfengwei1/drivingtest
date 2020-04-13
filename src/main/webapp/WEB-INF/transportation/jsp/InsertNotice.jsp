@@ -31,7 +31,7 @@
 
 		<label class="layui-form-label">公告类型：</label>
 		<div class="layui-input-inline">
-			<select name="interest" lay-filter="aihao" id="addtype">
+			<select name="type" lay-filter="aihao" id="addtype">
 				<option value=""  selected=""></option>
 				<option value="全员通知">全员通知</option>
 				<option value="驾校通知">驾校通知</option>
@@ -54,7 +54,7 @@
 
 
 		//监听提交
-		form.on('submit(formDemo)', function(data){
+		form.on('submit(save)', function(data){
 
 			var notice=JSON.stringify(data.field);
 			console.log(notice);

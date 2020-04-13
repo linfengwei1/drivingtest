@@ -163,7 +163,7 @@ public interface TransportationService {
      * @return
      */
     public Coach getCoachMsg(Integer id);
-    public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name);
+//    public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name);
 
 
     /**
