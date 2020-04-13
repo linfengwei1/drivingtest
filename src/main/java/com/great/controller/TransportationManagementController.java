@@ -318,7 +318,7 @@ public class TransportationManagementController {
     }
 
     /**
-     * 获取学员信息
+     * 获取驾校信息
      * @param response
      * @return
      */
@@ -333,13 +333,19 @@ public class TransportationManagementController {
 
         request.getSession().setAttribute("school",transportationService.getSchoolMsg(id));
 
+        request.getSession().setAttribute("studentNum",transportationService.getStudentCountBySchoolId(id));
+
+        request.getSession().setAttribute("coachNum",transportationService.getCoachCountBySchoolId(id));
+
+        request.getSession().setAttribute("coachCarNum",transportationService.getCoachCarCountBySchoolId(id));
+
         System.out.println(request.getSession().getAttribute("school"));
 
         return "";
     }
 
     /**
-     * 获取学员信息
+     * 获取教练信息
      * @param response
      * @return
      */
@@ -373,6 +379,36 @@ public class TransportationManagementController {
 
         return "Success";
     }
+
+    /**
+     * 审核学校（修改状态，插入审核结果）
+     * @param response
+     * @return
+     */
+    @RequestMapping("/examineSchool")
+    @ResponseBody
+    public String examineSchool(Student student,HttpServletResponse response){
+
+
+
+        return "Success";
+    }
+
+
+    /**
+     * 审核教练（修改状态，插入审核结果）
+     * @param response
+     * @return
+     */
+    @RequestMapping("/examineCoach")
+    @ResponseBody
+    public String examineCoach(Student student,HttpServletResponse response){
+
+
+
+        return "Success";
+    }
+
 
     /**
      * 获取学校列表
@@ -460,6 +496,25 @@ public class TransportationManagementController {
         ObjectResult objectResult=transportationService.getCoachTbl(page,limit,name,sex,type,school);
 
         return g.toJson(objectResult);
+    }
+
+    /**
+     * 获取教练车表
+     * @param page
+     * @param limit
+     * @param school
+     * @param name
+     * @param type
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getCoachCarTbl")
+    @ResponseBody
+    public String getCoachCarTbl(Integer page, Integer limit ,String school,String name,String type,HttpServletResponse response){
+
+
+
+        return "";
     }
 
 

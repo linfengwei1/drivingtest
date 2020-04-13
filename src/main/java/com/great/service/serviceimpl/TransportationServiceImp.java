@@ -283,5 +283,20 @@ public class TransportationServiceImp implements TransportationService {
         return td.getCoachMsg(id);
     }
 
+    @Override
+    public Integer getStudentCountBySchoolId(Integer id) {
+        return td.getStudentCountBySchoolId(id);
+    }
+
+    @Override
+    public Integer getCoachCountBySchoolId(Integer id) {
+        return td.getCoachCountBySchoolId(id);
+    }
+
+    @Override
+    public Integer getCoachCarCountBySchoolId(Integer id) {
+        return td.getCoachCarCountBySchoolId(id);
+    }
+
 
 }
