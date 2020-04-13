@@ -1,6 +1,9 @@
 package com.great.dao;
 
 import com.great.entity.*;
+import com.great.entity.Notice;
+import com.great.entity.Subject;
+import com.great.entity.Transportation;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -183,25 +186,57 @@ public interface TransportationDao {
      */
     public Coach getCoachMsg(Integer id);
 
-    /**
-     * 根据学校id获取学生数量
-     * @param id
-     * @return
-     */
-    public Integer getStudentCountBySchoolId(Integer id);
 
     /**
-     * 根据学校id获取教练数量
-     * @param id
+     * 获取公告数
+     * @param map
      * @return
      */
-    public Integer getCoachCountBySchoolId(Integer id);
+    public Integer getNoticeCount(Map<String, Object> map);
+
 
     /**
-     * 根据学校id获取教练车数量
+     * 获取公告表
+     * @param map
+     * @return
+     */
+    public List<?> getNotice(Map<String, Object> map);
+
+	/**
+	 * 获取公告类型
+	 * @return
+	 */
+	public List<?> getNoticeType();
+
+    /**
+     * 删除通告
      * @param id
      * @return
      */
+    public Integer deleteNotice(Integer id);
+
+    /**
+     * 更新通告
+     * @param notice
+     * @return
+     */
+    public Integer updateNoticeMsg(Notice notice);
+
+
+    /**
+     * 获取通告信息
+     * @param id
+     * @return
+     */
+    public Notice getNoticeMsg(Integer id);
+
+    /**
+     * 新增公告数
+     * @param notice
+     * @return
+     */
+    public Integer insertNotice(Notice notice);
+
     public Integer getCoachCarCountBySchoolId(Integer id);
 
     /**
