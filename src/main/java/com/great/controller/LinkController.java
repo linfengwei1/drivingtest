@@ -76,8 +76,8 @@ public class LinkController {
 	}
 
 	//查询驾校数据列表：需要返回数据给前台
-	@RequestMapping("findAllSchool")
-	@ResponseBody // ajax返回值json格式转换
+	@RequestMapping("findAllSchool")//findAllSchool
+	@ResponseBody // ajax返回值json格式转换：
 	public DateTable ShowAllSchool(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Integer page = Integer.parseInt(request.getParameter("page"));
 		Integer limit = Integer.parseInt(request.getParameter("limit"));
