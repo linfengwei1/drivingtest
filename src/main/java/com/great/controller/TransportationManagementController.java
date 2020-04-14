@@ -639,4 +639,140 @@ public class TransportationManagementController {
         return "/transportation/jsp/TransportationLogin";
     }
 
+
+
+	/**
+	 * 获取公告列表
+	 * @return
+	 */
+	@RequestMapping("/getNotice")
+	@ResponseBody
+	public String getNotice(Integer page, Integer limit, String title , String date, String type, HttpServletResponse response){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+        System.out.println("data:"+page+"---"+limit+"---"+title+"---"+date+"---"+type);
+		ObjectResult objectResult = transportationService.getNotice(page, limit, title, date, type);
+
+//        System.out.println("tmc:"+objectResult);
+
+		return g.toJson(objectResult);
+	}
+
+	/**
+	 * 获取公告列表类型
+	 * @return
+	 */
+	@RequestMapping("/getNoticeType")
+	@ResponseBody
+	public String getNoticeType(HttpServletResponse response){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		List<?> noticeType = transportationService.getNoticeType();
+		System.out.println("type:"+noticeType);
+
+		//        System.out.println("tmc:"+objectResult);
+
+		return g.toJson(noticeType);
+	}
+
+	/**
+	 * 删除通告
+	 * @param notice
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/deleteNotice")
+	@ResponseBody
+	public String deleteNotice(String notice, HttpServletResponse response,HttpServletRequest request){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		Notice message = g.fromJson(notice, Notice.class);
+		System.out.println(message);
+		request.getSession().setAttribute("Notice",transportationService.deleteNotice(message));
+		System.out.println("删除成功");
+		return "";
+	}
+
+
+	/**
+	 * 更新通告信息
+	 * @param notice
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/updateNotice")
+	@ResponseBody
+	public String updateNotice(String notice,HttpServletResponse response,HttpServletRequest request){
+		System.out.println("updateNotice");
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		Notice updatenotice = g.fromJson(notice, Notice.class);
+		System.out.println("update:"+updatenotice);
+
+		request.getSession().setAttribute("Notice",transportationService.updateNoticeMsg(updatenotice));
+
+		return "";
+	}
+
+	/**
+	 * 获取题目信息
+	 * @param notice
+	 * @param response
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getNoticeMsg")
+	@ResponseBody
+	public String getNoticeMsg(String notice,HttpServletResponse response,HttpServletRequest request){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		Notice noticemsg = g.fromJson(notice, Notice.class);
+
+		request.getSession().setAttribute("noticemsg",transportationService.getNoticeMsg(noticemsg));
+		System.out.println(transportationService.getNoticeMsg(noticemsg));
+
+		return "";
+	}
+
+	/**
+	 * 增加通告信息
+	 * @param notice
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/saveNotice")
+	@ResponseBody
+	public String saveNotice(Notice notice,HttpServletResponse response,HttpServletRequest request){
+		System.out.println("saveNotice");
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+		System.out.println("get:"+notice);
+//		Notice addNotice = g.fromJson(notice, Notice.class);
+
+		request.getSession().setAttribute("Notice",transportationService.insertNotice(notice));
+
+		return "";
+	}
+
 }

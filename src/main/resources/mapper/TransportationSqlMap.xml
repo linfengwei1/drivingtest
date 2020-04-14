@@ -311,7 +311,6 @@
 
 	</resultMap>
 
-<!--获取教练表-->
 	<select id="getCoachTbl" resultMap="coachMap" parameterType="java.util.Map" >
 		select c.*
 		,s.id "s_id"
@@ -506,5 +505,84 @@
 		set  audit_results= #{text} , state=#{i}
 		where id=#{id};
 	</update>
+
+	<select id="getNoticeCount" parameterType="java.util.Map" resultType="java.lang.Integer" >
+		select
+		count(*)
+		from notice
+		<where>
+			<if test="title!=null">
+				and title like concat('%',#{title},'%')
+			</if>
+			<if test="date!=null">
+				and time >= DATE_FORMAT(#{date}, '%Y-%m-%d')
+			</if>
+			<if test="type!=null">
+				and type = #{type}
+			</if>
+		</where>
+	</select>
+
+	<select id="getNotice" parameterType="java.util.Map" resultType="com.great.entity.Notice" >
+		select
+		*
+		from notice
+		<where>
+			<if test="title!=null and ''!=title">
+				and title like concat('%',#{title},'%')
+			</if>
+			<if test="date!=null and ''!=date">
+				and time >= DATE_FORMAT(#{date}, '%Y-%m-%d')
+			</if>
+			<if test="type!=null and ''!=type">
+				and type = #{type}
+			</if>
+		</where>
+		order by time desc limit #{minlimit} , #{maxlimit}
+	</select>
+
+	<select resultType="com.great.entity.Notice" id="getNoticeType">
+		select distinct type from notice
+	</select>
+
+	<delete parameterType="integer" id="deleteNotice">
+		delete from notice where id=#{id}
+	</delete>
+
+	<update parameterType="com.great.entity.Notice" id="updateNoticeMsg">
+		update notice
+		<set>
+			<if test="title!=null">
+				title=#{title}
+			</if>
+			<if test="content!=null">
+				,content=#{content}
+			</if>
+			<if test="type!=null">
+				,type=#{type}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+
+    <select id="getNoticeMsg" resultType="com.great.entity.Notice" parameterType="java.lang.Integer">
+		select
+		*
+		from notice
+		where id=#{id}
+	</select>
+
+
+
+	<insert id="insertNotice" parameterType="com.great.entity.Notice">
+		insert into
+		notice (title, content, time, type)
+		values (
+		#{title},
+		#{content},
+		now(),
+		#{type})
+	</insert>
 
 </mapper>

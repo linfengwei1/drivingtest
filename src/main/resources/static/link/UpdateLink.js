@@ -3,27 +3,32 @@ layui.use('form', function(){
     var $ = layui.$;
     var path = $("#path").val();
     //监听提交
-    form.on('submit(formDemo)', function(data){
+    form.on('submit(formDemoUpdate)', function(data){
         var path = $("#path").val();
         // var a =JSON.stringify(data.field)
+        // var linkId = $("#linkId").val();
+        // var linkName = $("#linkName").val();
+        // var linkUrl = $("#linkUrl").val();
+        // var linkSort = $("#linkSort").val();
         $.ajax({//发起异步请求
-            url: path + "/link/addLink",//controller层接口地址，数据要提交的地址
+            url: path + "/link/updateLink",//controller层接口地址，数据要提交的地址
             async: true,
             type: "POST",
             data:  data.field,
             // data:"a="+a,
+            // data: {"linkId": linkId,"linkName": linkName,"linkUrl": linkUrl,"linkSort": linkSort},
             datatype: "text",
             beforeSend:function () {//提交之前验证：非空验证、规则验证等
-               
+
 
             },
             success: function (msg) {
                 if (msg == "success") {
-                    layer.alert("新增成功",{icon:6},function () {
+                    layer.alert("修改成功",{icon:6},function () {
                         window.parent.location.reload();
                     });
                 }else {
-                    layer.alert("新增失败",{icon:2})
+                    layer.alert("修改失败",{icon:2})
                 }
             },
             error: function () {

@@ -15,19 +15,29 @@ import java.util.List;
 @Service
 public class LinkServiceImpl implements LinkService {
 
-    @Autowired
+    @Autowired//自动装配、自动注入：注入sqlSessionTemplate
     private SqlSessionTemplate sqlSessionTemplate;
 
 //    @Autowired
     private LinkMapper linkMapper;
 
-    public void addLinkUrl(Link link){
+    public void addLink(Link link){
          linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);//获得代理对象
-         linkMapper.addLinkUrl(link);
+         linkMapper.addLink(link);
     }
     public List<Link> findAllLink() {
         linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);//获得代理对象
         return linkMapper.findAllLink();
     }
 
+//    @Override
+    public void updateLink(Link link) {
+        linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);
+        linkMapper.updateLink(link);
+    }
+//    @Override
+    public void deleteLink(Link link){
+        linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);
+        linkMapper.deleteLink(link);
+    }
 }

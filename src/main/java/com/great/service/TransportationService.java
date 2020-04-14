@@ -220,4 +220,47 @@ public interface TransportationService {
      * @param i
      */
     public void examineCoachCar(Integer id, String text, String i);
+
+    /**
+     * 获取公告表
+     * @param page
+     * @param limit
+     * @return
+     */
+    public ObjectResult getNotice(Integer page, Integer limit, String title , String date, String type);
+
+    /**
+     * 获取公告类型
+     * @return
+     */
+    public List<?> getNoticeType();
+
+    /**
+     * 删除通告
+     * @param notice
+     * @return
+     */
+    public Integer deleteNotice(Notice notice);
+
+    /**
+     * 更新通告
+     * @param notice
+     * @return
+     */
+    public Integer updateNoticeMsg(Notice notice);
+
+    /**
+     * 获取通告信息
+     * @param notice
+     * @return
+     */
+    public Notice getNoticeMsg(Notice notice);
+
+    /**
+     * 新增公告数
+     * @param notice
+     * @return
+     */
+    public Integer insertNotice(Notice notice);
+
 }
