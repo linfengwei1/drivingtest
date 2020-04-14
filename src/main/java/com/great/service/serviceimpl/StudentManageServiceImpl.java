@@ -321,6 +321,10 @@ public class StudentManageServiceImpl implements StudentManageService
 	public List<StudyCondition>  getStudyCondition(String studentId)
 	{
 		List<StudyCondition> list =  studentDao.getStudyConditionById(Integer.parseInt(studentId));
+		for (StudyCondition s : list)
+		{
+			System.out.println(s);
+		}
 		return list;
 	}
 
