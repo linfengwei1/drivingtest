@@ -33,10 +33,8 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">公告类型</label>
 		<div class="layui-input-inline">
-			<select id="type" lay-verify="required">
+			<select id="type" name="type" lay-verify="required" lay-filter="aihao" >
 				<option value=""></option>
-<%--				<option value="全员通知">全员通知</option>--%>
-<%--				<option value="驾校通知">驾校通知</option>--%>
 			</select>
 		</div>
 	</div>

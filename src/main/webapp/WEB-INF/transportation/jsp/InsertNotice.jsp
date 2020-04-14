@@ -31,10 +31,8 @@
 
 		<label class="layui-form-label">公告类型：</label>
 		<div class="layui-input-inline">
-			<select name="type" lay-filter="aihao" id="addtype">
+			<select name="type" lay-filter="aihao" id="type">
 				<option value=""  selected=""></option>
-				<option value="全员通知">全员通知</option>
-				<option value="驾校通知">驾校通知</option>
 			</select>
 		</div>
 
@@ -47,6 +45,35 @@
 	</form>
 </body>
 <script>
+	onload= layui.use(['form', 'layer', 'layedit'], function () {
+		$ = layui.jquery;
+		var form = layui.form;
+		var layer = layui.layer;
+		var layedit = layui.layedit;
+		//3.页面打开时异步加载数据
+		$(function () {
+			$.ajax({
+				//提交数据的类型 POST GET
+				type: "POST",
+				//提交的网址
+				url: "${pageContext.request.contextPath}/TM/getNoticeType",
+				//提交的数据
+				//返回数据的格式
+				datatype: "text",//“xml”, “html”, “script”, “json”, “jsonp”, “text”.
+				//成功返回之后调用的函数
+				success: function (data) {
+					console.log($.parseJSON(data));
+					$.each($.parseJSON(data), function (index, item) {
+						$('#type').append(new Option(item.type, item.type));// 下拉菜单里添加元素
+					});
+					layui.form.render("select");
+				}, error: function () {
+					alert("查询失败！！！")
+				}
+			});
+		});
+	});
+
 	//Demo
 	layui.use(['form','jquery'], function(){
 		var form = layui.form,

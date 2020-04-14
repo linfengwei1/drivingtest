@@ -30,8 +30,6 @@
         <div class="layui-input-inline">
             <select name="interest" lay-filter="aihao" id="type">
                 <option value=""  selected=""></option>
-                <option value="全员通知">全员通知</option>
-                <option value="驾校通知">驾校通知</option>
             </select>
         </div>
 
@@ -41,7 +39,7 @@
 
 </form>
 
-<bottom class="layui-btn" onclick="test1()">弹出层</bottom>
+<%--<bottom class="layui-btn" onclick="test1()">弹出层</bottom>--%>
 <a onclick="func7();" class="layui-btn layui-inline fl w130">添加</a>
 
 <table id="demo" lay-filter="test"></table>
@@ -54,6 +52,35 @@
 </script>
 
 <script>
+    onload= layui.use(['form', 'layer', 'layedit'], function () {
+        $ = layui.jquery;
+        var form = layui.form;
+        var layer = layui.layer;
+        var layedit = layui.layedit;
+        //3.页面打开时异步加载数据
+        $(function () {
+            $.ajax({
+                //提交数据的类型 POST GET
+                type: "POST",
+                //提交的网址
+                url: "${pageContext.request.contextPath}/TM/getNoticeType",
+                //提交的数据
+                //返回数据的格式
+                datatype: "text",//“xml”, “html”, “script”, “json”, “jsonp”, “text”.
+                //成功返回之后调用的函数
+                success: function (data) {
+                    console.log($.parseJSON(data));
+                    $.each($.parseJSON(data), function (index, item) {
+                        $('#type').append(new Option(item.type, item.type));// 下拉菜单里添加元素
+                    });
+                    layui.form.render("select");
+                }, error: function () {
+                    alert("查询失败！！！")
+                }
+            });
+        });
+    });
+
     layui.use('laydate', function(){
         var laydate = layui.laydate;
 
@@ -237,29 +264,29 @@
 </script>
 
 <script type="text/javascript">
-	function test1(){
-		console.log("click");
-		layui.use(['layer','jquery'], function(){
-			var layer = layui.layer;
-			$=layui.jquery;
-			$.ajax({
-				url: "${pageContext.request.contextPath}/TM/saveNotice",
-				type: 'POST',
-				data: {"notice":notice},
-				dataType : "html",
-				success: function (result) {
-					layer.open({
-						title: '添加通告',
-						type: 2,
-						area: ["1000px","500px"],
-						// btn: ['确定', '取消'],
-						content: "${pageContext.request.contextPath}/TM/path/InsertNotice"
-					});
-				}
-			});
+	<%--function test1(){--%>
+	<%--	console.log("click");--%>
+	<%--	layui.use(['layer','jquery'], function(){--%>
+	<%--		var layer = layui.layer;--%>
+	<%--		$=layui.jquery;--%>
+	<%--		$.ajax({--%>
+	<%--			url: "${pageContext.request.contextPath}/TM/saveNotice",--%>
+	<%--			type: 'POST',--%>
+	<%--			data: {"notice":notice},--%>
+	<%--			dataType : "html",--%>
+	<%--			success: function (result) {--%>
+	<%--				layer.open({--%>
+	<%--					title: '添加通告',--%>
+	<%--					type: 2,--%>
+	<%--					area: ["1000px","500px"],--%>
+	<%--					// btn: ['确定', '取消'],--%>
+	<%--					content: "${pageContext.request.contextPath}/TM/path/InsertNotice"--%>
+	<%--				});--%>
+	<%--			}--%>
+	<%--		});--%>
 
-		});
-	}
+	<%--	});--%>
+	<%--}--%>
 
 	function func7() {
 		console.log("click");

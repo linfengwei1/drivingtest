@@ -512,7 +512,7 @@ public class TransportationManagementController {
 	}
 
 	/**
-	 * 获取公告列表
+	 * 获取公告列表类型
 	 * @return
 	 */
 	@RequestMapping("/getNoticeType")
@@ -564,16 +564,16 @@ public class TransportationManagementController {
 	@RequestMapping("/updateNotice")
 	@ResponseBody
 	public String updateNotice(String notice,HttpServletResponse response,HttpServletRequest request){
-
+		System.out.println("updateNotice");
 		// 设置浏览器字符集编码.
 		response.setHeader("Content-Type","text/html;charset=UTF-8");
 		// 设置response的缓冲区的编码.
 		response.setCharacterEncoding("UTF-8");
 
 		Notice updatenotice = g.fromJson(notice, Notice.class);
-		System.out.println(updatenotice);
+		System.out.println("update:"+updatenotice);
 
-		request.getSession().setAttribute("Subject",transportationService.updateNoticeMsg(updatenotice));
+		request.getSession().setAttribute("Notice",transportationService.updateNoticeMsg(updatenotice));
 
 		return "";
 	}
@@ -603,7 +603,7 @@ public class TransportationManagementController {
 	}
 
 	/**
-	 * 更新通告信息
+	 * 增加通告信息
 	 * @param notice
 	 * @param response
 	 * @return
@@ -619,7 +619,7 @@ public class TransportationManagementController {
 		System.out.println("get:"+notice);
 //		Notice addNotice = g.fromJson(notice, Notice.class);
 
-//		request.getSession().setAttribute("Subject",transportationService.updateNoticeMsg(updatenotice));
+		request.getSession().setAttribute("Notice",transportationService.insertNotice(notice));
 
 		return "";
 	}

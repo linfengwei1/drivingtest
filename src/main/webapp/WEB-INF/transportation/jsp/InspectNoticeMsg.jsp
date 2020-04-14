@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -33,7 +34,8 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">发布时间</label>
 		<div class="layui-input-inline">
-			<input type="text" name="time" value="${noticemsg.time}"  required  lay-verify="required" placeholder="请输入类型" autocomplete="off" class="layui-input">
+			<p style="font-size: 25px"> <fmt:formatDate type="both" dateStyle="medium" timeStyle="medium" value="${noticemsg.time}" /></p>
+<%--			<input type="text" name="time" value="${noticemsg.time}"  required  lay-verify="required" placeholder="请输入类型" autocomplete="off" class="layui-input">--%>
 		</div>
 	</div>
 	<div class="layui-form-item">
