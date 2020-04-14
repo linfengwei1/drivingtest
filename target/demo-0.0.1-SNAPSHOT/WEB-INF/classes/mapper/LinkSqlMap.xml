@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.great.dao.LinkMapper">
+    <!--新增链接-->
+    <insert id="addLink" parameterType="com.great.entity.Link">
+        insert into link (link_name, link_url, link_sort) values
+            (#{linkName}, #{linkUrl}, #{linkSort})
+    </insert>
+    <!--查询所有链接：这个是要显示到前台的所有数据，结果类型Link对象-->
+    <select id="findAllLink" resultType="com.great.entity.Link">
+        select * from link
+    </select>
+    <!--修改链接-->
+    <update id="updateLink" parameterType="com.great.entity.Link">
+        update link set link_name = #{linkName},link_url= #{linkUrl},link_sort = #{linkSort} where link_id = #{linkId}
+    </update>
+    <!--删除连接-->
+    <delete id="deleteLink" parameterType="com.great.entity.Link">
+        delete from link where link_id = #{linkId}
+    </delete>
+</mapper>
