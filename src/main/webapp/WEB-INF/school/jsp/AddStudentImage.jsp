@@ -19,12 +19,9 @@
             padding-left: 5%;
             padding-top: 2%;
             width: 50%;
-            background-color: #dadada;
+            /*background-color: #dadada;*/
         }
-        <%--.layui-layout-body{--%>
-        <%--    background-image: url(${pageContext.request.contextPath}/static/images/demo-1-bg.jpg);--%>
-        <%--    overflow:auto; /*这边设置是为了弹出的时候，如果框的大小小于内容，就出现滑动条*/--%>
-        <%--}--%>
+
     </style>
 </head>
 <body class="layui-layout-body">

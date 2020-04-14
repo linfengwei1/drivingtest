@@ -1,10 +1,14 @@
 package com.great.entity;
 
 import com.sun.tools.corba.se.idl.constExpr.Times;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
+/**
+ * 学习条件表
+ */
+@Component
 public class StudyCondition implements Serializable
 {
 

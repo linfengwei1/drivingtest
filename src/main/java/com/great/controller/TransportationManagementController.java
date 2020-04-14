@@ -117,6 +117,8 @@ public class TransportationManagementController {
     public String Login(String account,String pwd,String rePass , HttpServletRequest request) throws IOException {
         String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
         Boolean confirm = rePass.equalsIgnoreCase(YZM);//不区分大小写
+        String savePath = request.getSession().getServletContext().getRealPath("/images");
+        System.out.println(savePath);
         if (confirm) {
             Transportation transportation =transportationService.login(account,pwd);
             if (null!=transportation){
@@ -302,11 +304,69 @@ public class TransportationManagementController {
      * @return
      */
     @RequestMapping("/getStudentMsg")
-    public String getStudentMsg (HttpServletResponse response){
+    @ResponseBody
+    public String getStudentMsg (Integer id,HttpServletResponse response,HttpServletRequest request){
 
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        request.getSession().setAttribute("student",transportationService.getStudentMsg(id));
+
+        System.out.println(request.getSession().getAttribute("student"));
 
         return "";
     }
+
+    /**
+     * 获取驾校信息
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getSchoolMsg")
+    @ResponseBody
+    public String getSchoolMsg (Integer id,HttpServletResponse response,HttpServletRequest request){
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        request.getSession().setAttribute("school",transportationService.getSchoolMsg(id));
+
+        request.getSession().setAttribute("studentNum",transportationService.getStudentCountBySchoolId(id));
+
+        request.getSession().setAttribute("coachNum",transportationService.getCoachCountBySchoolId(id));
+
+        request.getSession().setAttribute("coachCarNum",transportationService.getCoachCarCountBySchoolId(id));
+
+        System.out.println(request.getSession().getAttribute("school"));
+
+        return "";
+    }
+
+    /**
+     * 获取教练信息
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getCoachMsg")
+    @ResponseBody
+    public String getCoachMsg (Integer id,HttpServletResponse response,HttpServletRequest request){
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        request.getSession().setAttribute("coach",transportationService.getCoachMsg(id));
+
+        System.out.println(request.getSession().getAttribute("coach"));
+
+        return "";
+    }
+
 
     /**
      * 审核学生（修改状态，插入审核结果）
@@ -315,11 +375,76 @@ public class TransportationManagementController {
      */
     @RequestMapping("/examineStudent")
     @ResponseBody
-    public String examineStudent(HttpServletResponse response){
+    public String examineStudent(Integer id,String text,String doing,HttpServletResponse response){
+
+        System.out.println(doing);
+
+        if ("通过".equals(doing)){
+            transportationService.examineStudent(id,text,1);
+        }else {
+            transportationService.examineStudent(id,text,6);
+        }
 
 
+        return "Success";
+    }
 
-        return "error";
+    /**
+     * 审核学校（修改状态，插入审核结果）
+     * @param response
+     * @return
+     */
+    @RequestMapping("/examineSchool")
+    @ResponseBody
+    public String examineSchool(Integer id,String text,String doing,HttpServletResponse response){
+
+        if ("通过".equals(doing)){
+            transportationService.examineSchool(id,text,3);
+        }else {
+            transportationService.examineSchool(id,text,5);
+        }
+
+        return "Success";
+    }
+
+
+    /**
+     * 审核教练（修改状态，插入审核结果）
+     * @param response
+     * @return
+     */
+    @RequestMapping("/examineCoach")
+    @ResponseBody
+    public String examineCoach(Integer id,String text,String doing,HttpServletResponse response){
+
+        if ("通过".equals(doing)){
+            transportationService.examineCoach(id,text,1);
+        }else {
+            transportationService.examineCoach(id,text,6);
+        }
+
+
+        return "Success";
+    }
+
+
+    /**
+     * 审核教练车（修改状态，插入审核结果）
+     * @param response
+     * @return
+     */
+    @RequestMapping("/examineCoachCar")
+    @ResponseBody
+    public String examineCoachCar(Integer id,String text,String doing,HttpServletResponse response){
+
+        if ("通过".equals(doing)){
+            transportationService.examineCoachCar(id,text,"审核通过");
+        }else {
+            transportationService.examineCoachCar(id,text,"审核失败");
+        }
+
+
+        return "Success";
     }
 
     /**
@@ -331,7 +456,7 @@ public class TransportationManagementController {
     @ResponseBody
     public String getSchoolTbl(Integer page, Integer limit ,String state,String name,HttpServletResponse response){
        // 设置浏览器字符集编码.
-                response.setHeader("Content-Type","text/html;charset=UTF-8");
+       response.setHeader("Content-Type","text/html;charset=UTF-8");
         // 设置response的缓冲区的编码.
         response.setCharacterEncoding("UTF-8");
 
@@ -386,7 +511,34 @@ public class TransportationManagementController {
         return "transportation/jsp/CoachTbl";
     }
 
+    /**
+     * 获取学校的筛选条件，打开教练表
+     * @param request
+     * @return
+     */
+    @RequestMapping("/gASB")
+    public String getAllSchoolNameByCoachCar(HttpServletRequest request){
 
+        List<School> schools =transportationService.getSchoolList();
+
+        if (schools!=null){
+            request.setAttribute("schools",schools);
+        }
+
+        return "transportation/jsp/CoachCarTbl";
+    }
+
+    /**
+     * 获取教练表
+     * @param page
+     * @param limit
+     * @param school
+     * @param name
+     * @param sex
+     * @param type
+     * @param response
+     * @return
+     */
     @RequestMapping("/getCoachTbl")
     @ResponseBody
     public String getCoachTbl(Integer page, Integer limit ,String school,String name,String sex,String type,HttpServletResponse response){
@@ -400,6 +552,30 @@ public class TransportationManagementController {
         return g.toJson(objectResult);
     }
 
+    /**
+     * 获取教练车表
+     * @param page
+     * @param limit
+     * @param school
+     * @param name
+     * @param type
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getCoachCarTbl")
+    @ResponseBody
+    public String getCoachCarTbl(Integer page, Integer limit ,String school,String name,String type,HttpServletResponse response){
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectResult objectResult=transportationService.getCoachCarTbl(page,limit,name,type,school);
+
+        System.out.println(objectResult);
+
+        return g.toJson(objectResult);
+    }
 
     /**
      * 注销登录
@@ -419,5 +595,141 @@ public class TransportationManagementController {
         //返回页面
         return "/transportation/jsp/TransportationLogin";
     }
+
+
+
+	/**
+	 * 获取公告列表
+	 * @return
+	 */
+	@RequestMapping("/getNotice")
+	@ResponseBody
+	public String getNotice(Integer page, Integer limit, String title , String date, String type, HttpServletResponse response){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+        System.out.println("data:"+page+"---"+limit+"---"+title+"---"+date+"---"+type);
+		ObjectResult objectResult = transportationService.getNotice(page, limit, title, date, type);
+
+//        System.out.println("tmc:"+objectResult);
+
+		return g.toJson(objectResult);
+	}
+
+	/**
+	 * 获取公告列表类型
+	 * @return
+	 */
+	@RequestMapping("/getNoticeType")
+	@ResponseBody
+	public String getNoticeType(HttpServletResponse response){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		List<?> noticeType = transportationService.getNoticeType();
+		System.out.println("type:"+noticeType);
+
+		//        System.out.println("tmc:"+objectResult);
+
+		return g.toJson(noticeType);
+	}
+
+	/**
+	 * 删除通告
+	 * @param notice
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/deleteNotice")
+	@ResponseBody
+	public String deleteNotice(String notice, HttpServletResponse response,HttpServletRequest request){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		Notice message = g.fromJson(notice, Notice.class);
+		System.out.println(message);
+		request.getSession().setAttribute("Notice",transportationService.deleteNotice(message));
+		System.out.println("删除成功");
+		return "";
+	}
+
+
+	/**
+	 * 更新通告信息
+	 * @param notice
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/updateNotice")
+	@ResponseBody
+	public String updateNotice(String notice,HttpServletResponse response,HttpServletRequest request){
+		System.out.println("updateNotice");
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		Notice updatenotice = g.fromJson(notice, Notice.class);
+		System.out.println("update:"+updatenotice);
+
+		request.getSession().setAttribute("Notice",transportationService.updateNoticeMsg(updatenotice));
+
+		return "";
+	}
+
+	/**
+	 * 获取题目信息
+	 * @param notice
+	 * @param response
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getNoticeMsg")
+	@ResponseBody
+	public String getNoticeMsg(String notice,HttpServletResponse response,HttpServletRequest request){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		Notice noticemsg = g.fromJson(notice, Notice.class);
+
+		request.getSession().setAttribute("noticemsg",transportationService.getNoticeMsg(noticemsg));
+		System.out.println(transportationService.getNoticeMsg(noticemsg));
+
+		return "";
+	}
+
+	/**
+	 * 增加通告信息
+	 * @param notice
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/saveNotice")
+	@ResponseBody
+	public String saveNotice(Notice notice,HttpServletResponse response,HttpServletRequest request){
+		System.out.println("saveNotice");
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+		System.out.println("get:"+notice);
+//		Notice addNotice = g.fromJson(notice, Notice.class);
+
+		request.getSession().setAttribute("Notice",transportationService.insertNotice(notice));
+
+		return "";
+	}
 
 }

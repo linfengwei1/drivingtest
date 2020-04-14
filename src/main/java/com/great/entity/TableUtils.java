@@ -13,13 +13,24 @@ public class TableUtils {
     private String name;
     private String phone;
     private String carNumber;
+    private Integer school_id;
     private Integer schoolStateId;
+//    private String type;
+//    private String content;
+//    private String datetime;
+    private Integer coach_id;
 
 
     public TableUtils() {
     }
 
+    public Integer getSchool_id() {
+        return school_id;
+    }
 
+    public void setSchool_id(Integer school_id) {
+        this.school_id = school_id;
+    }
 
     public String getIdNumber() {
         return idNumber;
@@ -126,17 +137,32 @@ public class TableUtils {
         this.carNumber = carNumber;
     }
 
+    public Integer getCoach_id() {
+        return coach_id;
+    }
+
+    public void setCoach_id(Integer coach_id) {
+        this.coach_id = coach_id;
+    }
+
     @Override
     public String toString() {
-        return "Utils{" +
+        return "TableUtils{" +
                 "page='" + page + '\'' +
                 ", minLimit=" + minLimit +
                 ", maxLimit=" + maxLimit +
                 ", time1='" + time1 + '\'' +
                 ", time2='" + time2 + '\'' +
+                ", idnumber='" + idnumber + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", sex='" + sex + '\'' +
                 ", state='" + state + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
+                ", carNumber='" + carNumber + '\'' +
+                ", school_id=" + school_id +
+                ", schoolStateId=" + schoolStateId +
+                ", coach_id=" + coach_id +
                 '}';
     }
 }

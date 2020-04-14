@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface LinkService {
 
-    public void addLinkUrl(Link link);
-    public List<Link> findAllLink();
+    public void addLink(Link link);//增加链接
+    public List<Link> findAllLink();//查询链接
+    public void updateLink(Link link);//更新链接
+    public void deleteLink(Link link);//删除连接
 }

@@ -1,8 +1,6 @@
 package com.great.dao;
 
-import com.great.entity.School;
-import com.great.entity.Subject;
-import com.great.entity.Transportation;
+import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -163,4 +161,135 @@ public interface TransportationDao {
      * @return
      */
     public List<?> getCoachTbl(Map<String, Object> map);
+
+    /**
+     * 获取学员信息
+     * @param id
+     * @return
+     */
+    public Student getStudentMsg(Integer id);
+
+    /**
+     * 获取学学校信息
+     * @param id
+     * @return
+     */
+    public School getSchoolMsg(Integer id);
+
+    /**
+     * 获取教练信息
+     * @param id
+     * @return
+     */
+    public Coach getCoachMsg(Integer id);
+
+    /**
+     * 根据学校id获取学生数量
+     * @param id
+     * @return
+     */
+    public Integer getStudentCountBySchoolId(Integer id);
+
+    /**
+     * 根据学校id获取教练数量
+     * @param id
+     * @return
+     */
+    public Integer getCoachCountBySchoolId(Integer id);
+
+    /**
+     * 根据学校id获取教练车数量
+     * @param id
+     * @return
+     */
+    public Integer getCoachCarCountBySchoolId(Integer id);
+
+    /**
+     * 获取教练车数量
+     * @param map
+     * @return
+     */
+    public Integer getCoachCarCount(Map<String, Object> map);
+
+    /**
+     * 获取教练车列表
+     * @param map
+     * @return
+     */
+    public List<?> getCoachCarTbl(Map<String, Object> map);
+
+    /**
+     * 修改学员审核
+
+     */
+    public void examineStudent(Map<String, Object> map);
+
+    /**
+     * 修改学校审核
+
+     */
+    public void examineSchool(Map<String, Object> map);
+
+    /**
+     * 修改教练审核
+     *
+     */
+    public void examineCoach(Map<String, Object> map);
+
+    /**
+     * 修改教练车审核
+     *
+     */
+    public void examineCoachCar(Map<String, Object> map);
+
+    /**
+     * 获取公告数
+     * @param map
+     * @return
+     */
+    public Integer getNoticeCount(Map<String, Object> map);
+
+
+    /**
+     * 获取公告表
+     * @param map
+     * @return
+     */
+    public List<Notice> getNotice(Map<String, Object> map);
+
+    /**
+     * 获取公告类型
+     * @return
+     */
+    public List<?> getNoticeType();
+
+    /**
+     * 删除通告
+     * @param id
+     * @return
+     */
+    public Integer deleteNotice(Integer id);
+
+    /**
+     * 更新通告
+     * @param notice
+     * @return
+     */
+    public Integer updateNoticeMsg(Notice notice);
+
+
+    /**
+     * 获取通告信息
+     * @param id
+     * @return
+     */
+    public Notice getNoticeMsg(Integer id);
+
+    /**
+     * 新增公告数
+     * @param notice
+     * @return
+     */
+    public Integer insertNotice(Notice notice);
+
 }

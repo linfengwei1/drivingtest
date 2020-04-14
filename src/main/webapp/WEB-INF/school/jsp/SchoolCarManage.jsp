@@ -69,10 +69,16 @@
     {{#  if(d.carState == '审核失败'){ }}
     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>人员分配</button>
-    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>提交审核</button>
-    {{#  } else { }}
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="resubmit" ><i class="layui-icon">&#xe642;</i>重新审核</button>
+
+    {{# } if(d.carState == '信息不完整'){ }}
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="AddCarImage" ><i class="layui-icon">&#xe642;</i>图片上传</button>
+    {{# } if(d.carState == '审核通过'){ }}
     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>人员分配</button>
+    {{# } if(d.carState == '待审核'){ }}
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
     {{#  } }}
 
 
@@ -174,6 +180,66 @@
                         var iframe = layero.find('iframe')[0].contentWindow;//新iframe窗口的对象
                         body.find("#coach_id").val(cid);
                         iframe.layui.form.render('select');//对页面中的下拉框重新渲染
+                    },
+
+                });
+            }
+
+            if(layEvent === 'resubmit'){ //重新提交
+                var $td = $(this).parents('tr').children('td');
+                var id = $td.eq(0).text();//获取点击按钮相对应的id
+                $.ajax({
+                    async:true,
+                    method : "POST",
+                    url :path1+'/school/carResubmit',
+                    data: "id="+id,
+                    dataType : "text",
+                    success:function(data){
+                        if ("success"==data){
+                            layer.alert("提交成功",{icon:6},function () {
+                                window.parent.location.reload();
+                            });
+                        }else {
+                            layer.alert("提交失败",{icon:2});
+                        }
+                    },
+                    error:function (err) {
+                        layer.alert("网络繁忙",{icon:2});
+                    }
+                })
+
+            }
+
+            // if(layEvent === 'check'){ //重新提交审核
+            //     var $td = $(this).parents('tr').children('td');
+            //     var id = $td.eq(0).text();//获取点击按钮相对应的id
+            //     layer.open({
+            //         title:'上传图片',
+            //         type: 2,
+            //         area: ['500px', '400px'],
+            //         content:path1+"/school/path/AddCarImage",//弹出的页面
+            //         success: function (layero, index) {
+            //             var body = layer.getChildFrame("body", index);//弹出页面的body标签
+            //             body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
+            //
+            //         },
+            //
+            //     });
+            // }
+
+
+            if(layEvent === 'AddCarImage'){ //上传图片
+                var $td = $(this).parents('tr').children('td');
+                var id = $td.eq(0).text();//获取点击按钮相对应的id
+                layer.open({
+                    title:'上传图片',
+                    type: 2,
+                    area: ['500px', '400px'],
+                    content:path1+"/school/path/AddCarImage",//弹出的页面
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame("body", index);//弹出页面的body标签
+                        body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
+
                     },
 
                 });
