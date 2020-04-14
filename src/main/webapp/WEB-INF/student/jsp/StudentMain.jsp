@@ -33,7 +33,7 @@
 				<a href="javascript:;">理论学习</a>
 				<dl class="layui-nav-child">
 					<dd><a href="${pageContext.request.contextPath}/student/path/VedioStudy" target="frame_div">科目一</a></dd>
-					<dd><a href="${pageContext.request.contextPath}/student/path/VedioStudy" target="frame_div">科目四</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/path/VedioStudy4" target="frame_div">科目四</a></dd>
 				</dl>
 			</li>
 
@@ -62,29 +62,19 @@
 				<a href="javascript:;">模拟考试</a>
 				<dl class="layui-nav-child">
 
-					<c:choose>
-						<c:when test="${student.student_state_id == 1}">
-							<dd style="cursor: pointer" onclick="getStudentState(1)"><a>科目一</a></dd>
-						</c:when>
-						<c:otherwise>
-							<dd><a href=""  style="color: grey" disabled="true">科目一(已通过)</a></dd>
-						</c:otherwise>
-					</c:choose>
+					<dd style="cursor: pointer" onclick="getStudentState(1)"><a>科目一</a></dd>
 
-					<c:choose>
-						<c:when test="${student.student_state_id == 4}">
-							<dd style="cursor: pointer" onclick="getStudentState(4)"><a>科目四</a></dd>
-						</c:when>
-						<c:otherwise>
-							<dd><a href=""  style="color: grey" disabled="true">科目四(暂未开放)</a></dd>
-						</c:otherwise>
-					</c:choose>
+					<dd style="cursor: pointer" onclick="getStudentState(4)"><a>科目四</a></dd>
 
 				</dl>
 			</li>
 
 			<li class="layui-nav-item">
 				<a href="">考试信息</a>
+				<dl class="layui-nav-child">
+					<dd><a href="${pageContext.request.contextPath}/student/path/ExamScore" target="frame_div">考试成绩</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/path/ExamTime" target="frame_div">考试预约</a></dd>
+				</dl>
 			</li>
 			<li class="layui-nav-item"><a href="">社区</a></li>
 			<li class="layui-nav-item">

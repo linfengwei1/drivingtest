@@ -2,10 +2,7 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
-import com.great.entity.QuestionList;
-import com.great.entity.Student;
-import com.great.entity.TestReplies;
-import com.great.entity.TestReply;
+import com.great.entity.*;
 import com.great.service.StudentManageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +61,27 @@ public class StudentController
 	{
 		String result = studentManageServiceImpl.checkStudyAuthority(studentId,vedioId,subject);
 		return result;
+	}
+	@RequestMapping("/getStudyCondition")
+	@ResponseBody
+	public List<StudyCondition> getStudyCondition(String studentId, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		List<StudyCondition> list = studentManageServiceImpl.getStudyCondition(studentId);
+		return list;
+	}
+	@RequestMapping("/getMyScore")
+	@ResponseBody
+	public List<Score> getMyScore(String studentId, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		List<Score> list = studentManageServiceImpl.getMyScore(studentId);
+		return list;
+	}
+	@RequestMapping("/getOrderTime")
+	@ResponseBody
+	public List<ExamOrder> getOrderTime(String studentId, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		List<ExamOrder> list = studentManageServiceImpl.getOrderTime(studentId);
+		return list;
 	}
 
 	@RequestMapping("/exercise/{subject}")

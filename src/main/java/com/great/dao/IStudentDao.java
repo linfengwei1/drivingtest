@@ -1,9 +1,7 @@
 package com.great.dao;
 
 
-import com.great.entity.Question;
-import com.great.entity.Student;
-import com.great.entity.TestReply;
+import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,6 +35,15 @@ public interface IStudentDao
 	public int getTest_4Score(@Param("list")List<TestReply> list);
 
 	public int changeStudentState(@Param("studentId")int studentId, @Param("stateId")int stateId);
-
+	// 查询学员处于什么阶段
 	public int getStudentState(@Param("studentId")int studentId);
+
+	int getPractiseScoreById(HashMap<String, Integer> map);
+	int getScoreById(HashMap<String, Integer> map);
+
+	List<StudyCondition> getStudyConditionById(@Param("studentId")int studentId);
+
+	List<Score> getMyScore(@Param("studentId")int studentId);
+
+	List<ExamOrder> getOrderTime(int parseInt);
 }
