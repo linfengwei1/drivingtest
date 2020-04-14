@@ -3,10 +3,6 @@ package com.great.controller;
 
 import com.google.gson.Gson;
 import com.great.entity.*;
-import com.great.entity.Notice;
-import com.great.entity.ObjectResult;
-import com.great.entity.Subject;
-import com.great.entity.Transportation;
 import com.great.service.TransportationService;
 import com.great.service.serviceimpl.TransportationServiceImp;
 import org.springframework.stereotype.Controller;
@@ -24,8 +20,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 //import com.great.service.MyService;
@@ -123,6 +117,8 @@ public class TransportationManagementController {
     public String Login(String account,String pwd,String rePass , HttpServletRequest request) throws IOException {
         String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
         Boolean confirm = rePass.equalsIgnoreCase(YZM);//不区分大小写
+        String savePath = request.getSession().getServletContext().getRealPath("/images");
+        System.out.println(savePath);
         if (confirm) {
             Transportation transportation =transportationService.login(account,pwd);
             if (null!=transportation){
@@ -324,7 +320,7 @@ public class TransportationManagementController {
     }
 
     /**
-     * 获取学员信息
+     * 获取驾校信息
      * @param response
      * @return
      */
@@ -339,13 +335,19 @@ public class TransportationManagementController {
 
         request.getSession().setAttribute("school",transportationService.getSchoolMsg(id));
 
+        request.getSession().setAttribute("studentNum",transportationService.getStudentCountBySchoolId(id));
+
+        request.getSession().setAttribute("coachNum",transportationService.getCoachCountBySchoolId(id));
+
+        request.getSession().setAttribute("coachCarNum",transportationService.getCoachCarCountBySchoolId(id));
+
         System.out.println(request.getSession().getAttribute("school"));
 
         return "";
     }
 
     /**
-     * 获取学员信息
+     * 获取教练信息
      * @param response
      * @return
      */
@@ -373,8 +375,73 @@ public class TransportationManagementController {
      */
     @RequestMapping("/examineStudent")
     @ResponseBody
-    public String examineStudent(Student student,HttpServletResponse response){
+    public String examineStudent(Integer id,String text,String doing,HttpServletResponse response){
 
+        System.out.println(doing);
+
+        if ("通过".equals(doing)){
+            transportationService.examineStudent(id,text,1);
+        }else {
+            transportationService.examineStudent(id,text,6);
+        }
+
+
+        return "Success";
+    }
+
+    /**
+     * 审核学校（修改状态，插入审核结果）
+     * @param response
+     * @return
+     */
+    @RequestMapping("/examineSchool")
+    @ResponseBody
+    public String examineSchool(Integer id,String text,String doing,HttpServletResponse response){
+
+        if ("通过".equals(doing)){
+            transportationService.examineSchool(id,text,3);
+        }else {
+            transportationService.examineSchool(id,text,5);
+        }
+
+        return "Success";
+    }
+
+
+    /**
+     * 审核教练（修改状态，插入审核结果）
+     * @param response
+     * @return
+     */
+    @RequestMapping("/examineCoach")
+    @ResponseBody
+    public String examineCoach(Integer id,String text,String doing,HttpServletResponse response){
+
+        if ("通过".equals(doing)){
+            transportationService.examineCoach(id,text,1);
+        }else {
+            transportationService.examineCoach(id,text,6);
+        }
+
+
+        return "Success";
+    }
+
+
+    /**
+     * 审核教练车（修改状态，插入审核结果）
+     * @param response
+     * @return
+     */
+    @RequestMapping("/examineCoachCar")
+    @ResponseBody
+    public String examineCoachCar(Integer id,String text,String doing,HttpServletResponse response){
+
+        if ("通过".equals(doing)){
+            transportationService.examineCoachCar(id,text,"审核通过");
+        }else {
+            transportationService.examineCoachCar(id,text,"审核失败");
+        }
 
 
         return "Success";
@@ -445,6 +512,23 @@ public class TransportationManagementController {
     }
 
     /**
+     * 获取学校的筛选条件，打开教练表
+     * @param request
+     * @return
+     */
+    @RequestMapping("/gASB")
+    public String getAllSchoolNameByCoachCar(HttpServletRequest request){
+
+        List<School> schools =transportationService.getSchoolList();
+
+        if (schools!=null){
+            request.setAttribute("schools",schools);
+        }
+
+        return "transportation/jsp/CoachCarTbl";
+    }
+
+    /**
      * 获取教练表
      * @param page
      * @param limit
@@ -468,6 +552,30 @@ public class TransportationManagementController {
         return g.toJson(objectResult);
     }
 
+    /**
+     * 获取教练车表
+     * @param page
+     * @param limit
+     * @param school
+     * @param name
+     * @param type
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getCoachCarTbl")
+    @ResponseBody
+    public String getCoachCarTbl(Integer page, Integer limit ,String school,String name,String type,HttpServletResponse response){
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectResult objectResult=transportationService.getCoachCarTbl(page,limit,name,type,school);
+
+        System.out.println(objectResult);
+
+        return g.toJson(objectResult);
+    }
 
     /**
      * 注销登录

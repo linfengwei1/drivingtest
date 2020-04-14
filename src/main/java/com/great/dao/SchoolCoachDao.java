@@ -2,6 +2,7 @@ package com.great.dao;
 
 
 import com.great.entity.Coach;
+import com.great.entity.Student;
 import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,7 +13,7 @@ import java.util.Map;
 @Mapper
 public interface SchoolCoachDao
 {
-//	//登录
+
 ////	public SchoolAdmin login(Map<String, String> map);
 
 	//查询教练记录并分页
@@ -36,6 +37,12 @@ public interface SchoolCoachDao
     //查询所有教练
     public List<Coach> findAllCoach(Integer schoolid);
 
+	//单独插入图片
+	public Integer AddCoachImage(Map map);
+
+	//插入图片改变状态
+	public Integer ChangeCoachState(Map map);
+
 	/**
 	 * 修改教练密码 2020-4-9 16：46 王良德
 	 * @param coach 教练信息
@@ -48,4 +55,10 @@ public interface SchoolCoachDao
 	 * @return 登录是否成功
 	 */
 	Coach login(Map<String, String> map);
+
+	//查询学员记录并分页
+	public List<Student> findStudentByPage(TableUtils tableUtils);
+
+	//查找学员总数
+	public Integer findCount(TableUtils tableUtils);
 }

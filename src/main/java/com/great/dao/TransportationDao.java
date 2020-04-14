@@ -1,9 +1,6 @@
 package com.great.dao;
 
 import com.great.entity.*;
-import com.great.entity.Notice;
-import com.great.entity.Subject;
-import com.great.entity.Transportation;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -186,6 +183,64 @@ public interface TransportationDao {
      */
     public Coach getCoachMsg(Integer id);
 
+    /**
+     * 根据学校id获取学生数量
+     * @param id
+     * @return
+     */
+    public Integer getStudentCountBySchoolId(Integer id);
+
+    /**
+     * 根据学校id获取教练数量
+     * @param id
+     * @return
+     */
+    public Integer getCoachCountBySchoolId(Integer id);
+
+    /**
+     * 根据学校id获取教练车数量
+     * @param id
+     * @return
+     */
+    public Integer getCoachCarCountBySchoolId(Integer id);
+
+    /**
+     * 获取教练车数量
+     * @param map
+     * @return
+     */
+    public Integer getCoachCarCount(Map<String, Object> map);
+
+    /**
+     * 获取教练车列表
+     * @param map
+     * @return
+     */
+    public List<?> getCoachCarTbl(Map<String, Object> map);
+
+    /**
+     * 修改学员审核
+
+     */
+    public void examineStudent(Map<String, Object> map);
+
+    /**
+     * 修改学校审核
+
+     */
+    public void examineSchool(Map<String, Object> map);
+
+    /**
+     * 修改教练审核
+     *
+     */
+    public void examineCoach(Map<String, Object> map);
+
+    /**
+     * 修改教练车审核
+     *
+     */
+    public void examineCoachCar(Map<String, Object> map);
 
     /**
      * 获取公告数
@@ -200,13 +255,13 @@ public interface TransportationDao {
      * @param map
      * @return
      */
-    public List<?> getNotice(Map<String, Object> map);
+    public List<Notice> getNotice(Map<String, Object> map);
 
-	/**
-	 * 获取公告类型
-	 * @return
-	 */
-	public List<?> getNoticeType();
+    /**
+     * 获取公告类型
+     * @return
+     */
+    public List<?> getNoticeType();
 
     /**
      * 删除通告

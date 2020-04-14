@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.great.dao.SchoolSearchMapper">
+
+    <!--查询所有驾校信息：这个是要显示到前台的所有数据，结果类型School对象-->
+    <select id="findAllSchool" resultType="com.great.entity.School">
+        select * from school
+    </select>
+
+</mapper>
