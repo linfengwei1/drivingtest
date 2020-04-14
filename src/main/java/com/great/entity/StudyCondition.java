@@ -17,7 +17,7 @@ public class StudyCondition implements Serializable
 	private int time;
 	private int score;
 	private int student_id;
-	private int practise_score;
+	private int practise_score;//模拟考试成绩(科目一、科目四)
 
 
 	public StudyCondition()
