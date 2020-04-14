@@ -40,7 +40,7 @@
                 <a class="" href="javascript:;">教练管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/SchoolCoachManage" onclick="changeUrl(this)">教练基本信息</a></dd>
-                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">教练业务</a></dd>
+                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">教练违规处理</a></dd>
                 </dl>
                 </li>
 
@@ -76,7 +76,7 @@
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/getSchoolInf" onclick="changeUrl(this)">驾校中心</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/GetEvaluation" onclick="changeUrl(this)">查看评价</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">消息查看</a></dd>
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">日志查看</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/SchoolLogManage" onclick="changeUrl(this)">日志查看</a></dd>
                     </dl>
                 </li>
             </ul>

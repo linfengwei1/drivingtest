@@ -55,7 +55,7 @@
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASN" onclick="changeUrl(this)">驾校查看</a></dd>
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">驾校违规处罚</a></dd>
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASC" onclick="changeUrl(this)">教练查询</a></dd>
-                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/" onclick="changeUrl(this)">教练车查询</a></dd>
+                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASB" onclick="changeUrl(this)">教练车查询</a></dd>
                 </dl>
                 </li>
 
@@ -100,7 +100,7 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">其他</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/NoticeManagement" onclick="changeUrl(this)">通知公告发布</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">通知公告发布</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">日志查看</a></dd>
                     </dl>
                 </li>

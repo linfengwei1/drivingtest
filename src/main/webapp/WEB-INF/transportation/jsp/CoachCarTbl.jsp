@@ -12,16 +12,23 @@
     <title>教练车表</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        .layui-table-cell {
+            height: 100%;
+            max-width: 100%;
+            /*height:auto !important;*/
+        }
+    </style>
 </head>
 <body>
 <form class="layui-form" action=""  >
     <div class="layui-form-item">
-        <label class="layui-form-label">姓名：</label>
+        <label class="layui-form-label">车牌号：</label>
         <div class="layui-input-inline">
             <input type="text"  id="name" name="name" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" value="${userName}">
         </div>
 
-        <label class="layui-form-label">驾校：</label>
+        <label class="layui-form-label">所属驾校：</label>
         <div class="layui-input-inline">
             <select name="school" id="school" lay-filter="aihao">
                 <option value=""></option>
@@ -31,13 +38,13 @@
             </select>
         </div>
 
-        <label class="layui-form-label">状态：</label>
+        <label class="layui-form-label">车辆状态：</label>
         <div class="layui-input-inline">
             <select name="type" id="type" lay-filter="aihao">
                 <option value=""></option>
-                <c:forEach items="${stateMap}" begin="" var="ss">
-                    <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
-                </c:forEach>
+                <option value="待审核">待审核</option>
+                <option value="审核失败">审核失败</option>
+                <option value="审核通过">审核通过</option>
             </select>
         </div>
 
@@ -51,11 +58,11 @@
 </body>
 <script type="text/html" id="barDemo">
 
-    {{#  if(d.student_state_id == 5){ }}
-    <a class="layui-btn layui-btn-xs" lay-event="lookMsg">查看信息</a>
+    {{#  if(d.carState == '待审核'){ }}
+
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine">审核</a>
     {{#  } else { }}
-    <a class="layui-btn layui-btn-xs" lay-event="lookMsg">查看信息</a>
+
     {{#  } }}
 
 
@@ -72,36 +79,16 @@
             elem: '#demo'
             ,height: 470
             ,id:'testReload'
-            ,url: '${pageContext.request.contextPath}/TM/getStudentTbl' //数据接口
+            ,url: '${pageContext.request.contextPath}/TM/getCoachCarTbl' //数据接口
             ,page: true //开启分页
             ,limit:10
             ,cols: [[ //表头
-                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field: 'account', title: '账号', width:100}
-                ,{field: 'name', title: '姓名', width:100}
-                ,{field: 'sex', title: '性别', width:50}
-                ,{field: 'age', title: '年龄', width:50}
-                ,{field: 'phone', title: '联系电话', width:100}
-                ,{field: 'student_state_id', title: '状态', width: 100,template:function(d){
-                        if(d.student_state_id==1){
-                            return "科目一学习";
-                        }else if(d.student_state_id==2){
-                            return "科目二学习";
-                        }else if(d.student_state_id==3){
-                            return "科目三学习";
-                        }else if(d.student_state_id==4){
-                            return "科目四学习";
-                        }else if(d.student_state_id==5){
-                            return "待审核";
-                        }else if(d.student_state_id==6){
-                            return "审核不通过";
-                        }else if(d.student_state_id==7){
-                            return "毕业";
-                        }else if(d.student_state_id==8){
-                            return "资料不完整";
-                        }
-                    }}
-                ,{field: 'schoolName', title: '所属驾校', width: 150}
+                {field: 'id', title: 'ID', width:80 ,sort: true,align:'center'}
+                ,{field:'pic', title: '车辆图片',width:200,templet:'<div><img src="${pageContext.request.contextPath}/static/{{d.picture}}" onclick="previewImg(this)"></div>'}
+                ,{field: 'carNumber', title: '车牌号', width:100}
+                ,{field: 'schoolName', title: '驾校名', width:100}
+                ,{field: 'coachName', title: '驾驶教练名', width:100}
+                ,{field: 'carState', title: '状态', width: 100}
                 ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
         });
@@ -143,19 +130,7 @@
             if(layEvent === 'detail'){ //查看
                 //do somehing
             } else if(layEvent === 'lookMsg'){ //查看信息
-                console.log(data);
 
-                layer.open({
-                    type: 2,
-                    title: '查看用户',
-                    shadeClose: true,
-                    shade: 0.8,
-                    area: ['700px', '500px'],
-                    content: "${pageContext.request.contextPath}/TM/getStudentMsg",
-                    yes: function (index, layero) {
-
-                    }
-                });
 
             } else if(layEvent === 'examine'){ //审核通过
                 //do something
@@ -164,32 +139,53 @@
 
 
                 //prompt层
-                layer.prompt({title: '审核信息', formType: 1}, function(pass, index){
+                layer.prompt({title: '审核信息', formType: 2}, function(text, index){
                     layer.close(index);
 
-                    layer.confirm('是否通过审核?', function(index){
-                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                        layer.close(index);
-                        var sub=JSON.stringify(data);
+                    layer.confirm('是否通过审核?', {
+                        btn : ['通过','不通过'],
+                        btn1:function(index){
+                            console.log(text);
+                            console.log(data.id);
+                            console.log("通过");
+                            layer.close(index);
+                            $.ajax({
+                                async:true,
+                                method : "POST",
+                                url :'${pageContext.request.contextPath}/TM/examineCoachCar',
+                                data: {"id":data.id,"text":text,"doing":"通过"},
+                                dataType:"text" ,
+                                success:function(data){
+                                    if ("Success"==data){
 
-                        $.ajax({
-                            async:true,
-                            method : "POST",
-                            url :'${pageContext.request.contextPath}/TM/examineStudent',
-                            data: data,
-                            dataType : {"data":data,"text":pass},
-                            success:function(data){
-                                if ("success"==data){
-                                    layer.alert("审核通过",{icon:6},function () {
-                                        //修改信息
-                                        window.parent.location.reload();
-                                    });
-                                }else {
-                                    layer.alert("审核未通过",{icon:2});
+                                        layer.alert("审核成功",{icon:6},function () {
+                                            //修改信息
+                                            window.parent.location.reload();
+                                        });
+                                    }
                                 }
-                            }
-                        });
-
+                            });
+                        },
+                        btn2:function(index){
+                            console.log(text);
+                            console.log(data.id);
+                            console.log("不通过");
+                            $.ajax({
+                                async:true,
+                                method : "POST",
+                                url :'${pageContext.request.contextPath}/TM/examineCoachCar',
+                                data: {"id":data.id,"text":text,"doing":"不通过"},
+                                dataType:"text" ,
+                                success:function(data){
+                                    if ("Success"==data){
+                                        layer.alert("审核成功",{icon:6},function () {
+                                            //修改信息
+                                            window.parent.location.reload();
+                                        });
+                                    }
+                                }
+                            });
+                        }
                     });
 
                 });
@@ -198,5 +194,29 @@
         });
 
     });
+
+    function previewImg(obj) {
+        var img = new Image();
+        img.src = obj.src;
+        //var height = img.height + 50; // 原图片大小
+        //var width = img.width; //原图片大小
+        var imgHtml = "<img src='" + obj.src + "' width='500' height='550px'/>";
+        //弹出层
+        layer.open({
+            type: 1,
+            shade: 0.8,
+            offset: '200px',
+            area: [500 + 'px',550+'px'],  // area: [width + 'px',height+'px']  //原图显示
+            shadeClose:true,
+            scrollbar: false,
+            resize:false,
+            title: "车辆预览", //不显示标题
+            content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+            cancel: function () {
+                //layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });
+            }
+        });
+    }
+
 </script>
 </html>
