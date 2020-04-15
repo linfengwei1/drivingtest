@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.great.dao.TransportationDao">
+
+	<select id="login" resultType="com.great.entity.Transportation" parameterType="java.util.Map">
+		select * from transportation where account = #{account} and pwd = #{pwd}
+	</select>
+
+
+	<select id="getOneSubjectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from question1
+		<where>
+			<if test="question!=null">
+				and  question like concat('%',#{question},'%')
+			</if>
+			<if test="type!=null">
+				and type = #{type}
+			</if>
+		</where>
+	</select>
+
+	<select id="getOneSubject" resultType="com.great.entity.Subject" parameterType="java.util.Map">
+		select *
+		from question1
+		<where>
+			<if test="question!=null">
+				and  question like concat('%',#{question},'%')
+			</if>
+			<if test="type!=null">
+				and type = #{type}
+			</if>
+		</where>
+		limit #{minlimit} , #{maxlimit}
+	</select>
+
+	<select id="getFourthSubjectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from question4
+		<where>
+			<if test="question!=null">
+				and  question like concat('%',#{question},'%')
+			</if>
+			<if test="type!=null">
+				and type = #{type}
+			</if>
+		</where>
+	</select>
+
+	<select id="getFourthSubject" resultType="com.great.entity.Subject" parameterType="java.util.Map">
+		select *
+		from question4
+		<where>
+			<if test="question!=null">
+				and  question like concat('%',#{question},'%')
+			</if>
+			<if test="type!=null">
+				and type = #{type}
+			</if>
+		</where>
+		limit #{minlimit} , #{maxlimit}
+	</select>
+
+	<select id="getOneSubjectMsg" resultType="com.great.entity.Subject" parameterType="java.lang.Integer">
+		select * from question1 where id=#{id}
+	</select>
+
+	<select id="getFourthSubjectMsg" resultType="com.great.entity.Subject" parameterType="java.lang.Integer">
+		select * from question4 where id=#{id}
+	</select>
+
+	<delete id="deleteOneSubjectMsg" parameterType="java.lang.Integer">
+		delete from question1 where id=#{id}
+	</delete>
+
+	<delete id="deleteFourthSubjectMsg" parameterType="java.lang.Integer">
+		delete from question4 where id=#{id}
+	</delete>
+
+	<update id="updateOneSubjectMsg" parameterType="com.great.entity.Subject">
+
+		update question1
+		<set>
+			<if test="question!=null">
+				question=#{question}
+			</if>
+			<if test="answer!=null">
+				,answer=#{answer}
+			</if>
+			<if test="item1!=null">
+				,item1=#{item1}
+			</if>
+			<if test="item2!=null">
+				,item2=#{item2}
+			</if>
+			<if test="item3!=null">
+				,item3=#{item3}
+			</if>
+			<if test="item4!=null">
+				,item4=#{item4}
+			</if>
+			<if test="type!=null">
+				,type=#{type}
+			</if>
+			<if test="url!=null">
+				,url=#{url}
+			</if>
+		</set>
+		where id=#{id}
+
+	</update>
+
+	<update id="updateFourthSubjectMsg" parameterType="com.great.entity.Subject">
+		update question4
+		<set>
+			<if test="question!=null">
+				question=#{question}
+			</if>
+			<if test="answer!=null">
+				,answer=#{answer}
+			</if>
+			<if test="item1!=null">
+				,item1=#{item1}
+			</if>
+			<if test="item2!=null">
+				,item2=#{item2}
+			</if>
+			<if test="item3!=null">
+				,item3=#{item3}
+			</if>
+			<if test="item4!=null">
+				,item4=#{item4}
+			</if>
+			<if test="type!=null">
+				,type=#{type}
+			</if>
+			<if test="url!=null">
+				,url=#{url}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+
+	<select id="getStudentCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+		select count(*)
+		from student
+		<where>
+			<if test="name!=null">
+				and  name like concat('%',#{name},'%')
+			</if>
+			<if test="state!=null">
+				and student_state_id = #{state}
+			</if>
+			<if test="school_id!=null">
+				and school_id = #{school_id}
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="studentMap" type="com.great.entity.Student">
+		<id property="id" column="id"/>
+		<result property="account" column="account"/>
+		<result property="pwd" column="pwd"/>
+		<result property="name" column="name"/>
+		<result property="sex" column="sex"/>
+		<result property="age" column="age"/>
+		<result property="idNumber" column="idNumber"/>
+		<result property="phone" column="phone"/>
+		<result property="student_state_id" column="student_state_id"/>
+		<result property="school_id" column="school_id"/>
+		<result property="schoolName" column="s_name"/>
+		<result property="image" column="image"/>
+		<result property="audit_results" column="audit_results"/>
+
+	<association property="school" javaType="com.great.entity.School">
+		<id property="id" column="s_id"/>
+		<result property="name" column="s_name"/>
+		<result property="phone" column="s_phone"/>
+		<result property="address" column="s_address"/>
+		<result property="admin" column="s_admin"/>
+		<result property="intro" column="s_intro"/>
+		<result property="school_state_id" column="school_state_id"/>
+		<result property="information" column="s_information"/>
+	</association>
+
+	</resultMap>
+
+	<select id="getStudentTbl" resultMap="studentMap" parameterType="java.util.Map">
+		select s1.*
+		     ,s.id "s_id"
+		     ,s.name "s_name"
+			,s.admin "s_admin"
+			,s.address "s_address"
+			,s.information "s_information"
+			,s.intro "s_intro"
+			,s.phone "s_phone"
+			,s.school_state_id "school_state_id"
+		from student s1
+		left join school s on s1.school_id = s.id
+		<where>
+			<if test="name!=null">
+				and  s1.name like concat('%',#{name},'%')
+			</if>
+			<if test="student_state_id!=null">
+				and s1.student_state_id = #{student_state_id}
+			</if>
+			<if test="school_id!=null">
+				and s1.school_id = #{school_id}
+			</if>
+		</where>
+		limit #{minlimit} , #{maxlimit}
+	</select>
+
+	<select id="getSchoolList" resultType="com.great.entity.School">
+		select * from school
+	</select>
+
+	<select id="getStudentState" resultType="java.lang.String">
+		select statename from studentstate;
+	</select>
+
+	<select id="getSchoolCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+		select count(*)
+		from school
+		<where>
+			<if test="name!=null">
+				and  name like concat('%',#{name},'%')
+			</if>
+			<if test="state!=null">
+				and school_state_id = #{state}
+			</if>
+			<if test="type!=null">
+				and student_state_id = #{type}
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="schoolMap" type="com.great.entity.School">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="phone" column="phone"/>
+		<result property="address" column="address"/>
+		<result property="admin" column="admin"/>
+		<result property="intro" column="intro"/>
+		<result property="school_state_id" column="school_state_id"/>
+		<result property="information" column="information"/>
+		<result property="audit_results" column="audit_results"/>
+	</resultMap>
+
+
+	<select id="getSchoolTbl" resultMap="schoolMap" parameterType="java.util.Map" >
+		select *
+		from school
+		<where>
+			<if test="name!=null">
+				and  name like concat('%',#{name},'%')
+			</if>
+			<if test="state!=null">
+				and school_state_id = #{state}
+			</if>
+			<if test="type!=null">
+				and student_state_id = #{type}
+			</if>
+		</where>
+		limit #{minlimit} , #{maxlimit}
+	</select>
+
+	<select id="getSchoolState" resultType="java.lang.String">
+		select statename from schoolstate;
+	</select>
+
+	<select id="getSchoolMsg" resultType="com.great.entity.School" parameterType="java.lang.Integer">
+		select *
+		from school where id=#{id};
+	</select>
+
+	<resultMap id="coachMap" type="com.great.entity.Coach">
+		<id property="id" column="id"/>
+		<result property="account" column="account"/>
+		<result property="pwd" column="pwd"/>
+		<result property="sex" column="sex"/>
+		<result property="name" column="name"/>
+		<result property="phone" column="phone"/>
+		<result property="age" column="age"/>
+		<result property="idnumber" column="idnumber"/>
+		<result property="coach_state_id" column="coach_state_id"/>
+		<result property="schoolName" column="s_name"/>
+		<result property="audit_results" column="audit_results"/>
+
+	</resultMap>
+
+	<select id="getCoachTbl" resultMap="coachMap" parameterType="java.util.Map" >
+		select c.*
+		,s.id "s_id"
+		,s.name "s_name"
+		,s.admin "s_admin"
+		,s.address "s_address"
+		,s.information "s_information"
+		,s.intro "s_intro"
+		,s.phone "s_phone"
+		,s.school_state_id "school_state_id"
+		from coach c
+		left join school s on c.school_id = s.id
+		<where>
+			<if test="name!=null">
+				and  c.name like concat('%',#{name},'%')
+			</if>
+			<if test="state!=null">
+				and c.school_id = #{state}
+			</if>
+			<if test="sex!=null">
+				and c.sex = #{sex}
+			</if>
+			<if test="type!=null">
+				and c.coach_state_id = #{type}
+			</if>
+		</where>
+	</select>
+
+	<select id="getCoachCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+		select count(*)
+		from coach
+		<where>
+			<if test="name!=null">
+				and  name like concat('%',#{name},'%')
+			</if>
+			<if test="state!=null">
+				and school_id = #{state}
+			</if>
+			<if test="sex!=null">
+				and sex = #{sex}
+			</if>
+			<if test="type!=null">
+				and coach_state_id = #{type}
+			</if>
+		</where>
+		limit #{minlimit} , #{maxlimit}
+	</select>
+
+	<select id="getCoachState" resultType="java.lang.String">
+		select statename from coachstate;
+	</select>
+
+	<select id="getCoachMsg" resultMap="coachMap" parameterType="java.lang.Integer">
+		select c.*
+		,s.id "s_id"
+		,s.name "s_name"
+		,s.admin "s_admin"
+		,s.address "s_address"
+		,s.information "s_information"
+		,s.intro "s_intro"
+		,s.phone "s_phone"
+		,s.school_state_id "school_state_id"
+		from coach c
+		left join school s on c.school_id = s.id
+		<where>
+			c.id=#{id}
+		</where>
+	</select>
+
+	<resultMap id="studentMsg" type="com.great.entity.Student">
+		<id property="id" column="id"/>
+		<result property="account" column="account"/>
+		<result property="pwd" column="pwd"/>
+		<result property="name" column="name"/>
+		<result property="sex" column="sex"/>
+		<result property="age" column="age"/>
+		<result property="idNumber" column="idNumber"/>
+		<result property="phone" column="phone"/>
+		<result property="student_state_id" column="student_state_id"/>
+		<result property="school_id" column="school_id"/>
+		<result property="schoolName" column="s_name"/>
+		<result property="image" column="image"/>
+		<result property="audit_results" column="audit_results"/>
+	</resultMap>
+
+
+	<select id="getStudentMsg" resultMap="studentMsg" parameterType="java.lang.Integer">
+		select s1.*
+		,s.name "s_name"
+		from student s1
+		left join school s on s1.school_id = s.id
+		<where>
+			s1.id=#{id}
+		</where>
+	</select>
+
+
+</mapper>
