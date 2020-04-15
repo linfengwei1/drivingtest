@@ -8,7 +8,7 @@ import java.util.Date;
 public class Notice
 {
 	private Integer id;//公告id
-	private String title;//公告标题
+	private String title;//公告标题  
 	private String content;//公告内容
 
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
