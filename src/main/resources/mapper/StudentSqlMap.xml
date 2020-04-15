@@ -59,7 +59,7 @@
 		select time from studycondition where student_id = #{studentId} and subject_id = #{subject}
 	</select>
 	<select id="getPractiseScoreById" resultType="int" parameterType="java.util.HashMap">
-		select practise_score from studycondition where student_id = #{studentId} and subject_id = #{subject}
+		select ifnull(practise_score,0) from studycondition where student_id = #{studentId} and subject_id = #{subject}
 	</select>
 	<select id="checkReapSignUp" resultType="int" >
 		select count(*) from signuprecord where studentid = #{studentId} and subjectid = #{subject} and  date_format(now(), '%Y-%m-%d') = date_format(time, '%Y-%m-%d')
