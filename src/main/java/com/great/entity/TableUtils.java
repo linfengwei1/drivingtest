@@ -1,5 +1,7 @@
 package com.great.entity;
 
+import java.sql.Timestamp;
+
 public class TableUtils {
     private String page;
     private Integer minLimit;
@@ -15,9 +17,30 @@ public class TableUtils {
     private String carNumber;
     private Integer school_id;
     private Integer schoolStateId;
-
+    private Timestamp time3;
+    private Timestamp time4;
+//    private String type;
+//    private String content;
+//    private String datetime;
+    private Integer coach_id;
 
     public TableUtils() {
+    }
+
+    public Timestamp getTime3() {
+        return time3;
+    }
+
+    public void setTime3(Timestamp time3) {
+        this.time3 = time3;
+    }
+
+    public Timestamp getTime4() {
+        return time4;
+    }
+
+    public void setTime4(Timestamp time4) {
+        this.time4 = time4;
     }
 
     public Integer getSchool_id() {
@@ -131,6 +154,14 @@ public class TableUtils {
 
     public void setCarNumber(String carNumber) {
         this.carNumber = carNumber;
+    }
+
+    public Integer getCoach_id() {
+        return coach_id;
+    }
+
+    public void setCoach_id(Integer coach_id) {
+        this.coach_id = coach_id;
     }
 
     @Override

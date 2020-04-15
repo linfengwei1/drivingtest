@@ -1,9 +1,6 @@
 package com.great.service;
 
-import com.great.dao.SchoolAdminDao;
-import com.great.dao.SchoolCarDao;
-import com.great.dao.SchoolCoachDao;
-import com.great.dao.SchoolStudentDao;
+import com.great.dao.*;
 import com.great.entity.*;
 
 import com.great.utils.ExportExcelSeedBack;
@@ -25,6 +22,8 @@ public class SchoolManageService {
     private SchoolStudentDao schoolStudentDao;
     @Resource
     private SchoolCarDao schoolCarDao;
+    @Resource
+    private SchoolLogDao schoolLogDao;
 
     //驾校管理员登录
     public SchoolAdmin login(String account, String pwd){
@@ -97,6 +96,23 @@ public class SchoolManageService {
         return schoolCoachDao.addCoach(coach);
     }
 
+    //单独插入图片
+    public Integer AddCoachImage(Integer id,String image){
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("image",image);
+        return schoolCoachDao.AddCoachImage(map);
+    }
+
+    //插入图片改变状态
+    public Integer ChangeCoachState(Integer id){
+        Map<String,Object> map = new HashMap<>();
+        map.put("coach_state_id",4);
+        map.put("id",id);
+        return schoolCoachDao.ChangeCoachState(map);
+    }
+
+
     //查询所有教练并导出excel
     public void findAllCoach(Integer schoolid, HttpServletResponse response){
         List<Coach> list=schoolCoachDao.findAllCoach(schoolid);
@@ -162,14 +178,28 @@ public class SchoolManageService {
         return schoolStudentDao.CheckStudentAccount(account);
     }
 
-    //添加学员
-    public Integer addStudent(Student coach){
-        return schoolStudentDao.addStudent(coach);
+    //添加学员 因为已经在sql。xml中设置了插入获取id,直接返回对象,对象内已经封装好了id
+    public Student addStudent(Student student){
+        schoolStudentDao.addStudent(student);
+        return student;
     }
 
-    //excel插入数据库
-    public Integer insertStudentByExcel(List<Student>list){
-        return schoolStudentDao.insertStudentByExcel(list);
+    //excel插入数据库1
+    public List<Student> insertStudentByExcel(List<Student>list){
+        List<Student> list1 = new ArrayList();//用来存放重复的账号
+        //判断插入的学员账号是否被使用
+        for (int i =0;i<list.size();i++){
+         Integer a= schoolStudentDao.CheckStudentAccount(list.get(i).getAccount());
+          if (0<a){
+              //存重复的账号
+              list1.add(list.get(i));
+          }
+        }
+       if (list1.get(0)==null){//当没有重复的时候才插入
+           schoolStudentDao.insertStudentByExcel(list);
+           return list;
+       }
+        return list1;
     }
 
     //获取车辆信息表
@@ -180,6 +210,22 @@ public class SchoolManageService {
         InfMap.put("list",list);
         InfMap.put("count",a);
         return InfMap;
+    }
+
+    //单独插入车辆图片
+    public Integer AddCarImage(Integer id,String image){
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("picture",image);
+        return schoolCarDao.AddCarImage(map);
+    }
+
+    //插入图片改变状态
+    public Integer ChangeCarState(Integer id){
+        Map<String,Object> map = new HashMap<>();
+        map.put("state","待审核");
+        map.put("id",id);
+        return schoolCarDao.ChangeCarState(map);
     }
 
     //查询驾校的所有教练
@@ -257,21 +303,73 @@ public class SchoolManageService {
     public Object getEvaluation(TableUtils u){
         Map<String,Object>InfMap = new LinkedHashMap<>();
         List<Evaluation> list=schoolAdminDao.getEvaluation(u);
-        System.out.println("评价="+list.toString());
         Integer a =schoolAdminDao.EvaluationCount(u);
         InfMap.put("list",list);
         InfMap.put("count",a);
         return InfMap;
     }
 
+    //添加学员学时表
+    public Integer addStudyCondition(List<StudyCondition>list){
+        return schoolStudentDao.addStudyCondition(list);
+    }
 
 
 
+    //查询日志记录并分页
+    public Object getSchoolLogTable(TableUtils utils){
+
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        List<TbLog> list=schoolLogDao.findSchoolLogByPage(utils);
+        Integer a =schoolLogDao.findSchoolLogCount(utils);
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+
+        return InfMap;
+    }
 
 
+    public Integer addLog(TbLog systemLog){
+        return schoolLogDao.addLog(systemLog);
+    }
 
 
+    //查询违约记录并分页
+    public Object getSchoolPunishTable(TableUtils utils){
+
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        List<Punish> list=schoolCoachDao.getPunish(utils);
+        Integer a =schoolCoachDao.findPunishCount(utils);
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+
+        return InfMap;
+    }
 
 
+    //添加处罚记录
+    public Integer AddPunish(Punish punish){
+        return schoolCoachDao.AddPunish(punish);
+    }
+
+    //删除处罚记录
+    public Integer deletePunish(Integer punish){
+        return schoolCoachDao.deletePunish(punish);
+    }
+
+    //处罚记录改变状态
+    public Integer updatePunish(){
+        return schoolCoachDao.updatePunish();
+    }
+
+    //查看手机号是否被注册
+    public Integer CheckCoachPhone(String phone){
+        return schoolAdminDao.CheckCoachPhone(phone);
+    }
+
+    //通过手机号码改密码
+    public Integer changePwdByPhone(SchoolAdmin schoolAdmin){
+        return schoolAdminDao.changePwdByPhone(schoolAdmin);
+    }
 
 }

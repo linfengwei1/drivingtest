@@ -8,6 +8,7 @@ import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface SchoolCarDao
@@ -36,5 +37,11 @@ public interface SchoolCarDao
 
     //excel插入数据库
     public Integer insertCarByExcel(List<CoachCar> list);
+
+	//单独插入图片
+	public Integer AddCarImage(Map map);
+
+	//插入图片改变状态
+	public Integer ChangeCarState(Map map);
 
 }

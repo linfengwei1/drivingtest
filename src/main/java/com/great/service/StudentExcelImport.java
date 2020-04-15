@@ -1,4 +1,4 @@
-package com.great.utils;
+package com.great.service;
 
 import com.great.entity.SchoolAdmin;
 import com.great.entity.Student;

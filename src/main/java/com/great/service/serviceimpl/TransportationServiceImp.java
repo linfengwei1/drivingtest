@@ -269,7 +269,6 @@ public class TransportationServiceImp implements TransportationService {
 
     @Override
     public Student getStudentMsg(Integer id) {
-
         return td.getStudentMsg(id);
     }
 
@@ -281,6 +280,147 @@ public class TransportationServiceImp implements TransportationService {
     @Override
     public Coach getCoachMsg(Integer id) {
         return td.getCoachMsg(id);
+    }
+
+    @Override
+    public Integer getStudentCountBySchoolId(Integer id) {
+        return td.getStudentCountBySchoolId(id);
+    }
+
+    @Override
+    public Integer getCoachCountBySchoolId(Integer id) {
+        return td.getCoachCountBySchoolId(id);
+    }
+
+    @Override
+    public Integer getCoachCarCountBySchoolId(Integer id) {
+        return td.getCoachCarCountBySchoolId(id);
+    }
+
+    @Override
+    public ObjectResult getCoachCarTbl(Integer page, Integer limit, String name, String type, String school) {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        if (name!=null&&!name.equals("")){
+            map.put("name",name);
+        }
+        if (type!=null&&!type.equals("")){
+            map.put("type",type);
+        }
+        if (school!=null&&!school.equals("")){
+            map.put("school",school);
+        }
+
+        //System.out.println(map);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getCoachCarCount(map));
+        //获取记录
+        objectResult.setData(td.getCoachCarTbl(map));
+
+        //System.out.println(objectResult);
+
+        return objectResult;
+    }
+
+    @Override
+    public void examineStudent(Integer id, String text, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("text",text);
+        map.put("i",i);
+        td.examineStudent(map);
+    }
+
+    @Override
+    public void examineSchool(Integer id, String text, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("text",text);
+        map.put("i",i);
+        td.examineSchool(map);
+    }
+
+    @Override
+    public void examineCoach(Integer id, String text, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("text",text);
+        map.put("i",i);
+        td.examineCoach(map);
+    }
+
+    @Override
+    public void examineCoachCar(Integer id, String text, String i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("text",text);
+        map.put("i",i);
+        td.examineCoachCar(map);
+    }
+
+
+    @Override
+    public ObjectResult getNotice(Integer page, Integer limit, String title ,String date, String type)
+    {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        map.put("title",title);
+        //	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //	    String dateString = formatter.format(date);
+        map.put("date",date);
+        map.put("type",type);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getNoticeCount(map));
+        //获取记录
+        objectResult.setData(td.getNotice(map));
+
+        return objectResult;
+    }
+
+    @Override
+    public List<?> getNoticeType()
+    {
+        return td.getNoticeType();
+    }
+
+    @Override
+    public Integer deleteNotice(Notice notice)
+    {
+        return td.deleteNotice(notice.getId());
+    }
+
+    @Override
+    public Integer updateNoticeMsg(Notice notice)
+    {
+        return td.updateNoticeMsg(notice);
+    }
+
+    @Override
+    public Notice getNoticeMsg(Notice notice)
+    {
+        return td.getNoticeMsg(notice.getId());
+    }
+
+    @Override
+    public Integer insertNotice(Notice notice)
+    {
+        return td.insertNotice(notice);
     }
 
 

@@ -27,12 +27,16 @@ import java.util.Map;
 @RequestMapping("/link")//访问路径：如果只是@RequestMapping则返回的是jsp页面，如果再加上@ResponseBody则返回的是字符串
 public class LinkController {
 
+	@RequestMapping("/first")
+	public String first(){
+		return "/frontjsp/jsp/Welcome";
+	}
+
 	@Autowired//自动注入、自动装配
 	private LinkService linkService;
 	private SchoolSearchService schoolSearchService;
 	@Resource
 	private TransportationService transportationService;
-
 	@RequestMapping("/path/{url}")//访问路径的路口：path/{url是作为参数PathVariable路径变量}
 	public String getUrl(@PathVariable(value = "url") String path) {
 		return "/frontjsp/jsp/" + path;//返回
@@ -71,7 +75,7 @@ public class LinkController {
 
 		response.getWriter().print("success");//有成功打印出success
 	}
-	//删除友情链接：
+	//删除友情链接：ddd
 	@RequestMapping("/deleteLink")
 	public void deleteLink(Link link,  HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -80,16 +84,16 @@ public class LinkController {
 		response.getWriter().print("success");
 	}
 
-	//查询驾校列表：需要返回数据给前台
-	@RequestMapping("/findAllSchool")
-	@ResponseBody // ajax返回值json格式转换
+	//查询驾校数据列表：需要返回数据给前台
+	@RequestMapping("findAllSchool")//findAllSchool
+	@ResponseBody // ajax返回值json格式转换：
 	public DateTable ShowAllSchool(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Integer page = Integer.parseInt(request.getParameter("page"));
 		Integer limit = Integer.parseInt(request.getParameter("limit"));
 
 		DateTable dt = new DateTable();
 //		List<School> schoolList = schoolSearchService.findAllSchool();
-		List<School> schoolList = transportationService.getSchoolList();
+		List<School> schoolList = transportationService.getSchoolList();//使用运管门户查询驾校数据接口
 		Gson g = new Gson();
 		dt.setCode(0);
 		dt.setCount(schoolList.size());// 总条数
