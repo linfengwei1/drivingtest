@@ -10,12 +10,30 @@ public class Punish {
     private String content;
     private Timestamp datetime;
     private Integer coach_id;
-    private String coachName;
+    private String name;//教练名字
+    private Coach coach;
     private Integer school_id;
+    private Integer coach_state_id; //状态
+    private String result;//处罚结果
 
     public Punish() {
     }
 
+    public Integer getCoach_state_id() {
+        return coach_state_id;
+    }
+
+    public void setCoach_state_id(Integer coach_state_id) {
+        this.coach_state_id = coach_state_id;
+    }
+
+    public Coach getCoach() {
+        return coach;
+    }
+
+    public void setCoach(Coach coach) {
+        this.coach = coach;
+    }
 
     public Integer getId() {
         return id;
@@ -33,12 +51,12 @@ public class Punish {
         this.content = content;
     }
 
-    public String getCoachName() {
-        return coachName;
+    public String getName() {
+        return name;
     }
 
-    public void setCoachName(String coachName) {
-        this.coachName = coachName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Timestamp getDatetime() {
@@ -65,6 +83,14 @@ public class Punish {
         this.school_id = school_id;
     }
 
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
     @Override
     public String toString() {
         return "Punish{" +
@@ -72,8 +98,9 @@ public class Punish {
                 ", content='" + content + '\'' +
                 ", datetime=" + datetime +
                 ", coach_id=" + coach_id +
-                ", coachName='" + coachName + '\'' +
+                ", name='" + name + '\'' +
                 ", school_id=" + school_id +
+                ", result='" + result + '\'' +
                 '}';
     }
 }
