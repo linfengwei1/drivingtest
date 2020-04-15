@@ -23,6 +23,8 @@ public class SchoolAdmin {
     private Integer school_state_id;
     private SchoolState schoolState;
     private String verification;//验证码
+    private String phoneMsg;//短信验证码
+
 
 
     public SchoolAdmin() {
@@ -37,6 +39,14 @@ public class SchoolAdmin {
         this.school_id = school_id;
         this.school_state_id = school_state_id;
         this.schoolState = schoolState;
+    }
+
+    public String getPhoneMsg() {
+        return phoneMsg;
+    }
+
+    public void setPhoneMsg(String phoneMsg) {
+        this.phoneMsg = phoneMsg;
     }
 
     public Integer getId() {

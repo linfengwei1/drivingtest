@@ -26,29 +26,29 @@
                 <li class="usio_ul_1">
                     <span>姓名：${coach.name}</span>
                     <span>车型：C1</span>
-                    <span>性别：${student.sex}性</span>
-                    <span>年龄：${student.age}岁</span>
-                    <span>联系方式：${student.phone}</span>
-                    <span>身份证号：${student.idNumber}</span>
+                    <span>性别：${coach.sex}性</span>
+                    <span>年龄：${coach.age}岁</span>
+                    <span>联系方式：${coach.phone}</span>
+                    <span>身份证号：${coach.idnumber}</span>
                     <span>
-                        <c:if test="${student.student_state_id==1}">
-                            账号状态：科目一学习
+                        <c:if test="${coach.coach_state_id==1}">
+                            账号状态：启用
                         </c:if>
-                        <c:if test="${student.student_state_id==2}">
-                            账号状态：科目二学习
+                        <c:if test="${coach.coach_state_id==2}">
+                            账号状态：封停
                         </c:if>
-                        <c:if test="${student.student_state_id==3}">
-                            账号状态：科目三学习
+                        <c:if test="${coach.coach_state_id==3}">
+                            账号状态：禁止报名
                         </c:if>
-                        <c:if test="${student.student_state_id==4}">
-                            账号状态：科目四学习
+                        <c:if test="${coach.coach_state_id==4}">
+                            账号状态：运管待审核
                         </c:if>
-                        <c:if test="${student.student_state_id==5}">
-                            账号状态：待审核
+                        <c:if test="${coach.coach_state_id==5}">
+                            账号状态：运管审核不通过
                         </c:if>
                     </span>
-                    <span>就职驾校：${student.schoolName}</span>
-                    <span>审核结果：${student.audit_results}</span>
+                    <span>就职驾校：${coach.schoolName}</span>
+                    <span>审核结果：${coach.audit_results}</span>
                     <a href="javascript:void(0)"><img alt="" class="xueyuan" src="${pageContext.request.contextPath}/static/${student.image}"></a>
                 </li>
             </ul>

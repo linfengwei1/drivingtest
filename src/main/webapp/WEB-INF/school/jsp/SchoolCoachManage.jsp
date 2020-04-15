@@ -17,7 +17,7 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" onsubmit="return false;">
+<form class="layui-form" action="" >
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
         <h2 style="margin-left: 43%">教练管理</h2>
     </div>
@@ -41,8 +41,8 @@
                     </div>
 
                     <div style="float: left">
-                        <label class="layui-form-label" >姓名</label>
-                        <div class="layui-input-block" style="width: 190px">
+                        <label class="layui-form-label" >姓名1</label>
+                        <div class="layui-inline" style="width: 190px">
                             <input class="layui-input" name="name" id="name" autocomplete="off">
                         </div>
                     </div>

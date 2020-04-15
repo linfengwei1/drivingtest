@@ -334,4 +334,42 @@ public class SchoolManageService {
     }
 
 
+    //查询违约记录并分页
+    public Object getSchoolPunishTable(TableUtils utils){
+
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        List<Punish> list=schoolCoachDao.getPunish(utils);
+        Integer a =schoolCoachDao.findPunishCount(utils);
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+
+        return InfMap;
+    }
+
+
+    //添加处罚记录
+    public Integer AddPunish(Punish punish){
+        return schoolCoachDao.AddPunish(punish);
+    }
+
+    //删除处罚记录
+    public Integer deletePunish(Integer punish){
+        return schoolCoachDao.deletePunish(punish);
+    }
+
+    //处罚记录改变状态
+    public Integer updatePunish(){
+        return schoolCoachDao.updatePunish();
+    }
+
+    //查看手机号是否被注册
+    public Integer CheckCoachPhone(String phone){
+        return schoolAdminDao.CheckCoachPhone(phone);
+    }
+
+    //通过手机号码改密码
+    public Integer changePwdByPhone(SchoolAdmin schoolAdmin){
+        return schoolAdminDao.changePwdByPhone(schoolAdmin);
+    }
+
 }

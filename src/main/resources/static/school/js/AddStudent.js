@@ -11,8 +11,8 @@ layui.use(['form','upload','element'], function(){
         ,url: path+'/school/uploadImg/'
         ,accept:'images'
         ,size:50000
-        ,auto: false//是否自动上传
-        ,bindAction: '#OK'
+        // ,auto: false//是否自动上传
+        // ,bindAction: '#OK'
         ,before: function(obj){
 
             obj.preview(function(index, file, result){

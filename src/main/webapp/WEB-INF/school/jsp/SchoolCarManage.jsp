@@ -17,23 +17,23 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" onsubmit="return false;">
+<form class="layui-form" action="" >
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
-        <h2 style="margin-left: 43%">车辆管理</h2>
+        <h2 style="margin-left: 43%">车辆管理3</h2>
     </div>
     <div class="layui-fluid" id="searchTable" style="margin-top: 1%;">
-        <div class="layadmin-user-login-box layadmin-user-login-header">
+        <div class="layui-form-item">
             <div style="padding-bottom: 10px;">
                 <div class="layui-upload">
                     <div style="float: left">
                         <label class="layui-form-label" >教练姓名</label>
-                        <div class="layui-input-block" style="width: 190px">
-                            <input class="layui-input" name="coachName" id="coachName" autocomplete="off">
+                        <div class="layui-input-inline" style="width: 190px">
+                            <input class="layui-input" name="name" id="name" autocomplete="off">
                         </div>
                     </div>
                     <div style="float: left;margin-left: 2%">
                         <label class="layui-form-label" >车牌号码</label>
-                        <div class="layui-input-block" style="width: 190px">
+                        <div class="layui-inline" style="width: 190px">
                             <input class="layui-input" name="carNumber" id="carNumber" autocomplete="off">
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div style="clear: left;margin-left: 30%;padding-top: 1% ">
-                        <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                        <button type="button"  class="layui-btn layui-btn-normal"  data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>添加车辆</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>EXCEL导入</button>
                     </div>
@@ -57,10 +57,8 @@
             </div>
         </div>
     </div>
+    <table id="dataTable" lay-filter="test"></table>
 
-    <div class="layui-anim layui-anim-scale" style="clear: left">
-        <table id="dataTable" lay-filter="test"></table>
-    </div>
 
 </form>
 </body>
@@ -90,6 +88,10 @@
         var table = layui.table;
         var path = $("#path").val();
 
+        //阻止表单提交
+        form.on('submit(formDemo)', function(data){
+            return false;//阻止表单跳转
+        });
 
         //第一个实例
         table.render({
@@ -209,23 +211,6 @@
                 })
 
             }
-
-            // if(layEvent === 'check'){ //重新提交审核
-            //     var $td = $(this).parents('tr').children('td');
-            //     var id = $td.eq(0).text();//获取点击按钮相对应的id
-            //     layer.open({
-            //         title:'上传图片',
-            //         type: 2,
-            //         area: ['500px', '400px'],
-            //         content:path1+"/school/path/AddCarImage",//弹出的页面
-            //         success: function (layero, index) {
-            //             var body = layer.getChildFrame("body", index);//弹出页面的body标签
-            //             body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
-            //
-            //         },
-            //
-            //     });
-            // }
 
 
             if(layEvent === 'AddCarImage'){ //上传图片

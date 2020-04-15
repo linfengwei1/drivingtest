@@ -7,6 +7,7 @@ import com.great.entity.*;
 import com.great.service.SchoolManageService;
 import com.great.service.TransportationService;
 import com.great.utils.CarExcelImport;
+import com.great.utils.PhoneCode;
 import com.great.utils.StudentExcelImport;
 import com.great.utils.IDNumber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -118,7 +122,6 @@ public class SchoolController {
         if (confirm) {
             SchoolAdmin admin =schoolAdminService.login(schoolAdmin.getAccount(),schoolAdmin.getPwd());
             if (null!=admin){
-                System.out.println("驾校管理员=="+admin.toString());
                 request.getSession().setAttribute("SchoolAdmin",admin);
                 response.getWriter().print("success");
             }else{
@@ -129,6 +132,58 @@ public class SchoolController {
         }
 
     }
+
+
+    //获取手机验证码
+    @RequestMapping("/phoneMsg")
+    public void phoneMsg(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String msg = request.getParameter("phone");
+
+        if (null!=msg||!"".equals(msg.trim())){
+            String phoneMsg = PhoneCode.getPhonemsg(msg);
+            System.out.println("验证码=="+phoneMsg);
+            request.getSession().setAttribute("phoneMsg",phoneMsg);
+            //5分钟后移除存在域里的验证码
+            HttpSession hs = request.getSession();
+            final Timer timer=new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    hs.removeAttribute("phoneMsg");
+                    System.out.println("checkCode删除成功");
+                    timer.cancel();
+                }
+            },5*60*1000);
+
+        }
+
+
+    }
+    //手机验证码更改密码
+    @RequestMapping("/changePwdByPhone")
+    public void changePwdByPhone(SchoolAdmin schoolAdmin,HttpServletRequest request, HttpServletResponse response) throws IOException {
+         String phoneMsg = (String) request.getSession().getAttribute("phoneMsg");
+        System.out.println("验证码="+phoneMsg);
+        System.out.println("输入的值="+schoolAdmin.getPhoneMsg());
+        //手机验证码不为空的情况
+        if(null==phoneMsg||"".equals(phoneMsg)){
+            if (phoneMsg.equals(schoolAdmin.getPhoneMsg())){
+                System.out.println(1);
+            }else{
+                System.out.println(2);
+            }
+        }else {
+
+        }
+
+
+
+    }
+
+
+
+
 
     //注销登录
     @RequestMapping("/deleteAdmin")
@@ -229,7 +284,7 @@ public class SchoolController {
         Map map = (Map) schoolAdminService.getSchoolCoachTable(utils);
         if (null!=map.get("list")){
             dateTable.setData((List<?>) map.get("list"));
-            System.out.println("教练=="+map.get("list").toString());
+//            System.out.println("教练=="+map.get("list").toString());
             dateTable.setCode(0);
             dateTable.setCount((Integer) map.get("count"));//总条数
             return dateTable;
@@ -261,10 +316,13 @@ public class SchoolController {
                 String uuid = UUID.randomUUID()+"";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 dateStr = simpleDateFormat.format(date);
-                String filepath = "E:/JAVA/kl/src/main/resources/static/images/"+ dateStr+File.separator + uuid+"." + prefix;;
-//                String filepath = "E:/JAVA/kl/src/main/resources/static/images/" + dateStr+File.separator+uuid+"." + prefix;
-                //String filepath2 = System.getProperty("user.dir") +File.separator+"src"+File.separator+"mian"+File.separator+"resources"+File.separator+"static"+File.separator+"images"+ dateStr+File.separator+uuid+"." + prefix;
-                File files=new File(filepath);
+                String savePath = request.getSession().getServletContext().getRealPath("\\WEB-INF\\classes\\static\\images");
+                String projectPath = savePath + "\\" + dateStr+File.separator + uuid+"." + prefix;;
+//                String filepath = "E:/JAVA/kl/src/main/resources/static/images/"+ dateStr+File.separator + uuid+"." + prefix;
+////                String filepath = "E:/JAVA/kl/src/main/resources/static/images/" + dateStr+File.separator+uuid+"." + prefix;
+//                String filepath2 = System.getProperty("user.dir") +File.separator+"src"+File.separator+"mian"+File.separator+"resources"+File.separator+"static"+File.separator+"images"+ dateStr+File.separator+uuid+"." + prefix;
+                System.out.println("projectPath=="+projectPath);
+                File files=new File(projectPath);
                 //打印查看上传路径
                 if(!files.getParentFile().exists()){//判断目录是否存在
                     System.out.println("files11111="+files.getPath());
@@ -277,7 +335,6 @@ public class SchoolController {
                 map.put("msg","");
                 map.put("data",map2);
                 map2.put("src","/images/"+ dateStr+"/"+uuid+"." + prefix);
-
                 return map;
             }
         }catch (Exception e){
@@ -311,6 +368,25 @@ public class SchoolController {
         }
     }
 
+
+    //获取教练违规表格显示
+    @RequestMapping("/PunishTable")
+    @ResponseBody//ajax返回值json格式转换
+    public DateTable PunishTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer page= Integer.parseInt(request.getParameter("page"));
+        Integer limit= Integer.parseInt(request.getParameter("limit"));
+        utils.setMinLimit((page-1)*limit);
+        utils.setMaxLimit(limit);
+        Map map = (Map) schoolAdminService.getSchoolPunishTable(utils);
+        if (null!=map.get("list")){
+            dateTable.setData((List<?>) map.get("list"));
+            dateTable.setCode(0);
+            dateTable.setCount((Integer) map.get("count"));//总条数
+            return dateTable;
+        }
+        return null;
+    }
+
     //删除教练
     @RequestMapping("/deleteCount")
 //    @Log(operationType = "删除操作", operationName = "删除上传文档")
@@ -340,6 +416,7 @@ public class SchoolController {
     //新增教练
     @RequestMapping("/addCoach")
     public void addCoach(Coach coach, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
 
           SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
           Boolean demo= IDNumber.isIDNumber(coach.getIdnumber());
@@ -711,7 +788,7 @@ public class SchoolController {
         return null;
     }
 
-    //单个教练上传头像
+    //单个教练车上传头像
     @RequestMapping("/AddCarImage")
     @ResponseBody
     public Object AddCarImage( MultipartFile file, HttpServletRequest request) throws Exception {
@@ -789,7 +866,8 @@ public class SchoolController {
         response.setHeader("Content-Type","text/html;charset=UTF-8");
         // 设置response的缓冲区的编码.
         response.setCharacterEncoding("UTF-8");
-        request.setAttribute("student",transportationService.getCoachMsg(id));
+        request.setAttribute("coach",transportationService.getCoachMsg(id));
+        System.out.println("教练个人详情=="+transportationService.getCoachMsg(id).toString());
         return "school/jsp/CoachMsg";
     }
 
@@ -848,12 +926,8 @@ public class SchoolController {
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         coachCar.setCarState("待审核");
         coachCar.setSchool_id(schoolAdmin.getSchool_id());
-            Integer a= schoolAdminService.addCar(coachCar);
-            if (0<a){
-                response.getWriter().print("success");
-            }else{
-                response.getWriter().print("error");
-            }
+        Integer a= schoolAdminService.addCar(coachCar);
+        ajaxReturn(a,response); //结果返回封装
     }
 
 
@@ -935,7 +1009,6 @@ public class SchoolController {
 
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         List<School> list= schoolAdminService.getSchoolInf(schoolAdmin.getSchool_id());
-        System.out.println("驾校信息=="+list.toString());
         if (list!=null){
             request.setAttribute("List",list);
         }
@@ -949,11 +1022,7 @@ public class SchoolController {
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         school.setId(schoolAdmin.getId());
         Integer a= schoolAdminService.updateSchoolInf(school);
-        if (0<a){
-            response.getWriter().print("success");
-        }else {
-            response.getWriter().print("error");
-        }
+        ajaxReturn(a,response); //结果返回封装
 
 
 
@@ -1002,11 +1071,7 @@ public class SchoolController {
     public void studentResubmit (HttpServletResponse response,HttpServletRequest request) throws IOException {
        Integer id =Integer.valueOf(request.getParameter("id").trim()) ;
         Integer a=schoolAdminService.ChangeStudentState(id);
-        if (0<a){
-            response.getWriter().print("success");
-        }else {
-            response.getWriter().print("error");
-        }
+        ajaxReturn(a,response); //结果返回封装
 
     }
 
@@ -1015,11 +1080,7 @@ public class SchoolController {
     public void coachCheck (HttpServletResponse response,HttpServletRequest request) throws IOException {
         Integer id =Integer.valueOf(request.getParameter("id").trim()) ;
         Integer a=schoolAdminService.ChangeCoachState(id);
-        if (0<a){
-            response.getWriter().print("success");
-        }else {
-            response.getWriter().print("error");
-        }
+        ajaxReturn(a,response); //结果返回封装
 
     }
 
@@ -1028,11 +1089,7 @@ public class SchoolController {
     public void carCheck (HttpServletResponse response,HttpServletRequest request) throws IOException {
         Integer id =Integer.valueOf(request.getParameter("id").trim()) ;
         Integer a=schoolAdminService.ChangeCarState(id);
-        if (0<a){
-            response.getWriter().print("success");
-        }else {
-            response.getWriter().print("error");
-        }
+        ajaxReturn(a,response); //结果返回封装
     }
 
 
@@ -1052,5 +1109,51 @@ public class SchoolController {
             return dateTable;
         }
         return null;
+    }
+
+    //新增处罚页面跳转
+    @RequestMapping("/jumpPunish")
+    public String jumpPunish( HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
+        List<Coach> coach= schoolAdminService.findCoach(schoolAdmin.getSchool_id());
+        if (coach!=null){
+            request.setAttribute("Coach",coach);
+        }
+        return "school/jsp/AddPunish";
+    }
+
+
+    //新增处罚
+    @RequestMapping("/AddPunish")
+    public void AddPunish(Punish punish, HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+        SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
+        punish.setSchool_id(schoolAdmin.getSchool_id());
+        Integer a= schoolAdminService.AddPunish(punish);
+        ajaxReturn(a,response); //结果返回封装
+    }
+
+    //删除处罚
+    @RequestMapping("/deletePunish")
+    @Log(operationType = "删除操作", operationName = "删除处罚记录")
+    public void deletePunish(String id,  HttpServletResponse response) throws IOException {
+        Integer a = schoolAdminService.deletePunish(Integer.valueOf(id.trim()));
+        ajaxReturn(a,response); //结果返回封装
+    }
+
+    //处罚记录改变状态
+    @RequestMapping("/employPunish")
+    @Log(operationType = "启用操作", operationName = "从处罚记录改为启用状态")
+    public void employPunish( HttpServletResponse response) throws IOException {
+        Integer a = schoolAdminService.updatePunish();
+        ajaxReturn(a,response); //结果返回封装
+    }
+
+    //结果返回封装
+    public void ajaxReturn(Integer a,HttpServletResponse response) throws IOException {
+        if (0<a){
+            response.getWriter().print("success");
+        }else{
+            response.getWriter().print("error");
+        }
     }
 }

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -117,8 +118,8 @@ public class TransportationManagementController {
     public String Login(String account,String pwd,String rePass , HttpServletRequest request) throws IOException {
         String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
         Boolean confirm = rePass.equalsIgnoreCase(YZM);//不区分大小写
-        String savePath = request.getSession().getServletContext().getRealPath("/images");
-        System.out.println(savePath);
+        String filepath2 = System.getProperty("user.dir");
+        System.out.println(filepath2);
         if (confirm) {
             Transportation transportation =transportationService.login(account,pwd);
             if (null!=transportation){
@@ -577,6 +578,48 @@ public class TransportationManagementController {
         return g.toJson(objectResult);
     }
 
+
+    @RequestMapping("/insertExamTime")
+    @ResponseBody
+    public String insertExamTime(String title, Date state, String allDay, Date end, HttpServletResponse response){
+
+        System.out.println(title);
+        System.out.println(state);
+        System.out.println(allDay);
+        System.out.println(end);
+
+        return "";
+    }
+
+    @RequestMapping("/getExamTime")
+    @ResponseBody
+    public String getExamTime( HttpServletResponse response) throws IOException {
+        String strvalue = "[{\n" +
+                "\t\"title\": \"驾校一\",\n" +
+                "\t\"start\": \"2020-5-16\",\n" +
+                "\t\"end\":  \"2020-5-17\",\n" +
+                "  \t\"id\":1\n" +
+                "}, {\n" +
+                "\t\"title\": \"驾校一\",\n" +
+                "\t\"start\": \"2020-5-16\",\n" +
+                "\t\"end\":  \"2020-5-17\",\n" +
+                "  \t\"id\":2\n" +
+                "}, {\n" +
+                "\t\"title\": \"驾校一\",\n" +
+                "\t\"start\": \"2020-5-16\",\n" +
+                "\t\"end\":  \"2020-5-17\",\n" +
+                "  \t\"id\":3\n" +
+                "}]";
+        response.setCharacterEncoding("UTF-8");
+        System.out.println("strvalue="+strvalue);
+
+//        response.getWriter().print(strvalue);
+
+        return strvalue;
+    }
+
+
+
     /**
      * 注销登录
      * @param request
@@ -595,5 +638,141 @@ public class TransportationManagementController {
         //返回页面
         return "/transportation/jsp/TransportationLogin";
     }
+
+
+
+	/**
+	 * 获取公告列表
+	 * @return
+	 */
+	@RequestMapping("/getNotice")
+	@ResponseBody
+	public String getNotice(Integer page, Integer limit, String title , String date, String type, HttpServletResponse response){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+        System.out.println("data:"+page+"---"+limit+"---"+title+"---"+date+"---"+type);
+		ObjectResult objectResult = transportationService.getNotice(page, limit, title, date, type);
+
+//        System.out.println("tmc:"+objectResult);
+
+		return g.toJson(objectResult);
+	}
+
+	/**
+	 * 获取公告列表类型
+	 * @return
+	 */
+	@RequestMapping("/getNoticeType")
+	@ResponseBody
+	public String getNoticeType(HttpServletResponse response){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		List<?> noticeType = transportationService.getNoticeType();
+		System.out.println("type:"+noticeType);
+
+		//        System.out.println("tmc:"+objectResult);
+
+		return g.toJson(noticeType);
+	}
+
+	/**
+	 * 删除通告
+	 * @param notice
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/deleteNotice")
+	@ResponseBody
+	public String deleteNotice(String notice, HttpServletResponse response,HttpServletRequest request){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		Notice message = g.fromJson(notice, Notice.class);
+		System.out.println(message);
+		request.getSession().setAttribute("Notice",transportationService.deleteNotice(message));
+		System.out.println("删除成功");
+		return "";
+	}
+
+
+	/**
+	 * 更新通告信息
+	 * @param notice
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/updateNotice")
+	@ResponseBody
+	public String updateNotice(String notice,HttpServletResponse response,HttpServletRequest request){
+		System.out.println("updateNotice");
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		Notice updatenotice = g.fromJson(notice, Notice.class);
+		System.out.println("update:"+updatenotice);
+
+		request.getSession().setAttribute("Notice",transportationService.updateNoticeMsg(updatenotice));
+
+		return "";
+	}
+
+	/**
+	 * 获取题目信息
+	 * @param notice
+	 * @param response
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getNoticeMsg")
+	@ResponseBody
+	public String getNoticeMsg(String notice,HttpServletResponse response,HttpServletRequest request){
+
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+
+		Notice noticemsg = g.fromJson(notice, Notice.class);
+
+		request.getSession().setAttribute("noticemsg",transportationService.getNoticeMsg(noticemsg));
+		System.out.println(transportationService.getNoticeMsg(noticemsg));
+
+		return "";
+	}
+
+	/**
+	 * 增加通告信息
+	 * @param notice
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/saveNotice")
+	@ResponseBody
+	public String saveNotice(Notice notice,HttpServletResponse response,HttpServletRequest request){
+		System.out.println("saveNotice");
+		// 设置浏览器字符集编码.
+		response.setHeader("Content-Type","text/html;charset=UTF-8");
+		// 设置response的缓冲区的编码.
+		response.setCharacterEncoding("UTF-8");
+		System.out.println("get:"+notice);
+//		Notice addNotice = g.fromJson(notice, Notice.class);
+
+		request.getSession().setAttribute("Notice",transportationService.insertNotice(notice));
+
+		return "";
+	}
 
 }

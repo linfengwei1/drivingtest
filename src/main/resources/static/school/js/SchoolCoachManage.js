@@ -5,6 +5,10 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
     var table = layui.table;
     var path = $("#path").val();
 
+    //阻止表单提交
+    form.on('submit(formDemo)', function(data){
+        return false;//阻止表单跳转
+    });
 
     //第一个实例
     table.render({
@@ -140,8 +144,6 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         if(layEvent === 'CoachMsg'){ //查看教练详情
             var $td = $(this).parents('tr').children('td');
             var id = $td.eq(0).text();//获取点击按钮相对应的id
-            alert(1)
-            console.log("个人详情id="+id)
             layer.open({
                 title:'查看个人详情',
                 type: 2,

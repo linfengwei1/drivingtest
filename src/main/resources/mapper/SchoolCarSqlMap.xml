@@ -90,7 +90,7 @@
 
     <!--查找驾校的所有信息-->
     <select id="findCoach" resultType="Coach" parameterType = "java.lang.Integer" >
-		select * from coach where school_id=#{school_id};
+		select * from coach where school_id=#{school_id} and coach_state_id !=3;
 	</select>
 
     <!--excel插入数据库-->
