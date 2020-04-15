@@ -363,8 +363,8 @@ public class SchoolManageService {
     }
 
     //查看手机号是否被注册
-    public Integer CheckCoachPhone(String phone){
-        return schoolAdminDao.CheckCoachPhone(phone);
+    public Integer CheckAdminPhone(String phone){
+        return schoolAdminDao.CheckAdminPhone(phone);
     }
 
     //通过手机号码改密码
