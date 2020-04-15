@@ -46,8 +46,8 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //å¯¼å…
                     phone: $("#phone").val(),
                     address: $("#address").val(),
                     intro: $("#intro").val(),
-                    school_state_id: $("#state").val(),
-                    information: $("#intro").val(),
+                    school_state_id: $("#school_state_id").val(),
+                    information: $("#information").val(),
                     audit_results:$("#audit_results").val()
                 }
             });

@@ -5,7 +5,9 @@ import com.great.entity.School;
 import com.great.service.SchoolSearchService;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+//@Service
 import java.util.List;
 
 public class SchoolSearchServiceImpl implements SchoolSearchService {

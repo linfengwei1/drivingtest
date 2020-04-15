@@ -20,6 +20,19 @@
 <script
         src="${pageContext.request.contextPath}/static/link/SchoolSearch.js"
         type="text/javascript" charset="UTF-8"></script>
+<style>
+    .layui-main-login {
+        margin-top: 7%;
+        margin-left: 20%;
+        padding-left: 5%;
+        padding-top: 2%;
+        width: 50%;
+    }
+
+    .layui-layout-body {
+        overflow: auto; /*这边设置是为了弹出的时候，如果框的大小小于内容，就出现滑动条*/
+    }
+</style>
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
