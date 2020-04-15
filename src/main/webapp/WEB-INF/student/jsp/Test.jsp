@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>科目${subject}在线练习</title>
+	<title>科目${subject}模拟考试</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<%String path = request.getContextPath();%>
@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/main.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/test.css">
 	<script src="${pageContext.request.contextPath}/static/student/js/jquery-1.11.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/student/js/exercise.js"></script>
+	<script src="${pageContext.request.contextPath}/static/student/js/testol.js"></script>
 
 	<style>
 		.hasBeenAnswer {
@@ -80,7 +80,7 @@
 										</div>
 										<div class="test_content_nr_main">
 											<ul>
-												<input class="correct" type="hidden" value="${c.answer}">
+												<input class="questionid" type="hidden" value="${c.id}">
 												<li class="option">
 
 													<input type="radio" class="radioOrCheck" name="answer${v.count}"
@@ -121,23 +121,7 @@
 										<c:if test="${not empty c.url}">
 											<img   src="${c.url}" alt="">
 										</c:if>
-										<div class="answer" style="display: none">
-											<c:choose>
-												<c:when test="${c.answer==1}">
-													正确答案：A。
-												</c:when>
-												<c:when test="${c.answer==2}">
-													正确答案：B。
-												</c:when>
-												<c:when test="${c.answer==3}">
-													正确答案：C。
-												</c:when>
-												<c:otherwise>
-													正确答案：D。
-												</c:otherwise>
-											</c:choose>
-													解析：${c.explains}
-										</div>
+
 									</li>
 								</c:forEach>
 							</c:if>
@@ -163,7 +147,7 @@
 
 									<div class="test_content_nr_main">
 										<ul>
-											<input class="correct" type="hidden" value="${c.answer}">
+											<input class="questionid" type="hidden" value="${c.id}">
 											<li class="option">
 												<input type="radio" class="radioOrCheck" name="1_answer_${v.count}"
 												       id="1_answer_${v.count}_option_1" value="1"/>
@@ -187,17 +171,7 @@
 									<c:if test="${not empty c.url}">
 										<img   src="${c.url}" alt="">
 									</c:if>
-									<div class="answer" style="display: none">
-										<c:choose>
-											<c:when test="${c.answer==1}">
-												正确答案：A。
-											</c:when>
-											<c:when test="${c.answer==2}">
-												正确答案：B。
-											</c:when>
-										</c:choose>
-										解析：${c.explains}
-									</div>
+
 								</li>
 								</c:forEach>
 							</c:if>

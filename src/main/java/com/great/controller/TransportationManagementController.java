@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -117,8 +118,8 @@ public class TransportationManagementController {
     public String Login(String account,String pwd,String rePass , HttpServletRequest request) throws IOException {
         String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
         Boolean confirm = rePass.equalsIgnoreCase(YZM);//不区分大小写
-        String savePath = request.getSession().getServletContext().getRealPath("/images");
-        System.out.println(savePath);
+        String filepath2 = System.getProperty("user.dir");
+        System.out.println(filepath2);
         if (confirm) {
             Transportation transportation =transportationService.login(account,pwd);
             if (null!=transportation){
@@ -576,6 +577,48 @@ public class TransportationManagementController {
 
         return g.toJson(objectResult);
     }
+
+
+    @RequestMapping("/insertExamTime")
+    @ResponseBody
+    public String insertExamTime(String title, Date state, String allDay, Date end, HttpServletResponse response){
+
+        System.out.println(title);
+        System.out.println(state);
+        System.out.println(allDay);
+        System.out.println(end);
+
+        return "";
+    }
+
+    @RequestMapping("/getExamTime")
+    @ResponseBody
+    public String getExamTime( HttpServletResponse response) throws IOException {
+        String strvalue = "[{\n" +
+                "\t\"title\": \"驾校一\",\n" +
+                "\t\"start\": \"2020-5-16\",\n" +
+                "\t\"end\":  \"2020-5-17\",\n" +
+                "  \t\"id\":1\n" +
+                "}, {\n" +
+                "\t\"title\": \"驾校一\",\n" +
+                "\t\"start\": \"2020-5-16\",\n" +
+                "\t\"end\":  \"2020-5-17\",\n" +
+                "  \t\"id\":2\n" +
+                "}, {\n" +
+                "\t\"title\": \"驾校一\",\n" +
+                "\t\"start\": \"2020-5-16\",\n" +
+                "\t\"end\":  \"2020-5-17\",\n" +
+                "  \t\"id\":3\n" +
+                "}]";
+        response.setCharacterEncoding("UTF-8");
+        System.out.println("strvalue="+strvalue);
+
+//        response.getWriter().print(strvalue);
+
+        return strvalue;
+    }
+
+
 
     /**
      * 注销登录

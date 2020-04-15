@@ -5,7 +5,7 @@ $(function () {
         var path = $("#path").val();
         //监听提交
         form.on('submit(formDemo)', function(data){
-            console.log(JSON.stringify(data.field));
+            console.log(data.field);
             $.ajax({
                 url:path+'/student/login',
                 type:'post',

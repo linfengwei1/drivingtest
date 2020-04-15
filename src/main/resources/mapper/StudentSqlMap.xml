@@ -19,6 +19,27 @@
 		<result property="school_id" column="school_id"></result>
 		<result property="identity_state" column="identity_state"></result>
 	</resultMap>
+
+	<resultMap id="studyConditionMap" type="StudyCondition">
+<!--		<id property="id" column="id"></id>-->
+		<!--非主键字段的对应-->
+		<result property="id" column="id"></result>
+		<result property="student_id" column="student_id"></result>
+		<result property="subject_id" column="subject_id"></result>
+		<result property="score" column="score"></result>
+		<result property="time" column="time"></result>
+		<result property="practise_score" column="practise_score"></result>
+<!--		<association property="score" javaType="int" column="{student_id=student_id,subject_id=subject_id}" select="getScoreById"/>-->
+	</resultMap>
+	<resultMap id="scoreMap" type="Score">
+<!--		<id property="id" column="id"></id>-->
+		<!--非主键字段的对应-->
+		<result property="subject" column="name"></result>
+		<result property="examTime" column="datetime"></result>
+		<result property="score" column="score"></result>
+	</resultMap>
+
+
 	<resultMap id="questionMap" type="Question">
 		<!-- 主键字段的对应 -->
 		<id property="id" column="iid"></id>
@@ -29,11 +50,41 @@
 		select * from student where account = #{account} and pwd = #{pwd}
 	</select>
 
+
+	<select id="getStudentState" resultType="int">
+		select student_state_id from student where id = #{studentId}
+	</select>
+
 	<select id="checkStudyAuthority" resultType="int" parameterType="java.util.HashMap">
 		select time from studycondition where student_id = #{studentId} and subject_id = #{subject}
 	</select>
+	<select id="getPractiseScoreById" resultType="int" parameterType="java.util.HashMap">
+		select practise_score from studycondition where student_id = #{studentId} and subject_id = #{subject}
+	</select>
 	<select id="checkReapSignUp" resultType="int" >
-		select count(*) from signuprecord where studentid = #{studentId} and subjectid = #{subject} and  date_format(now(), '%Y-%m-%d') = date_format(time, '%Y-%m-%d')	</select>
+		select count(*) from signuprecord where studentid = #{studentId} and subjectid = #{subject} and  date_format(now(), '%Y-%m-%d') = date_format(time, '%Y-%m-%d')
+	</select>
+
+	<select id="getStudyConditionById" resultMap="studyConditionMap" >
+		select s.id,s.practise_score,sc.score,s.student_id,s.subject_id,s.time  from studycondition as s,score as sc
+		where s.student_id = #{studentId}
+		and s.subject_id = sc.subject_id
+	</select>
+	<select id="getMyScore" resultMap="scoreMap" >
+		select s.name,t.datetime,sc.score from time as t,score as sc,appoint_time_relation as a,`subject` as s
+		where sc.student_id = #{studentId} and sc.appoint_time_relation_id =  a.id and a.time_id=t.id and sc.subject_id = s.id
+	</select>
+	<select id="getOrderTime" resultType="ExamOrder">
+		select s.name as subject,t.datetime as ordertime from `subject` as s,appoint_time_relation as a,time t
+		where a.student_id = #{studentId}
+		and a.time_id = t.id
+		and t.subject_id = s.id
+	</select>
+<!--	用于关联查询成绩，保证每次查出最新成绩-->
+	<select id="getScoreById" resultType="int">
+		select score from score where student_id = #{studentId} and subject_id = #{subject}
+	</select>
+
 	<select id="getChoicesBySubject_1" resultMap="questionMap">
 		SELECT
     		*
@@ -108,6 +159,21 @@
 	</select>
 
 
+	<select id="getTest_1Score" resultType="int">
+		SELECT  count(*) from question1
+		WHERE (iid,answer) in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			(#{item.id},#{item.answer})
+		</foreach>
+	</select>
+	<select id="getTest_4Score" resultType="int">
+		SELECT count(*) from question4
+		WHERE (iid,answer) in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			(#{item.id},#{item.answer})
+		</foreach>
+	</select>
+
 	<update id="addStudy1Time">
 		update studycondition set time = time +1 where student_id = #{studentId} and subject_id = #{subject}
 	</update>
@@ -116,6 +182,9 @@
 	</update>
 	<update id="setStudentIsIdentified">
 		update student set identity_state = 1 where id = #{studentId}
+	</update>
+	<update id="changeStudentState">
+		update student set student_state_id = #{stateId} where id = #{studentId}
 	</update>
 
 	<insert id="addSignUpRecord">
