@@ -22,7 +22,7 @@ public class TableUtils {
 //    private String type;
 //    private String content;
 //    private String datetime;
-
+    private Integer coach_id;
 
     public TableUtils() {
     }
@@ -154,6 +154,14 @@ public class TableUtils {
 
     public void setCarNumber(String carNumber) {
         this.carNumber = carNumber;
+    }
+
+    public Integer getCoach_id() {
+        return coach_id;
+    }
+
+    public void setCoach_id(Integer coach_id) {
+        this.coach_id = coach_id;
     }
 
     @Override
