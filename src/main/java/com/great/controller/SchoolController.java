@@ -139,24 +139,34 @@ public class SchoolController {
     public void phoneMsg(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String msg = request.getParameter("phone");
+        //判断手机号是否存在
+        Integer a =schoolAdminService.CheckAdminPhone(msg);
+        System.out.println("手机是否存在=="+a);
+        if (0<a){
+            if (null!=msg||!"".equals(msg.trim())){
+                String phoneMsg = PhoneCode.getPhonemsg(msg);
+                request.getSession().setAttribute("phoneMsg",phoneMsg);
+                response.getWriter().print("success");
+                //5分钟后移除存在域里的验证码
+                HttpSession hs = request.getSession();
+                //创建一个计时器
+                final Timer timer=new Timer();
+                //schedule(TimerTask t,Date time);改方法是指在指定的time时间内执行指定的任务
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        hs.removeAttribute("phoneMsg");
+                        System.out.println("checkCode删除成功");
+                        timer.cancel();
+                    }
+                },5*60*1000);
 
-        if (null!=msg||!"".equals(msg.trim())){
-            String phoneMsg = PhoneCode.getPhonemsg(msg);
-            System.out.println("验证码=="+phoneMsg);
-            request.getSession().setAttribute("phoneMsg",phoneMsg);
-            //5分钟后移除存在域里的验证码
-            HttpSession hs = request.getSession();
-            final Timer timer=new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    hs.removeAttribute("phoneMsg");
-                    System.out.println("checkCode删除成功");
-                    timer.cancel();
-                }
-            },5*60*1000);
-
+            }
+        }else {
+            //手机号码不存在
+            response.getWriter().print("no");
         }
+
 
 
     }
@@ -166,19 +176,22 @@ public class SchoolController {
          String phoneMsg = (String) request.getSession().getAttribute("phoneMsg");
         System.out.println("验证码="+phoneMsg);
         System.out.println("输入的值="+schoolAdmin.getPhoneMsg());
-        //手机验证码不为空的情况
-        if(null==phoneMsg||"".equals(phoneMsg)){
-            if (phoneMsg.equals(schoolAdmin.getPhoneMsg())){
-                System.out.println(1);
+            //手机验证码不为空的情况
+            if(null!=phoneMsg||!"".equals(phoneMsg)){
+                //判断短信验证码是否一致
+                if (phoneMsg.equals(schoolAdmin.getPhoneMsg())){
+                    //修改密码
+                 Integer b=schoolAdminService.changePwdByPhone(schoolAdmin);
+                    ajaxReturn(b,response); //结果返回封装
+                    System.out.println(1);
+                }else {
+                    response.getWriter().print("error");
+                }
             }else{
                 System.out.println(2);
+                //短信已失效
+                response.getWriter().print("cancel");
             }
-        }else {
-
-        }
-
-
-
     }
 
 
