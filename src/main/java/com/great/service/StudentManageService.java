@@ -19,7 +19,7 @@ public interface StudentManageService
 
 	String importFace(String studentId, String face);
 
-	String faceCheck(String studentid, String face,String subject);
+	String faceCheck(String studentid, String face, String subject);
 
 	int getTestScore(TestReplies testReplieslist);
 

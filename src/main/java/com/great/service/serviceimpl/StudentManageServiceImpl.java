@@ -146,11 +146,7 @@ public class StudentManageServiceImpl implements StudentManageService
 			    {
 				    result = "free";
 			    }
-
-
-
 		        break;
-
 		}
 		return result;
 	}
@@ -280,7 +276,7 @@ public class StudentManageServiceImpl implements StudentManageService
 			if(score >= 90)//通过考试 ，毕业
 			{
 				//写入成绩
-				studentDao.changeStudentState(testReplieslist.getStudentId(),7);
+				studentDao.changeStudentState(testReplieslist.getStudentId(),4);
 			}
 		}
 

@@ -16,7 +16,7 @@ public interface IStudentDao
 
 	public int checkStudyAuthority(HashMap<String, Integer> map);
 
-	public int addStudy1Time(@Param("studentId")int studentId, @Param("subject")int subject);
+	public int addStudy1Time(@Param("studentId") int studentId, @Param("subject") int subject);
 
 	public List<Question> getChoicesBySubject_1();
 	public List<Question> getjudgesBySubject_1();
@@ -24,26 +24,26 @@ public interface IStudentDao
 	public List<Question> getChoicesBySubject_4();
 	public List<Question> getjudgesBySubject_4();
 
-	public void setStudentIsIdentified(@Param("studentId")int studentId);
+	public void setStudentIsIdentified(@Param("studentId") int studentId);
 
-	public void addStudyTime(@Param("studentId")int studentId, @Param("subject")int subject);
+	public void addStudyTime(@Param("studentId") int studentId, @Param("subject") int subject);
 
-	public void addSignUpRecord(@Param("studentId")int studentId, @Param("subject")int subject, @Param("time")Timestamp time);
-	public int checkReapSignUp(@Param("studentId")int studentId, @Param("subject")int subject);
+	public void addSignUpRecord(@Param("studentId") int studentId, @Param("subject") int subject, @Param("time") Timestamp time);
+	public int checkReapSignUp(@Param("studentId") int studentId, @Param("subject") int subject);
 
-	public int getTest_1Score(@Param("list")List<TestReply> list);
-	public int getTest_4Score(@Param("list")List<TestReply> list);
+	public int getTest_1Score(@Param("list") List<TestReply> list);
+	public int getTest_4Score(@Param("list") List<TestReply> list);
 
-	public int changeStudentState(@Param("studentId")int studentId, @Param("stateId")int stateId);
+	public int changeStudentState(@Param("studentId") int studentId, @Param("stateId") int stateId);
 	// 查询学员处于什么阶段
-	public int getStudentState(@Param("studentId")int studentId);
+	public int getStudentState(@Param("studentId") int studentId);
 
 	int getPractiseScoreById(HashMap<String, Integer> map);
 	int getScoreById(HashMap<String, Integer> map);
 
-	List<StudyCondition> getStudyConditionById(@Param("studentId")int studentId);
+	List<StudyCondition> getStudyConditionById(@Param("studentId") int studentId);
 
-	List<Score> getMyScore(@Param("studentId")int studentId);
+	List<Score> getMyScore(@Param("studentId") int studentId);
 
 	List<ExamOrder> getOrderTime(int parseInt);
 }
