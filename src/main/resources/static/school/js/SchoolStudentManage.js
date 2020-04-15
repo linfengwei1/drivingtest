@@ -5,6 +5,10 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
     var table = layui.table;
     var path = $("#path").val();
 
+//阻止表单提交
+    form.on('submit(formDemo)', function(data){
+        return false;//阻止表单跳转
+    });
 
     //第一个实例
     table.render({

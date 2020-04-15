@@ -1,7 +1,8 @@
-package com.great.dao;
+﻿package com.great.dao;
 
 
 import com.great.entity.Coach;
+import com.great.entity.Punish;
 import com.great.entity.Student;
 import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
@@ -34,14 +35,29 @@ public interface SchoolCoachDao
 	//添加驾校管理员
 	public Integer addCoach(Coach coach);
 
-    //查询所有教练
-    public List<Coach> findAllCoach(Integer schoolid);
+    	//查询所有教练
+   	 public List<Coach> findAllCoach(Integer schoolid);
 
 	//单独插入图片
 	public Integer AddCoachImage(Map map);
 
 	//插入图片改变状态
 	public Integer ChangeCoachState(Map map);
+
+	//查询教练违规记录并分页
+	public List<Punish> getPunish(TableUtils u);
+
+	//查询教练违规信息总数
+	public Integer findPunishCount(TableUtils u);
+
+	//添加处罚记录
+	public Integer AddPunish(Punish punish);
+
+	//删除处罚记录
+	public Integer deletePunish(Integer punish);
+
+	//处罚记录改变状态
+	public Integer updatePunish();
 
 	/**
 	 * 修改教练密码 2020-4-9 16：46 王良德

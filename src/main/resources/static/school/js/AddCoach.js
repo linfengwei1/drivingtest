@@ -9,8 +9,8 @@ layui.use(['form','upload'], function(){
         ,url: path+'/school/coachImage/'
         ,accept:'images'
         ,size:50000
-        ,auto: false//是否自动上传
-        ,bindAction: '#OK'
+        // ,auto: false//是否自动上传
+        // ,bindAction: '#OK'
         ,before: function(obj){
 
             obj.preview(function(index, file, result){
@@ -30,6 +30,8 @@ layui.use(['form','upload'], function(){
             var fileupload = $(".image");
             fileupload.attr("value",res.data.src);
             console.log(fileupload.attr("value"));
+            // $(".image").val(fileupload.attr("value"))
+            // console.log("value=="+$(".image").val);
         }
         ,error: function(){
             //演示失败状态，并实现重传
@@ -106,6 +108,8 @@ layui.use(['form','upload'], function(){
     //监听提交
     form.on('submit(formDemo)', function(data){
         var path = $("#path").val();
+        var fileupload = $(".image");
+        console.log("返回的路径="+fileupload.attr("value"))
         // var a =JSON.stringify(data.field)
         $.ajax({
             url: path + "/school/addCoach",
@@ -144,9 +148,12 @@ layui.use(['form','upload'], function(){
                     });
                 }else if (msg=="IdError"){
                     layer.alert("身份证号码有误",{icon:6},function () {
+                        window.parent.location.reload();
                     });
                 } else {
-                    layer.alert("新增失败",{icon:2})
+                    layer.alert("新增失败",{icon:6},function () {
+                        window.parent.location.reload();
+                    });
                 }
             },
             error: function () {

@@ -13,11 +13,10 @@
     <%String path = request.getContextPath(); %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-    <script src="${pageContext.request.contextPath}/static/school/js/SchoolAdminManage.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" onsubmit="return false;">
+<form class="layui-form" action="" >
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
         <h2 style="margin-left: 43%">日志管理</h2>
     </div>
@@ -66,6 +65,10 @@
             var table = layui.table;
             var path = $("#path").val();
 
+            //阻止表单提交
+            form.on('submit(formDemo)', function(data){
+                return false;//阻止表单跳转
+            });
 
             //第一个实例
             table.render({
@@ -106,36 +109,36 @@
             });
 
 
-            //删除
-            //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-            table.on('tool(test)', function(obj){
-                var data = obj.data; //获得当前行数据
-                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-                var path1 = $("#path").val();
-                if(layEvent === 'delete'){ //删除
-                    $.ajax({
-                        async:true,
-                        method : "POST",
-                        url :path1+'/school/deleteSchoolAdmin',
-                        data: data,
-                        dataType : "text",
-                        success:function(data){
-                            if ("success"==data){
-                                layer.alert("删除成功",{icon:6},function () {
-                                    window.parent.location.reload();
-                                });
-                            }else {
-                                layer.alert("删除失败",{icon:2});
-                            }
-                        },
-                        error:function (err) {
-                            layer.alert("网络繁忙",{icon:2});
-                        }
-                    })
-                }
-
-            });
-
+        //     //删除
+        //     //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+        //     table.on('tool(test)', function(obj){
+        //         var data = obj.data; //获得当前行数据
+        //         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        //         var path1 = $("#path").val();
+        //         if(layEvent === 'delete'){ //删除
+        //             $.ajax({
+        //                 async:true,
+        //                 method : "POST",
+        //                 url :path1+'/school/deleteSchoolAdmin',
+        //                 data: data,
+        //                 dataType : "text",
+        //                 success:function(data){
+        //                     if ("success"==data){
+        //                         layer.alert("删除成功",{icon:6},function () {
+        //                             window.parent.location.reload();
+        //                         });
+        //                     }else {
+        //                         layer.alert("删除失败",{icon:2});
+        //                     }
+        //                 },
+        //                 error:function (err) {
+        //                     layer.alert("网络繁忙",{icon:2});
+        //                 }
+        //             })
+        //         }
+        //
+        //     });
+        //
         });
 
 
