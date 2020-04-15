@@ -8,14 +8,10 @@
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/studentmain.css">
-	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="${pageContext.request.contextPath}/static/student/js/StudentMain.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body class="layui-layout-body"  style="overflow-y:scroll;overflow-x:scroll">
-<input type="hidden" id="path" value="${pageContext.request.contextPath}">
-<input type="hidden" id="studentid" value="${student.id}">
 <div class="untop">
 	<ul class="menu">
 		<!--        <li class="backbg logo" onclick="location.href='/home/index'"></li>-->
@@ -33,7 +29,7 @@
 				<a href="javascript:;">理论学习</a>
 				<dl class="layui-nav-child">
 					<dd><a href="${pageContext.request.contextPath}/student/path/VedioStudy" target="frame_div">科目一</a></dd>
-					<dd><a href="${pageContext.request.contextPath}/student/path/VedioStudy4" target="frame_div">科目四</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/path/VedioStudy" target="frame_div">科目四</a></dd>
 				</dl>
 			</li>
 
@@ -61,25 +57,15 @@
 			<li class="layui-nav-item">
 				<a href="javascript:;">模拟考试</a>
 				<dl class="layui-nav-child">
-
-					<dd style="cursor: pointer" onclick="getStudentState(1)"><a>科目一</a></dd>
-
-					<dd style="cursor: pointer" onclick="getStudentState(4)"><a>科目四</a></dd>
-
+					<dd><a href="${pageContext.request.contextPath}/student/path/VedioStudy" target="frame_div">科目一</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/path/VedioStudy" target="frame_div">科目四</a></dd>
 				</dl>
 			</li>
 
 			<li class="layui-nav-item">
 				<a href="">考试信息</a>
-				<dl class="layui-nav-child">
-					<dd><a href="${pageContext.request.contextPath}/student/path/ExamScore" target="frame_div">考试成绩</a></dd>
-					<dd><a href="${pageContext.request.contextPath}/student/path/ExamTime" target="frame_div">考试预约</a></dd>
-				</dl>
 			</li>
 			<li class="layui-nav-item"><a href="">社区</a></li>
-			<li class="layui-nav-item">
-				<a href="${pageContext.request.contextPath}/student/path/QueryLocation" target="frame_div">查看位置信息</a>
-			</li>
 		</ul>
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
@@ -98,7 +84,7 @@
 	<div class="layui-container">
 		<div class="layui-row">
 			<div class="layui-col-md12">
-				<iframe name="frame_div" id="iframe_st" src="${pageContext.request.contextPath}/student/path/StudentInfo" style="width: 1140px;height: 500px;border: none;overflow-y: hidden;overflow-x: hidden;"></iframe>
+				<iframe name="frame_div" src="${pageContext.request.contextPath}/student/path/StudentInfo" style="width: 1140px;height: 500px;border: none;overflow-y: hidden;overflow-x: hidden;"></iframe>
 			</div>
 		</div>
 	</div>

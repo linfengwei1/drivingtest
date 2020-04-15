@@ -1,10 +1,10 @@
 package com.great.service;
 
 
-import com.great.entity.*;
+import com.great.entity.QuestionList;
+import com.great.entity.Student;
 
 import java.util.HashMap;
-import java.util.List;
 
 public interface StudentManageService
 {
@@ -20,16 +20,6 @@ public interface StudentManageService
 	String importFace(String studentId, String face);
 
 	String faceCheck(String studentid, String face, String subject);
-
-	int getTestScore(TestReplies testReplieslist);
-
-	String getStudentState(String studentId, String subject);
-
-	List<StudyCondition> getStudyCondition(String studentId);
-
-	List<Score> getMyScore(String studentId);
-
-	List<ExamOrder> getOrderTime(String studentId);
 	//	public User findUser(String uname, String pwd);
 //	public List<User> findAll(HashMap<String, Object> map) throws SQLException;
 //

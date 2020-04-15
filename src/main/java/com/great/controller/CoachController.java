@@ -1,15 +1,12 @@
 package com.great.controller;
 
 import com.great.entity.Coach;
-import com.great.entity.DateTable;
 import com.great.entity.SchoolAdmin;
-import com.great.entity.TableUtils;
 import com.great.service.CoachManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -18,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 @Controller
@@ -29,10 +24,6 @@ public class CoachController
     private Random random = new Random();
     @Autowired
     public CoachManageService coachManageService;
-
-    @Autowired
-    private DateTable dateTable;
-
     //地址映射,path是个方法名,可以随便改动,{url}是参数
     @RequestMapping("/path/{url}")
     public String getUrl(@PathVariable(value = "url") String path){
@@ -140,26 +131,5 @@ public class CoachController
             response.getWriter().print("yzm");
         }
 
-    }
-
-    //获取学员信息表格显示
-    @RequestMapping("/CoachStudentTable")
-    @ResponseBody//ajax返回值json格式转换
-    public DateTable CoachStudentTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Integer page= Integer.parseInt(request.getParameter("page"));
-        Integer limit= Integer.parseInt(request.getParameter("limit"));
-        Coach coach = (Coach) request.getSession().getAttribute("coach");
-        utils.setCoach_id(coach.getId());
-        utils.setMinLimit((page-1)*limit);
-        utils.setMaxLimit(limit);
-        System.out.println("utils:"+utils);
-        Map map = (Map) coachManageService.getCoachStudentTable(utils);
-        if (null!=map.get("list")){
-            dateTable.setData((List<?>) map.get("list"));
-            dateTable.setCode(0);
-            dateTable.setCount((Integer) map.get("count"));//总条数
-            return dateTable;
-        }
-        return null;
     }
 }

@@ -5,15 +5,12 @@ import com.google.gson.JsonParser;
 import com.great.entity.*;
 import com.great.service.LinkService;
 import com.great.service.SchoolManageService;
-import com.great.service.SchoolSearchService;
-import com.great.service.TransportationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.HTML;
@@ -29,10 +26,7 @@ public class LinkController {
 
 	@Autowired//自动注入、自动装配
 	private LinkService linkService;
-//	@Resource
-	private SchoolSearchService schoolSearchService;
-	@Resource
-	private TransportationService transportationService;
+
 	@RequestMapping("/path/{url}")//访问路径的路口：path/{url是作为参数PathVariable路径变量}
 	public String getUrl(@PathVariable(value = "url") String path) {
 		return "/frontjsp/jsp/" + path;//返回
@@ -71,7 +65,7 @@ public class LinkController {
 
 		response.getWriter().print("success");//有成功打印出success
 	}
-	//删除友情链接：ddd
+	//删除友情链接：
 	@RequestMapping("/deleteLink")
 	public void deleteLink(Link link,  HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -79,46 +73,4 @@ public class LinkController {
 
 		response.getWriter().print("success");
 	}
-
-	//查询驾校数据列表：需要返回数据给前台
-	@RequestMapping("/findAllSchool")//findAllSchool
-	@ResponseBody // ajax返回值json格式转换：
-	public DateTable ShowAllSchool(School school, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Integer page = Integer.parseInt(request.getParameter("page"));
-		Integer limit = Integer.parseInt(request.getParameter("limit"));
-
-		DateTable dt = new DateTable();
-//		List<School> schoolList = schoolSearchService.findAllSchool();
-		List<School> schoolList = transportationService.getSchoolList();
-
-		Gson g = new Gson();
-		dt.setCode(0);
-		dt.setCount(schoolList.size());// 总条数
-		dt.setData(schoolList);
-		System.out.println(schoolList);
-		return dt;//返回前端的数据
-	}
-
-//	/**
-//	 * 获取所有学校名和状态信息
-//	 * @param request
-//	 * @return
-//	 */
-//	@RequestMapping("findAllSchool")
-//	public String getAllSchoolAndStudentState(HttpServletRequest request){
-//
-//		List<School> schools =transportationService.getSchoolList();
-//
-//		Map<Integer,String>  map=transportationService.getStudentState();
-//
-//		if (schools!=null){
-//			request.setAttribute("schools",schools);
-//		}
-//
-//		if (map!=null){
-//			request.setAttribute("stateMap",map);
-//		}
-//
-//		return "front/jsp/SchoolSearch";
-//	}
 }

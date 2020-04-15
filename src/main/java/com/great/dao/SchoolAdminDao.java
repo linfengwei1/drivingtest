@@ -46,10 +46,4 @@ public interface SchoolAdminDao
 	//评价数
 	public Integer EvaluationCount(TableUtils u);
 
-	//查看手机号是否被注册
-	public Integer CheckCoachPhone(String phone);
-
-	//通过手机号码改密码
-	public Integer changePwdByPhone(SchoolAdmin schoolAdmin);
-
 }

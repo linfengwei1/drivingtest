@@ -7,14 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%String path=request.getContextPath(); %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/homepage.css">
-<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
-<script src="${pageContext.request.contextPath}/static/homepage/js/homepage.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="../layui/css/layui.css">
+<script src="../layui/layui.js"></script>
+<script src="../layui/jquery-3.4.1.js"></script>
+<script src="../layui/json2.js"></script>
+<script src="../layui/js/login.js"></script>
 <html>
 <head>
-    <title>机动车驾驶员计时培训系统</title>
+    <title>哈哈哈</title>
 </head>
 <body>
 <div id="header" style="background-color: white;width: 100%;height: 10%">

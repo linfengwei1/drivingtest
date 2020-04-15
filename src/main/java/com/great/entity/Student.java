@@ -2,7 +2,6 @@ package com.great.entity;
 
 public class Student
 {
-
 	private int id;
 	private String account;
 	private String pwd;
@@ -19,7 +18,7 @@ public class Student
 	private String image;//图片路径
 	private String audit_results;//审核结果
 	private int identity_state;//是否录入人脸信息
-	private int coach_id;;//教练id
+
 	public Student()
 	{
 	}
@@ -42,14 +41,6 @@ public class Student
 		this.image = image;
 		this.audit_results = audit_results;
 		this.identity_state = identity_state;
-	}
-
-	public int getCoach_id() {
-		return coach_id;
-	}
-
-	public void setCoach_id(int coach_id) {
-		this.coach_id = coach_id;
 	}
 
 	public int getId()
@@ -207,25 +198,8 @@ public class Student
 	}
 
 	@Override
-	public String toString() {
-		return "Student{" +
-				"id=" + id +
-				", account='" + account + '\'' +
-				", pwd='" + pwd + '\'' +
-				", name='" + name + '\'' +
-				", sex='" + sex + '\'' +
-				", age='" + age + '\'' +
-				", idNumber='" + idNumber + '\'' +
-				", phone='" + phone + '\'' +
-				", student_state_id=" + student_state_id +
-				", school_id=" + school_id +
-				", verification='" + verification + '\'' +
-				", school=" + school +
-				", schoolName='" + schoolName + '\'' +
-				", image='" + image + '\'' +
-				", audit_results='" + audit_results + '\'' +
-				", identity_state=" + identity_state +
-				", coach_id=" + coach_id +
-				'}';
+	public String toString()
+	{
+		return "Student{" + "id=" + id + ", account='" + account + '\'' + ", pwd='" + pwd + '\'' + ", name='" + name + '\'' + ", sex='" + sex + '\'' + ", age='" + age + '\'' + ", idNumber='" + idNumber + '\'' + ", phone='" + phone + '\'' + ", student_state_id=" + student_state_id + ", school_id=" + school_id + ", verification='" + verification + '\'' + ", school=" + school + ", schoolName='" + schoolName + '\'' + ", image='" + image + '\'' + ", audit_results='" + audit_results + '\'' + ", identity_state=" + identity_state + '}';
 	}
 }

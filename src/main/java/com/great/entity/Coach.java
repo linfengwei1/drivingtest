@@ -14,7 +14,6 @@ public class Coach {
     private String phone;
     private int coach_state_id;
     private int school_id;
-    private String image;
     private String verification;//验证码
     private String schoolName;//驾校名
     private String audit_results;//审核结果
@@ -36,14 +35,6 @@ public class Coach {
         this.verification = verification;
         this.schoolName = schoolName;
         this.audit_results = audit_results;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public Integer getId() {

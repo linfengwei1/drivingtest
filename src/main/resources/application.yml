@@ -31,10 +31,6 @@ spring:
       #防御sql注入的filter:wall
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 #通过connectProperties属性来打开mergeSql功能；慢SQL记录
       use-global-data-source-stat: true #合并多个DruidDataSource的监控数据
-  jackson:
-    default-property-inclusion: ALWAYS
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
   mvc:
     view:
       suffix: .jsp
@@ -47,18 +43,6 @@ spring:
     spring:
       resources:
         static-locations:classpath:static/**
-
-#  jackson:
-#    #参数意义：
-#    #JsonInclude.Include.ALWAYS       默认
-#    #JsonInclude.Include.NON_DEFAULT   属性为默认值不序列化
-#    #JsonInclude.Include.NON_EMPTY     属性为 空（””） 或者为 NULL 都不序列化
-#    #JsonInclude.Include.NON_NULL      属性为NULL  不序列化
-#    default-property-inclusion: ALWAYS
-#    time-zone: GMT+8
-#    date-format: yyyy-MM-dd HH:mm:ss
-
-
 mybatis:
   config-location: classpath:SqlMapConfig.xml
   mapper-locations: classpath:/mapper/*.xml

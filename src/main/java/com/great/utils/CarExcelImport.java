@@ -56,7 +56,7 @@ public class CarExcelImport {
                             coachCar.setCoach_id(Integer.parseInt(data));
                         }
                         else if (j == 4) {
-                            coachCar.setCarState("信息不完整");
+                            coachCar.setCarState("待审查");
                         }
                     }
                 }

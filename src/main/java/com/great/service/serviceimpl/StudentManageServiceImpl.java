@@ -3,7 +3,9 @@ package com.great.service.serviceimpl;
 
 import com.great.aoplog.Log;
 import com.great.dao.IStudentDao;
-import com.great.entity.*;
+import com.great.entity.Question;
+import com.great.entity.QuestionList;
+import com.great.entity.Student;
 import com.great.service.StudentManageService;
 import com.great.utils.FaceRecognitionUtils;
 import org.springframework.stereotype.Service;
@@ -46,14 +48,6 @@ public class StudentManageServiceImpl implements StudentManageService
 			    map.put("studentId", Integer.parseInt(studentId));//传学员ID
 			    map.put("subject", Integer.parseInt(subject));//传科目ID
 			    int finishTime = studentDao.checkStudyAuthority(map);
-			    int stage = studentDao.getStudentState(Integer.parseInt(studentId));
-
-			    if(stage>1)
-			    {
-			    	result = "free";//学员不属于1阶段  自由观看视频
-			    	break;
-			    }
-
 			    if(finishTime == 0)//学员没看过视频
 			    {
 			    	if(Integer.parseInt(vedioId)==1)//学员选择看视频1
@@ -93,60 +87,8 @@ public class StudentManageServiceImpl implements StudentManageService
 			    }
 		        break;
 		    case 4:
-			    HashMap<String,Integer> map1 = new HashMap<>();
-			    map1.put("studentId", Integer.parseInt(studentId));//传学员ID
-			    map1.put("subject", Integer.parseInt(subject));//传科目ID
-			    int finishTime_4 = studentDao.checkStudyAuthority(map1);
-			    int stage_1 = studentDao.getStudentState(Integer.parseInt(studentId));
-
-			    if(stage_1>4)
-			    {
-				    result = "free";//学员大于4阶段  自由观看视频
-				    break;
-			    }else if(stage_1 < 4)
-			    {
-				    result = "error";//学员小于4阶段  禁止观看视频
-				    break;
-			    }
-
-			    if(finishTime_4 == 0)//学员没看过视频
-			    {
-				    if(Integer.parseInt(vedioId)==1)//学员选择看视频1
-				    {
-					    result = "first";//表示第一次看
-				    }else
-				    {
-					    result = "error";//表示没有权限看视频
-				    }
-			    }else if(finishTime_4 == 1)//学员只看过视频1
-			    {
-				    if(Integer.parseInt(vedioId)==1)//学员选择看视频0
-				    {
-					    result = "free";//表示可以自由看，不记录学时
-				    }else if(Integer.parseInt(vedioId)==2)//学员选择看视频2
-				    {
-					    result = "first";//表示第一次看
-				    }else
-				    {
-					    result = "error";//表示没有权限看视频
-				    }
-			    }else if(finishTime_4 == 2)//学员只看过视频2
-			    {
-				    if(Integer.parseInt(vedioId)==1)//学员选择看视频0
-				    {
-					    result = "free";//表示可以自由看，不记录学时
-				    }else if(Integer.parseInt(vedioId)==2)//学员选择看视频2
-				    {
-					    result = "free";//表示可以自由看，不记录学时
-				    }else
-				    {
-					    result = "first";//表示第一次看
-				    }
-			    }else if(finishTime_4 == 3)//学员只看过视频3
-			    {
-				    result = "free";
-			    }
 		        break;
+
 		}
 		return result;
 	}
@@ -253,90 +195,5 @@ public class StudentManageServiceImpl implements StudentManageService
 
 
 		return result;
-	}
-
-	@Override
-	@Transactional
-	@Log(operationType = "查询操作", operationName = "学员提交试卷得到考试分数")
-	public int getTestScore(TestReplies testReplieslist)
-	{
-		int score = 0;
-		if(testReplieslist.getSubject() == 1)//得到科目一考试分数
-		{
-			score = studentDao.getTest_1Score(testReplieslist.getTestReplieslist());
-			if(score >= 1)//通过考试 ，进入科目二阶段
-			{
-				//写入成绩
-				int i = studentDao.changeStudentState(testReplieslist.getStudentId(),2);
-				System.out.println("更新条数"+i);
-			}
-		}else//考科目四
-		{
-			score = studentDao.getTest_4Score(testReplieslist.getTestReplieslist());
-			if(score >= 90)//通过考试 ，毕业
-			{
-				//写入成绩
-				studentDao.changeStudentState(testReplieslist.getStudentId(),4);
-			}
-		}
-
-		System.out.println("本次考试得了"+score);
-
-		return score;
-	}
-
-	@Override
-	public String getStudentState(String studentId, String subject)
-	{
-		String resulet = null;
-		//1.先检查学时有没有打满，打满了才能模拟考试
-		HashMap<String,Integer> map = new HashMap<>();
-		map.put("studentId", Integer.parseInt(studentId));//传学员ID
-		map.put("subject", Integer.parseInt(subject));//传科目ID
-		int finishTime = studentDao.checkStudyAuthority(map);
-		int score = studentDao.getPractiseScoreById(map);//得到模拟考试分数
-
-		System.out.println("模拟考分数是"+score);
-		int state = studentDao.getStudentState(Integer.parseInt(studentId));
-		if(subject.equals("1") && state == 1 && finishTime == 3 && score < 90)//学员处于科目一状态同时申请科目一考试//判断学时是否打满//判断考试分数小于90
-		{
-			resulet = "success";
-		}else if(subject.equals("4") && state == 4 && finishTime == 3 && score < 90)
-		{
-			resulet = "success";
-		}else
-		{
-			resulet = "error";
-		}
-		return resulet;
-	}
-
-
-
-	@Override
-	public List<StudyCondition>  getStudyCondition(String studentId)
-	{
-		List<StudyCondition> list =  studentDao.getStudyConditionById(Integer.parseInt(studentId));
-		for (StudyCondition s : list)
-		{
-			System.out.println(s);
-		}
-		return list;
-	}
-
-	@Override
-	public List<Score> getMyScore(String studentId)
-	{
-		List<Score> list =  studentDao.getMyScore(Integer.parseInt(studentId));
-
-		return list;
-	}
-
-	@Override
-	public List<ExamOrder> getOrderTime(String studentId)
-	{
-		List<ExamOrder> list =  studentDao.getOrderTime(Integer.parseInt(studentId));
-
-		return list;
 	}
 }

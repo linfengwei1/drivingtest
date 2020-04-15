@@ -10,21 +10,16 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         elem: '#dataTable'
         // , height: 280
         // , url: path + '/school/SchoolAdminTable' //数据接口
-        , url: path + "/link/findAllSchool"//数据接口，显示出连接列表,获取数据
+        , url: path + "/link/findAllLink"//数据接口，显示出连接列表,获取数据
         , page: false //开启分页
         , id: 'searchTable'
         , limit: 5
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
-            {field: 'id', title: '驾校ID', width: 120, sort: true, fixed: 'left', align: 'center'}
-            , {field: 'name', title: '驾校名称', width: 100, align: 'center'}
-            , {field: 'phone', title: '联系电话',  sort: true, align: 'center'}
-            , {field: 'address', title: '联系地址', width: 120, sort: true, align: 'center'}
-            , {field: 'admin', title: '负责人', width: 120, sort: true, align: 'center'}
-            , {field: 'intro', title: '学校简介', width: 120, sort: true, align: 'center'}
-            , {field: 'school_state_id', title: '状态ID', width: 120, sort: true, align: 'center'}
-            , {field: 'information', title: '通知', width: 120, sort: true, align: 'center'}
-            , {field: 'audit_results', title: '审核状态', width: 120, sort: true, align: 'center'}
+            {field: 'linkId', title: '连接ID', width: 120, sort: true, fixed: 'left', align: 'center'}
+            , {field: 'linkName', title: '连接名称', width: 100, align: 'center'}
+            , {field: 'linkUrl', title: '连接地址',  sort: true, align: 'center'}
+            , {field: 'linkSort', title: '连接排序', width: 120, sort: true, align: 'center'}
             , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
         ]]
     });
@@ -38,17 +33,9 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    // linkUrl: $("#linkUrl").val(),
-                    // linkName: $("#linkName").val(),
-                    // linkSort: $("#linkSort").val()
-                    id: $("#id").val(),
-                    name: $("#name").val(),
-                    phone: $("#phone").val(),
-                    address: $("#address").val(),
-                    intro: $("#intro").val(),
-                    school_state_id: $("#school_state_id").val(),
-                    information: $("#information").val(),
-                    audit_results:$("#audit_results").val()
+                    linkUrl: $("#linkUrl").val(),
+                    linkName: $("#linkName").val(),
+                    linkSort: $("#linkSort").val()
                 }
             });
         }
@@ -71,34 +58,34 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         var path1 = $("#path").val();
         if(layEvent === 'delete'){ //删除
             if(confirm("您真的要删除该链接吗？")) {
-                $.ajax({
-                    async:true,
-                    method : "POST",
-                    url :path1+'/link/deleteLink',
-                    data: data,
-                    dataType : "text",
-                    success:function(data){
-                        // if(confirm("您真的要删除该链接吗？")) {
+            $.ajax({
+                async:true,
+                method : "POST",
+                url :path1+'/link/deleteLink',
+                data: data,
+                dataType : "text",
+                success:function(data){
+                    // if(confirm("您真的要删除该链接吗？")) {
                         if ("success"==data){
-                            layer.alert("删除成功",{icon:6},function () {
-                                window.parent.location.reload();
-                            });
-                        } else {
-                            layer.alert("删除失败",{icon:2});
-                            layer.close();
-                            return false;
+                           layer.alert("删除成功",{icon:6},function () {
+                               window.parent.location.reload();
+                           });
+                       } else {
+                           layer.alert("删除失败",{icon:2});
+                           layer.close();
+                           return false;
                         }
-                        // } else {
-                        //     layer.alert("取消删除友情链接",{icon:2});
-                        //     layer.close();
-                        //     return false;
-                        // }
-                    },
-                    error:function (err) {
-                        layer.alert("网络繁忙",{icon:2});
-                    }
-                });
-            } else {
+                    // } else {
+                    //     layer.alert("取消删除友情链接",{icon:2});
+                    //     layer.close();
+                    //     return false;
+                    // }
+                },
+                error:function (err) {
+                    layer.alert("网络繁忙",{icon:2});
+                }
+            });
+        } else {
                 layer.alert("取消删除友情链接",{icon:2});
                 layer.close();
                 return false;

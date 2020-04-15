@@ -47,7 +47,7 @@
 </div>
 <div id="one" >
     <div class="layui-main-login" >
-        <form class="layui-form" action="" >
+        <form class="layui-form" action="" onsubmit="false">
             <p style="">驾校登录</p>
             <div class="layui-form-item">
                 <label class="layui-form-label">账号框</label>
@@ -81,9 +81,9 @@
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
-            <div id="p21">
-                <button id="p5"  style="color: red;margin-left: 60%;">忘记密码</button>
-            </div>
+<%--            <div id="p21">--%>
+<%--                <a id="p5" href="<%=request.getContextPath()%>/user/path/register" style="color: red;padding-left: 60%;">立即注册新账户</a>--%>
+<%--            </div>--%>
         </form>
     </div>
 </div>

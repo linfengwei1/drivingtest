@@ -128,14 +128,7 @@
     </select>
 
 
-    <!--查看手机号是否被使用-->
-    <select id="CheckAdminPhone" parameterType = "String" resultType="java.lang.Integer">
-        select count(id) FROM schooladmin where phone= #{phone}
-    </select>
 
-    <update id="changePwdByPhone" parameterType = "SchoolAdmin" >
-        update schooladmin set pwd =#{pwd} where phone= #{phone};
-    </update>
 
 
 

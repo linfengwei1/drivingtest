@@ -40,7 +40,7 @@
                 <a class="" href="javascript:;">教练管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/SchoolCoachManage" onclick="changeUrl(this)">教练基本信息</a></dd>
-                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/SchoolPunishManage" onclick="changeUrl(this)">教练违规处理</a></dd>
+                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">教练业务</a></dd>
                 </dl>
                 </li>
 
@@ -76,7 +76,7 @@
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/getSchoolInf" onclick="changeUrl(this)">驾校中心</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/GetEvaluation" onclick="changeUrl(this)">查看评价</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">消息查看</a></dd>
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/SchoolLogManage" onclick="changeUrl(this)">日志查看</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">日志查看</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -85,8 +85,8 @@
     </div>
 
     <div class="layui-body">
-        <iframe id="ifram_div_iframe" style="width: 100%;height: 100%;" name="ifram_div_ifram" src=""></iframe>
-<%--&lt;%&ndash;        <div style="padding: 15px;">内容主体区域</div>&ndash;%&gt;${pageContext.request.contextPath}/school/path/SchoolCoachManage--%>
+        <iframe id="ifram_div_iframe" style="width: 100%;height: 100%;" name="ifram_div_ifram" src="${pageContext.request.contextPath}/school/path/SchoolCoachManage"></iframe>
+<%--        <div style="padding: 15px;">内容主体区域</div>--%>
     </div>
 
     <div class="layui-footer">

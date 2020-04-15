@@ -41,17 +41,17 @@ public class StudentExcelImport {
                 Student student = new Student();
                 row = sheet.getRow(i);
                 for (int j = 0; j < colLength; j++) {
-                    //列：0学号  1账号 2密码 3姓名 4年龄 5身份证号码 6电话 7待审核状态(默认状态) 8驾校id 10教练id
+                    //列：0学号  1账号 2密码 3姓名 4年龄 5身份证号码 6电话 7待审核状态(默认状态) 8驾校id
                     cell = row.getCell(j);
 //                    System.out.print(cell + ",");
                     if (cell != null) {
+//                        cell.setCellType(Cell.CELL_TYPE_STRING);
                         cell.setCellType(CellType.STRING);//设置字段的数据为字符串
                         String data = cell.getStringCellValue();
                         data = data.trim();
-//                        if (j == 0) {
-//                            student.setId(Integer.parseInt(data));
-//                        }
-                    if (j == 1) {
+                        if (j == 0) {
+                            student.setId(Integer.parseInt(data));
+                        } else if (j == 1) {
                             student.setAccount(data);
                         } else if (j == 2) {
                             student.setPwd(data);
@@ -69,8 +69,6 @@ public class StudentExcelImport {
                             student.setStudent_state_id(8);
                         }else if (j == 9) {
                             student.setSchool_id(schoolAdmin.getSchool_id());
-                        }else if (j == 10) {
-                            student.setCoach_id(Integer.parseInt(data));
                         }
                     }
                 }

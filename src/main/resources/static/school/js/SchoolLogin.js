@@ -1,13 +1,7 @@
-layui.use(['form','jquery','layer'],  function(){
+layui.use(['form','jquery'],  function(){
     var form = layui.form;
     $ = layui.jquery;
     var path = $("#path").val();
-
-    //阻止表单提交
-    form.on('submit(formDemo)', function(data){
-        return false;//阻止表单跳转
-    });
-
     //监听提交
     form.on('submit(formDemo)', function(data){
 
@@ -37,21 +31,7 @@ layui.use(['form','jquery','layer'],  function(){
         });
         return false;//阻止表单跳转
     });
-
-    $("#p5").click(function () {
-        layer.open({
-            title:'添加驾校管理员信息',
-            type: 2,
-            area: ['700px', '400px'],
-            content:path+"/school/path/ChangePwd",//弹出的页面
-        });
-    })
 });
-
-
-$(function () {
-
-})
 
 function refreshCode() {//给图片添加一个点击事件
     var YZM = document.getElementById("passPhoto");//使用js的可以,换成jq不行(还不知道为什么)

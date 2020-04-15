@@ -7,14 +7,9 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/studentmain.css">
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="${pageContext.request.contextPath}/static/student/js/StudentInfo.js" type="text/javascript" charset="utf-8"></script>
-
 
 </head>
 <body class="layui-layout-body">
-<input type="hidden" id="path" value="${pageContext.request.contextPath}">
-<input type="hidden" id="studentid" value="${student.id}">
 <div class="df_bd">
 <div class="bgl">
 	<div class="usio">
@@ -59,34 +54,42 @@
 									<th>未完成学时</th>
 									<th>状态</th>
 								</tr>
-
-<%--								<tr>--%>
-<%--									<td>第二部分</td>--%>
-<%--									<td>12学时</td>--%>
-<%--									<td>-</td>--%>
-<%--									<td>12学时</td>--%>
-<%--									<td>=</td>--%>
-<%--									<td>0分钟</td>--%>
-<%--									<td>通过</td>--%>
-<%--								</tr>--%>
-<%--								<tr>--%>
-<%--									<td>第三部分</td>--%>
-<%--									<td>12学时</td>--%>
-<%--									<td>-</td>--%>
-<%--									<td>12学时</td>--%>
-<%--									<td>=</td>--%>
-<%--									<td>0分钟</td>--%>
-<%--									<td>通过</td>--%>
-<%--								</tr>--%>
-<%--								<tr>--%>
-<%--									<td>第四部分</td>--%>
-<%--									<td>10学时</td>--%>
-<%--									<td>-</td>--%>
-<%--									<td>16学时</td>--%>
-<%--									<td>=</td>--%>
-<%--									<td>0分钟</td>--%>
-<%--									<td>通过</td>--%>
-<%--								</tr>--%>
+								<tr>
+									<td>第一部分</td>
+									<td>12学时</td>
+									<td>-</td>
+									<td>12学时</td>
+									<td>=</td>
+									<td>0分钟</td>
+									<td>通过</td>
+								</tr>
+								<tr>
+									<td>第二部分</td>
+									<td>12学时</td>
+									<td>-</td>
+									<td>12学时</td>
+									<td>=</td>
+									<td>0分钟</td>
+									<td>通过</td>
+								</tr>
+								<tr>
+									<td>第三部分</td>
+									<td>12学时</td>
+									<td>-</td>
+									<td>12学时</td>
+									<td>=</td>
+									<td>0分钟</td>
+									<td>通过</td>
+								</tr>
+								<tr>
+									<td>第四部分</td>
+									<td>10学时</td>
+									<td>-</td>
+									<td>16学时</td>
+									<td>=</td>
+									<td>0分钟</td>
+									<td>通过</td>
+								</tr>
 								</tbody></table>
 						</div>
 					</td>
