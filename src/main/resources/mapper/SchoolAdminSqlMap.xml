@@ -5,8 +5,9 @@
 <mapper namespace="com.great.dao.SchoolAdminDao">
     <resultMap id="SchoolAdmin" type="com.great.entity.SchoolAdmin">
         <result column="school_id" property="school_id"></result>
-        <association property="schoolState" column="school_state_id"  select="findSchoolStateById" >
-        </association>
+        <result column="school_state_id" property="school_state_id"></result>
+<!--        <association property="schoolState" column="school_state_id"  select="findSchoolStateById" >-->
+<!--        </association>-->
     </resultMap>
     <!--根据角色id查询-->
     <select id="findSchoolStateById" resultType="SchoolState" parameterType="java.lang.Integer">
@@ -17,6 +18,14 @@
     <select id="login" resultMap="SchoolAdmin" parameterType="java.util.Map">
 		select * from schooladmin where account = #{account} and pwd = #{pwd}
 	</select>
+
+
+    <!--登录-->
+    <select id="faceLogin" resultMap="SchoolAdmin" parameterType="java.lang.Integer">
+		select * from schooladmin where id = #{id} and school_state_id in (1,3)
+	</select>
+
+
 
 
     <!--查询驾校管理员记录并分页    -->

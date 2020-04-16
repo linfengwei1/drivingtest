@@ -19,7 +19,7 @@
             width:30%;
             background-color: #ffffff;
             float: right;
-            margin:50px 100px 0 0 ;
+            margin:0px 100px 0 0 ;
             box-shadow: 1px 5px 20px #999;
         }
         #two{
@@ -46,46 +46,51 @@
     <h1><span style="color: #42627c; padding-top: 10%;margin-left: 10%">机动车驾驶员培训机构信息互动平台</span></h1>
 </div>
 <div id="one" >
-    <div class="layui-main-login" >
-        <form class="layui-form" action="" >
-            <p style="">驾校登录</p>
-            <div class="layui-form-item">
-                <label class="layui-form-label">账号框</label>
-                <div class="layui-input-block" style="width: 190px">
-                    <input style="background-color: #f7f8fa" type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">密码框</label>
-                <div class="layui-input-inline">
-                    <input style="background-color: #f7f8fa" type="password" name="pwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">验证码</label>
-                <div class="layui-input-block" style="width: 190px">
-                    <input style="background-color: #f7f8fa" type="text" name="verification" required  lay-verify="required" placeholder="不区分大小写" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <img id="passPhoto"  style="padding-left: 110px;" src="<%=request.getContextPath()%>/school/CheckCodeServlet" onclick="refreshCode()">
-                <a  style=" font-size:12px;color: red" onclick="refreshCode()" >看不清?点图片刷新</a>
-            </div>
 
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <%--走ajax提交--%>
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                    <%--走表单提交--%>
-                    <%--                <button type="submit" class="layui-btn" lay-submit >立即提交</button>--%>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+
+                <div class="layui-main-login" >
+                    <form class="layui-form" action="" >
+                        <p style="">驾校登录</p> <a href="<%=request.getContextPath()%>/school/path/SchoolFaceLogin">人脸登录</a>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">账号框</label>
+                            <div class="layui-input-block" style="width: 190px">
+                                <input style="background-color: #f7f8fa" type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">密码框</label>
+                            <div class="layui-input-inline">
+                                <input style="background-color: #f7f8fa" type="password" name="pwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">验证码</label>
+                            <div class="layui-input-block" style="width: 190px">
+                                <input style="background-color: #f7f8fa" type="text" name="verification" required  lay-verify="required" placeholder="不区分大小写" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <img id="passPhoto"  style="padding-left: 110px;" src="<%=request.getContextPath()%>/school/CheckCodeServlet" onclick="refreshCode()">
+                            <a  style=" font-size:12px;color: red" onclick="refreshCode()" >看不清?点图片刷新</a>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <%--走ajax提交--%>
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                <%--走表单提交--%>
+                                <%--                <button type="submit" class="layui-btn" lay-submit >立即提交</button>--%>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                        <div id="p21">
+                            <a  id="p5"  style=";margin-left: 60%;" >忘记密码</a>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div id="p21">
-                <button id="p5"  style="color: red;margin-left: 60%;">忘记密码</button>
-            </div>
-        </form>
-    </div>
+
+
+
 </div>
 <div align="center">
     <p>

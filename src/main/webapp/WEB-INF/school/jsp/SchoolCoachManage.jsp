@@ -17,7 +17,7 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" >
+<form class="layui-form" action=" " onsubmit="return false" >
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
         <h2 style="margin-left: 43%">教练管理</h2>
     </div>
@@ -28,12 +28,12 @@
                     <div style="float: left;margin-left: 12%">
                         <label class="layui-form-label">状态</label>
                         <div class="layui-input-block" style="width: 190px;">
-                            <select  name="state" id="state" lay-verify="required">
+                            <select  name="state" id="state" >
                                 <option value=""></option>
                                 <option value="1">启用</option>
                                 <option value="2">封停</option>
                                 <option value="3">禁止报名</option>
-                                <option value="4">驾校已审核</option>
+                                <option value="4">驾校待审核</option>
                                 <option value="5">信息不完整</option>
                                 <option value="6">运管审核不通过</option>
                             </select>
@@ -41,7 +41,7 @@
                     </div>
 
                     <div style="float: left">
-                        <label class="layui-form-label" >姓名1</label>
+                        <label class="layui-form-label" >姓名</label>
                         <div class="layui-inline" style="width: 190px">
                             <input class="layui-input" name="name" id="name" autocomplete="off">
                         </div>
@@ -61,7 +61,7 @@
                     <div style="float: left;">
                         <label class="layui-form-label">性别</label>
                         <div class="layui-input-block" style="width: 190px;">
-                            <select  name="state" id="sex" lay-verify="required">
+                            <select  name="state" id="sex">
                                 <option value=""></option>
                                 <option value="男">男</option>
                                 <option value="女">女</option>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div style="float: left;margin-left: 3% ">
-                        <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                        <button class="layui-btn layui-btn-normal" data-type="reload" lay-submit="" lay-filter="formDemo"><i class="layui-icon">&#xe615;</i>搜索</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>教练申请</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="out"><i class="layui-icon">&#xe654;</i>导出</button>
                     </div>

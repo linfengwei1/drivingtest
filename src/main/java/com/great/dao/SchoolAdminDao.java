@@ -16,6 +16,9 @@ public interface SchoolAdminDao
 	//登录
 	public SchoolAdmin login(Map<String, String> map);
 
+	//人脸登录
+	public SchoolAdmin faceLogin(Integer a);
+
 	//查询驾校管理员记录并分页
 	public List<SchoolAdmin> findSchoolAdminByPage(TableUtils u);
 

@@ -33,9 +33,9 @@ public class SchoolFaceRecognitionUtils
 	/**
 	 * 传入图片的Base64字符串信息 去服务器比对是否有这个人
 	 * @param imageString
-	 * @param id
+	 * @param
 	 */
-	public static String identify(String imageString,Integer id) {
+	public static String identify(String imageString) {
 //        文档地址
 //        http://ai.baidu.com/docs#/Face-Java-SDK/top
 		String imageType = "BASE64";
@@ -81,17 +81,17 @@ public class SchoolFaceRecognitionUtils
 
 			int userid = Integer.parseInt(jsonObject.getString("user_id"));
 
-			if(userid != id)
-			{
-				return "error";//未匹配到符合人脸信息
-			}
+//			if(userid != id)
+//			{
+//				return "error";//未匹配到符合人脸信息
+//			}
 
 			if(jsonObject.getInt("score") < 95)
 			{
 				return "again";//再次验证
 			}else
 			{
-				return "success";//验证成功
+				return jsonObject.getString("user_id");//验证成功
 			}
 
 		} else {

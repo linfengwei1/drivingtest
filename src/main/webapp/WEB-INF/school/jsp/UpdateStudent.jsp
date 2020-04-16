@@ -62,9 +62,9 @@
                 type:'post',
                 data:data.field,
                 success:function(data){
-                    if ("2222"==data){
+                    if ("error"==data){
                         layer.alert("更新失败",{icon:2});
-                    }else if ("1111"==data) {
+                    }else if ("success"==data) {
                         layer.alert("更新成功",{icon:6},function () {
                             window.parent.location.reload();
                         });

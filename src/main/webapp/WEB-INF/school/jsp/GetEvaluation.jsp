@@ -15,8 +15,9 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
+<form class="layui-form" onsubmit="return false" >
 <div style="clear: left;padding-top: 10px;margin-left: 25%">
-    <label class="layui-form-label" >评价时间</label>
+    <label class="layui-form-label" >评价时间1</label>
     <div class="layui-inline">
         <input class="layui-input" type="date" name="time1" id="time1" autocomplete="off">
     </div>
@@ -24,11 +25,12 @@
     <div class="layui-inline" style="clear: left">
         <input class="layui-input" type="date" name="time2"  id="time2"autocomplete="off">
     </div>
-    <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+    <button id="button" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="formDemo" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
 </div>
     <div class="layui-anim layui-anim-scale" style="clear: left">
         <table id="dataTable" lay-filter="test"></table>
     </div>
+</form>
 </body>
 <script>
 
@@ -55,7 +57,7 @@
             ]]
         });
 
-        $('#searchTable .layui-btn').on('click', function () {
+        $('#button').on('click', function () {
             var type = $(this).data('type');
             if (type == 'reload') {
                 //执行重载

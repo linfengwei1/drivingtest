@@ -399,6 +399,20 @@
 			margin-top: -1em;
 			margin-left: -1.5em;
 		}
+		.fra_title {
+			width: 100%;
+			border-bottom: #ddd solid 1px;
+			height: 40px;
+			position: relative;
+			z-index: 1;
+		}
+		.fra_title span {
+			float: left;
+			line-height: 40px;
+			height: 40px;
+			border-bottom: #2689bf solid 1px;
+			color: #2689bf;
+		}
 
 	</style>
 </head>
@@ -408,11 +422,12 @@
 <input type="hidden" id="path" value="${pageContext.request.contextPath}">
 <input type="hidden" id="studentid" value="${student.id}">
 <input type="hidden" id="subject" value="4">
+<div class="fra_title"><span><b class="backbg ico_time"></b>科目四理论学习<a href="javascript:void(0)"></a></span></div>
 <div class="layui-container">
 	<div class="left">
 		<div id="left_div">
 			<div  class="menutitle">
-				<h3 style = "text-align: center">科目四学习视频</h3>
+				<h3 style = "text-align: left">道路法律法规</h3>
 				<ul class="left_div_menu" style="display: none">
 					<li class="s" title="1">1.1机动车驾驶证申领与使用</li>
 					<li class="s" title="2">1.2道路交通信号</li>

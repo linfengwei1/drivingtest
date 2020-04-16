@@ -17,7 +17,7 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" >
+<form class="layui-form" action="" onsubmit="return false" >
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
         <h2 style="margin-left: 43%">学员管理</h2>
     </div>
@@ -28,7 +28,7 @@
                     <div style="float: left;margin-left: 10%">
                         <label class="layui-form-label">状态</label>
                         <div class="layui-input-block" style="width: 190px;">
-                            <select  name="state" id="state" lay-verify="required">
+                            <select  name="state" id="state" >
                                 <option value=""></option>
                                 <c:forEach items="${stateMap}" begin="" var="ss">
                                     <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
@@ -58,7 +58,7 @@
                     <div style="float: left;padding-top: 1%">
                         <label class="layui-form-label">性别</label>
                         <div class="layui-input-block" style="width: 190px;">
-                            <select  name="state" id="sex" lay-verify="required">
+                            <select  name="state" id="sex" >
                                 <option value=""></option>
                                 <option value="男">男</option>
                                 <option value="女">女</option>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div style="float: left;margin-left: 3%;padding-top: 1% ">
-                        <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                        <button  class="layui-btn layui-btn-normal" lay-submit="" lay-filter="formDemo" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>学员申请</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>EXCEL导入</button>
                     </div>

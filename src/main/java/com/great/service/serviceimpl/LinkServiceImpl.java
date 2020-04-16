@@ -4,6 +4,7 @@ import com.great.dao.LinkMapper;
 import com.great.entity.Link;
 import com.great.entity.LinkUtils;
 
+import com.great.entity.School;
 import com.great.service.LinkService;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,9 @@ public class LinkServiceImpl implements LinkService {
     public void deleteLink(Link link){
         linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);
         linkMapper.deleteLink(link);
+    }
+    public List<School> findAllSchool() {
+        linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);//获得代理对象
+        return linkMapper.findAllSchool();
     }
 }

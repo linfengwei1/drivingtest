@@ -4,6 +4,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.great.entity.*;
 
 import javax.print.attribute.IntegerSyntax;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -88,7 +89,7 @@ public interface TransportationService {
      * 获取学员列表
      * @return
      */
-    public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name,String type);
+    public ObjectResult getStudentTbl(Integer page, Integer limit, String state, String name, String type);
 
     /**
      * 获取学校表
@@ -227,7 +228,7 @@ public interface TransportationService {
      * @param limit
      * @return
      */
-    public ObjectResult getNotice(Integer page, Integer limit, String title , String date, String type);
+    public ObjectResult getNotice(Integer page, Integer limit, String title, String date, String type);
 
     /**
      * 获取公告类型
@@ -263,4 +264,37 @@ public interface TransportationService {
      */
     public Integer insertNotice(Notice notice);
 
+    /**
+     * 获取考试时间段
+     * @return
+     */
+    public List<TestTime> getExamTime();
+
+    /**
+     * 插入考试时段
+     * @param start
+     * @param end
+     * @param sid
+     * @param scolor
+     * @return
+     */
+    public Integer insertExamTime(String start, String end, String sid, String scolor);
+
+    /**
+     * 时间校验
+     * @param nowTime1
+     * @param nowTime2
+     * @param startTime
+     * @param endTime
+     * @return
+     * @throws ParseException
+     */
+    public Map<String,String> timeVerify(String nowTime1, String nowTime2, String startTime, String endTime);
+
+    /**
+     * 删除考试时间配置
+     * @param tid
+     * @return
+     */
+    public Integer deleteExamTime(Integer tid);
 }

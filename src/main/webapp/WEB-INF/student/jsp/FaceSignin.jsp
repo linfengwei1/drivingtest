@@ -275,6 +275,20 @@
 		.buttons span {
 			line-height: 50px;
 		}
+		.fra_title {
+			width: 100%;
+			border-bottom: #ddd solid 1px;
+			height: 40px;
+			position: relative;
+			z-index: 1;
+		}
+		.fra_title span {
+			float: left;
+			line-height: 40px;
+			height: 40px;
+			border-bottom: #2689bf solid 1px;
+			color: #2689bf;
+		}
 	</style>
 </head>
 <body>
@@ -286,7 +300,9 @@
 <input type="hidden" id="identity_state" value="${student.identity_state}">
 <div>
 </div>
-<h2>科目${param.subject}人脸打卡</h2>
+
+<div class="fra_title"><span><b class="backbg ico_time"></b>科目${param.subject}人脸打卡<a href="javascript:void(0)"></a></span></div>
+
 <div class="layui-container">
 	<div class="layui-row">
 		<div class="layui-col-md5 layui-col-md-offset2">

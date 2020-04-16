@@ -14,8 +14,8 @@ import java.sql.Timestamp;
 public class TestTime {
 
     private Integer id;
-    private Timestamp start_time;
-    private Timestamp end_time;
+    private String start_time;
+    private String end_time;
     private Integer school_id;
     private String school_name;
     private String color;
@@ -23,7 +23,7 @@ public class TestTime {
     public TestTime() {
     }
 
-    public TestTime(Integer id, Timestamp start_time, Timestamp end_time, Integer school_id, String school_name, String color) {
+    public TestTime(Integer id, String start_time, String end_time, Integer school_id, String school_name, String color) {
         this.id = id;
         this.start_time = start_time;
         this.end_time = end_time;
@@ -40,19 +40,19 @@ public class TestTime {
         this.id = id;
     }
 
-    public Timestamp getStart_time() {
+    public String getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(Timestamp start_time) {
+    public void setStart_time(String start_time) {
         this.start_time = start_time;
     }
 
-    public Timestamp getEnd_time() {
+    public String getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(Timestamp end_time) {
+    public void setEnd_time(String end_time) {
         this.end_time = end_time;
     }
 
@@ -84,8 +84,8 @@ public class TestTime {
     public String toString() {
         return "TestTime{" +
                 "id=" + id +
-                ", start_time=" + start_time +
-                ", end_time=" + end_time +
+                ", start_time='" + start_time + '\'' +
+                ", end_time='" + end_time + '\'' +
                 ", school_id=" + school_id +
                 ", school_name='" + school_name + '\'' +
                 ", color='" + color + '\'' +

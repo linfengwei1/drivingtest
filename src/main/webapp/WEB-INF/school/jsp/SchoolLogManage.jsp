@@ -16,7 +16,7 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" >
+<form class="layui-form" action=""  >
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
         <h2 style="margin-left: 43%">日志管理</h2>
     </div>
@@ -39,7 +39,7 @@
                         <div class="layui-inline" style="clear: left">
                             <input class="layui-input" type="date" name="time2"  id="time2"autocomplete="off">
                         </div>
-                        <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                        <button type="button"  class="layui-btn layui-btn-normal" lay-submit="" lay-filter="formDemo" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                     </div>
                 </div>
             </div>

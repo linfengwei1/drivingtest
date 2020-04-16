@@ -202,11 +202,11 @@
             <if test="name!=null">
                 and  s.name like concat('%',#{name},'%')
             </if>
-            <if test="time3 != '' and time3 != null">
-                and s1.datetime &gt;= #{time3}
+            <if test="time1 != '' and time1 != null">
+                and s1.datetime &gt;= #{time1}
             </if>
-            <if test="time4 != '' and time4 != null">
-                and s1.datetime &lt;= #{time4}
+            <if test="time2 != '' and time2 != null">
+                and s1.datetime &lt;= #{time2}
             </if>
         </where>
         ORDER BY s1.id limit #{minLimit},#{maxLimit}
@@ -219,11 +219,11 @@
         <if test="name!=null">
             and  s2.name like concat('%',#{name},'%')
         </if>
-        <if test="time3!= '' and time3 != null">
-            and s1.datetime &gt;= #{time3}
+        <if test="time1!= '' and time1 != null">
+            and s1.datetime &gt;= #{time1}
         </if>
-        <if test="time4 != '' and time4 != null">
-            and s1.datetime &lt;= #{time4}
+        <if test="time2 != '' and time2 != null">
+            and s1.datetime &lt;= #{time2}
         </if>
 
     </select>

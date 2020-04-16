@@ -585,4 +585,55 @@
 		#{type})
 	</insert>
 
+<!--封装测试时间结果集-->
+	<resultMap id="examTime" type="com.great.entity.TestTime">
+		<id property="id" column="id"/>
+		<result property="start_time" column="start_time"/>
+		<result property="end_time" column="end_time"/>
+		<result property="school_id" column="school_id"/>
+		<result property="school_name" column="s_name"/>
+		<result property="color" column="color"/>
+
+	</resultMap>
+<!--获取考试配置时间-->
+	<select id="getExamTime" resultMap="examTime">
+		select ta.*,s.name "s_name"
+		from test_allocation ta
+		left join school s on ta.school_id = s.id;
+	</select>
+
+	<resultMap id="exTime" type="com.great.entity.TestTime">
+		<id property="id" column="id"/>
+		<result property="start_time" column="start_time"/>
+		<result property="end_time" column="end_time"/>
+		<result property="school_id" column="school_id"/>
+		<result property="school_name" column="s_name"/>
+		<result property="color" column="color"/>
+	</resultMap>
+
+	<select id="getExamTimeBySchoolId" resultMap="exTime" parameterType="java.util.Map">
+		select ta.*,s.name "s_name"
+		from test_allocation ta
+		left join school s on ta.school_id = s.id
+		where ta.id=#{id};
+	</select>
+
+<!--插入时间-->
+	<insert id="insertExamTime" parameterType="java.util.Map">
+		insert into test_allocation (start_time, end_time, school_id, color)values (#{start},#{end},#{sid},#{scolor})
+	</insert>
+
+<!--更新时间配置-->
+	<update id="updateExamTime" parameterType="java.util.Map">
+		update test_allocation
+		<set>
+			start_time=#{start},end_time=#{end}
+		</set>
+		where id=#{id}
+	</update>
+
+<!--删除时间配置-->
+	<delete id="deleteExamTime" parameterType="java.lang.Integer">
+		delete from test_allocation where id=#{tid}
+	</delete>
 </mapper>

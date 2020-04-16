@@ -148,7 +148,7 @@
 						<div class="test_content_title">
 							<h2>判断题</h2>
 							<p>
-								<span>共</span><i class="content_lit">30</i><span>题，</span><span>合计</span><i class="content_fs">20</i><span>分</span>
+								<span>共</span><i class="content_lit">20</i><span>题，</span><span>合计</span><i class="content_fs">20</i><span>分</span>
 							</p>
 						</div>
 					</div>
@@ -225,7 +225,7 @@
 							</p>
 						</div>
 						<div class="rt_content_nr answerSheet">
-							<ul>
+							<ul id="q1">
 								<c:forEach items="${questionList.choice}" var="c" varStatus="v" >
 									<li><a href="#qu_0_${v.index}">${v.count}</a></li>
 								</c:forEach>
@@ -241,7 +241,7 @@
 							</p>
 						</div>
 						<div class="rt_content_nr answerSheet">
-							<ul>
+							<ul id="q2">
 								<c:forEach items="${questionList.judge}" var="c" varStatus="v" >
 									<li><a href="#qu_1_${v.index}">${v.count}</a></li>
 								</c:forEach>

@@ -6,8 +6,10 @@ import com.great.entity.*;
 import com.great.utils.ExportExcelSeedBack;
 import com.great.utils.SchoolFaceRecognitionUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.util.*;
@@ -32,6 +34,26 @@ public class SchoolManageService {
         loginMap.put("account",account);
         loginMap.put("pwd",pwd);
         return schoolAdminDao.login(loginMap);
+    }
+
+    //人脸登录
+    @ResponseBody
+    public String faceLogin(String imageString, HttpServletRequest request){
+      String msg = SchoolFaceRecognitionUtils.identify(imageString);
+      if (null!=msg&&!"".equals(msg)&&!"again".equals(msg)&&!"error".equals(msg)){
+          System.out.println("service返回的id=="+msg);
+          Integer id = Integer.valueOf(msg);//根据识别到的人脸返回对应的id
+          //根据id进行你登录
+        SchoolAdmin admin = schoolAdminDao.faceLogin(id);
+          System.out.println("根据id返回的对象=="+admin.toString());
+        if (null!=admin){
+            request.getSession().setAttribute("SchoolAdmin",admin);
+            return "success";
+        }
+            return "error";
+
+      }
+        return msg;
     }
 
     //查询驾校管理员记录并分页
@@ -284,12 +306,12 @@ public class SchoolManageService {
     }
 
     //统计人数
-    public List Count(){
-        Integer one= schoolStudentDao.CountSubject1();
-        Integer two=   schoolStudentDao.CountSubject2();
-        Integer three=   schoolStudentDao.CountSubject3();
-        Integer four=   schoolStudentDao.CountSubject4();
-        Integer over=   schoolStudentDao.CountOver();
+    public List Count(Integer a){
+        Integer one= schoolStudentDao.CountSubject1(a);
+        Integer two=   schoolStudentDao.CountSubject2(a);
+        Integer three=   schoolStudentDao.CountSubject3(a);
+        Integer four=   schoolStudentDao.CountSubject4(a);
+        Integer over=   schoolStudentDao.CountOver(a);
         List list = new ArrayList();
         list.add(one);  list.add(two);  list.add(three);  list.add(four);  list.add(over);
         return  list;
