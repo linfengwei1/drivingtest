@@ -34,6 +34,7 @@
 		<input type="hidden" name="lImage" value="" >
 	</div>
 
+	//dfasfa
 	<div class="layui-form-item layui-form-text">
 		<label class="layui-form-label">附加图片</label>
 		<div class="layui-input-block" id="test2">
