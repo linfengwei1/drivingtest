@@ -134,6 +134,21 @@ public class SchoolController {
     }
 
 
+    @RequestMapping("/faceAdd")
+    @ResponseBody
+    public String faceAdd(String imageString, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
+
+        imageString = imageString.replaceAll(" ","+");
+        System.out.println("imageString1111==="+imageString);
+        String user_id = schoolAdmin.getId().toString();
+        //user_id是在百度账号人脸识别库中的id,唯一的,可以在添加的时候把用户的id填进去,到时验证的时候用
+        String msg = schoolAdminService.faceAdd(imageString,user_id);
+        return msg;
+    }
+
+
+
     //获取手机验证码
     @RequestMapping("/phoneMsg")
     public void phoneMsg(HttpServletRequest request, HttpServletResponse response) throws IOException {
