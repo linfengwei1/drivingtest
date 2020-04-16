@@ -63,23 +63,15 @@
                     <a class="" href="javascript:;">学员管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">学员信息</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">成绩管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">考试管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">考试审批</a></dd>
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">各阶段考试人数配置</a></dd>
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/FullCalendar" onclick="changeUrl(this)">考试时间配置</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;">成绩管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">科一成绩</a></dd>
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">科二成绩</a></dd>
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">科三成绩</a></dd>
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASA" onclick="changeUrl(this)">科四成绩</a></dd>
+<%--                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">各阶段考试人数配置</a></dd>--%>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gSGH" onclick="changeUrl(this)">考试时间配置</a></dd>
                     </dl>
                 </li>
 
@@ -101,7 +93,7 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">其他</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/NoticeManagement" onclick="changeUrl(this)">通知公告发布</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">通知公告发布</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">日志查看</a></dd>
                     </dl>
                 </li>

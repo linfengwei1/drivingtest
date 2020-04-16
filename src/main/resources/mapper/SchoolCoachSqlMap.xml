@@ -8,8 +8,9 @@
      <resultMap id="Coach" type="com.great.entity.Coach">
             <result column="coach_state_id" property="coach_state_id"></result>
      </resultMap>
-    <resultMap id="Student" type="com.great.entity.Student">
+    <resultMap id="Student" type="com.great.entity.StudentTable">
         <result column="student_state_id" property="student_state_id"></result>
+        <result column="time" property="time"></result>
     </resultMap>
 
     <!--查询教练记录并分页    -->
@@ -98,9 +99,9 @@
 
     <!--教练查询学生信息-->
     <select id="findStudentByPage" resultMap="Student" parameterType="com.great.entity.TableUtils">
-        select student.* from coach,student
+        select student.*,studycondition.time from coach,student,studycondition
         <where>
-            student.coach_id=coach.id
+            student.coach_id=coach.id and studycondition.student_id=student.id
             <if test="coach_id !='' and coach_id!=null">
                 and coach.id = #{coach_id}
             </if>

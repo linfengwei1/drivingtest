@@ -4,7 +4,6 @@ package com.great.controller;
 import com.google.gson.Gson;
 import com.great.entity.*;
 import com.great.service.TransportationService;
-import com.great.service.serviceimpl.TransportationServiceImp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -578,46 +576,85 @@ public class TransportationManagementController {
         return g.toJson(objectResult);
     }
 
-
+    /**
+     * 插入考试时间配置
+     * @param end
+     * @param response
+     * @return
+     */
     @RequestMapping("/insertExamTime")
     @ResponseBody
-    public String insertExamTime(String title, Date state, String allDay, Date end, HttpServletResponse response){
+    public String insertExamTime(String start,String end,String sid,String scolor, HttpServletResponse response){
 
-        System.out.println(title);
-        System.out.println(state);
-        System.out.println(allDay);
+        System.out.println(sid);
+        System.out.println(start);
         System.out.println(end);
+        System.out.println(scolor);
+        //验证后台时间是否有包含，如果有的话合并，没有的话新搞一条出来
+
+        Integer num=transportationService.insertExamTime(start,end,sid,scolor);
 
         return "";
     }
 
+    /**
+     * 删除考试时间配置
+     * @param response
+     * @return
+     */
+    @RequestMapping("/deleteExamTime")
+    @ResponseBody
+    public String deleteExamTime(String stitle,Integer tid, HttpServletResponse response){
+
+        System.out.println(stitle);
+        System.out.println(tid);
+
+        //验证后台时间是否有包含，如果有的话合并，没有的话新搞一条出来
+
+        Integer num=transportationService.deleteExamTime(tid);
+
+        return "";
+    }
+
+
+    /**
+     * 获取考试时段后台数据
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/getExamTime")
     @ResponseBody
     public String getExamTime( HttpServletResponse response) throws IOException {
-        String strvalue = "[{\n" +
-                "\t\"title\": \"驾校一\",\n" +
-                "\t\"start\": \"2020-5-16\",\n" +
-                "\t\"end\":  \"2020-5-17\",\n" +
-                "  \t\"id\":1\n" +
-                "}, {\n" +
-                "\t\"title\": \"驾校一\",\n" +
-                "\t\"start\": \"2020-5-16\",\n" +
-                "\t\"end\":  \"2020-5-17\",\n" +
-                "  \t\"id\":2\n" +
-                "}, {\n" +
-                "\t\"title\": \"驾校一\",\n" +
-                "\t\"start\": \"2020-5-16\",\n" +
-                "\t\"end\":  \"2020-5-17\",\n" +
-                "  \t\"id\":3\n" +
-                "}]";
-        response.setCharacterEncoding("UTF-8");
-        System.out.println("strvalue="+strvalue);
 
-//        response.getWriter().print(strvalue);
+        List<TestTime> testTimes=transportationService.getExamTime();
 
-        return strvalue;
+        System.out.println(testTimes);
+
+        return g.toJson(testTimes);
     }
 
+    /**
+     * 记载日历插件页面
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/gSGH")
+    public String getSchoolGiveHtml( HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        List<School> schools=transportationService.getSchoolList();
+
+        request.getSession().setAttribute("school",schools);
+
+        return "transportation/jsp/FullCalendar";
+    }
 
 
     /**
