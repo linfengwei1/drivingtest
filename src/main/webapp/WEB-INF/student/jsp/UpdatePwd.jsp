@@ -154,7 +154,7 @@
 			}
 
 
-			var index1 = layer.msg('你确定注册吗？', {
+			var index1 = layer.msg('你确定修改密码吗？', {
 				time: 0 //不自动关闭
 				,btn: ['确定', '取消']
 				,yes: function(index){

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -305,26 +306,36 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 
-
 	@Override
-	public List<StudyCondition>  getStudyCondition(String studentId,String status)
+	@Transactional
+	public List<StudyCondition>  getStudyCondition(String studentId, String status, HttpServletRequest request)
 	{
 		System.out.println(status);
+
+		if(status.equals(""))
+		{
+			return null;
+		}
 		int stage = Integer.parseInt(status);
+		int newStage = 0;
 		List<StudyCondition> list =  studentDao.getStudyConditionById(Integer.parseInt(studentId));
 		for (StudyCondition s : list)
 		{
-			//遍历学习状态列表，如果处于当前阶段，且分数大于90，则进入下一阶段  status为当前阶段
+			//遍历学习状态列表，如果处于当前阶段，且分数大于90，说明阶段有变化，则进入下一阶段  status为当前阶段
 			if(stage == s.getSubject_id() && s.getScore() >=90)
 			{
 				if(stage == 4)//如果是第四阶段直接毕业
 				{
 					studentDao.setStage(Integer.parseInt(studentId),7);//直接毕业
-
+					newStage = 7;
 				}else
 				{
 					studentDao.setStage(Integer.parseInt(studentId),stage+1);//进入下一阶段
+					newStage = stage+1;
 				}
+				Student student = (Student) request.getSession().getAttribute("student");
+				student.setStudent_state_id(newStage);
+				request.getSession().setAttribute("student",student);
 			}
 		}
 		return list;

@@ -45,7 +45,7 @@ $(function () {
 
 function puhshPaper(layer) {
 	var score = 0;
-
+	var errorList = [];
 
 	$(".test_content_nr_main").each(function(index, element) {
 
@@ -54,7 +54,8 @@ function puhshPaper(layer) {
 		if(length == 0) {//说明这题没做
 
 			$(this).parent().find(".answer").css("display","block");
-
+			var index = $(this).parent().attr("id");
+			errorList.push(index);//装进错题
 
 		}else {
 
@@ -66,6 +67,8 @@ function puhshPaper(layer) {
 				score++;
 			}else {
 				$(this).parent().find(".answer").css("display","block");
+				var index = $(this).parent().attr("id");
+				errorList.push(index);//装进错题
 			}
 		}
 	});
@@ -74,7 +77,7 @@ function puhshPaper(layer) {
 	$(".layui-btn-lg").attr("disabled",true);
 	$(".layui-btn-lg").parent().append("<button type=\"button\" class=\"layui-btn layui-btn-lg\" onclick=\"flush()\">再次练习</button>")
 
-
+	findError(errorList);
 
 	// $("input[type='radio']").each(function(index, element) {
 	// 	var select = $(this).val();
@@ -98,6 +101,59 @@ function puhshPaper(layer) {
 	// layer.alert('本次得分：'+score, {icon: 6,title:'考试结束'});
 	// $(".layui-btn-lg").attr("disabled",true);
 	// $(".layui-btn-lg").parent().append("<button type=\"button\" class=\"layui-btn layui-btn-lg\" onclick=\"flush()\">再次练习</button>")
+}
+
+function findError(data) {
+	for (var i  = 0;i<data.length;i++)
+	{
+		// $("#q1").find("li").each(function (index, element) {
+		//
+		// 	if($(element).find("a").attr("herf") == data[i])
+		// 	{
+		// 		$(element).css("background","red");
+		// 		$(element).css("color","white");
+		// 	}
+		// })
+		// $("#q2").find("li").each(function (index, element) {
+		//
+		// 	if($(element).find("a").attr("herf") == data[i])
+		// 	{
+		// 		$(element).css("background","red");
+		// 		$(element).css("color","white");
+		// 	}
+		// })
+
+
+		$("#q1 li a").each(function(){
+
+
+			var str = "#"+data[i];
+			if($(this).attr("href") == str)
+			{
+				$(this).css("color","white");
+				$(this).css("background","red");
+			}
+		});
+		$("#q2 li a").each(function(){
+			var str = "#"+data[i];
+			if($(this).attr("href") == str)
+			{
+				$(this).css("color","white");
+				$(this).css("background","red");
+			}
+		});
+
+		// $each($('#q2 li a'),function(index,img){
+		// 	var oldSrc = $(this).attr('href');
+		// 	if(oldSrc == data[i])
+		// 	{
+		// 		$(this).css("color","white");
+		// 		$(this).css("background","red");
+		// 	}
+		// });
+
+
+	}
 }
 function flush() {
 	window.location.reload();

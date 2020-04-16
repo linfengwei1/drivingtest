@@ -111,7 +111,7 @@
 <div class="wrap">
 	<div class="says">
 		<h1>亲，来对${student.school.name}提提建议或者作出评价吧</h1>
-		<textarea>请点击发布试试吧</textarea><input type="button"  value="发布">
+		<textarea maxlength="100">请点击发布试试吧(字数限制100个)</textarea><input type="button"  value="发布">
 		<div class="errmsg">请填写内容后再发布！</div>
 	</div>
 	<ul>
