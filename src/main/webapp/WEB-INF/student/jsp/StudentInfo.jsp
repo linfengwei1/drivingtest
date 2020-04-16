@@ -19,13 +19,14 @@
 <div class="df_bd">
 <div class="bgl">
 	<div class="usio">
-		<div class="fra_title"><span><b class="backbg ico_usico"></b>个人信息<a href="javascript:void(0)"></a></span></div>
+		<div class="fra_title"><span><b class="backbg ico_usico"></b><i class="layui-icon">&#xe66f;</i> 个人信息<a href="javascript:void(0)"></a></span></div>
 		<ul class="usio_ul">
 			<li class="usio_ul_1">
 				<span>姓名：${student.name}</span>
-				<span>车型：C1</span>
-				<span>网络学员：<b class="yes">是</b></span>
-				<span>卡号：${student.phone}</span>
+				<span>账号：${student.account}</span>
+				<span>驾校：${student.school.name}</span>
+				<span>教练：${student.coach.name}</span>
+				<span id="stage"></span>
 				<a href="javascript:void(0)"><img alt="" class="xueyuan" src="${pageContext.request.contextPath}/static/student/images/self.png"></a>
 			</li>
 <%--			<li class="usio_ul_2">--%>
@@ -38,7 +39,7 @@
 </div>
 <div class="bgr">
 	<div class="usti">
-		<div class="fra_title"><span><b class="backbg ico_time"></b>学时信息<a href="javascript:void(0)"></a></span></div>
+		<div class="fra_title"><span><b class="backbg ico_time"></b><i class="layui-icon">&#xe60e;</i>学时信息<a href="javascript:void(0)"></a></span></div>
 		<div class="tmio">
 			<table class="tmio_tb">
 				<tbody><tr>

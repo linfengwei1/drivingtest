@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>上传图片</title>
+    <title>完善汽车图片</title>
     <%String path = request.getContextPath();%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>

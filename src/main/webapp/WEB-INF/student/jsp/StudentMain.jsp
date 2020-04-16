@@ -11,6 +11,36 @@
 	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${pageContext.request.contextPath}/static/student/js/StudentMain.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			layui.use(['layer'], function () {
+			$("#tag").click(function(){
+				var path = $("#path").val();
+				var index1 = layer.msg('你确退出吗？', {
+					time: 0 //不自动关闭
+					,btn: ['确定', '取消']
+					,yes: function(index){
+						layer.close(index1);
+						$.ajax({
+							url:path+'/student/quit',
+							type:'post',
+							success:function(data){
+
+								if ("success"==data){
+									location.href=path+"/student/path/StudentLogin";
+
+								}
+							},error:function (err) {
+								layer.msg("网络繁忙");
+							}
+						});
+
+					}
+				});
+			})
+			});
+		})
+	</script>
 
 </head>
 <body class="layui-layout-body"  style="overflow-y:scroll;overflow-x:scroll">
@@ -100,7 +130,7 @@
 					<dd><a href="${pageContext.request.contextPath}/student/path/UpdatePwd" target="frame_div">修改密码</a></dd>
 				</dl>
 			</li>
-			<li class="layui-nav-item"><a href="">退出</a></li>
+			<li class="layui-nav-item"><a id="tag" style="cursor: pointer;">退出</a></li>
 		</ul>
 	</div>
 	<div class="layui-container">

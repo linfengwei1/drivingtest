@@ -78,7 +78,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //å¯¼å…
                 $.ajax({
                     async:true,
                     method : "POST",
-                    url :path1+'/school/deleteCount',
+                    url :path1+'/school/deleteCoach',
                     data: data,
                     dataType : "text",
                     success:function(data){

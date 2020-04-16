@@ -100,9 +100,9 @@
 	</select>
 
 	<select id="getStudyConditionById" resultMap="studyConditionMap" >
-		select s.id,s.practise_score,ifnull(sc.score,0) as score,s.student_id,s.subject_id,s.time  from studycondition as s,score as sc
-		where s.student_id = #{studentId}
-		and s.subject_id = sc.subject_id
+		select s.id,s.practise_score,IFNULL(sc.score,0) as score,s.student_id,s.subject_id,s.time  from
+		(select * from studycondition where student_id = #{studentId}) as s LEFT JOIN score as sc
+		on s.subject_id = sc.subject_id and sc.student_id = s.student_id
 	</select>
 
 	<select id="getAllEvaForSchool" resultMap="evaSchoolMap" >

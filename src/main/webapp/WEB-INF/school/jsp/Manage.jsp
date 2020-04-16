@@ -77,6 +77,7 @@
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/GetEvaluation" onclick="changeUrl(this)">查看评价</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/" onclick="changeUrl(this)">消息查看</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/SchoolLogManage" onclick="changeUrl(this)">日志查看</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/FaceImport" onclick="changeUrl(this)">人脸录入</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -86,7 +87,7 @@
 
     <div class="layui-body">
         <iframe id="ifram_div_iframe" style="width: 100%;height: 100%;" name="ifram_div_ifram" src=""></iframe>
-<%--&lt;%&ndash;        <div style="padding: 15px;">内容主体区域</div>&ndash;%&gt;${pageContext.request.contextPath}/school/path/SchoolCoachManage--%>
+<%--&lt;%&ndash;        1<div style="padding: 15px;">内容主体区域</div>&ndash;%&gt;${pageContext.request.contextPath}/school/path/SchoolCoachManage--%>
     </div>
 
     <div class="layui-footer">

@@ -3,6 +3,7 @@ package com.great.service;
 
 import com.great.entity.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface StudentManageService
 
 	String getStudentState(String studentId, String subject);
 
-	List<StudyCondition> getStudyCondition(String studentId,String status);
+	List<StudyCondition> getStudyCondition(String studentId, String status, HttpServletRequest request);
 
 	List<Score> getMyScore(String studentId);
 

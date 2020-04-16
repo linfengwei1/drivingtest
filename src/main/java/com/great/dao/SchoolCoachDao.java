@@ -1,9 +1,6 @@
 package com.great.dao;
 
-import com.great.entity.Coach;
-import com.great.entity.Punish;
-import com.great.entity.Student;
-import com.great.entity.TableUtils;
+import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -71,8 +68,11 @@ public interface SchoolCoachDao
 	Coach login(Map<String, String> map);
 
 	//查询学员记录并分页
-	public List<Student> findStudentByPage(TableUtils tableUtils);
+	public List<StudentTable> findStudentByPage(TableUtils tableUtils);
 
 	//查找学员总数
 	public Integer findCount(TableUtils tableUtils);
+
+	//
+	List<StudyCondition> findStudentScore(TableUtils tableUtils);
 }

@@ -17,7 +17,7 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" >
+<form class="layui-form" action="" onsubmit="return false" >
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
         <h2 style="margin-left: 43%">违规处理</h2>
     </div>
@@ -34,13 +34,13 @@
                     <div style="float: left;">
                         <label class="layui-form-label" >违规时间</label>
                         <div class="layui-inline">
-                            <input type="text" class="layui-input" id="test1" name =time3>
+                            <input type="text" class="layui-input" id="time1" name =time1>
                         </div>
                         至：
                         <div class="layui-inline" style="clear: left">
-                            <input type="text" class="layui-input" id="test2" name =time4>
+                            <input type="text" class="layui-input" id="time2" name =time2>
                         </div>
-                        <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                        <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="formDemo" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>添加记录</button>
                     </div>
                 </div>
@@ -84,11 +84,11 @@
             var path = $("#path").val();
             var laydate = layui.laydate;
             laydate.render({
-                elem: '#test1' //指定元素
+                elem: '#time1' //指定元素
                 ,type: 'datetime'
             });
             laydate.render({
-                elem: '#test2' //指定元素
+                elem: '#time2' //指定元素
                 ,type: 'datetime'
             });
 
@@ -148,6 +148,7 @@
                         }
                     });
                 }
+
             });
 
 
