@@ -1,5 +1,6 @@
 package com.great.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class TableUtils {
@@ -17,31 +18,30 @@ public class TableUtils {
     private String carNumber;
     private Integer school_id;
     private Integer schoolStateId;
-    private Timestamp time3;
-    private Timestamp time4;
-//    private String type;
-//    private String content;
-//    private String datetime;
+//    private String time3;
+//    private Date time3;
+//    private Timestamp time4;
     private Integer coach_id;
 
     public TableUtils() {
     }
 
-    public Timestamp getTime3() {
-        return time3;
-    }
 
-    public void setTime3(Timestamp time3) {
-        this.time3 = time3;
-    }
+//    public Date getTime3() {
+//        return time3;
+//    }
+//
+//    public void setTime3(Date time3) {
+//        this.time3 = time3;
+//    }
 
-    public Timestamp getTime4() {
-        return time4;
-    }
-
-    public void setTime4(Timestamp time4) {
-        this.time4 = time4;
-    }
+//    public Timestamp getTime4() {
+//        return time4;
+//    }
+//
+//    public void setTime4(Timestamp time4) {
+//        this.time4 = time4;
+//    }
 
     public Integer getSchool_id() {
         return school_id;

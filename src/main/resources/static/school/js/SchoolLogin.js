@@ -1,6 +1,7 @@
-layui.use(['form','jquery','layer'],  function(){
+layui.use(['form','jquery','layer','element'],  function(){
     var form = layui.form;
-    $ = layui.jquery;
+    var $ = layui.jquery,
+        element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块;
     var path = $("#path").val();
 
     //阻止表单提交
@@ -49,9 +50,6 @@ layui.use(['form','jquery','layer'],  function(){
 });
 
 
-$(function () {
-
-})
 
 function refreshCode() {//给图片添加一个点击事件
     var YZM = document.getElementById("passPhoto");//使用js的可以,换成jq不行(还不知道为什么)

@@ -55,18 +55,18 @@ public interface SchoolStudentDao
 	public List<StudyCondition> findStudyTime(Integer a);
 
 	//统计一阶段人数
-	public Integer CountSubject1();
+	public Integer CountSubject1(Integer a);
 
 	//统计2阶段人数
-	public Integer CountSubject2();
+	public Integer CountSubject2(Integer a);
 
 	//统计3阶段人数
-	public Integer CountSubject3();
+	public Integer CountSubject3(Integer a);
 
 	//统计4阶段人数
-	public Integer CountSubject4();
+	public Integer CountSubject4(Integer a);
 
 	//统计毕业人数
-	public Integer CountOver();
+	public Integer CountOver(Integer a);
 
 }

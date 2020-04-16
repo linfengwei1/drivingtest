@@ -17,9 +17,9 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" >
+<form class="layui-form" action="" onsubmit="return false" >
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
-        <h2 style="margin-left: 43%">车辆管理3</h2>
+        <h2 style="margin-left: 43%">车辆管理</h2>
     </div>
     <div class="layui-fluid" id="searchTable" style="margin-top: 1%;">
         <div class="layui-form-item">
@@ -40,7 +40,7 @@
                     <div style="float: left;margin-left: 2%">
                         <label class="layui-form-label">状态</label>
                         <div class="layui-input-block" style="width: 190px;">
-                            <select  name="carState" id="carState" lay-verify="required">
+                            <select  name="carState" id="carState">
                                 <option value=""></option>
                                 <option value="审核通过">审核通过</option>
                                 <option value="待审核">待审核</option>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div style="clear: left;margin-left: 30%;padding-top: 1% ">
-                        <button type="button"  class="layui-btn layui-btn-normal"  data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                        <button class="layui-btn layui-btn-normal" id="button" lay-submit="" lay-filter="formDemo" data-type="reload" ><i class="layui-icon">&#xe615;</i>搜索</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>添加车辆</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>EXCEL导入</button>
                     </div>
@@ -62,7 +62,7 @@
 
 </form>
 </body>
-<script type="text/html" id="butdiv">
+<script type="text/html" id="barDemo">
 
     {{#  if(d.carState == '审核失败'){ }}
     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
@@ -81,6 +81,9 @@
 
 
 </script>
+
+
+
 <script>
     layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导入模块
         $ = layui.jquery;
@@ -108,7 +111,7 @@
                 , {field: 'coach_id', title: '教练id', width: 120, align: 'center',hide:true}
                 , {field: 'coachName', title: '所属教练员', width: 120,  align: 'center'}
                 , {field: 'carState', title: '当前状态', width: 130, align: 'center'}
-                , {field: '', title: '操作', toolbar: "#butdiv", width: 300, align: 'center'}
+                , {field: '', title: '操作', toolbar: "#barDemo", width: 300, align: 'center'}
             ]]
         });
 
@@ -122,7 +125,7 @@
                     }
                     , where: {
                         carNumber: $("#carNumber").val(),
-                        state :$("#state").val(),
+                        state :$("#carState").val(),
                         name : $("#name").val(),
                     }
                 });

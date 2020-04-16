@@ -7,7 +7,7 @@ import com.great.service.StudentManageService;
 import com.great.utils.MD5Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.security.provider.MD5;
+
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
