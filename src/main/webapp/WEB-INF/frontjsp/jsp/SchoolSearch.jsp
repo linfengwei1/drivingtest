@@ -28,17 +28,33 @@
          style="background-color: #dadada">
         <h2 style="margin-left: 43%">驾校查询</h2>
     </div>
-    <div class="layui-fluid" id="searchTable" style="margin-top: 1%;">
-        <%--添加友情链接按钮--%>
-        <div style="clear: left; padding-top: 10px; margin-left: 25%">
+    <form class="layui-form" action=""  >
+        <div class="layui-form-item">
+            <label class="layui-form-label">驾校名：</label>
+            <div class="layui-input-inline">
+                <select name="name" id="school" lay-filter="aihao">
+                    <option value=""></option>
+                    <c:forEach items="${schools}" begin="" var="school">
+                        <option value="${school.name}" <c:if test="${school}==${school.name}">selected="selected"</c:if> >${school.name}</option>--%>
+                    </c:forEach>
+                </select>
+            </div>
 
-            <button type="button" class="layui-btn layui-btn-normal" id="add">
-                <i class="layui-icon">&#xe654;</i>添加驾校链接
-            </button>
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-inline">
+                <select name="state" id="type" lay-filter="aihao">
+                    <option value=""></option>
+                    <c:forEach items="${stateMap}" begin="" var="ss">
+                        <option value="${ss.key}" <c:if test="${type}==${ss.key}">selected="selected"</c:if> >${ss.value}</option>
+                    </c:forEach>
+                </select>
+            </div>
+
+            <button class="layui-btn" id="button" lay-submit="" lay-filter="formDemo" data-type="reload" ><i class="layui-icon">&#xe615;</i>搜索</button>
 
         </div>
 
-    </div>
+    </form>
     <div class="layui-anim layui-anim-scale">
 
         <table id="dataTable" lay-filter="test"></table>
@@ -46,6 +62,13 @@
     <script type="text/html" id="butdiv">
 <%--        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>--%>
 <%--        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>--%>
+        {{#  if(d.school_state_id == 4){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine"><i class="layui-icon">&#xe642;</i>审核</a>
+        {{#  } else { }}
+        <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+        {{#  } }}
+
     </script>
 
 </form>
