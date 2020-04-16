@@ -87,7 +87,7 @@
 
     <div class="layui-body">
         <iframe id="ifram_div_iframe" style="width: 100%;height: 100%;" name="ifram_div_ifram" src=""></iframe>
-<%--&lt;%&ndash;        <div style="padding: 15px;">内容主体区域</div>&ndash;%&gt;${pageContext.request.contextPath}/school/path/SchoolCoachManage--%>
+<%--&lt;%&ndash;        1<div style="padding: 15px;">内容主体区域</div>&ndash;%&gt;${pageContext.request.contextPath}/school/path/SchoolCoachManage--%>
     </div>
 
     <div class="layui-footer">
