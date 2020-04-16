@@ -10,7 +10,11 @@
      </resultMap>
     <resultMap id="Student" type="com.great.entity.StudentTable">
         <result column="student_state_id" property="student_state_id"></result>
-        <result column="time" property="time"></result>
+    </resultMap>
+
+    <resultMap id="StudentScore" type="com.great.entity.StudyCondition">
+        <result column="subject_id" property="subject_id"></result>
+        <result column="practise_score" property="practise_score"></result>
     </resultMap>
 
     <!--查询教练记录并分页    -->
@@ -97,11 +101,18 @@
 		select * from coach where account = #{account} and pwd = #{pwd}
 	</select>
 
+    <!--查询学生分数-->
+    <select id="findStudentScore" resultMap="StudentScore" parameterType="com.great.entity.TableUtils">
+		select student.id,studycondition.*
+        from student,coach,studycondition
+        where student.id=studycondition.student_id and student.coach_id=coach.id and coach_id=#{coach_id};
+	</select>
+
     <!--教练查询学生信息-->
     <select id="findStudentByPage" resultMap="Student" parameterType="com.great.entity.TableUtils">
-        select student.*,studycondition.time from coach,student,studycondition
+        select student.* from coach,student
         <where>
-            student.coach_id=coach.id and studycondition.student_id=student.id
+            student.coach_id=coach.id
             <if test="coach_id !='' and coach_id!=null">
                 and coach.id = #{coach_id}
             </if>

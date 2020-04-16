@@ -60,7 +60,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                     }
                     return '毕业'
                 }}
-            , {field: 'time', title: '学时', width: 120, align: 'center'}
+            , {field: 'time', title: '当前阶段学时', width: 120, align: 'center'}
             , {field: 'oneScore', title: '科目一成绩', width: 120, align: 'center'}
             , {field: 'twoScore', title: '科目二成绩', width: 120, align: 'center'}
             , {field: 'threeScore', title: '科目三成绩', width: 120, align: 'center'}
