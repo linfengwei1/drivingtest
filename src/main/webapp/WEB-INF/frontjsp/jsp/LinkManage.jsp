@@ -28,14 +28,35 @@
 				<button type="button" class="layui-btn layui-btn-normal" id="add">
 					<i class="layui-icon">&#xe654;</i>添加友情链接
 				</button>
+
+<%--				<button type="button" class="layui-btn layui-btn-warm" id="update">--%>
+<%--					<i class="layui-icon">&#xe642;</i>更新友情链接--%>
+<%--				</button>--%>
+
+<%--				<button type="button" class="layui-btn layui-btn-danger" id="delete">--%>
+<%--					<i class="layui-icon">&#xe640;</i>删除友情链接--%>
+<%--				</button>--%>
 			</div>
+<%--			&lt;%&ndash;更新友情链接按钮&ndash;%&gt;--%>
+<%--			<div style="clear: left; padding-top: 0px; margin-left: 55%">--%>
+
+<%--				<button type="button" class="layui-btn layui-btn-warm" id="update">--%>
+<%--					<i class="layui-icon">&#xe642;</i>更新友情链接--%>
+<%--				</button>--%>
+<%--			</div>--%>
+<%--			&lt;%&ndash;删除友情链接按钮&ndash;%&gt;--%>
+<%--			<div style="clear: left; padding-top: 0px; margin-left: 85%">--%>
+
+<%--				<button type="button" class="layui-btn layui-btn-danger" id="delete">--%>
+<%--					<i class="layui-icon">&#xe640;</i>删除友情链接--%>
+<%--				</button>--%>
+<%--			</div>--%>
 
 		</div>
-
 		<div class="layui-anim layui-anim-scale">
+
 			<table id="dataTable" lay-filter="test"></table>
 		</div>
-
 		<script type="text/html" id="butdiv">
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>

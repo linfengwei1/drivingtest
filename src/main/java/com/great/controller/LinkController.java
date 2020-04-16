@@ -6,14 +6,12 @@ import com.great.entity.*;
 import com.great.service.LinkService;
 import com.great.service.SchoolManageService;
 import com.great.service.SchoolSearchService;
-import com.great.service.TransportationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.HTML;
@@ -27,16 +25,9 @@ import java.util.Map;
 @RequestMapping("/link")//访问路径：如果只是@RequestMapping则返回的是jsp页面，如果再加上@ResponseBody则返回的是字符串
 public class LinkController {
 
-	@RequestMapping("/first")
-	public String first(){
-		return "/frontjsp/jsp/Welcome";
-	}
-
 	@Autowired//自动注入、自动装配
 	private LinkService linkService;
 	private SchoolSearchService schoolSearchService;
-	@Resource
-	private TransportationService transportationService;
 	@RequestMapping("/path/{url}")//访问路径的路口：path/{url是作为参数PathVariable路径变量}
 	public String getUrl(@PathVariable(value = "url") String path) {
 		return "/frontjsp/jsp/" + path;//返回
@@ -92,8 +83,7 @@ public class LinkController {
 		Integer limit = Integer.parseInt(request.getParameter("limit"));
 
 		DateTable dt = new DateTable();
-//		List<School> schoolList = schoolSearchService.findAllSchool();
-		List<School> schoolList = transportationService.getSchoolList();//使用运管门户查询驾校数据接口
+		List<School> schoolList = schoolSearchService.findAllSchool();
 		Gson g = new Gson();
 		dt.setCode(0);
 		dt.setCount(schoolList.size());// 总条数

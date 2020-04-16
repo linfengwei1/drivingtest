@@ -5,7 +5,9 @@ $(function () {
         var path = $("#path").val();
         //监听提交
         form.on('submit(formDemo)', function(data){
-            console.log(JSON.stringify(data.field));
+            console.log(data.field);
+            var loading = layer.msg('正在登录', {icon: 16, shade: 0.3, time:500});
+
             $.ajax({
                 url:path+'/student/login',
                 type:'post',
@@ -14,6 +16,11 @@ $(function () {
 
                     console.log("data="+data);
                     if ("success"==data){
+                        $("#loginbtn").attr("disabled",true);
+                        // layer.msg('正在登录', {icon: 16,shade : [0.5 , '#000' , true]});
+
+                        layer.close(loading);
+
                         location.href=path+"/student/path/StudentMain"
                     }else if ("yzm"==data) {
                         layer.msg("验证码错误",function () {

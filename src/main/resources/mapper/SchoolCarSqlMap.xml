@@ -90,7 +90,7 @@
 
     <!--查找驾校的所有信息-->
     <select id="findCoach" resultType="Coach" parameterType = "java.lang.Integer" >
-		select id,name from coach where school_id=#{school_id};
+		select * from coach where school_id=#{school_id} and coach_state_id !=3;
 	</select>
 
     <!--excel插入数据库-->
@@ -108,6 +108,16 @@
         </foreach>
     </insert>
 
+
+    <!--单独插入图片-->
+    <update id="AddCarImage"   parameterType="java.util.Map">
+		 update coachcar  set picture = #{picture} where id =#{id}
+	</update>
+
+    <!--修改状态-->
+    <update id="ChangeCarState"   parameterType="java.util.Map">
+		 update coachcar  set state = #{state} where id =#{id}
+	</update>
 
 
 

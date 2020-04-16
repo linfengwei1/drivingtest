@@ -17,7 +17,7 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" onsubmit="return false;">
+<form class="layui-form" action="" >
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
         <h2 style="margin-left: 43%">管理员管理</h2>
     </div>

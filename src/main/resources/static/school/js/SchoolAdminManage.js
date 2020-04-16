@@ -5,6 +5,10 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
     var table = layui.table;
     var path = $("#path").val();
 
+//阻止表单提交
+    form.on('submit(formDemo)', function(data){
+        return false;//阻止表单跳转
+    });
 
     //第一个实例
     table.render({
@@ -63,25 +67,28 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var path1 = $("#path").val();
         if(layEvent === 'delete'){ //删除
-            $.ajax({
-                async:true,
-                method : "POST",
-                url :path1+'/school/deleteSchoolAdmin',
-                data: data,
-                dataType : "text",
-                success:function(data){
-                    if ("success"==data){
-                        layer.alert("删除成功",{icon:6},function () {
-                            window.parent.location.reload();
-                        });
-                    }else {
-                        layer.alert("删除失败",{icon:2});
+            layer.confirm('您确定要删除吗?', {icon: 3, title:'提示'}, function(index){
+                $.ajax({
+                    async:true,
+                    method : "POST",
+                    url :path1+'/school/deleteSchoolAdmin',
+                    data: data,
+                    dataType : "text",
+                    success:function(data){
+                        if ("success"==data){
+                            layer.alert("删除成功",{icon:6},function () {
+                                window.parent.location.reload();
+                            });
+                        }else {
+                            layer.alert("删除失败",{icon:2});
+                        }
+                    },
+                    error:function (err) {
+                        layer.alert("网络繁忙",{icon:2});
                     }
-                },
-                error:function (err) {
-                    layer.alert("网络繁忙",{icon:2});
-                }
+                })
             })
+
         }
         if(layEvent === 'update'){ //更新
             var $td = $(this).parents('tr').children('td');

@@ -2,6 +2,48 @@ layui.use(['form','upload'], function(){
     var form = layui.form;
     var $ = layui.$,upload = layui.upload;
     var path = $("#path").val();
+
+    //普通图片上传
+    var uploadInst = upload.render({
+        elem: '#test1'
+        ,url: path+'/school/coachImage/'
+        ,accept:'images'
+        ,size:50000
+        // ,auto: false//是否自动上传
+        // ,bindAction: '#OK'
+        ,before: function(obj){
+
+            obj.preview(function(index, file, result){
+
+                $('#demo1').attr('src', result);
+            });
+        }
+        ,done: function(res){
+            //如果上传失败
+            if(res.code > 0){
+                return layer.msg('上传失败');
+            }
+            //上传成功
+            var demoText = $('#demoText');
+            demoText.html('<span style="color: #4cae4c;">上传成功</span>');
+
+            var fileupload = $(".image");
+            fileupload.attr("value",res.data.src);
+            console.log(fileupload.attr("value"));
+            // $(".image").val(fileupload.attr("value"))
+            // console.log("value=="+$(".image").val);
+        }
+        ,error: function(){
+            //演示失败状态，并实现重传
+            var demoText = $('#demoText');
+            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+            demoText.find('.demo-reload').on('click', function(){
+                uploadInst.upload();
+            });
+        }
+    });
+
+
     $("#account").blur(function (){
         //获取用户名的值
         var UserName3=$("#account").val();
@@ -66,6 +108,8 @@ layui.use(['form','upload'], function(){
     //监听提交
     form.on('submit(formDemo)', function(data){
         var path = $("#path").val();
+        var fileupload = $(".image");
+        console.log("返回的路径="+fileupload.attr("value"))
         // var a =JSON.stringify(data.field)
         $.ajax({
             url: path + "/school/addCoach",
@@ -104,9 +148,12 @@ layui.use(['form','upload'], function(){
                     });
                 }else if (msg=="IdError"){
                     layer.alert("身份证号码有误",{icon:6},function () {
+                        window.parent.location.reload();
                     });
                 } else {
-                    layer.alert("新增失败",{icon:2})
+                    layer.alert("新增失败",{icon:6},function () {
+                        window.parent.location.reload();
+                    });
                 }
             },
             error: function () {
