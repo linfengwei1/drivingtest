@@ -46,4 +46,18 @@ public interface IStudentDao
 	List<Score> getMyScore(@Param("studentId") int studentId);
 
 	List<ExamOrder> getOrderTime(int parseInt);
+
+	void updatePractiseScore(@Param("studentId")int studentId, @Param("score")int score);
+
+	void setStage(@Param("studentId")int studentId, @Param("stage")int stage);
+
+	List<EvaluationToSchool> getAllEvaForSchool(@Param("school_id")int school_id);
+
+	int addEvaForSchool(@Param("school_id")int school_id, @Param("content")String content);
+
+	List<EvaluationToCoach> getAllEvaForCoach(@Param("coachId")int coachId);
+
+	int addEvaForCoach(@Param("coachId")int coachId, @Param("content")String content);
+
+	int updatePwd(@Param("id")int id, @Param("account")String account,  @Param("pwd")String pwd);
 }

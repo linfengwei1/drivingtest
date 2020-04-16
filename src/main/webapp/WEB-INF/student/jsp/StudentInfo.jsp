@@ -15,6 +15,7 @@
 <body class="layui-layout-body">
 <input type="hidden" id="path" value="${pageContext.request.contextPath}">
 <input type="hidden" id="studentid" value="${student.id}">
+<input type="hidden" id="status" value="${student.student_state_id}">
 <div class="df_bd">
 <div class="bgl">
 	<div class="usio">

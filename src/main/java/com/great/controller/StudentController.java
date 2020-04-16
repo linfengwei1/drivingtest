@@ -4,8 +4,10 @@ package com.great.controller;
 import com.google.gson.Gson;
 import com.great.entity.*;
 import com.great.service.StudentManageService;
+import com.great.utils.MD5Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sun.security.provider.MD5;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -35,7 +37,7 @@ public class StudentController
 		Boolean confirm = student.getVerification().equalsIgnoreCase(YZM);//不区分大小写
 
 		if (confirm) {
-			Student newStudent =studentManageServiceImpl.login(student.getAccount(),student.getPwd());
+			Student newStudent =studentManageServiceImpl.login(student.getAccount(),MD5Utils.md5(student.getPwd()));
 			if (null!=newStudent){
 				request.getSession().setAttribute("student",newStudent);
 				return "success";
@@ -45,6 +47,29 @@ public class StudentController
 		}else{
 			return "yzm";
 		}
+	}
+	@RequestMapping("/updatePwd")
+	@ResponseBody
+	public String updatePwd(String account,String pwd,String newPwd, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String result = null;
+		Student student =studentManageServiceImpl.login(account,MD5Utils.md5(pwd));
+		if(student != null)
+		{
+			int i = studentManageServiceImpl.updatePwd(student.getId(),account,MD5Utils.md5(newPwd));
+			if(i > 0)
+			{
+				result = "success";
+				request.getSession().removeAttribute("student");
+			}else
+			{
+				result = "error2";
+			}
+		}else
+		{
+			result = "error1";
+		}
+		return result;
 
 	}
 	@RequestMapping("/reload")
@@ -62,11 +87,25 @@ public class StudentController
 		String result = studentManageServiceImpl.checkStudyAuthority(studentId,vedioId,subject);
 		return result;
 	}
+	@RequestMapping("/addEvaForSchool")
+	@ResponseBody
+	public String addEvaForSchool(String schoolId, String content) throws IOException
+	{
+		String result = studentManageServiceImpl.addEvaForSchool(schoolId,content);
+		return result;
+	}
+	@RequestMapping("/addEvaForCoach")
+	@ResponseBody
+	public String addEvaForCoach(String coachId, String content) throws IOException
+	{
+		String result = studentManageServiceImpl.addEvaForCoach(coachId,content);
+		return result;
+	}
 	@RequestMapping("/getStudyCondition")
 	@ResponseBody
-	public List<StudyCondition> getStudyCondition(String studentId, HttpServletRequest request, HttpServletResponse response) throws IOException
+	public List<StudyCondition> getStudyCondition(String studentId,String status,HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		List<StudyCondition> list = studentManageServiceImpl.getStudyCondition(studentId);
+		List<StudyCondition> list = studentManageServiceImpl.getStudyCondition(studentId,status);
 		return list;
 	}
 	@RequestMapping("/getMyScore")
@@ -74,6 +113,20 @@ public class StudentController
 	public List<Score> getMyScore(String studentId, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		List<Score> list = studentManageServiceImpl.getMyScore(studentId);
+		return list;
+	}
+	@RequestMapping("/getAllEvaForSchool")
+	@ResponseBody
+	public List<EvaluationToSchool> getAllEvaForSchool(String schoolId, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		List<EvaluationToSchool> list = studentManageServiceImpl.getAllEvaForSchool(schoolId);
+		return list;
+	}
+	@RequestMapping("/getAllEvaForCoach")
+	@ResponseBody
+	public List<EvaluationToCoach> getAllEvaForCoach(String coachId, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		List<EvaluationToCoach> list = studentManageServiceImpl.getAllEvaForCoach(coachId);
 		return list;
 	}
 	@RequestMapping("/getOrderTime")

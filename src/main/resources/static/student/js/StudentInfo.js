@@ -1,10 +1,11 @@
 $(function () {
 	var path = $("#path").val();
 	var studentId = $("#studentid").val();
+	var status = $("#status").val();
 	$.ajax({
 		url:path+'/student/getStudyCondition',
 		type:'post',
-		data: {studentId:studentId},
+		data: {studentId:studentId,status:status},
 		dateType:"json",
 		success:function(data){
 			console.log(data);

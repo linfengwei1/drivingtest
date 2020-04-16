@@ -70,16 +70,24 @@
 			</li>
 
 			<li class="layui-nav-item">
-				<a href="">考试信息</a>
+				<a href="javascript:;">考试信息</a>
 				<dl class="layui-nav-child">
 					<dd><a href="${pageContext.request.contextPath}/student/path/ExamScore" target="frame_div">考试成绩</a></dd>
 					<dd><a href="${pageContext.request.contextPath}/student/path/ExamTime" target="frame_div">考试预约</a></dd>
 				</dl>
 			</li>
-			<li class="layui-nav-item"><a href="">社区</a></li>
 			<li class="layui-nav-item">
 				<a href="${pageContext.request.contextPath}/student/path/QueryLocation" target="frame_div">查看位置信息</a>
 			</li>
+
+			<li class="layui-nav-item">
+				<a href="javascript:;">评论专区</a>
+				<dl class="layui-nav-child">
+					<dd><a href="${pageContext.request.contextPath}/student/path/EvaluationToCoach" target="frame_div">对教练评价</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/path/EvaluationToSchool" target="frame_div">对学校评价</a></dd>
+				</dl>
+			</li>
+
 		</ul>
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
@@ -88,8 +96,8 @@
 					${student.name}
 				</a>
 				<dl class="layui-nav-child">
-					<dd><a href="">基本资料</a></dd>
-					<dd><a href="">安全设置</a></dd>
+					<dd><a href="">我的信息</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/path/UpdatePwd" target="frame_div">修改密码</a></dd>
 				</dl>
 			</li>
 			<li class="layui-nav-item"><a href="">退出</a></li>
