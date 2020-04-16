@@ -292,4 +292,33 @@ public interface TransportationDao {
      */
     public Integer insertNotice(Notice notice);
 
+    /**
+     * 或考试时间
+     * @return
+     */
+    public List<TestTime> getExamTime();
+
+    /**
+     * 获取时间区间
+     * @param sid
+     * @return
+     */
+    public List<TestTime> getExamTimeBySchoolId(String sid);
+
+    /**
+     * 更新时间
+     */
+    public void updateExamTime(Map<String, Object> map1);
+
+    /**
+     * 插入时间
+     */
+    public void insertExamTime(Map<String, Object> map1);
+
+    /**
+     * 删除时间配置
+     * @param tid
+     * @return
+     */
+    public Integer deleteExamTime(Integer tid);
 }
