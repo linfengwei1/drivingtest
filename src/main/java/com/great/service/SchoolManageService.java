@@ -4,6 +4,7 @@ import com.great.dao.*;
 import com.great.entity.*;
 
 import com.great.utils.ExportExcelSeedBack;
+import com.great.utils.SchoolFaceRecognitionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -370,6 +371,19 @@ public class SchoolManageService {
     //通过手机号码改密码
     public Integer changePwdByPhone(SchoolAdmin schoolAdmin){
         return schoolAdminDao.changePwdByPhone(schoolAdmin);
+    }
+
+
+    //添加人脸 user_id是在百度账号人脸识别库中的id,唯一的,可以在添加的时候把用户的id填进去
+    public String faceAdd(String imageString,String user_id ){
+        String msg=null;
+        
+        msg= SchoolFaceRecognitionUtils.faceRegister(imageString, user_id);
+       if ("success".equals(msg.trim())){
+           System.out.println("添加到数据库");
+       }
+
+        return msg;
     }
 
 }

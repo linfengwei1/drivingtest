@@ -73,8 +73,8 @@
 			audio: false
 		};
 		//获得video摄像头
-		let video = document.getElementById('video');
-		let promise = navigator.mediaDevices.getUserMedia(constraints);
+		var video = document.getElementById('video');
+		var promise = navigator.mediaDevices.getUserMedia(constraints);
 		promise.then((mediaStream) => {
 			mediaStreamTrack = typeof mediaStream.stop === 'function' ? mediaStream : mediaStream.getTracks()[1];
 		video.srcObject = mediaStream;
@@ -90,29 +90,29 @@ function takePhoto() {
 		var layer = layui.layer;
 		var path = $("#path").val();
 		var studentid = $("#studentid").val();
-		let video = document.getElementById('video');
-		let canvas = document.getElementById('canvas');
-		let ctx = canvas.getContext('2d');
+		var video = document.getElementById('video');
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d');
 		//拍照存放的位置
 		ctx.drawImage(video, 0, 0, 400, 300);
 		//toDataURL()获取的数据有images前缀，要split取后面一部分传给后台，后台直接用
 		var url = canvas.toDataURL();
 		//获取到String类型的image信息
-		var face = url.split(",")[1];
-		console.log(face);
+		var imageString = url.split(",")[1];
+		console.log(imageString);
 
-		用ajax做验证 ,判断是否验证成功
+		//用ajax做验证 ,判断是否验证成功
 		$.ajax({
-			url: path + '/student/importFace',
+			url: path + '/school/faceAdd',
 			type: "POST",
 			async: false,
 			cache: false,
-			data: {"face": face, "studentid": studentid},
+			data:  "imageString="+imageString,
 			success: function (data) {
 				if (data == "success") {
 					$("#import").css("disabled",true);
 					layer.msg('录入成功', {icon: 6}, function () {
-						parent.location.href = path + "/student/reload";
+						// parent.location.href = path + "/school/faceAdd";
 					});
 
 				} else if (data == "error") {
