@@ -7,10 +7,6 @@ import com.great.service.StudentManageService;
 import com.great.utils.MD5Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -83,6 +79,13 @@ public class StudentController
 		request.getSession().setAttribute("student",newStudent);
 		return "student/jsp/StudentMain";
 	}
+	@RequestMapping("/quit")
+	@ResponseBody
+	public String quit(HttpServletRequest request)
+	{
+		request.getSession().removeAttribute("student");
+		return "success";
+	}
 	@RequestMapping("/checkStudyAuthority")
 	@ResponseBody
 	public String checkStudyAuthority(String studentId, String vedioId,String subject,HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -108,13 +111,16 @@ public class StudentController
 	@ResponseBody
 	public List<StudyCondition> getStudyCondition(String studentId,String status,HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		List<StudyCondition> list = studentManageServiceImpl.getStudyCondition(studentId,status);
+		//得到最新的学习动态，成绩从score表上面取
+		List<StudyCondition> list = studentManageServiceImpl.getStudyCondition(studentId,status,request);
+		//如果成绩有更新完后更新session中的student信息
 		return list;
 	}
 	@RequestMapping("/getMyScore")
 	@ResponseBody
 	public List<Score> getMyScore(String studentId, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
+
 		List<Score> list = studentManageServiceImpl.getMyScore(studentId);
 		return list;
 	}
