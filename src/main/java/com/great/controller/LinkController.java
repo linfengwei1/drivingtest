@@ -25,6 +25,11 @@ import java.util.Map;
 @RequestMapping("/link")//访问路径：如果只是@RequestMapping则返回的是jsp页面，如果再加上@ResponseBody则返回的是字符串
 public class LinkController {
 
+	@RequestMapping("/first")
+	public String first(){
+		return "/frontjsp/jsp/Welcome";
+	}
+
 	@Autowired//自动注入、自动装配
 	private LinkService linkService;
 	private SchoolSearchService schoolSearchService;
