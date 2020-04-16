@@ -17,7 +17,7 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" >
+<form class="layui-form" action="" onsubmit="return false;">
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
         <h2 style="margin-left: 43%">学员管理</h2>
     </div>
@@ -98,15 +98,10 @@
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="q" ><i class="layui-icon">&#xe605;</i>申请考试</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="w" ><i class="layui-icon">&#x1006;</i>驳回申请</button>
         {{# }if(d.student_state_id ==6) { }}
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="resubmit" ><i class="layui-icon">&#xe643;</i>重新审核</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>重新审核</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
         {{# }if(d.student_state_id <6) { }}
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="check" ><i class="layui-icon">&#xe63c;</i>学习情况</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
-        {{# }if(d.student_state_id >6) { }}
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="check" ><i class="layui-icon">&#xe63c;</i>查看学习情况</button>
         {{#  } }}
     </script>
 

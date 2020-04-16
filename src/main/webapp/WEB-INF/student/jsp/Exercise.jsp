@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>科目${subject}在线练习</title>
+	<title>模拟考试</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<%String path = request.getContextPath();%>
@@ -50,7 +50,7 @@
 
 <input type="hidden" id="path" value="${pageContext.request.contextPath}">
 <input type="hidden" id="studentid" value="${student.id}">
-<input type="hidden" id="subject" value="${subject}">
+<input type="hidden" id="subject" value="1">
 <input type="hidden" id="choice" value="${questionList.choice}">
 <input type="hidden" id="judge" value="${questionList.judge}">
 

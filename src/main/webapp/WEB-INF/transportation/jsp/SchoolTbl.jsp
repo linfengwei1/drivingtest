@@ -193,53 +193,32 @@
 
 
                 //prompt层
-                layer.prompt({title: '审核信息', formType: 2}, function(text, index){
+                layer.prompt({title: '审核信息', formType: 1}, function(pass, index){
                     layer.close(index);
 
-                    layer.confirm('是否通过审核?', {
-                        btn : ['通过','不通过'],
-                        btn1:function(index){
-                            console.log(text);
-                            console.log(data.id);
-                            console.log("通过");
-                            layer.close(index);
-                            $.ajax({
-                                async:true,
-                                method : "POST",
-                                url :'${pageContext.request.contextPath}/TM/examineSchool',
-                                data: {"id":data.id,"text":text,"doing":"通过"},
-                                dataType:"text" ,
-                                success:function(data){
-                                    if ("Success"==data){
+                    layer.confirm('是否通过审核?', function(index){
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        layer.close(index);
+                        var sub=JSON.stringify(data);
 
-                                        layer.alert("审核成功",{icon:6},function () {
-                                            //修改信息
-                                            window.parent.location.reload();
-                                        });
-                                    }
+                        $.ajax({
+                            async:true,
+                            method : "POST",
+                            url :'${pageContext.request.contextPath}/TM/examineStudent',
+                            data: data,
+                            dataType : {"data":data,"text":pass},
+                            success:function(data){
+                                if ("success"==data){
+                                    layer.alert("审核通过",{icon:6},function () {
+                                        //修改信息
+                                        window.parent.location.reload();
+                                    });
+                                }else {
+                                    layer.alert("审核未通过",{icon:2});
                                 }
-                            });
-                        },
-                        btn2:function(index){
-                            console.log(text);
-                            console.log(data.id);
-                            console.log("不通过");
-                            $.ajax({
-                                async:true,
-                                method : "POST",
-                                url :'${pageContext.request.contextPath}/TM/examineSchool',
-                                data: {"id":data.id,"text":text,"doing":"不通过"},
-                                dataType:"text" ,
-                                success:function(data){
-                                    if ("Success"==data){
-                                        layer.alert("审核成功",{icon:6},function () {
-                                            //修改信息
-                                            window.parent.location.reload();
-                                        });
-                                    }
-                                }
-                            });
-                        }
+                            }
+                        });
+
                     });
 
                 });

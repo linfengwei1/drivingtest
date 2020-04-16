@@ -35,7 +35,7 @@
 <div class="layui-main-login">
     <form class="layui-form" action=" " onsubmit="return false" >
         <div class="layui-form-item">
-            <label class="layui-form-label">手机号</label> <button class="layui-btn layui-btn-primary" onclick="send()">发送短信</button>
+            <label class="layui-form-label">手机号</label> <button class="layui-btn layui-btn-primary" id="send" >发送短信</button>
             <div class="layui-input-inline">
                 <input type="text" id="phone" name="phone" required lay-verify="required" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
             </div>
@@ -139,6 +139,8 @@
                         layer.alert("修改成功",{icon:6},function () {
                             window.parent.location.reload();
                         });
+                    }else if (msg == "cancel") {
+                        layer.alert("短信验证码已失效",{icon:2})
                     }else {
                         layer.alert("修改失败",{icon:2})
                     }
@@ -152,9 +154,129 @@
 
     });
 
-    function send() {
+    // $(function () {
+    //     //短信验证码倒计时
+    //     var countdownHandler = function(){
+    //         var $button = $("#send");
+    //         var number = 60;
+    //         var countdown = function(){
+    //             if (number == 0) {
+    //                 $button.attr("disabled",false);
+    //                 $button.html("发送验证码");
+    //                 number = 60;
+    //                 return;
+    //             } else {
+    //                 $button.attr("disabled",true);
+    //                 $button.html(number + "秒 重新发送");
+    //                 number--;
+    //             }
+    //             setTimeout(countdown,1000);
+    //         }
+    //         setTimeout(countdown,1000);
+    //     }
+    //
+    //     $("#send").click(function () {
+    //         var path = $("#path").val();
+    //         $.ajax({
+    //             url: path+"/school/phoneMsg",
+    //             async: true,
+    //             type: "POST",
+    //             data: "phone="+$("#phone").val(),
+    //             datatype: "text",
+    //             success: function (msg) {
+    //                 if (msg == "success") {
+    //                     countdownHandler();
+    //                     return ;
+    //                 }if (msg=="no"){
+    //                     layer.alert("手机号码不存在",{icon:2})
+    //                 }
+    //             },
+    //             error: function () {
+    //                 layer.alert("网络繁忙！")
+    //             }
+    //         });
+    //     })
+    //
+    // })
+//====================================================================================
+
+
+    $('#send').click(function(){
         var path = $("#path").val();
-        window.location.href =path+"/school/phoneMsg?phone="+$("#phone").val();
+        $.ajax({
+            url: path+"/school/phoneMsg",
+            async: true,
+            type: "POST",
+            data: "phone="+$("#phone").val(),
+            datatype: "text",
+            success: function (msg) {
+                if (msg == "success") {
+                    $('#send').text('倒计时60s');
+                    $('#send').prop('disabled',true);
+                    // 设置 cookie 值
+                    $(document)[0].cookie = 'ckey='+60;
+                    console.log('cookie 设置完毕');
+                }if (msg=="no"){
+                    layer.alert("手机号码不存在",{icon:2})
+                }
+            },
+            error: function () {
+                layer.alert("网络繁忙！")
+            }
+        });
+
+
+    });
+    function setStyle(){
+        var cval = getCookie();
+        if(cval>1){
+            $('#send').text('倒计时'+cval+'s');
+            $('#send').prop('disabled',true);
+            console.log('hahah')
+        }else{
+            $('#send').text('获取验证码');
+            $('#send').prop('disabled',false);
+        }
+    }
+
+    var number = 61;
+    // //时间间隔
+    id = setInterval(function(){
+        number--;
+        if (number==0){
+            clearTimeout(id);
+        }
+        setCookie();
+        console.log(1);
+    },1000)
+
+    setStyle();
+
+    function setCookie(){
+        var cval = getCookie();
+        if(cval>1){
+            $(document)[0].cookie = 'ckey='+(cval-1);
+            $('#send').text('倒计时'+(cval-1)+'s');
+            $('#send').prop('disabled',true);
+        }else if(cval==1){
+            $('#send').text('获取验证码');
+            $('#send').prop('disabled',false);
+            $(document)[0].cookie = 'ckey='+0;
+            // clearInterval(id);
+        }
+    }
+    function getCookie(){
+        // 获取全部的 cookie
+        var cookie = $(document)[0].cookie;
+        // 获取 cookie 项  (数组)
+        var citem = cookie.split(';');
+        // 过滤数组  获得 键为 ckey 的项
+        var ckey = citem.filter(function(item){
+            return item.split('=')[0].trim()=='ckey';
+        });
+        // 获得 时间  cval
+        cval = ckey[0].split('=')[1];
+        return cval;
     }
 
 </script>

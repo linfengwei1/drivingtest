@@ -4,12 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.great.dao.TransportationDao">
 
-<!--登录验证-->
 	<select id="login" resultType="com.great.entity.Transportation" parameterType="java.util.Map">
 		select * from transportation where account = #{account} and pwd = #{pwd}
 	</select>
 
-<!--获取科目一题数-->
+
 	<select id="getOneSubjectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
 		select count(*)
 		from question1
@@ -23,7 +22,6 @@
 		</where>
 	</select>
 
-<!--获取科目一题目表-->
 	<select id="getOneSubject" resultType="com.great.entity.Subject" parameterType="java.util.Map">
 		select *
 		from question1
@@ -38,7 +36,6 @@
 		limit #{minlimit} , #{maxlimit}
 	</select>
 
-<!--获取科目四题数-->
 	<select id="getFourthSubjectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
 		select count(*)
 		from question4
@@ -52,7 +49,6 @@
 		</where>
 	</select>
 
-<!--获取科目四题目表-->
 	<select id="getFourthSubject" resultType="com.great.entity.Subject" parameterType="java.util.Map">
 		select *
 		from question4
@@ -67,27 +63,22 @@
 		limit #{minlimit} , #{maxlimit}
 	</select>
 
-<!--获取科目一题目信息-->
 	<select id="getOneSubjectMsg" resultType="com.great.entity.Subject" parameterType="java.lang.Integer">
 		select * from question1 where id=#{id}
 	</select>
 
-<!--获取科目四题目信息-->
 	<select id="getFourthSubjectMsg" resultType="com.great.entity.Subject" parameterType="java.lang.Integer">
 		select * from question4 where id=#{id}
 	</select>
 
-<!--删除科目一题目-->
 	<delete id="deleteOneSubjectMsg" parameterType="java.lang.Integer">
 		delete from question1 where id=#{id}
 	</delete>
 
-<!--删除科目四题目-->
 	<delete id="deleteFourthSubjectMsg" parameterType="java.lang.Integer">
 		delete from question4 where id=#{id}
 	</delete>
 
-<!--更新科目一信息-->
 	<update id="updateOneSubjectMsg" parameterType="com.great.entity.Subject">
 
 		update question1
@@ -121,7 +112,6 @@
 
 	</update>
 
-<!--更新科目四信息-->
 	<update id="updateFourthSubjectMsg" parameterType="com.great.entity.Subject">
 		update question4
 		<set>
@@ -153,7 +143,7 @@
 		where id=#{id}
 	</update>
 
-<!--获取学员数-->
+
 	<select id="getStudentCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
 		select count(*)
 		from student
@@ -170,7 +160,6 @@
 		</where>
 	</select>
 
-<!--封装学员查询的结果集-->
 	<resultMap id="studentMap" type="com.great.entity.Student">
 		<id property="id" column="id"/>
 		<result property="account" column="account"/>
@@ -199,7 +188,6 @@
 
 	</resultMap>
 
-<!--获取学员列表-->
 	<select id="getStudentTbl" resultMap="studentMap" parameterType="java.util.Map">
 		select s1.*
 		     ,s.id "s_id"
@@ -226,17 +214,14 @@
 		limit #{minlimit} , #{maxlimit}
 	</select>
 
-<!--获取所有学校-->
 	<select id="getSchoolList" resultType="com.great.entity.School">
 		select * from school
 	</select>
 
-<!--获取所有学员状态-->
 	<select id="getStudentState" resultType="java.lang.String">
 		select statename from studentstate;
 	</select>
 
-<!--获取学校记录数-->
 	<select id="getSchoolCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
 		select count(*)
 		from school
@@ -253,7 +238,6 @@
 		</where>
 	</select>
 
-<!--封装学校查询的结果集-->
 	<resultMap id="schoolMap" type="com.great.entity.School">
 		<id property="id" column="id"/>
 		<result property="name" column="name"/>
@@ -266,7 +250,7 @@
 		<result property="audit_results" column="audit_results"/>
 	</resultMap>
 
-<!--获取学校列表-->
+
 	<select id="getSchoolTbl" resultMap="schoolMap" parameterType="java.util.Map" >
 		select *
 		from school
@@ -284,18 +268,15 @@
 		limit #{minlimit} , #{maxlimit}
 	</select>
 
-<!--获取所有学校状态-->
 	<select id="getSchoolState" resultType="java.lang.String">
 		select statename from schoolstate;
 	</select>
 
-<!--获取学校信息-->
 	<select id="getSchoolMsg" resultType="com.great.entity.School" parameterType="java.lang.Integer">
 		select *
 		from school where id=#{id};
 	</select>
 
-<!--封装教练结果集-->
 	<resultMap id="coachMap" type="com.great.entity.Coach">
 		<id property="id" column="id"/>
 		<result property="account" column="account"/>
@@ -339,7 +320,6 @@
 		</where>
 	</select>
 
-<!--获取教练记录数-->
 	<select id="getCoachCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
 		select count(*)
 		from coach
@@ -360,12 +340,10 @@
 		limit #{minlimit} , #{maxlimit}
 	</select>
 
-<!--获取所有教练状态-->
 	<select id="getCoachState" resultType="java.lang.String">
 		select statename from coachstate;
 	</select>
 
-<!--获取教练信息-->
 	<select id="getCoachMsg" resultMap="coachMap" parameterType="java.lang.Integer">
 		select c.*
 		,s.id "s_id"
@@ -383,7 +361,6 @@
 		</where>
 	</select>
 
-<!--封装学员查询结果集-->
 	<resultMap id="studentMsg" type="com.great.entity.Student">
 		<id property="id" column="id"/>
 		<result property="account" column="account"/>
@@ -400,7 +377,7 @@
 		<result property="audit_results" column="audit_results"/>
 	</resultMap>
 
-<!--获取学员信息-->
+
 	<select id="getStudentMsg" resultMap="studentMsg" parameterType="java.lang.Integer">
 		select s1.*
 		,s.name "s_name"
@@ -411,178 +388,5 @@
 		</where>
 	</select>
 
-<!--通过驾校id获取去学员数-->
-	<select id="getStudentCountBySchoolId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
-		select count(*) from student where school_id=#{id}
-	</select>
-
-<!--通过驾校id获取去教练数-->
-	<select id="getCoachCountBySchoolId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
-		select count(*) from coach where school_id=#{id}
-	</select>
-
-<!--通过驾校id获取去教练车数-->
-	<select id="getCoachCarCountBySchoolId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
-		select count(*) from coachcar where school_id=#{id}
-	</select>
-
-<!--封装教练车结果集-->
-	<resultMap id="coachCarMap" type="com.great.entity.CoachCar">
-
-		<id property="id" column="id"/>
-		<result property="picture" column="picture"/>
-		<result property="carNumber" column="carnumber"/>
-		<result property="carState" column="state"/>
-		<result property="school_id" column="school_id"/>
-		<result property="coach_id" column="coach_id"/>
-		<result property="coachName" column="coach_name"/>
-		<result property="schoolName" column="school_name"/>
-
-	</resultMap>
-
-<!--获取教练车数-->
-	<select id="getCoachCarCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
-		select count(*)
-		from coachcar
-		<where>
-			<if test="name!=null">
-				and  carnumber like concat('%',#{name},'%')
-			</if>
-			<if test="state!=null">
-				and school_id = #{state}
-			</if>
-			<if test="type!=null">
-				and state = #{type}
-			</if>
-		</where>
-		limit #{minlimit} , #{maxlimit}
-	</select>
-
-<!--获取教练车列表-->
-	<select id="getCoachCarTbl" resultMap="coachCarMap" parameterType="java.util.Map">
-		select c.*,s.name "school_name",c2.name "coach_name"
-		from coachcar c
-		left join school s on c.school_id = s.id
-		left join coach c2 on c.coach_id = c2.id
-		<where>
-			<if test="name!=null">
-				and  carnumber like concat('%',#{name},'%')
-			</if>
-			<if test="state!=null">
-				and school_id = #{state}
-			</if>
-			<if test="type!=null">
-				and state = #{type}
-			</if>
-		</where>
-		limit #{minlimit} , #{maxlimit}
-	</select>
-
-<!--更新学员审核-->
-	<update id="examineStudent" parameterType="java.util.Map">
-		update student
-		set  audit_results= #{text} , student_state_id=#{i}
-		where id=#{id};
-	</update>
-
-<!--更新学员审核-->
-	<update id="examineSchool" parameterType="java.util.Map">
-		update school
-		set  audit_results= #{text} , school_state_id=#{i}
-		where id=#{id};
-	</update>
-
-<!--更新学员审核-->
-	<update id="examineCoach" parameterType="java.util.Map">
-		update coach
-		set  audit_results= #{text} , coach_state_id=#{i}
-		where id=#{id};
-	</update>
-
-<!--更新学员审核-->
-	<update id="examineCoachCar" parameterType="java.util.Map">
-		update coachcar
-		set  audit_results= #{text} , state=#{i}
-		where id=#{id};
-	</update>
-
-	<select id="getNoticeCount" parameterType="java.util.Map" resultType="java.lang.Integer" >
-		select
-		count(*)
-		from notice
-		<where>
-			<if test="title!=null">
-				and title like concat('%',#{title},'%')
-			</if>
-			<if test="date!=null">
-				and time >= DATE_FORMAT(#{date}, '%Y-%m-%d')
-			</if>
-			<if test="type!=null">
-				and type = #{type}
-			</if>
-		</where>
-	</select>
-
-	<select id="getNotice" parameterType="java.util.Map" resultType="com.great.entity.Notice" >
-		select
-		*
-		from notice
-		<where>
-			<if test="title!=null and ''!=title">
-				and title like concat('%',#{title},'%')
-			</if>
-			<if test="date!=null and ''!=date">
-				and time >= DATE_FORMAT(#{date}, '%Y-%m-%d')
-			</if>
-			<if test="type!=null and ''!=type">
-				and type = #{type}
-			</if>
-		</where>
-		order by time desc limit #{minlimit} , #{maxlimit}
-	</select>
-
-	<select resultType="com.great.entity.Notice" id="getNoticeType">
-		select distinct type from notice
-	</select>
-
-	<delete parameterType="integer" id="deleteNotice">
-		delete from notice where id=#{id}
-	</delete>
-
-	<update parameterType="com.great.entity.Notice" id="updateNoticeMsg">
-		update notice
-		<set>
-			<if test="title!=null">
-				title=#{title}
-			</if>
-			<if test="content!=null">
-				,content=#{content}
-			</if>
-			<if test="type!=null">
-				,type=#{type}
-			</if>
-		</set>
-		where id=#{id}
-	</update>
-
-
-    <select id="getNoticeMsg" resultType="com.great.entity.Notice" parameterType="java.lang.Integer">
-		select
-		*
-		from notice
-		where id=#{id}
-	</select>
-
-
-
-	<insert id="insertNotice" parameterType="com.great.entity.Notice">
-		insert into
-		notice (title, content, time, type)
-		values (
-		#{title},
-		#{content},
-		now(),
-		#{type})
-	</insert>
 
 </mapper>

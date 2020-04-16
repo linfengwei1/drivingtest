@@ -86,23 +86,9 @@
                 <input type="text"   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" id="age" name="age" required lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <!--************这里是上传图片的代码***************-->
-        <!--************这里添加的隐藏的输入框，用来传递images的参数***************-->
-        <input type="hidden" name="image" class="image"  >
-        <div class="layui-form-item">
-            <label class="layui-form-label ">照片:</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn" id="test1">上传图片</button>
-                <div class="layui-upload-list">
-                    <img class="layui-upload-img" id="demo1" style="width: 100px;height: 80px;margin-left: 22%;">
-                    <p id="demoText"></p>
-                </div>
-            </div>
-        </div>
-        <!--************上面里是上传图片的代码***************-->
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo" id="OK">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>

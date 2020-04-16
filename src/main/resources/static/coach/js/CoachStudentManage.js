@@ -10,7 +10,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
     table.render({
         elem: '#dataTable'
         , height: 280
-        , url: path + '/coach/CoachStudentTable' //数据接口
+        , url: path + '/coach/SchoolStudentTable' //数据接口
         , page: true //开启分页
         , id: 'searchTable'
         , limit: 5
@@ -21,33 +21,32 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             , {field: 'name', title: '姓名', width: 80,  align: 'center'}
             , {field: 'sex', title: '性别', width: 80, align: 'center'}
             , {field: 'age', title: '年龄', width: 90, sort: true, align: 'center'}
-            , {field: 'idNumber', title: '身份证号码', width: 180, sort: true, align: 'center'}
-            // , {field: 'idNumber', title: '当前学时', width: 180, sort: true, align: 'center'}
+            // , {field: 'idNumber', title: '身份证号码', width: 180, sort: true, align: 'center'}
             , {field: 'phone', title: '联系方式', width: 120, align: 'center'}
-            , {field: 'student_state_id', title: '当前阶段', width: 130, align: 'center',
+            , {field: 'coach_state_id', title: '当前状态', width: 130, align: 'center',
                 templet: function(d){
-                    console.log("student_state_id:"+d.state);
-                    if (1==d.student_state_id){
+                    var state;
+                    if (1==d.coach_state_id){
                         return '科目一'
-                    }else if (2==d.student_state_id){
+                    }else if (2==d.coach_state_id){
                         return '科目二'
-                    }else if(3==d.student_state_id){
+                    }else if(3==d.coach_state_id){
                         return '科目三'
-                    }else if(4==d.student_state_id){
+                    }else if(4==d.coach_state_id){
                         return '科目四'
-                    }else if(5==d.student_state_id){
+                    }else if(5==d.coach_state_id){
                         return '待审核'
-                    }else if(6==d.student_state_id){
+                    }else if(6==d.coach_state_id){
                         return '审核不通过'
-                    }else if(8==d.student_state_id){
+                    }else if(8==d.coach_state_id){
                         return '资料不完整'
-                    } else if(9==d.student_state_id){
+                    } else if(9==d.coach_state_id){
                         return '科目一申请考试'
-                    }else if(10==d.student_state_id){
+                    }else if(10==d.coach_state_id){
                         return '科目二申请考试'
-                    }else if(11==d.student_state_id){
+                    }else if(11==d.coach_state_id){
                         return '科目三申请考试'
-                    }else if(12==d.student_state_id){
+                    }else if(12==d.coach_state_id){
                         return '科目四申请考试'
                     }
                     return '毕业'

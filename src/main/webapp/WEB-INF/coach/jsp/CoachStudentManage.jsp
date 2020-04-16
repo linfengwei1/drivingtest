@@ -37,10 +37,7 @@
                                 <option value="5">待审核</option>
                                 <option value="6">审核不通过</option>
                                 <option value="7">毕业</option>
-                                <option value="9">科目一申请考试</option>
-                                <option value="10">科目二申请考试</option>
-                                <option value="11">科目三申请考试</option>
-                                <option value="12">科目四申请考试</option>
+                                <option value="8">资料不完整</option>
                             </select>
                         </div>
                     </div>

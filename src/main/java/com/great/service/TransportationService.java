@@ -88,7 +88,7 @@ public interface TransportationService {
      * 获取学员列表
      * @return
      */
-    public ObjectResult getStudentTbl(Integer page, Integer limit ,String state,String name,String type);
+    public ObjectResult getStudentTbl(Integer page, Integer limit, String state, String name, String type);
 
     /**
      * 获取学校表
@@ -227,7 +227,7 @@ public interface TransportationService {
      * @param limit
      * @return
      */
-    public ObjectResult getNotice(Integer page, Integer limit, String title , String date, String type);
+    public ObjectResult getNotice(Integer page, Integer limit, String title, String date, String type);
 
     /**
      * 获取公告类型

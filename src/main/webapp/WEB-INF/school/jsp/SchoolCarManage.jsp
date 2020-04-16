@@ -17,23 +17,23 @@
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<form class="layui-form" action="" >
+<form class="layui-form" action="" onsubmit="return false;">
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
-        <h2 style="margin-left: 43%">车辆管理3</h2>
+        <h2 style="margin-left: 43%">车辆管理</h2>
     </div>
     <div class="layui-fluid" id="searchTable" style="margin-top: 1%;">
-        <div class="layui-form-item">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
             <div style="padding-bottom: 10px;">
                 <div class="layui-upload">
                     <div style="float: left">
                         <label class="layui-form-label" >教练姓名</label>
-                        <div class="layui-input-inline" style="width: 190px">
-                            <input class="layui-input" name="name" id="name" autocomplete="off">
+                        <div class="layui-input-block" style="width: 190px">
+                            <input class="layui-input" name="coachName" id="coachName" autocomplete="off">
                         </div>
                     </div>
                     <div style="float: left;margin-left: 2%">
                         <label class="layui-form-label" >车牌号码</label>
-                        <div class="layui-inline" style="width: 190px">
+                        <div class="layui-input-block" style="width: 190px">
                             <input class="layui-input" name="carNumber" id="carNumber" autocomplete="off">
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div style="clear: left;margin-left: 30%;padding-top: 1% ">
-                        <button type="button"  class="layui-btn layui-btn-normal"  data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                        <button type="button"  class="layui-btn layui-btn-normal" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>添加车辆</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>EXCEL导入</button>
                     </div>
@@ -57,8 +57,10 @@
             </div>
         </div>
     </div>
-    <table id="dataTable" lay-filter="test"></table>
 
+    <div class="layui-anim layui-anim-scale" style="clear: left">
+        <table id="dataTable" lay-filter="test"></table>
+    </div>
 
 </form>
 </body>
@@ -67,16 +69,10 @@
     {{#  if(d.carState == '审核失败'){ }}
     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>人员分配</button>
-    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="resubmit" ><i class="layui-icon">&#xe642;</i>重新审核</button>
-
-    {{# } if(d.carState == '信息不完整'){ }}
-    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
-    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="AddCarImage" ><i class="layui-icon">&#xe642;</i>图片上传</button>
-    {{# } if(d.carState == '审核通过'){ }}
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>提交审核</button>
+    {{#  } else { }}
     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>人员分配</button>
-    {{# } if(d.carState == '待审核'){ }}
-    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
     {{#  } }}
 
 
@@ -88,10 +84,6 @@
         var table = layui.table;
         var path = $("#path").val();
 
-        //阻止表单提交
-        form.on('submit(formDemo)', function(data){
-            return false;//阻止表单跳转
-        });
 
         //第一个实例
         table.render({
@@ -182,49 +174,6 @@
                         var iframe = layero.find('iframe')[0].contentWindow;//新iframe窗口的对象
                         body.find("#coach_id").val(cid);
                         iframe.layui.form.render('select');//对页面中的下拉框重新渲染
-                    },
-
-                });
-            }
-
-            if(layEvent === 'resubmit'){ //重新提交
-                var $td = $(this).parents('tr').children('td');
-                var id = $td.eq(0).text();//获取点击按钮相对应的id
-                $.ajax({
-                    async:true,
-                    method : "POST",
-                    url :path1+'/school/carResubmit',
-                    data: "id="+id,
-                    dataType : "text",
-                    success:function(data){
-                        if ("success"==data){
-                            layer.alert("提交成功",{icon:6},function () {
-                                window.parent.location.reload();
-                            });
-                        }else {
-                            layer.alert("提交失败",{icon:2});
-                        }
-                    },
-                    error:function (err) {
-                        layer.alert("网络繁忙",{icon:2});
-                    }
-                })
-
-            }
-
-
-            if(layEvent === 'AddCarImage'){ //上传图片
-                var $td = $(this).parents('tr').children('td');
-                var id = $td.eq(0).text();//获取点击按钮相对应的id
-                layer.open({
-                    title:'上传图片',
-                    type: 2,
-                    area: ['500px', '400px'],
-                    content:path1+"/school/path/AddCarImage",//弹出的页面
-                    success: function (layero, index) {
-                        var body = layer.getChildFrame("body", index);//弹出页面的body标签
-                        body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
-
                     },
 
                 });
