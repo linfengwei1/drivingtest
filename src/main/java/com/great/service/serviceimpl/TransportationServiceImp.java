@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * ClassName: TransportationServiceImp <br/>
@@ -423,5 +421,112 @@ public class TransportationServiceImp implements TransportationService {
         return td.insertNotice(notice);
     }
 
+    @Override
+    public List<TestTime> getExamTime() {
+        return td.getExamTime();
+    }
+
+    @Override
+    public Integer insertExamTime(String start, String end, String sid, String scolor)  {
+
+        //验证日期是否包含关系//包含找出最大最小
+
+        List<TestTime> testTimes=td.getExamTimeBySchoolId(sid);
+
+        System.out.println(testTimes);
+
+        boolean flag=false;
+
+        if (testTimes==null){
+            flag=true;
+        }else {
+            for (int i=0;i<testTimes.size();i++){
+                Map<String,String> map=timeVerify(start,end,testTimes.get(i).getStart_time().split(" ")[0],testTimes.get(i).getEnd_time().split(" ")[0]);
+                if (map.get("flag").equals("true")){
+
+                    Map<String,Object> map1=new HashMap<>();
+                    map1.put("id",testTimes.get(i).getId());
+                    map1.put("start",start);
+                    map1.put("end",end);
+
+                    System.out.println("111");
+                    td.updateExamTime(map1);
+
+                    break;
+                }
+                flag = true;
+            }
+        }
+        //不包含直接插入数据
+        if (flag){
+            System.out.println("222");
+            Map<String,Object> map1=new HashMap<>();
+            map1.put("start",start);
+            map1.put("end",end);
+            map1.put("sid",sid);
+            map1.put("scolor",scolor);
+            td.insertExamTime(map1);
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public Map<String,String> timeVerify(String nowTime1,String nowTime2,String startTime,String endTime)  {
+        Map<String,String> map=new HashMap<>();
+        try {
+            String	flag="true";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String dateStr1_1 = nowTime1;
+            String dateStr1_2 = nowTime2;
+            String dateStr2_1 = startTime;
+            String dateStr2_2 = endTime;
+            Date s1 = sdf.parse(dateStr1_1);
+            Date s2 = sdf.parse(dateStr1_2);
+            Date e1 = sdf.parse(dateStr2_1);
+            Date e2 = sdf.parse(dateStr2_2);
+
+        if((s1.getTime()<=e1.getTime()) && (e1.getTime()<=s2.getTime())){
+        }else if((e1.getTime()<=s1.getTime())&&(s1.getTime()<=e2.getTime())&&(e2.getTime()<=s2.getTime())){
+        }else if((e1.getTime()<=s1.getTime())&&(e1.getTime()<=s2.getTime())&&(s2.getTime()<=e2.getTime())) {
+        }else if((s1.getTime()<=e1.getTime())&&(s2.getTime()>=e2.getTime())) {
+        }else{
+            flag="false";
+        }
+
+        List<Date> dates=new ArrayList<>();
+        dates.add(s1);
+        dates.add(s2);
+        dates.add(e1);
+        dates.add(e2);
+        Date max=dates.get(0);
+        Date min=dates.get(0);
+        for(int i=1;i<dates.size();i++) {
+            if (dates.get(i).getTime()>max.getTime()) {
+                max=dates.get(i);
+            }
+            if (dates.get(i).getTime()<min.getTime()) {
+                min=dates.get(i);
+            }
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String time1=formatter.format(max);
+        String time2=formatter.format(min);
+
+
+        map.put("flag",flag);
+        map.put("min",time2);
+        map.put("max",time1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @Override
+    public Integer deleteExamTime(Integer tid) {
+        return td.deleteExamTime(tid);
+    }
 
 }

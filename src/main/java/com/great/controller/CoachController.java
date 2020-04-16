@@ -154,6 +154,7 @@ public class CoachController
         utils.setMaxLimit(limit);
         System.out.println("utils:"+utils);
         Map map = (Map) coachManageService.getCoachStudentTable(utils);
+        System.out.println("map:"+map);
         if (null!=map.get("list")){
             dateTable.setData((List<?>) map.get("list"));
             dateTable.setCode(0);

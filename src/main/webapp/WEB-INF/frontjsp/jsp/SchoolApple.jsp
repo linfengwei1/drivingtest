@@ -23,26 +23,27 @@
 			<input type="text" name="title" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
 		</div>
 	</div>
-	<div class="layui-form-item">
-		<div class="layui-upload">
-			<button type="button" class="layui-btn" id="test2">多图片上传</button>
+
+	<div class="layui-form-item layui-form-text">
+		<label class="layui-form-label">封面图</label>
+		<div class="layui-input-block" id="test1" style="border: 1px solid #9F9F9F;">
+			<div class="layui-upload-list">
+				<img class="layui-upload-img" id="demo1">
+			</div>
+		</div>
+		<input type="hidden" name="lImage" value="" >
+	</div>
+
+	<div class="layui-form-item layui-form-text">
+		<label class="layui-form-label">附加图片</label>
+		<div class="layui-input-block" id="test2">
 			<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-				预览图：
+				预览图(可上传多张)：
 				<div class="layui-upload-list" id="demo2"></div>
 			</blockquote>
 		</div>
 	</div>
-	<div class="layui-form-item">
-		<label class="layui-form-label">照片</label>
-		<div class="layui-input-block">
-			<button type="button" class="layui-btn" id="upload1">上传图片</button>
-			<input type="hidden" id="img_url" name="img" value=""/>
-			<div class="layui-upload-list">
-				<img class="layui-upload-img" width="100px" height="80px" id="demo1"/>
-				<p id="demoText"></p>
-			</div>
-		</div>
-	</div>
+
 
 	<div class="layui-form-item">
 		<div class="layui-input-block">
@@ -125,4 +126,55 @@
 		});
 	});
 </script>
+
+<script type="text/javascript" data-th-inline="javascript">
+	layui.use(['form', 'layedit', 'upload'], function() {
+		var form = layui.form
+			, layer = layui.layer
+			, laydate = layui.laydate
+			, $ = layui.jquery
+			, upload = layui.upload;
+
+		//普通图片上传
+		var uploadInst = upload.render({
+			elem: '#test1'
+			,url: '/invitation/upload_one/'
+			,before: function(obj){
+				//预读本地文件示例，不支持ie8
+				obj.preview(function(res, file, result){
+					$('#demo1').attr('src', result); //图片链接（base64）
+				});
+			}
+			,done: function(res){
+				//如果上传失败
+				if(res.code == 200){
+					return layer.msg('上传失败');
+				}
+				// 将数据放到input框中
+				$("input[name='lImage']").val(res.extend.msg);
+			}
+		});
+
+		//多图片上传 （其实也是一个单文件上传）
+		upload.render({
+			elem: '#test2'
+			,url: '/invitation/upload_one/'
+			,multiple: true
+			,before: function(obj){
+				//预读本地文件示例，不支持ie8
+				obj.preview(function(index, file, result){
+					$('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+				});
+			}
+			,done: function(res){
+				//上传完毕
+				console.log(res);
+				$("#demo2").append('<input type="hidden" name="add_pic" value="'+ res.extend.msg +'"/>');
+			}
+		});
+
+	})
+</script>
+
+
 </html>

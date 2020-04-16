@@ -7,14 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%String path=request.getContextPath(); %>
-<link rel="stylesheet" href="../layui/css/layui.css">
-<script src="../layui/layui.js"></script>
-<script src="../layui/jquery-3.4.1.js"></script>
-<script src="../layui/json2.js"></script>
-<script src="../layui/js/login.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
+<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/homepage.css">--%>
+<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
+<script src="${pageContext.request.contextPath}/static/homepage/js/homepage.js" type="text/javascript" charset="utf-8"></script>
 <html>
 <head>
-    <title>哈哈哈</title>
+    <title>机动车驾驶员计时培训系统</title>
 </head>
 <body>
 <div id="header" style="background-color: white;width: 100%;height: 10%">
@@ -23,9 +23,9 @@
 
 <div class="layui-carousel" id="test1">
     <div carousel-item>
-        <div><img src="../static/layui/image/1.jpg" /></div>
-        <div><img src="../static/layui/image/2.jpg" /></div>
-        <div><img src="../static/layui/image/3.jpg" /></div>
+        <div><img src="${pageContext.request.contextPath}/static/images/0004w.jpg" /></div>
+        <div><img src="${pageContext.request.contextPath}/static/images/2020-04-12/480cd42b-18d3-4736-a74a-dcde4abaa54b.jpg" /></div>
+        <div><img src="${pageContext.request.contextPath}/static/images/2020-04-13/8527f177-1340-4c6f-8c20-b8afbf951d30.jpg" /></div>
     </div>
 </div>
 
@@ -89,21 +89,12 @@
         <div class="layui-tab-item">内容3</div>
         <div class="layui-tab-item">内容4</div>
         <div class="layui-tab-item">
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="">运管人员</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="">驾校人员</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="">教练</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="">学员</a>
-                </li>
-            </ul>
+	        <div style="padding: 50px">
+		        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">运管门户</a>
+		        <a href="${pageContext.request.contextPath}/school/path/SchoolLogin" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit">驾校门户</a>
+		        <a href="${pageContext.request.contextPath}/coach/login" class="layui-btn layui-btn-warm layui-btn-radius layui-btn-lg layui-anim layui-anim-scale">教练门户</a>
+		        <a href="${pageContext.request.contextPath}/student/path/StudentLogin" class="layui-btn layui-btn layui-btn-radius layui-btn-primary layui-btn-lg layui-anim layui-anim-scaleSpring">学员门户</a>
+	        </div>
         </div>
     </div>
 </div>
@@ -228,6 +219,33 @@
 
 
 </script>
+
+
+<%--<script>--%>
+<%--    layui.use([], function () {--%>
+<%--        var $ = layui.jquery;--%>
+<%--        //演示动画开始--%>
+<%--        $('.site-doc-icon .layui-anim').on('click', function(){--%>
+<%--            var othis = $(this), anim = othis.data('anim');--%>
+
+<%--            //停止循环--%>
+<%--            if(othis.hasClass('layui-anim-loop')){--%>
+<%--                return othis.removeClass(anim);--%>
+<%--            }--%>
+<%--            othis.removeClass(anim);--%>
+<%--            setTimeout(function(){--%>
+<%--                othis.addClass(anim);--%>
+<%--            });--%>
+<%--            //恢复渐隐--%>
+<%--            if(anim === 'layui-anim-fadeout'){--%>
+<%--                setTimeout(function(){--%>
+<%--                    othis.removeClass(anim);--%>
+<%--                }, 1300);--%>
+<%--            }--%>
+<%--        });--%>
+<%--        //演示动画结束--%>
+<%--    })--%>
+<%--</script>--%>
 
 
 

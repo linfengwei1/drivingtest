@@ -41,6 +41,10 @@
                                 <option value="10">科目二申请考试</option>
                                 <option value="11">科目三申请考试</option>
                                 <option value="12">科目四申请考试</option>
+                                <option value="13">科目一考试中</option>
+                                <option value="14">科目二考试中</option>
+                                <option value="15">科目三考试中</option>
+                                <option value="16">科目四考试中</option>
                             </select>
                         </div>
                     </div>
@@ -85,8 +89,8 @@
         <table id="dataTable" lay-filter="test"></table>
     </div>
     <script type="text/html" id="butdiv">
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>预约考试</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>查看评价</button>
     </script>
 
 </form>

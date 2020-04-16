@@ -49,10 +49,23 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                         return '科目三申请考试'
                     }else if(12==d.student_state_id){
                         return '科目四申请考试'
+                    }else if(13==d.student_state_id){
+                        return '科目一考试中'
+                    }else if(14==d.student_state_id){
+                        return '科目二考试中'
+                    }else if(15==d.student_state_id){
+                        return '科目三考试中'
+                    }else if(16==d.student_state_id){
+                        return '科目四考试中'
                     }
                     return '毕业'
                 }}
-            , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
+            , {field: 'time', title: '学时', width: 120, align: 'center'}
+            , {field: 'oneScore', title: '科目一成绩', width: 120, align: 'center'}
+            , {field: 'twoScore', title: '科目二成绩', width: 120, align: 'center'}
+            , {field: 'threeScore', title: '科目三成绩', width: 120, align: 'center'}
+            , {field: 'fourScore', title: '科目四成绩', width: 120, align: 'center'}
+            , {field: '', title: '操作', toolbar: "#butdiv", width: 250, align: 'center'}
         ]]
     });
 
