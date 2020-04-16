@@ -17,8 +17,35 @@
 		<result property="phone" column="phone"></result>
 		<result property="student_state_id" column="student_state_id"></result>
 		<result property="school_id" column="school_id"></result>
+		<result property="coach_id" column="coach_id"></result>
 		<result property="identity_state" column="identity_state"></result>
+		<association property="school"
+					 select="selectSchoolById"
+					 column="school_id">
+		</association>
+		<association property="coach"
+					 select="selectCoachById"
+					 column="coach_id">
+		</association>
 	</resultMap>
+
+
+	<resultMap id="coachMap" type="com.great.entity.Coach">
+		<result column="coach_state_id" property="coach_state_id"></result>
+		<result column="school_id" property="school_id"></result>
+		<result column="audit_results" property="audit_results"></result>
+	</resultMap>
+	<resultMap id="schoolMap" type="com.great.entity.School">
+		<result column="school_state_id" property="school_state_id"></result>
+		<result column="audit_results" property="audit_results"></result>
+	</resultMap>
+	<resultMap id="evaSchoolMap" type="com.great.entity.EvaluationToSchool">
+		<result column="school_id" property="school_id"></result>
+	</resultMap>
+	<resultMap id="evaCoach" type="com.great.entity.EvaluationToCoach">
+		<result column="coachid" property="coachId"></result>
+	</resultMap>
+
 
 	<resultMap id="studyConditionMap" type="StudyCondition">
 <!--		<id property="id" column="id"></id>-->
@@ -50,6 +77,13 @@
 		select * from student where account = #{account} and pwd = #{pwd}
 	</select>
 
+	<select id="selectSchoolById" resultMap="schoolMap" parameterType="int">
+		select * from school where id = #{id}
+	</select>
+	<select id="selectCoachById" resultMap="coachMap" parameterType="int">
+		select * from coach where id = #{id}
+	</select>
+
 
 	<select id="getStudentState" resultType="int">
 		select student_state_id from student where id = #{studentId}
@@ -59,17 +93,29 @@
 		select time from studycondition where student_id = #{studentId} and subject_id = #{subject}
 	</select>
 	<select id="getPractiseScoreById" resultType="int" parameterType="java.util.HashMap">
-		select practise_score from studycondition where student_id = #{studentId} and subject_id = #{subject}
+		select ifnull(practise_score,0) from studycondition where student_id = #{studentId} and subject_id = #{subject}
 	</select>
 	<select id="checkReapSignUp" resultType="int" >
 		select count(*) from signuprecord where studentid = #{studentId} and subjectid = #{subject} and  date_format(now(), '%Y-%m-%d') = date_format(time, '%Y-%m-%d')
 	</select>
 
 	<select id="getStudyConditionById" resultMap="studyConditionMap" >
-		select s.id,s.practise_score,sc.score,s.student_id,s.subject_id,s.time  from studycondition as s,score as sc
+		select s.id,s.practise_score,ifnull(sc.score,0) as score,s.student_id,s.subject_id,s.time  from studycondition as s,score as sc
 		where s.student_id = #{studentId}
 		and s.subject_id = sc.subject_id
 	</select>
+
+	<select id="getAllEvaForSchool" resultMap="evaSchoolMap" >
+		select * from evaluation where school_id = ${school_id}
+	</select>
+	<select id="getAllEvaForCoach" resultMap="evaCoach" >
+		select * from evaluationforcoach where coachid = ${coachId}
+	</select>
+
+
+
+
+
 	<select id="getMyScore" resultMap="scoreMap" >
 		select s.name,t.datetime,sc.score from time as t,score as sc,appoint_time_relation as a,`subject` as s
 		where sc.student_id = #{studentId} and sc.appoint_time_relation_id =  a.id and a.time_id=t.id and sc.subject_id = s.id
@@ -174,6 +220,9 @@
 		</foreach>
 	</select>
 
+	<update id="updatePwd">
+		update student set pwd = #{pwd} where id = #{id}
+	</update>
 	<update id="addStudy1Time">
 		update studycondition set time = time +1 where student_id = #{studentId} and subject_id = #{subject}
 	</update>
@@ -186,9 +235,21 @@
 	<update id="changeStudentState">
 		update student set student_state_id = #{stateId} where id = #{studentId}
 	</update>
+	<update id="updatePractiseScore">
+		update studycondition set practise_score = #{score} where student_id = #{studentId}
+	</update>
+	<update id="setStage">
+		update student set student_state_id = #{stage} where id = #{studentId}
+	</update>
 
 	<insert id="addSignUpRecord">
 		insert into signuprecord(studentid,subjectid,time) values (#{studentId},#{subject},#{time})
+	</insert>
+	<insert id="addEvaForSchool">
+		insert into evaluation(content,time,school_id) values (#{content},now() ,#{school_id})
+	</insert>
+	<insert id="addEvaForCoach">
+		insert into evaluationforcoach(content,time,coachid) values (#{content},now() ,#{coachId})
 	</insert>
 <!--	<resultMap id="menuMap" type="TreeData">-->
 <!--		<id property="id" column="id"></id>-->

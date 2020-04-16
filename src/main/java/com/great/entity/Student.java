@@ -20,11 +20,12 @@ public class Student
 	private String audit_results;//审核结果
 	private int identity_state;//是否录入人脸信息
 	private int coach_id;;//教练id
+	private Coach coach;//教练
 	public Student()
 	{
 	}
 
-	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school, String schoolName, String image, String audit_results, int identity_state)
+	public Student(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school, String schoolName, String image, String audit_results, int identity_state, int coach_id, Coach coach)
 	{
 		this.id = id;
 		this.account = account;
@@ -42,14 +43,8 @@ public class Student
 		this.image = image;
 		this.audit_results = audit_results;
 		this.identity_state = identity_state;
-	}
-
-	public int getCoach_id() {
-		return coach_id;
-	}
-
-	public void setCoach_id(int coach_id) {
 		this.coach_id = coach_id;
+		this.coach = coach;
 	}
 
 	public int getId()
@@ -172,27 +167,33 @@ public class Student
 		this.school = school;
 	}
 
-	public String getSchoolName() {
+	public String getSchoolName()
+	{
 		return schoolName;
 	}
 
-	public void setSchoolName(String schoolName) {
+	public void setSchoolName(String schoolName)
+	{
 		this.schoolName = schoolName;
 	}
 
-	public String getImage() {
+	public String getImage()
+	{
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(String image)
+	{
 		this.image = image;
 	}
 
-	public String getAudit_results() {
+	public String getAudit_results()
+	{
 		return audit_results;
 	}
 
-	public void setAudit_results(String audit_results) {
+	public void setAudit_results(String audit_results)
+	{
 		this.audit_results = audit_results;
 	}
 
@@ -206,26 +207,29 @@ public class Student
 		this.identity_state = identity_state;
 	}
 
+	public int getCoach_id()
+	{
+		return coach_id;
+	}
+
+	public void setCoach_id(int coach_id)
+	{
+		this.coach_id = coach_id;
+	}
+
+	public Coach getCoach()
+	{
+		return coach;
+	}
+
+	public void setCoach(Coach coach)
+	{
+		this.coach = coach;
+	}
+
 	@Override
-	public String toString() {
-		return "Student{" +
-				"id=" + id +
-				", account='" + account + '\'' +
-				", pwd='" + pwd + '\'' +
-				", name='" + name + '\'' +
-				", sex='" + sex + '\'' +
-				", age='" + age + '\'' +
-				", idNumber='" + idNumber + '\'' +
-				", phone='" + phone + '\'' +
-				", student_state_id=" + student_state_id +
-				", school_id=" + school_id +
-				", verification='" + verification + '\'' +
-				", school=" + school +
-				", schoolName='" + schoolName + '\'' +
-				", image='" + image + '\'' +
-				", audit_results='" + audit_results + '\'' +
-				", identity_state=" + identity_state +
-				", coach_id=" + coach_id +
-				'}';
+	public String toString()
+	{
+		return "Student{" + "id=" + id + ", account='" + account + '\'' + ", pwd='" + pwd + '\'' + ", name='" + name + '\'' + ", sex='" + sex + '\'' + ", age='" + age + '\'' + ", idNumber='" + idNumber + '\'' + ", phone='" + phone + '\'' + ", student_state_id=" + student_state_id + ", school_id=" + school_id + ", verification='" + verification + '\'' + ", school=" + school + ", schoolName='" + schoolName + '\'' + ", image='" + image + '\'' + ", audit_results='" + audit_results + '\'' + ", identity_state=" + identity_state + ", coach_id=" + coach_id + ", coach=" + coach + '}';
 	}
 }

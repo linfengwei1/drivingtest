@@ -262,22 +262,15 @@ public class StudentManageServiceImpl implements StudentManageService
 	{
 		int score = 0;
 		if(testReplieslist.getSubject() == 1)//得到科目一考试分数
-		{
+		{   //计算出成绩
 			score = studentDao.getTest_1Score(testReplieslist.getTestReplieslist());
-			if(score >= 1)//通过考试 ，进入科目二阶段
-			{
 				//写入成绩
-				int i = studentDao.changeStudentState(testReplieslist.getStudentId(),2);
-				System.out.println("更新条数"+i);
-			}
+			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score);
 		}else//考科目四
 		{
 			score = studentDao.getTest_4Score(testReplieslist.getTestReplieslist());
-			if(score >= 90)//通过考试 ，毕业
-			{
-				//写入成绩
-				studentDao.changeStudentState(testReplieslist.getStudentId(),4);
-			}
+			//写入成绩
+			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score);
 		}
 
 		System.out.println("本次考试得了"+score);
@@ -314,12 +307,25 @@ public class StudentManageServiceImpl implements StudentManageService
 
 
 	@Override
-	public List<StudyCondition>  getStudyCondition(String studentId)
+	public List<StudyCondition>  getStudyCondition(String studentId,String status)
 	{
+		System.out.println(status);
+		int stage = Integer.parseInt(status);
 		List<StudyCondition> list =  studentDao.getStudyConditionById(Integer.parseInt(studentId));
 		for (StudyCondition s : list)
 		{
-			System.out.println(s);
+			//遍历学习状态列表，如果处于当前阶段，且分数大于90，则进入下一阶段  status为当前阶段
+			if(stage == s.getSubject_id() && s.getScore() >=90)
+			{
+				if(stage == 4)//如果是第四阶段直接毕业
+				{
+					studentDao.setStage(Integer.parseInt(studentId),7);//直接毕业
+
+				}else
+				{
+					studentDao.setStage(Integer.parseInt(studentId),stage+1);//进入下一阶段
+				}
+			}
 		}
 		return list;
 	}
@@ -338,5 +344,53 @@ public class StudentManageServiceImpl implements StudentManageService
 		List<ExamOrder> list =  studentDao.getOrderTime(Integer.parseInt(studentId));
 
 		return list;
+	}
+
+	@Override
+	public List<EvaluationToSchool> getAllEvaForSchool(String schoolId)
+	{
+		List<EvaluationToSchool> list =  studentDao.getAllEvaForSchool(Integer.parseInt(schoolId));
+
+		return list;
+	}
+
+	@Override
+	public String addEvaForSchool(String schoolId, String content)
+	{
+		String result = null;
+		int n = studentDao.addEvaForSchool(Integer.parseInt(schoolId),content);
+		if(n>0)
+		{
+			result = "success";
+		}
+		return result;
+	}
+
+	@Override
+	public List<EvaluationToCoach> getAllEvaForCoach(String coachId)
+	{
+		List<EvaluationToCoach> list =  studentDao.getAllEvaForCoach(Integer.parseInt(coachId));
+
+		return list;
+	}
+
+	@Override
+	public String addEvaForCoach(String coachId, String content)
+	{
+		String result = null;
+		int n = studentDao.addEvaForCoach(Integer.parseInt(coachId),content);
+		if(n>0)
+		{
+			result = "success";
+		}
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public int updatePwd(int id,String account, String pwd)
+	{
+		int n = studentDao.updatePwd(id,account,pwd);
+		return n;
 	}
 }

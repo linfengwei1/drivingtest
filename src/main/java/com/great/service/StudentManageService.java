@@ -25,11 +25,21 @@ public interface StudentManageService
 
 	String getStudentState(String studentId, String subject);
 
-	List<StudyCondition> getStudyCondition(String studentId);
+	List<StudyCondition> getStudyCondition(String studentId,String status);
 
 	List<Score> getMyScore(String studentId);
 
 	List<ExamOrder> getOrderTime(String studentId);
+
+	List<EvaluationToSchool> getAllEvaForSchool(String schoolId);
+
+	String addEvaForSchool(String schoolId, String content);
+
+	List<EvaluationToCoach> getAllEvaForCoach(String coachId);
+
+	String addEvaForCoach(String coachId, String content);
+
+	int updatePwd(int id,String account, String pwd);
 	//	public User findUser(String uname, String pwd);
 //	public List<User> findAll(HashMap<String, Object> map) throws SQLException;
 //
