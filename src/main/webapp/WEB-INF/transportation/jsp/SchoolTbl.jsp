@@ -63,8 +63,17 @@
     {{#  if(d.school_state_id == 4){ }}
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine"><i class="layui-icon">&#xe642;</i>审核</a>
-    {{#  } else { }}
+    {{#  } else if(d.school_state_id ==3){ }}
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stopApply"><i class="layui-icon">&#xe642;</i>禁止报名</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stopDoing"><i class="layui-icon">&#xe642;</i>封停</a>
+    {{#  } else if(d.school_state_id ==2){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+    <a class="layui-btn layui-btn-xs" lay-event="relieveApply"><i class="layui-icon">&#xe63c;</i>解除限制</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stopDoing"><i class="layui-icon">&#xe642;</i>封停</a>
+    {{#  } else{ }}
+    <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+    <a class="layui-btn layui-btn-xs" lay-event="relieveDoing"><i class="layui-icon">&#xe63c;</i>解除封停</a>
     {{#  } }}
 
 
@@ -107,7 +116,7 @@
                         }
                             return '审核未通过'
                     }}
-                ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                ,{fixed: 'right', width:300, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
         });
 
@@ -159,9 +168,164 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
-            if(layEvent === 'detail'){ //查看
+            if(layEvent === 'stopApply'){
                 //do somehing
-            } else if(layEvent === 'lookMsg'){ //查看信息
+                layer.prompt({title: '问题：', formType: 2}, function(text, index){
+                    layer.close(index);
+
+                    var contentS=text;
+
+                    layer.prompt({title: '处理结果：', formType: 2}, function(text, index){
+                        layer.close(index);
+
+                        var result=text;
+
+                        layer.confirm('是否记录处分?', {
+                            btn : ['记录','取消'],
+                            btn1:function(index){
+
+                                console.log(contentS);
+                                console.log(result);
+                                console.log(data.id);
+                                console.log("禁止");
+                                layer.close(index);
+                                $.ajax({
+                                    async:true,
+                                    method : "POST",
+                                    url :'${pageContext.request.contextPath}/TM/examineSchool',
+                                    data: {"id":data.id,"content":contentS,"result":result,"doing":"禁止"},
+                                    dataType:"text" ,
+                                    success:function(data){
+                                        if ("Success"==data){
+
+                                            layer.alert("处理成功",{icon:6},function () {
+                                                //修改信息
+                                                window.parent.location.reload();
+                                            });
+                                        }
+                                    }
+                                });
+                            },
+                            btn2:function(index){
+                                layer.close(index);
+                            }
+                        });
+
+
+                    });
+
+                });
+
+
+            }else if(layEvent === 'stopDoing'){
+                layer.prompt({title: '问题：', formType: 2}, function(text, index){
+                    layer.close(index);
+
+                    var contentS=text;
+
+                    layer.prompt({title: '处理结果：', formType: 2}, function(text, index){
+                        layer.close(index);
+
+                        var result=text;
+
+                        layer.confirm('是否记录处分?', {
+                            btn : ['记录','取消'],
+                            btn1:function(index){
+
+                                console.log(contentS);
+                                console.log(result);
+                                console.log(data.id);
+                                console.log("封停");
+                                layer.close(index);
+                                $.ajax({
+                                    async:true,
+                                    method : "POST",
+                                    url :'${pageContext.request.contextPath}/TM/examineSchool',
+                                    data: {"id":data.id,"content":contentS,"result":result,"doing":"封停"},
+                                    dataType:"text" ,
+                                    success:function(data){
+                                        if ("Success"==data){
+
+                                            layer.alert("处理成功",{icon:6},function () {
+                                                //修改信息
+                                                window.parent.location.reload();
+                                            });
+                                        }
+                                    }
+                                });
+                            },
+                            btn2:function(index){
+                                layer.close(index);
+                            }
+                        });
+
+
+                    });
+
+                });
+            }else if(layEvent === 'relieveApply'){
+                layer.confirm('是否解除限制?', {
+                    btn : ['解禁','取消'],
+                    btn1:function(index){
+
+                        console.log(contentS);
+                        console.log(result);
+                        console.log(data.id);
+                        console.log("解禁");
+                        layer.close(index);
+                        $.ajax({
+                            async:true,
+                            method : "POST",
+                            url :'${pageContext.request.contextPath}/TM/examineSchool',
+                            data: {"id":data.id,"content":"s","result":"s","doing":"解禁"},
+                            dataType:"text" ,
+                            success:function(data){
+                                if ("Success"==data){
+
+                                    layer.alert("处理成功",{icon:6},function () {
+                                        //修改信息
+                                        window.parent.location.reload();
+                                    });
+                                }
+                            }
+                        });
+                    },
+                    btn2:function(index){
+                        layer.close(index);
+                    }
+                });
+            }else if(layEvent === 'relieveDoing'){
+                layer.confirm('是否解除限制?', {
+                    btn : ['解封','取消'],
+                    btn1:function(index){
+
+                        console.log(contentS);
+                        console.log(result);
+                        console.log(data.id);
+                        console.log("解封");
+                        layer.close(index);
+                        $.ajax({
+                            async:true,
+                            method : "POST",
+                            url :'${pageContext.request.contextPath}/TM/stopSchool',
+                            data: {"id":data.id,"content":"s","result":"s","doing":"解封"},
+                            dataType:"text" ,
+                            success:function(data){
+                                if ("Success"==data){
+
+                                    layer.alert("处理成功",{icon:6},function () {
+                                        //修改信息
+                                        window.parent.location.reload();
+                                    });
+                                }
+                            }
+                        });
+                    },
+                    btn2:function(index){
+                        layer.close(index);
+                    }
+                });
+            }else if(layEvent === 'lookMsg'){ //查看信息
                 console.log(data);
 
                 $.ajax({
@@ -190,7 +354,6 @@
                 //do something
                 console.log(data);
                 var sub=JSON.stringify(data);
-
 
                 //prompt层
                 layer.prompt({title: '审核信息', formType: 2}, function(text, index){

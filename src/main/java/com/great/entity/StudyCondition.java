@@ -85,6 +85,7 @@ public class StudyCondition {
                 ", time=" + time +
                 ", score=" + score +
                 ", student_id=" + student_id +
+                ", practise_score=" + practise_score +
                 '}';
     }
 }
