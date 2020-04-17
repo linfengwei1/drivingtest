@@ -5,12 +5,14 @@ import com.google.gson.JsonParser;
 import com.great.entity.*;
 import com.great.service.LinkService;
 import com.great.service.SchoolManageService;
+import com.great.service.TransportationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.HTML;
@@ -31,6 +33,8 @@ public class LinkController {
 
 	@Autowired//自动注入、自动装配
 	private LinkService linkService;
+	@Resource
+	private TransportationService transportationService;
 	@RequestMapping("/path/{url}")//访问路径的路口：path/{url是作为参数PathVariable路径变量}
 	public String getUrl(@PathVariable(value = "url") String path) {
 		return "/frontjsp/jsp/" + path;//返回
@@ -86,7 +90,8 @@ public class LinkController {
 		Integer limit = Integer.parseInt(request.getParameter("limit"));
 
 		DateTable dt = new DateTable();
-		List<School> schoolList = linkService.findAllSchool();
+//		List<School> schoolList = linkService.findAllSchool();
+		List<School> schoolList = transportationService.getSchoolList();
 		Gson g = new Gson();
 		dt.setCode(0);
 		dt.setCount(schoolList.size());// 总条数

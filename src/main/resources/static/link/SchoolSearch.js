@@ -24,19 +24,19 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             , {field: 'intro', title: '口号', width: 120, sort: true, align: 'center'}
             , {field: 'school_state_id', title: '状态ID', width: 120, sort: true, align: 'center'}
             , {field: 'information', title: '通知', width: 120, sort: true, align: 'center'}
-            // ,{field: 'school_state_id', title: '状态', width: 100, templet: function(d){
-            //         var state;
-            //         if (1==d.school_state_id){
-            //             return '禁止报名'
-            //         }else if (2==d.school_state_id){
-            //             return '封停'
-            //         }else if(3==d.school_state_id){
-            //             return '启用'
-            //         }else if(4==d.school_state_id){
-            //             return '待审核'
-            //         }
-            //         return '审核未通过'
-            //     }}
+            ,{field: 'school_state_id', title: '状态', width: 100, templet: function(d){
+                    var state;
+                    if (1==d.school_state_id){
+                        return '禁止报名'
+                    }else if (2==d.school_state_id){
+                        return '封停'
+                    }else if(3==d.school_state_id){
+                        return '启用'
+                    }else if(4==d.school_state_id){
+                        return '待审核'
+                    }
+                    return '审核未通过'
+                }}
             , {field: 'audit_results', title: '审核状态', width: 120, sort: true, align: 'center'}
             , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
         ]]
