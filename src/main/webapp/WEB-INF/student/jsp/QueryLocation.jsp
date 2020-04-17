@@ -43,11 +43,53 @@
 <script type="text/javascript">
 	// 百度地图API功能
 	// 百度地图API功能
+	// var map = new BMap.Map("allmap");
+	// map.centerAndZoom(new BMap.Point(116.331398,39.897445),20);
+	// map.enableScrollWheelZoom(true);
+	// // var marker = new BMap.Marker(new BMap.Point(118.193217,24.488594));  // 创建标注
+	// map.addOverlay(marker);
+
+
+
+	// 百度地图API功能
 	var map = new BMap.Map("allmap");
-	map.centerAndZoom(new BMap.Point(118.193217,24.488594),20);
+	var point = new BMap.Point(118.193217,24.488594);
 	map.enableScrollWheelZoom(true);
-	var marker = new BMap.Marker(new BMap.Point(118.193217,24.488594));  // 创建标注
-	map.addOverlay(marker);
+
+	map.centerAndZoom(point,20);
+	var geolocation = new BMap.Geolocation();
+
+	setInterval(function () {
+		geolocation.getCurrentPosition(function(r){
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				var mk = new BMap.Marker(r.point);
+				map.addOverlay(mk);
+				map.panTo(r.point);
+				// alert('您的位置：'+r.point.lng+','+r.point.lat);
+				IsInPolygon(r.point);
+			}
+			else {
+				alert('failed'+this.getStatus());
+			}
+		},{enableHighAccuracy: true})
+	},2000);
+
+
+	function getP() {
+		var geolocation = new BMap.Geolocation();
+
+			geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				 return r.point;
+				}
+				else {
+					alert('failed'+this.getStatus());
+					return null;
+				}
+			},{enableHighAccuracy: true})
+	}
+
+
 	// 用经纬度设置地图中心点
 	var overlays = [];
 	var overlaycomplete = function(e){
@@ -75,7 +117,6 @@
 	}
 	let polygon;
 	drawPolygon();//定义栅栏
-	setTimeout(function(){IsInPolygon()},2000);
 	function drawPolygon(){
 
 
@@ -106,16 +147,23 @@
 		map.addOverlay(polygon);
 	}
 
-	function IsInPolygon(){
+	function IsInPolygon(point){
 		layui.use(['layer'], function () {
 			var layer = layui.layer;
-			let lng = $("#ILng").val();
-			let lat = $("#ILat").val();
-			let point = new BMap.Point(lng, lat);
+			// let lng = $("#ILng").val();
+			// let lat = $("#ILat").val();
+
+
+
+
+			// let point = new BMap.Point(lng, lat);
 			let marker = new BMap.Marker(point);
+
+
+
 			map.addOverlay(marker);
 			if (BMapLib.GeoUtils.isPointInPolygon(point, polygon)) {
-				layer.msg('当前处于驾校范围内', {icon: 6});
+				// layer.msg('当前处于驾校范围内', {icon: 6});
 			} else {
 				layer.msg('您已经超出驾校范围', {icon: 5});
 			}

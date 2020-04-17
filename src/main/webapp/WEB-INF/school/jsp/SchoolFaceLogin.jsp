@@ -71,15 +71,15 @@
     <div class="layui-container">
         <div class="layui-row">
             <div class="layui-col-md5 layui-col-md-offset2" style="margin-left: 60%;margin-top: 5%">
-                <video id="video" width="400px" height="300px"  autoplay="autoplay"></video>
+                <video style="float: left" id="video" width="400px" height="300px"  autoplay="autoplay"></video>
             </div>
             <div class="layui-col-md3">
-                <canvas id="canvas" width="400px" height="300px"></canvas>
+                <canvas style="float: left" id="canvas" width="400px" height="300px"></canvas>
             </div>
         </div>
         <div class="layui-row">
-            <div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px">
-                <%--			<button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击人脸打卡</button>--%>
+            <div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px;float: left" >
+<%--                <button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击人脸打卡</button>--%>
             </div>
         </div>
     </div>
@@ -123,28 +123,66 @@
         }
 
         function openMedia() {
-            var constraints = {
-                video: { width: 400, height: 300 },
-                audio: false
-            };
-            //获得video摄像头
-            var video = document.getElementById('video');
-            var promise = navigator.mediaDevices.getUserMedia(constraints);
-            promise.then((mediaStream) => {
-                mediaStreamTrack = typeof mediaStream.stop === 'function' ? mediaStream : mediaStream.getTracks()[1];
-            video.srcObject = mediaStream;
-            video.play();
-        });
+            // 老的浏览器可能根本没有实现 mediaDevices，所以我们可以先设置一个空的对象
+            if (navigator.mediaDevices === undefined) {
+                navigator.mediaDevices = {};
+            }
+
+            // 一些浏览器部分支持 mediaDevices。我们不能直接给对象设置 getUserMedia
+            // 因为这样可能会覆盖已有的属性。这里我们只会在没有getUserMedia属性的时候添加它。
+            if (navigator.mediaDevices.getUserMedia === undefined) {
+                navigator.mediaDevices.getUserMedia = function(constraints) {
+
+                    // 首先，如果有getUserMedia的话，就获得它
+                    var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+                    // 一些浏览器根本没实现它 - 那么就返回一个error到promise的reject来保持一个统一的接口
+                    if (!getUserMedia) {
+                        return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+                    }
+
+                    // 否则，为老的navigator.getUserMedia方法包裹一个Promise
+                    return new Promise(function(resolve, reject) {
+                        getUserMedia.call(navigator, constraints, resolve, reject);
+                    });
+                }
+            }
+
+            navigator.mediaDevices.getUserMedia({ audio: false, video: true })
+                .then(function(stream) {
+                    var video = document.querySelector('video');
+                    // 旧的浏览器可能没有srcObject
+                    if ("srcObject" in video) {
+                        video.srcObject = stream;
+                    } else {
+                        // 防止在新的浏览器里使用它，应为它已经不再支持了
+                        video.src = window.URL.createObjectURL(stream);
+                    }
+                    video.onloadedmetadata = function(e) {
+                        video.play();
+                    };
+                })
+                .catch(function(err) {
+                    console.log(err.name + ": " + err.message);
+                });
+//             var constraints = {
+//                 video: { width: 400, height: 300 },
+//                 audio: false
+//             };
+//             //获得video摄像头
+//             var video = document.getElementById('video');
+//             var promise = navigator.mediaDevices.getUserMedia(constraints);
+//             promise.then((mediaStream) => {
+//                 mediaStreamTrack = typeof mediaStream.stop === 'function' ? mediaStream : mediaStream.getTracks()[1];
+//             video.srcObject = mediaStream;
+//             video.play();
+//             });
         }
         // 拍照
         function takePhoto() {
 
             var path = $("#path").val();
-            var studentid = $("#studentid").val();
-            var subject = $("#subject").val();
-            var student_state_id = $("#student_state_id").val();
             setTimeout(function(){
-                // $("#import").css("disabled",true);
                 //获得Canvas对象
                 var video = document.getElementById('video');
                 var canvas = document.getElementById('canvas');
@@ -156,7 +194,7 @@
                 var imageString = url.split(",")[1];
                 console.log(imageString);
 
-                //用ajax做验证 ,判断是否验证成功
+                // //用ajax做验证 ,判断是否验证成功
                 $.ajax({
                     url: path + '/school/faceLogin',
                     type: "POST",
@@ -185,7 +223,6 @@
                             layer.msg('未匹配到人脸信息或未开通人脸登录', {icon: 5});
                             takePhoto();
                         }
-
 
                     },
                     error: function (msg) {

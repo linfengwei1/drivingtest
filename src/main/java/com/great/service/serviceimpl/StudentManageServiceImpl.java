@@ -389,7 +389,7 @@ public class StudentManageServiceImpl implements StudentManageService
 	public String addEvaForCoach(String coachId, String content)
 	{
 		String result = null;
-		int n = studentDao.addEvaForCoach(Integer.parseInt(coachId),content);
+		int n = studentDao.addEvaForCoach(Integer.parseInt(coachId),content);//增加对教练评论
 		if(n>0)
 		{
 			result = "success";

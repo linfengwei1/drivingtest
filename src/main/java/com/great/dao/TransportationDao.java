@@ -321,4 +321,84 @@ public interface TransportationDao {
      * @return
      */
     public Integer deleteExamTime(Integer tid);
+
+    /**
+     * 统计一阶段人数
+     * @return
+     */
+    public Integer CountSubject1();
+
+    /**
+     * 统计2阶段人数
+     */
+    public Integer CountSubject2();
+
+    /**
+     * 统计3阶段人数
+     */
+    public Integer CountSubject3();
+
+    /**
+     *  统计4阶段人数
+     */
+    public Integer CountSubject4();
+
+    /**
+     * 统计毕业人数
+     */
+    public Integer CountOver();
+
+    /**
+     * 禁止学校
+     * @param map
+     */
+    public void stopApplySchool(Map<String, Object> map);
+
+    /**
+     * 禁止记录
+     * @param map
+     */
+    public void recordApply(Map<String, Object> map);
+
+    /**
+     *  封停学校
+     * @param map
+     */
+    public void stopDoingSchool(Map<String, Object> map);
+
+    /**
+     * 封停教练
+     * @param id
+     */
+    public void stopDoingCoach(Integer id);
+
+    /**
+     * 封停记录
+     * @param map
+     */
+    public void recordDoing(Map<String, Object> map);
+
+    /**
+     * 解禁驾校
+     * @param map
+     */
+    public void relieveApplySchool(Map<String, Integer> map);
+
+    /**
+     * 解封驾校
+     * @param map
+     */
+    public void relieveDoingSchool(Map<String, Integer> map);
+
+    /**
+     * 解封教练
+     * @param id
+     */
+    public void relieveDoingCoach(Integer id);
+
+    /**
+     * 获取教练通过学校id
+     * @param id
+     */
+    public List<Coach> getCoachBySchoolId(Integer id);
 }

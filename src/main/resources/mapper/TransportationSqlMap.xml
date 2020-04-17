@@ -636,4 +636,132 @@
 	<delete id="deleteExamTime" parameterType="java.lang.Integer">
 		delete from test_allocation where id=#{tid}
 	</delete>
+
+
+	<!--统计一阶段的人数-->
+	<select id="CountSubject1" resultType="Integer"  >
+		SELECT count(*) FROM student where student_state_id = 1
+	</select>
+	<!--统计2阶段的人数-->
+	<select id="CountSubject2" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 2
+	</select>
+	<!--统计3阶段的人数-->
+	<select id="CountSubject3" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 3
+	</select>
+	<!--统计4阶段的人数-->
+	<select id="CountSubject4" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 4
+	</select>
+
+	<!--统毕业的人数-->
+	<select id="CountOver" resultType="Integer" >
+		SELECT count(*) FROM student where student_state_id = 7
+	</select>
+
+
+
+<!--禁止学校	-->
+	<update id="stopApplySchool" parameterType="java.util.Map">
+		update school set school_state_id=#{state}
+		<where>
+			id=#{id}
+		</where>
+	</update>
+
+<!--禁止记录	-->
+	<insert id="recordApply"  parameterType="java.util.Map">
+		insert into punish ("content", "datetime", "school_id", "result")
+		VALUES(
+				  content=#{content},
+				  datetime=#{date},
+				  school_id=#{id},
+				  result=#{result}
+			  )
+	</insert>
+
+<!--封停学校	-->
+	<update id="stopDoingSchool"  parameterType="java.util.Map">
+		update school
+		<set>
+			school_state_id=#{state}
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+
+<!--封停教练	-->
+	<update id="stopDoingCoach" parameterType="java.lang.Integer">
+		update coach
+		<set>
+			coach_state_id=2
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+
+<!--封停记录-->
+	<insert id="recordDoing" parameterType="java.util.Map">
+		insert into punish ("content", "datetime", "school_id", "result")
+		VALUES(
+				  content=#{content},
+				  datetime=#{date},
+				  school_id=#{id},
+				  result=#{result}
+			  )
+	</insert>
+
+<!--解禁驾校	-->
+	<update id="relieveApplySchool" parameterType="java.util.Map">
+		update school
+		<set>
+			school_state_id=#{state}
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+
+<!--解封驾校-->
+	<update id="relieveDoingSchool" parameterType="java.util.Map">
+		update school
+		<set>
+			school_state_id=#{state}
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+
+<!--解封教练-->
+	<update id="relieveDoingCoach" parameterType="java.lang.Integer">
+		update coach
+		<set>
+			coach_state_id=1
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+
+	<select id="getCoachBySchoolId" resultMap="coachMap" parameterType="java.lang.Integer">
+		select c.*
+		,s.id "s_id"
+		,s.name "s_name"
+		,s.admin "s_admin"
+		,s.address "s_address"
+		,s.information "s_information"
+		,s.intro "s_intro"
+		,s.phone "s_phone"
+		,s.school_state_id "school_state_id"
+		from coach c
+		left join school s on c.school_id = s.id
+		<where>
+			c.id=#{id}
+		</where>
+	</select>
+
 </mapper>
