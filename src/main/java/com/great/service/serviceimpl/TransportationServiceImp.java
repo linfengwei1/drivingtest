@@ -529,4 +529,77 @@ public class TransportationServiceImp implements TransportationService {
         return td.deleteExamTime(tid);
     }
 
+    @Override
+    public List countStatistics() {
+        Integer one= td.CountSubject1();
+        Integer two=   td.CountSubject2();
+        Integer three=   td.CountSubject3();
+        Integer four=   td.CountSubject4();
+        Integer over=   td.CountOver();
+        List list = new ArrayList();
+        list.add(one);  list.add(two);  list.add(three);  list.add(four);  list.add(over);
+        return  list;
+
+    }
+
+    @Override
+    public void stopApply(Integer id, String content, String result, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("content",content);
+        map.put("result",result);
+        map.put("state",i);
+        map.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        //停驾校
+        td.stopApplySchool(map);
+        //记录
+        td.recordApply(map);
+    }
+
+    @Override
+    public void stopDoing(Integer id, String content, String result, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("content",content);
+        map.put("result",result);
+        map.put("state",i);
+        map.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        //停驾校
+        td.stopDoingSchool(map);
+        //查询驾校教练
+        List<Coach> coaches=td.getCoachBySchoolId(id);
+        //停教练
+        for(int a=0;a<coaches.size();a++){
+            td.stopDoingCoach(coaches.get(i).getId());
+        }
+
+        //记录
+        td.recordDoing(map);
+    }
+
+    @Override
+    public void relieveApply(Integer id, Integer i) {
+        Map<String,Integer> map=new HashMap<>();
+        map.put("id",id);
+        map.put("state",i);
+        //解停
+        td.relieveApplySchool(map);
+    }
+
+    @Override
+    public void relieveDoing(Integer id, Integer i) {
+        Map<String,Integer> map=new HashMap<>();
+        map.put("id",id);
+        map.put("state",i);
+        //解封驾校
+        td.relieveDoingSchool(map);
+        //解封教练
+        //查询驾校教练
+        List<Coach> coaches=td.getCoachBySchoolId(id);
+        //停教练
+        for(int a=0;a<coaches.size();a++){
+            td.stopDoingCoach(coaches.get(i).getId());
+        }
+    }
+
 }

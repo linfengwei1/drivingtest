@@ -297,4 +297,42 @@ public interface TransportationService {
      * @return
      */
     public Integer deleteExamTime(Integer tid);
+
+    /**
+     * 统计人数
+     * @return
+     */
+    public List countStatistics();
+
+    /**
+     * 不能报名
+     * @param id
+     * @param content
+     * @param result
+     * @param i
+     */
+    public void stopApply(Integer id, String content, String result, Integer i);
+
+    /**
+     * 封停
+     * @param id
+     * @param content
+     * @param result
+     * @param i
+     */
+    public void stopDoing(Integer id, String content, String result, Integer i);
+
+    /**
+     * 解除不能报名
+     * @param id
+     * @param i
+     */
+    public void relieveApply(Integer id, Integer i);
+
+    /**
+     * 解除封停
+     * @param id
+     * @param i
+     */
+    public void relieveDoing(Integer id, Integer i);
 }

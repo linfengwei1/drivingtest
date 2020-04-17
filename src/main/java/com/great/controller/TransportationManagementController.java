@@ -511,7 +511,7 @@ public class TransportationManagementController {
     }
 
     /**
-     * 获取学校的筛选条件，打开教练表
+     * 获取学校的筛选条件，打开教练车表
      * @param request
      * @return
      */
@@ -655,6 +655,52 @@ public class TransportationManagementController {
 
         return "transportation/jsp/FullCalendar";
     }
+
+
+    /**
+     * 图表统计各阶段学员人数
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/Statistics")
+    @ResponseBody
+    public List Statistics(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        List list= transportationService.countStatistics();
+        System.out.println("list=="+list.toString());
+        if (list!=null){
+            return list;
+        }
+        return null;
+    }
+
+    /**
+     * 处理驾校的限制
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/stopSchool")
+    @ResponseBody
+    public String stopSchool(Integer id,String content ,String result,String doing,HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        if ("禁止".equals(doing)){
+            transportationService.stopApply(id,content,result,1);
+        }else if ("封停".equals(doing)){
+            transportationService.stopDoing(id,content,result,2);
+        }else if ("解禁".equals(doing)){
+            transportationService.relieveApply(id,3);
+        }else if ("解封".equals(doing)){
+            transportationService.relieveDoing(id,3);
+        }
+
+        return "Success";
+
+    }
+
 
 
     /**
