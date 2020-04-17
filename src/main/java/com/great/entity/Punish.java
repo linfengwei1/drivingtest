@@ -15,6 +15,7 @@ public class Punish {
     private Integer school_id;
     private Integer coach_state_id; //状态
     private String result;//处罚结果
+    private String school_name;//驾校名
 
     public Punish() {
     }
@@ -91,6 +92,14 @@ public class Punish {
         this.result = result;
     }
 
+    public String getSchool_name() {
+        return school_name;
+    }
+
+    public void setSchool_name(String school_name) {
+        this.school_name = school_name;
+    }
+
     @Override
     public String toString() {
         return "Punish{" +
@@ -99,8 +108,11 @@ public class Punish {
                 ", datetime=" + datetime +
                 ", coach_id=" + coach_id +
                 ", name='" + name + '\'' +
+                ", coach=" + coach +
                 ", school_id=" + school_id +
+                ", coach_state_id=" + coach_state_id +
                 ", result='" + result + '\'' +
+                ", school_name='" + school_name + '\'' +
                 '}';
     }
 }
