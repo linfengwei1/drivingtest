@@ -74,6 +74,13 @@
 					<dd><a href="${pageContext.request.contextPath}/student/exercise/4" target="_blank">科目四</a></dd>
 				</dl>
 			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;">错题练习</a>
+				<dl class="layui-nav-child">
+					<dd><a href="${pageContext.request.contextPath}/student/wrongQuestion/1" target="_blank">科目一</a></dd>
+					<dd><a href="${pageContext.request.contextPath}/student/wrongQuestion/4" target="_blank">科目四</a></dd>
+				</dl>
+			</li>
 
 			<li class="layui-nav-item">
 				<a href="javascript:;">在线打卡</a>

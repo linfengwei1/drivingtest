@@ -12,6 +12,7 @@ $(function () {
 				time: 0 //不自动关闭
 				,btn: ['确定', '取消']
 				,yes: function(index){
+					layer.close(index1);
 					puhshPaper(layer);
 					clearTimeout(timer2);
 				}
@@ -48,7 +49,7 @@ function puhshPaper(layer) {
 	var path = $("#path").val();
 	var studentId = $("#studentid").val();
 	var subject = $("#subject").val();
-
+	var score;
 	var testReplies = [];
 	$(".test_content_nr_main").each(function(index, element) {
 
@@ -85,7 +86,22 @@ function puhshPaper(layer) {
 		success:function(data){
 			$(".layui-btn-lg").attr("disabled",true);
 			if (null != data){
-				layer.msg('本次考试得分'+data,{icon: 6});
+				score = data;
+				layer.open({
+					type: 1
+					,title: false //不显示标题栏
+					,closeBtn: false
+					,area: '300px;'
+					,shade: 0.8
+					,anim:1
+					,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+					,closeBtn: 1
+					,btnAlign: 'c'
+					,moveType: 1 //拖拽模式，0或者1
+					,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">本次练习结束！<br>得分：<span style="color: red;font-size: 22px">'+score+'</span></div>'
+				});
+
+
 			}else {
 
 			}
