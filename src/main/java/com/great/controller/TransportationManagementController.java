@@ -701,6 +701,119 @@ public class TransportationManagementController {
 
     }
 
+    /**
+     * 获取驾校违规列表
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/punishTable")
+    @ResponseBody
+    public String punishTable(Integer page, Integer limit ,String time1,String time2,HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectResult objectResult=transportationService.punishTable(page,limit,time1,time2);
+
+        System.out.println(objectResult);
+
+        return g.toJson(objectResult);
+
+    }
+
+    /**
+     * 删除违规记录
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/deletePunish")
+    @ResponseBody
+    public String deletePunish(Integer id,HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        transportationService.deletePunish(id);
+
+        return "Success";
+
+    }
+
+
+    /**
+     * 学校学员人数统计
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/schoolStudentView")
+    @ResponseBody
+    public Map<String,List<String>> schoolStudentView(HttpServletRequest request, HttpServletResponse response){
+
+        return transportationService.schoolStudentView();
+
+    }
+
+    /**
+     * 加载预约页面
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getAT")
+    public String getAT(HttpServletRequest request, HttpServletResponse response){
+
+        List<School> schools =transportationService.getSchoolList();
+
+        if (schools!=null){
+            request.setAttribute("schools",schools);
+        }
+
+
+        return "transportation/jsp/AppointTest";
+    }
+
+
+    /**
+     * 获取预约列表
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getAppointTest")
+    @ResponseBody
+    public String getAppointTest(Integer page,Integer limit,String id,HttpServletRequest request, HttpServletResponse response){
+        // 设置浏览器字符集编码.
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        // 设置response的缓冲区的编码.
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectResult objectResult=transportationService.getAppointTest(page,limit,id);
+
+        System.out.println(objectResult);
+
+        return g.toJson(objectResult);
+
+    }
+
+
+    /**
+     * 审核预约
+     * @param response
+     * @return
+     */
+    @RequestMapping("/auditAppoint")
+    @ResponseBody
+    public String auditAppoint(Integer id,String doing,HttpServletResponse response){
+
+            transportationService.auditAppoint(id,doing);
+
+        return "Success";
+    }
 
 
     /**
