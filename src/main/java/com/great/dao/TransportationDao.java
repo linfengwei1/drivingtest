@@ -401,4 +401,46 @@ public interface TransportationDao {
      * @param id
      */
     public List<Coach> getCoachBySchoolId(Integer id);
+
+    /**
+     * 获取违规条数
+     * @param map
+     * @return
+     */
+    public Integer getPunishTabCount(Map<String, Object> map);
+
+    /**
+     * 获取违规列表
+     * @param map
+     * @return
+     */
+    public List<?> getPunishTable(Map<String, Object> map);
+
+    /**
+     * 删除违规记录
+     * @param id
+     */
+    public void deletePunish(Integer id);
+
+    /**
+     * 获取预约记录条数
+     * @param map
+     * @return
+     */
+    public Integer getAppointCount(Map<String, Object> map);
+
+    /**
+     * 获取预约表
+     * @param map
+     * @return
+     */
+    public List<?> getAppointTbl(Map<String, Object> map);
+
+    /**
+     * 批准考试
+     * @param map
+     */
+    public void auditAppoint(Map<String, Integer> map);
+
+
 }

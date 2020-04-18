@@ -67,7 +67,7 @@
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stopApply"><i class="layui-icon">&#xe642;</i>禁止报名</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stopDoing"><i class="layui-icon">&#xe642;</i>封停</a>
-    {{#  } else if(d.school_state_id ==2){ }}
+    {{#  } else if(d.school_state_id ==1){ }}
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
     <a class="layui-btn layui-btn-xs" lay-event="relieveApply"><i class="layui-icon">&#xe63c;</i>解除限制</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stopDoing"><i class="layui-icon">&#xe642;</i>封停</a>
@@ -192,7 +192,7 @@
                                 $.ajax({
                                     async:true,
                                     method : "POST",
-                                    url :'${pageContext.request.contextPath}/TM/examineSchool',
+                                    url :'${pageContext.request.contextPath}/TM/stopSchool',
                                     data: {"id":data.id,"content":contentS,"result":result,"doing":"禁止"},
                                     dataType:"text" ,
                                     success:function(data){
@@ -240,7 +240,7 @@
                                 $.ajax({
                                     async:true,
                                     method : "POST",
-                                    url :'${pageContext.request.contextPath}/TM/examineSchool',
+                                    url :'${pageContext.request.contextPath}/TM/stopSchool',
                                     data: {"id":data.id,"content":contentS,"result":result,"doing":"封停"},
                                     dataType:"text" ,
                                     success:function(data){
@@ -268,15 +268,13 @@
                     btn : ['解禁','取消'],
                     btn1:function(index){
 
-                        console.log(contentS);
-                        console.log(result);
                         console.log(data.id);
                         console.log("解禁");
                         layer.close(index);
                         $.ajax({
                             async:true,
                             method : "POST",
-                            url :'${pageContext.request.contextPath}/TM/examineSchool',
+                            url :'${pageContext.request.contextPath}/TM/stopSchool',
                             data: {"id":data.id,"content":"s","result":"s","doing":"解禁"},
                             dataType:"text" ,
                             success:function(data){
@@ -299,8 +297,6 @@
                     btn : ['解封','取消'],
                     btn1:function(index){
 
-                        console.log(contentS);
-                        console.log(result);
                         console.log(data.id);
                         console.log("解封");
                         layer.close(index);
