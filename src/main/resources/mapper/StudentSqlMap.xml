@@ -121,7 +121,7 @@
 		where sc.student_id = #{studentId} and sc.appoint_time_relation_id =  a.id and a.time_id=t.id and sc.subject_id = s.id
 	</select>
 	<select id="getOrderTime" resultType="ExamOrder">
-		select s.name as subject,t.datetime as ordertime from `subject` as s,appoint_time_relation as a,time t
+		select s.name as subject,t.datetime as ordertime,a.appoint_state_id as status from `subject` as s,appoint_time_relation as a,time t
 		where a.student_id = #{studentId}
 		and a.time_id = t.id
 		and t.subject_id = s.id
@@ -203,6 +203,12 @@
     		id
 		LIMIT 20;
 	</select>
+	<select id="getWrongQuestion_1byStudentId" resultMap="questionMap">
+		select * from question1 where iid in(select DISTINCT qid from wrongquestion1 where studentid = #{studentId})
+	</select>
+	<select id="getWrongQuestion_4byStudentId" resultMap="questionMap">
+		select * from question4 where iid in(select DISTINCT qid from wrongquestion4 where studentid = #{studentId})
+	</select>
 
 
 	<select id="getTest_1Score" resultType="int">
@@ -223,6 +229,13 @@
 	<update id="updatePwd">
 		update student set pwd = #{pwd} where id = #{id}
 	</update>
+
+	<delete id="delWrongQuestion1">
+		DELETE from wrongquestion1 where qid = #{qid} and studentid = #{studentId}
+	</delete>
+	<delete id="delWrongQuestion4">
+		DELETE from wrongquestion4 where qid = #{qid} and studentid = #{studentId}
+	</delete>
 	<update id="addStudy1Time">
 		update studycondition set time = time +1 where student_id = #{studentId} and subject_id = #{subject}
 	</update>
@@ -250,6 +263,28 @@
 	</insert>
 	<insert id="addEvaForCoach">
 		insert into evaluationforcoach(content,time,coachid) values (#{content},now() ,#{coachId})
+	</insert>
+	<insert id="addWrongQuestion1">
+		insert into wrongquestion1
+		(qid,studentid)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item},
+			#{studentId}
+			)
+		</foreach>
+	</insert>
+	<insert id="addWrongQuestion4">
+		insert into wrongquestion4
+		(qid,studentid)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item},
+			#{studentId}
+			)
+		</foreach>
 	</insert>
 <!--	<resultMap id="menuMap" type="TreeData">-->
 <!--		<id property="id" column="id"></id>-->

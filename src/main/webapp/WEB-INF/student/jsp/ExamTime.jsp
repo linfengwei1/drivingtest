@@ -20,15 +20,16 @@
 
 <div class="bgr" style="margin-right: 110px">
 	<div class="usti">
-		<div class="fra_title"><span><b class="backbg ico_time"></b>考试安排表<a href="javascript:void(0)"></a></span></div>
+		<div class="fra_title"><span><b class="backbg ico_time"></b>考试预约表<a href="javascript:void(0)"></a></span></div>
 		<div class="tmio">
 				<table class="layui-table"  lay-filter="test" id="demo" lay-size="lg">
 					<tr>
-						<td colspan="4" style="color: #20B2AA; text-align: center" >考试安排表</td>
+						<td colspan="3" style="color: #20B2AA; text-align: center" >考试预约表</td>
 					</tr>
 					<tr style="color: white; background-color: #808080;">
 						<th>考试科目</th>
 						<th>考试时间</th>
+						<th>状态</th>
 					</tr>
 				</table>
 		</div>

@@ -1,9 +1,7 @@
 package com.great.service;
 
-import com.alibaba.druid.util.StringUtils;
 import com.great.entity.*;
 
-import javax.print.attribute.IntegerSyntax;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -302,7 +300,7 @@ public interface TransportationService {
      * 统计人数
      * @return
      */
-    public List countStatistics();
+    public List <?>countStatistics();
 
     /**
      * 不能报名
@@ -335,4 +333,41 @@ public interface TransportationService {
      * @param i
      */
     public void relieveDoing(Integer id, Integer i);
+
+    /**
+     * 获取驾校违规列表
+     * @param page
+     * @param limit
+     * @param time1
+     * @param time2
+     * @return
+     */
+    public ObjectResult punishTable(Integer page, Integer limit, String time1, String time2);
+
+    /**
+     * 删除记录
+     * @param id
+     */
+    public void deletePunish(Integer id);
+
+    /**
+     * 各校人数
+     * @return
+     */
+    public Map<String, List<String>> schoolStudentView();
+
+    /**
+     * 获取预约考试表
+     * @param page
+     * @param limit
+     * @param id
+     * @return
+     */
+    public ObjectResult getAppointTest(Integer page, Integer limit, String id);
+
+    /**
+     * 批准考试
+     * @param id
+     */
+    public void auditAppoint(Integer id, String doing);
 }

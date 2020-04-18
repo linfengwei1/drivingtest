@@ -41,6 +41,12 @@ public interface StudentManageService
 	String addEvaForCoach(String coachId, String content);
 
 	int updatePwd(int id,String account, String pwd);
+
+	List<Question> wrongQuestion(String subject,int studentId);
+
+	String delWrongQuestion(String studentId, String subject, String qid);
+
+	String addWrongQuestion(WrongQuestions wrongQuestions);
 	//	public User findUser(String uname, String pwd);
 //	public List<User> findAll(HashMap<String, Object> map) throws SQLException;
 //
