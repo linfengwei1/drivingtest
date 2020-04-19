@@ -225,4 +225,14 @@
 
 
 
+    <!-- 查询驾校名称-->
+    <select id="getSchoolName" >
+        select
+        name
+        from school
+    </select>
+
+
+
+
 </mapper>
