@@ -286,6 +286,33 @@
 			)
 		</foreach>
 	</insert>
+
+	<insert id="insertLog" parameterType="com.great.aoplog.SystemLog">
+		insert into log(
+			 name
+			,type
+			,content
+			,datetime
+			,ip
+			,school_id
+			,exceptioncode
+			,exceptionDetail
+			,account
+			,method
+		)values(
+			 #{createBy}
+			,#{logType}
+			,#{description}
+			,#{createDate}
+			,#{requestIp}
+			,#{schoolId}
+			,#{exceptioncode}
+			,#{exceptionDetail}
+			,#{account}
+			,#{method}
+		)
+
+	</insert>
 <!--	<resultMap id="menuMap" type="TreeData">-->
 <!--		<id property="id" column="id"></id>-->
 <!--		<result property="title" column="name"></result>-->

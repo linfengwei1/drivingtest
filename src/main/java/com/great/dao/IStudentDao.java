@@ -1,6 +1,7 @@
 package com.great.dao;
 
 
+import com.great.aoplog.SystemLog;
 import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -69,4 +70,6 @@ public interface IStudentDao
 
 	int addWrongQuestion1(@Param("list")List<Integer> wrongList,@Param("studentId")int studentId);
 	int addWrongQuestion4(@Param("list")List<Integer> wrongList,@Param("studentId")int studentId);
+
+	void insertLog(SystemLog systemLog);
 }
