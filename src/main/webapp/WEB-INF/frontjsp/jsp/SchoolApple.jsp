@@ -14,7 +14,7 @@
 <%--	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/studentmain.css">--%>
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="${pageContext.request.contextPath}/static/homepage/js/SchoolApple.js" type="text/javascript" charset="utf-8"></script>
+<%--	<script src="${pageContext.request.contextPath}/static/homepage/js/SchoolApple.js" type="text/javascript" charset="utf-8"></script>--%>
 </head>
 <style>
 
@@ -145,7 +145,7 @@
 				});
 			}
 			,done: function(res, index, upload){
-				if(res.files.file){ //上传成功
+				if(res.code == 0){ //上传成功
 					var tr = demoListView.find('tr#upload-'+ index)
 						,tds = tr.children();
 					tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');

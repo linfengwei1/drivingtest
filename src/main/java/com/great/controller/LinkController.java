@@ -1,13 +1,14 @@
 package com.great.controller;
 
-import com.alibaba.druid.util.StringUtils;
+//import com.alibaba.druid.util.StringUtils;这个包错了，换成下面这个！！！
+import org.springframework.util.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import com.great.aoplog.Log;
 import com.great.entity.*;
 import com.great.service.LinkService;
 import com.great.service.SchoolManageService;
-import javafx.scene.chart.Chart;
+//import javafx.scene.chart.Chart;我这个没找到，注销了
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -106,11 +107,10 @@ public class LinkController {
 	//文件上传
 	@RequestMapping("/fileUpload")
 	@ResponseBody//ajax返回值json格式转换
-	@Log(operationType = "文件上传", operationName = "文件上传")
-	public String fileUpload(MultipartFile file, String downScore, String bookName, String intro, HttpServletRequest request) throws IOException {
+	public Object test(@RequestParam(value="file",required = false)MultipartFile file, HttpServletRequest request) throws IOException {
 		System.out.println("fileUpload");
 		System.out.println("file:"+file);
-		if (!StringUtils.isEmpty((CharSequence) file) && file.getSize()>0){
+		if (!StringUtils.isEmpty(file) && file.getSize()>0){
 			System.out.println("in");
 			String name= file.getOriginalFilename();//是得到上传时的文件名。
 			System.out.println("name:"+name);
@@ -139,7 +139,7 @@ public class LinkController {
 //				file.transferTo(new File("D:\\test\\" + name));
 //				return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
 //			}
-			return "{\"code\":2, \"msg\":\"\", \"data\":{}}";
+			return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
 		}
 		return "{\"code\":3, \"msg\":\"\", \"data\":{}}";
 	}
