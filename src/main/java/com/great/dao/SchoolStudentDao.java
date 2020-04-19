@@ -70,7 +70,11 @@ public interface SchoolStudentDao
 	//统计毕业人数
 	public Integer CountOver(Integer a);
 
+	//批量审核通过学员预约
+	public Integer changeAppointState(List list);
 
+	//批量驳回过学员预约
+	public Integer batchRejected(List list);
 
 
 	//获取预约条数

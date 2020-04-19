@@ -11,6 +11,7 @@
     <title>驾校登录</title>
     <%String path = request.getContextPath();%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
+    <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
     <script src="${pageContext.request.contextPath}/static/school/js/SchoolLogin.js" type="text/javascript" charset="UTF-8"></script>
     <style>
@@ -19,7 +20,7 @@
             width:30%;
             background-color: #ffffff;
             float: right;
-            margin:0px 100px 0 0 ;
+            margin:15px 100px 0 0 ;
             box-shadow: 1px 5px 20px #999;
         }
         #two{
@@ -35,6 +36,7 @@
             font-size: 18px;
             font-weight: bold;
             color: #666;
+
         }
 
     </style>
@@ -49,8 +51,11 @@
 
 
                 <div class="layui-main-login" >
+
                     <form class="layui-form" action="" >
-                        <p style="">驾校登录</p> <a href="<%=request.getContextPath()%>/school/path/SchoolFaceLogin">人脸登录</a>
+                        <a href="<%=request.getContextPath()%>/school/path/SchoolFaceLogin" style="margin-left: 80%">人脸登录</a>
+                        <p style="" >驾校登录</p>
+
                         <div class="layui-form-item">
                             <label class="layui-form-label">账号框</label>
                             <div class="layui-input-block" style="width: 190px">
@@ -84,7 +89,7 @@
                             </div>
                         </div>
                         <div id="p21">
-                            <a  id="p5"  style=";margin-left: 60%;" >忘记密码</a>
+                            <a  id="p5"  style=";margin-left: 60%;"  >忘记密码</a>
                         </div>
                     </form>
                 </div>

@@ -48,7 +48,8 @@
 </body>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量操作</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量批准</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCancelData">批量驳回</button>
     </div>
 </script>
 
@@ -94,15 +95,56 @@
         //表头左侧工具条
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
+            var data = checkStatus.data;
             switch(obj.event){
                 case 'getCheckData':
-                    var data = checkStatus.data;
                     if(data.length==0){
                         layer.alert("请选取需要批量操作的条目");
                     }else{
                         layer.alert(JSON.stringify(data));
+                        $.ajax({
+                            async:true,
+                            method : "POST",
+                            url :'${pageContext.request.contextPath}/school/batchProcessing',
+                            data: "data="+JSON.stringify(data),
+                            dataType : "text",
+                            success:function(data){
+                                if ("error"==data){
+                                    layer.alert("审核失败",{icon:2});
+                                }else if ("success"==data) {
+                                    layer.alert("审核成功",{icon:6},function () {
+                                        window.parent.location.reload();
+                                    });
+                                }
+                            }, error: function () {
+                                layer.alert("网络繁忙！")
+                            }
+                        });
                     }
-
+                    break;
+                case 'getCancelData':
+                    if(data.length === 0){
+                        layer.alert('请选取需要批量操作的条目');
+                    } else {
+                        $.ajax({
+                            async:true,
+                            method : "POST",
+                            url :'${pageContext.request.contextPath}/school/batchRejected',
+                            data: "data="+JSON.stringify(data),
+                            dataType : "text",
+                            success:function(data){
+                                if ("error"==data){
+                                    layer.alert("审核失败",{icon:2});
+                                }else if ("success"==data) {
+                                    layer.alert("审核成功",{icon:6},function () {
+                                        window.parent.location.reload();
+                                    });
+                                }
+                            }, error: function () {
+                                layer.alert("网络繁忙！")
+                            }
+                        });
+                    }
                     break;
             };
         });
