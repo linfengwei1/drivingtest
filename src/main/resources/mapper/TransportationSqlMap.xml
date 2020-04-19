@@ -672,12 +672,12 @@
 
 <!--禁止记录	-->
 	<insert id="recordApply"  parameterType="java.util.Map">
-		insert into punish ("content", "datetime", "school_id", "result")
+		insert into punish (content, datetime, school_id, result)
 		VALUES(
-				  content=#{content},
-				  datetime=#{date},
-				  school_id=#{id},
-				  result=#{result}
+				  #{content},
+				  #{date},
+				  #{id},
+				  #{result}
 			  )
 	</insert>
 
@@ -685,7 +685,7 @@
 	<update id="stopDoingSchool"  parameterType="java.util.Map">
 		update school
 		<set>
-			school_state_id=#{state}
+			school_state_id=2
 		</set>
 		<where>
 			id=#{id}
@@ -705,12 +705,12 @@
 
 <!--封停记录-->
 	<insert id="recordDoing" parameterType="java.util.Map">
-		insert into punish ("content", "datetime", "school_id", "result")
-		VALUES(
-				  content=#{content},
-				  datetime=#{date},
-				  school_id=#{id},
-				  result=#{result}
+		insert into punish (content, datetime, school_id, result)
+		VALUES (
+				  #{content},
+				  #{date},
+				  #{id},
+				  #{result}
 			  )
 	</insert>
 
@@ -718,7 +718,7 @@
 	<update id="relieveApplySchool" parameterType="java.util.Map">
 		update school
 		<set>
-			school_state_id=#{state}
+			school_state_id=3
 		</set>
 		<where>
 			id=#{id}
@@ -729,7 +729,7 @@
 	<update id="relieveDoingSchool" parameterType="java.util.Map">
 		update school
 		<set>
-			school_state_id=#{state}
+			school_state_id=3
 		</set>
 		<where>
 			id=#{id}
@@ -763,5 +763,132 @@
 			c.id=#{id}
 		</where>
 	</select>
+
+<!--封装违规-->
+	<resultMap id="punishMap" type="com.great.entity.Punish">
+		<id property="id" column="id"/>
+		<result property="content" column="content"/>
+		<result property="datetime" column="datetime"/>
+		<result property="school_id" column="school_id"/>
+		<result property="result" column="result"/>
+		<result property="school_name" column="school_name"/>
+
+	</resultMap>
+
+<!--违规列表-->
+	<select id="getPunishTable" resultMap="punishMap" parameterType="java.util.Map">
+
+		select p.*,s.name "school_name"
+		from punish p
+		left join school s on s.id=p.school_id
+		<where>
+			<if test="time1 != '' and time1 != null">
+				and p.datetime &gt;= #{time1}
+			</if>
+			<if test="time2 != '' and time2 != null">
+				and p.datetime &lt;= #{time2}
+			</if>
+			and p.coach_id is null
+		</where>
+		limit #{minlimit} , #{maxlimit}
+	</select>
+
+<!--违规条数-->
+	<select id="getPunishTabCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from punish
+		<where>
+			<if test="time1 != '' and time1 != null">
+				and punish.datetime &gt;= #{time1}
+			</if>
+			<if test="time2 != '' and time2 != null">
+				and punish.datetime &lt;= #{time2}
+			</if>
+			and coach_id is null
+		</where>
+
+	</select>
+
+<!--删除违规记录-->
+	<delete id="deletePunish" parameterType="java.lang.Integer">
+		delete from punish where id=#{id}
+	</delete>
+
+
+<!--封装预约类-->
+	<resultMap id="appointMap" type="com.great.entity.AppointTest">
+		<id property="id" column="id"/>
+		<result property="timeId" column="timeId"/>
+		<result property="studentId" column="studentId"/>
+		<result property="subjectId" column="subjectId"/>
+		<result property="appointStateId" column="appointStateId"/>
+		<result property="studentName" column="studentName"/>
+		<result property="studentSex" column="studentSex"/>
+		<result property="studentAge" column="studentAge"/>
+		<result property="studentPhone" column="studentPhone"/>
+		<result property="subjectName" column="subjectName"/>
+		<result property="dateTime" column="dateTime"/>
+		<result property="schoolName" column="schoolName"/>
+ 	</resultMap>
+
+<!--获取预约条数-->
+	<select id="getAppointCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from appoint_time_relation atr
+		left join student s2 on atr.student_id = s2.id
+		left join school s3 on s2.school_id = s3.id
+		<where>
+			<if test="id != null">
+				s3.id=#{id}
+			</if>
+			 and atr.appoint_state_id=4
+		</where>
+
+	</select>
+
+<!--获取预约记录-->
+	<select id="getAppointTbl" resultMap="appointMap" parameterType="java.util.Map">
+		select
+		       atr.id,
+		       atr.time_id "timeId",
+		       atr.student_id "studentId",
+			   t.subject_id "subjectId",
+		       atr.appoint_state_id "appointStateId",
+		       s2.name "studentName",
+		       s2.sex "studentSex",
+		       s2.age "studentAge",
+		       s2.phone "studentPhone",
+		       s.name "subjectName",
+		       t.datetime "dateTime",
+		       s3.name "schoolName"
+		from appoint_time_relation atr
+		left join time t on atr.time_id = t.id
+		left join subject s on t.subject_id = s.id
+		left join student s2 on atr.student_id = s2.id
+		left join appoint_state as1 on atr.appoint_state_id = as1.id
+		left join school s3 on s2.school_id = s3.id
+		<where>
+			<if test="id != null">
+				s3.id=#{id}
+			</if>
+			and atr.appoint_state_id=4
+		</where>
+		limit #{minlimit} , #{maxlimit}
+
+
+	</select>
+
+
+
+<!--更新预约状态-->
+	<update id="auditAppoint" parameterType="java.util.Map">
+		update appoint_time_relation
+		<set>
+			appoint_state_id=#{state}
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
 
 </mapper>

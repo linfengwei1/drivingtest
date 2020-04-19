@@ -207,7 +207,7 @@ public class SchoolManageService {
         return student;
     }
 
-    //excel插入数据库1
+    //学员信息excel插入数据库
     public List<Student> insertStudentByExcel(List<Student>list){
         List<Student> list1 = new ArrayList();//用来存放重复的账号
         //判断插入的学员账号是否被使用
@@ -224,6 +224,19 @@ public class SchoolManageService {
        }
         return list1;
     }
+
+
+    //查询学员预约记录并分页
+    public Object getAppointTbl(TableUtils utils){
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        List<AppointTest> list=schoolStudentDao.getAppointTbl(utils);
+        Integer a =schoolStudentDao.getAppointCount(utils);
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+        return InfMap;
+    }
+
+
 
     //获取车辆信息表
     public Object getCarTable(TableUtils u){

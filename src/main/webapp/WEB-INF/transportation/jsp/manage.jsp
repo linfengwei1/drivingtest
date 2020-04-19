@@ -37,7 +37,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    ${transportation.name}
+                    ${Transportation.name}
                 </a>
             </li>
             <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/TM/deleteAdmin">退出登录</a></li>
@@ -53,7 +53,7 @@
                 <a class="" href="javascript:;"><i class="layui-icon">&#xe68e;</i>     驾校管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASN" onclick="changeUrl(this)">驾校查看</a></dd>
-                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">驾校违规记录</a></dd>
+                    <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/SchoolViolationManage" onclick="changeUrl(this)">驾校违规记录</a></dd>
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASC" onclick="changeUrl(this)">教练查询</a></dd>
                     <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gASB" onclick="changeUrl(this)">教练车查询</a></dd>
                 </dl>
@@ -69,7 +69,7 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;"><i class="layui-icon">&#xe60a;</i>     考试管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">考试审批</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/getAT" onclick="changeUrl(this)">考试审批</a></dd>
 <%--                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">各阶段考试人数配置</a></dd>--%>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gSGH" onclick="changeUrl(this)">考试时间配置</a></dd>
                     </dl>
@@ -78,7 +78,7 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;"><i class="layui-icon">&#xe629;</i>     统计报表</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">驾校学员人数统计</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/SchoolStudentView" onclick="changeUrl(this)">驾校学员人数统计</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/StudentScoreView" onclick="changeUrl(this)">科目人数统计</a></dd>
 <%--                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">成绩分布</a></dd>--%>
                     </dl>
@@ -93,6 +93,7 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;"><i class="layui-icon">&#xe716;</i>     其他</a>
                     <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/link/path/LinkManage" onclick="changeUrl(this)">友情连接管理</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">通知公告发布</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/SchoolLogManage" onclick="changeUrl(this)">日志查看</a></dd>
                     </dl>

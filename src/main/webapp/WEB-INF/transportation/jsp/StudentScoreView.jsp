@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>学员成绩统计</title>
+    <title>科目在学人数统计</title>
     <%String path = request.getContextPath();%>
     <script src= "${pageContext.request.contextPath}/static/echarts.js"></script>
     <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
@@ -18,7 +18,7 @@
 
 <input type="hidden" id="path" value="<%=path%>">
 <div style="width: 70%;height: 500px;border:3px solid #dadada;margin-left: 15%;margin-top: 100px;"; id="div2"  >
-    <h3 style="text-align: center">学员统计</h3>
+    <h3 style="text-align: center">成绩统计</h3>
     <div style="overflow:auto" id="div4" >
         <label style="margin-left: 60%;">在学及毕业学员总量为：</label><label id="lab1"></label>
     </div>
@@ -37,7 +37,7 @@
         $.ajax({
             async:true,
             method : "POST",
-            url :path+"/school/Statistics",
+            url :path+"/TM/Statistics",
             dataType : "text",
             success : function(msg) {
                 var arr = JSON.parse(msg);

@@ -461,6 +461,25 @@ public class SchoolController {
         return "school/jsp/SchoolStudentManage";
     }
 
+    //获取学员预约信息表格显示
+    @RequestMapping("/getAppointTbl")
+    @ResponseBody//ajax返回值json格式转换
+    public DateTable getAppointTbl(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer page= Integer.parseInt(request.getParameter("page"));
+        Integer limit= Integer.parseInt(request.getParameter("limit"));
+        utils.setMinLimit((page-1)*limit);
+        utils.setMaxLimit(limit);
+        Map map = (Map) schoolAdminService.getAppointTbl(utils);
+        if (null!=map.get("list")){
+            dateTable.setData((List<?>) map.get("list"));
+            dateTable.setCode(0);
+            dateTable.setCount((Integer) map.get("count"));//总条数
+            return dateTable;
+        }
+        return null;
+    }
+
+
 
     //获取学员信息表格显示
     @RequestMapping("/SchoolStudentTable")

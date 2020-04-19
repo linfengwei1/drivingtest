@@ -1,19 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Mr.Fan
-  Date: 2020-3-10
-  Time: 15:53
+  User: HJY
+  Date: 2020-4-18
+  Time: 16:05
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>学员管理</title>
+    <title>预约审核</title>
     <%String path = request.getContextPath(); %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-    <script src="${pageContext.request.contextPath}/static/school/js/SchoolStudentManage.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
@@ -70,38 +69,12 @@
                         <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>学员申请</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>EXCEL导入</button>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="layui-anim layui-anim-scale" style="clear: left">
-        <table id="dataTable" lay-filter="test"></table>
-    </div>
-
-
-    <script type="text/html" id="butdiv">
-        {{#  if(d.student_state_id == 8){ }}
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="AddStudentImage" ><i class="layui-icon">&#xe681;</i>上传图片</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>
-        {{# }if(d.student_state_id >= 9 ) { }}
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
-        {{# }if(d.student_state_id ==6) { }}
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="resubmit" ><i class="layui-icon">&#xe643;</i>重新审核</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
-        {{# }if(d.student_state_id <6) { }}
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="check" ><i class="layui-icon">&#xe63c;</i>学习情况</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
-        {{# }if(d.student_state_id >6) { }}
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
-
-        {{#  } }}
-    </script>
 
 </form>
-
 </body>
 </html>

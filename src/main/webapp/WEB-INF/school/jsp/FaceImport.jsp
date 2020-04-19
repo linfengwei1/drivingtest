@@ -45,7 +45,12 @@
 <input type="hidden" id="judge" value="${questionList.judge}">
 <div>
 </div>
+<%--<div class="layui-row">--%>
+<%--	<div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px">--%>
+		<button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击录入人脸信息</button>
+<%--	</div>--%>
 
+<%--</div>--%>
 <div class="layui-container">
 	<div class="layui-row">
 		<div class="layui-col-md5 layui-col-md-offset2">
@@ -55,12 +60,7 @@
 			<canvas id="canvas" width="400px" height="300px"></canvas>
 		</div>
 	</div>
-	<div class="layui-row">
-		<div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px">
-			<button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击录入人脸信息</button>
-		</div>
 
-	</div>
 </div>
 
 <script>
