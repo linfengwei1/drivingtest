@@ -68,22 +68,32 @@
     <h1><span style="color: #42627c; padding-top: 10%;margin-left: 10%">机动车驾驶员培训机构信息互动平台</span></h1>
 </div>
 <div id="one" >
+<%--    <div class="layui-container">--%>
+<%--        <div class="layui-row">--%>
+<%--            <div class="layui-col-md5 layui-col-md-offset2" style="margin-left: 60%;margin-top: 5%">--%>
+<%--                <video style="float: left" id="video" width="400px" height="300px"  autoplay="autoplay"></video>--%>
+<%--            </div>--%>
+<%--            <div class="layui-col-md3">--%>
+<%--                <canvas style="float: left" id="canvas" width="400px" height="300px"></canvas>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="layui-row">--%>
+<%--            <div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px;float: left" >--%>
+<%--&lt;%&ndash;                <button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击人脸打卡</button>&ndash;%&gt;--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+
     <div class="layui-container">
         <div class="layui-row">
-            <div class="layui-col-md5 layui-col-md-offset2" style="margin-left: 60%;margin-top: 5%">
+            <div   id="div1" style="margin-left: 60%;margin-top: 5%">
                 <video style="float: left" id="video" width="400px" height="300px"  autoplay="autoplay"></video>
             </div>
-            <div class="layui-col-md3">
+            <div  id="div2" style="margin-left: 60%;margin-top: 5%">
                 <canvas style="float: left" id="canvas" width="400px" height="300px"></canvas>
             </div>
         </div>
-        <div class="layui-row">
-            <div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px;float: left" >
-<%--                <button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击人脸打卡</button>--%>
-            </div>
-        </div>
     </div>
-
 
 </div>
 <div align="center">
@@ -95,6 +105,10 @@
     </p>
 </div>
 </body>
+<style type="text/css">
+    #div1{width:400px;height:300px;border:1px solid red;display:block}
+    #div2{width:400px;height:300px;border:1px solid #93f; display:none}
+</style>
 <script>
     layui.use(['layer'], function () {
         var layer = layui.layer;
@@ -193,6 +207,8 @@
                 //获取到String类型的image信息
                 var imageString = url.split(",")[1];
                 console.log(imageString);
+                $("#div1").css({"display":"none"});
+                $("#div2").css({"display":"block"});
 
                 // //用ajax做验证 ,判断是否验证成功
                 $.ajax({
@@ -215,12 +231,16 @@
                         {
                             // $("#import").css("disabled",false);
                             layer.msg('请靠近摄像头', {icon: 5});
+                            $("#div1").css({"display":"block"});
+                            $("#div2").css({"display":"none"});
                             takePhoto();
                         }
                         else
                         {
                             // $("#import").css("disabled",false);
                             layer.msg('未匹配到人脸信息或未开通人脸登录', {icon: 5});
+                            $("#div1").css({"display":"block"});
+                            $("#div2").css({"display":"none"});
                             takePhoto();
                         }
 

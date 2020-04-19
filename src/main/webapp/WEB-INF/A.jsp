@@ -14,6 +14,7 @@
     <a href="<%=request.getContextPath()%>/school/path/SchoolLogin" ><li>学校登录</li></a>
     <a href="<%=request.getContextPath()%>/student/path/StudentLogin" ><li>学员登录</li></a>
     <a href="<%=request.getContextPath()%>/TM/login" ><li>运管登录</li></a>
-<%--    <a href="<%=request.getContextPath()%>/school/path/SchoolLogin" ><li>前台登录</li></a>--%>
+    <a href="<%=request.getContextPath()%>/link/path/Welcome" ><li>首页</li></a>
+    <a href="<%=request.getContextPath()%>/link/path/SchoolApple" ><li>文件上传</li></a>
 </body>
 </html>

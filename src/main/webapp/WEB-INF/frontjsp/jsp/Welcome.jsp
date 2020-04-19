@@ -11,6 +11,7 @@
 <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/homepage.css">--%>
 <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
+<script src="${pageContext.request.contextPath}/static/echarts.js" type="text/javascript" charset="UTF-8"></script>
 <script src="${pageContext.request.contextPath}/static/homepage/js/homepage.js" type="text/javascript" charset="utf-8"></script>
 <html>
 <head>
@@ -22,10 +23,10 @@
 </div>
 
 <div class="layui-carousel" id="test1">
-    <div carousel-item>
-        <div><img src="${pageContext.request.contextPath}/static/images/0004w.jpg" /></div>
-        <div><img src="${pageContext.request.contextPath}/static/images/2020-04-12/480cd42b-18d3-4736-a74a-dcde4abaa54b.jpg" /></div>
-        <div><img src="${pageContext.request.contextPath}/static/images/2020-04-13/8527f177-1340-4c6f-8c20-b8afbf951d30.jpg" /></div>
+    <div carousel-item style="text-align :center">
+        <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage1.jpg" /></div>
+        <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage2.png" /></div>
+        <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage3.jpg" /></div>
     </div>
 </div>
 
@@ -43,9 +44,9 @@
                 <td style="margin: 0px;padding: 0px;">
                     <div class="layui-carousel" id="test2" style="left: 250px">
                         <div carousel-item>
-                            <div><img src="../static/layui/image/1.jpg" /></div>
-                            <div><img src="../static/layui/image/2.jpg" /></div>
-                            <div><img src="../static/layui/image/3.jpg" /></div>
+                            <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage4.jpg" /></div>
+                            <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage5.jpg" /></div>
+                            <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage6.jpg" /></div>
                         </div>
                     </div>
                 </td>
@@ -70,23 +71,20 @@
 
 
         <div class="layui-tab-item">
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="">默认展开</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="">解决方案</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="">产品</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="">大数据</a>
-                </li>
-            </ul>
+<%--            <table id="demo" class="layui-table" lay-event="" lay-skin="nob" ></table>--%>
+            <table id="demo" lay-filter="test"></table>
         </div>
-        <div class="layui-tab-item">内容3</div>
+
+
+        <div class="layui-tab-item">
+            <div class="layui-card">
+                <div class="layui-card-header">柱形图</div>
+                <div class="layui-card-body">
+                    <div id="EchartZhu" style="width: 500px;height: 500px;"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="layui-tab-item">内容4</div>
         <div class="layui-tab-item">
 	        <div style="padding: 50px">
@@ -221,32 +219,251 @@
 </script>
 
 
-<%--<script>--%>
-<%--    layui.use([], function () {--%>
-<%--        var $ = layui.jquery;--%>
-<%--        //演示动画开始--%>
-<%--        $('.site-doc-icon .layui-anim').on('click', function(){--%>
-<%--            var othis = $(this), anim = othis.data('anim');--%>
+<script>
+    onload= layui.use(['form', 'layer', 'layedit'], function () {
+        $ = layui.jquery;
+        var form = layui.form;
+        var layer = layui.layer;
+        var layedit = layui.layedit;
+        //3.页面打开时异步加载数据
+        $(function () {
+            $.ajax({
+                //提交数据的类型 POST GET
+                type: "POST",
+                //提交的网址
+                url: "${pageContext.request.contextPath}/TM/getNoticeType",
+                //提交的数据
+                //返回数据的格式
+                datatype: "text",//“xml”, “html”, “script”, “json”, “jsonp”, “text”.
+                //成功返回之后调用的函数
+                success: function (data) {
+                    console.log($.parseJSON(data));
+                    $.each($.parseJSON(data), function (index, item) {
+                        $('#type').append(new Option(item.type, item.type));// 下拉菜单里添加元素
+                    });
+                    layui.form.render("select");
+                }, error: function () {
+                    alert("查询失败！！！")
+                }
+            });
+        });
+    });
 
-<%--            //停止循环--%>
-<%--            if(othis.hasClass('layui-anim-loop')){--%>
-<%--                return othis.removeClass(anim);--%>
-<%--            }--%>
-<%--            othis.removeClass(anim);--%>
-<%--            setTimeout(function(){--%>
-<%--                othis.addClass(anim);--%>
-<%--            });--%>
-<%--            //恢复渐隐--%>
-<%--            if(anim === 'layui-anim-fadeout'){--%>
-<%--                setTimeout(function(){--%>
-<%--                    othis.removeClass(anim);--%>
-<%--                }, 1300);--%>
-<%--            }--%>
-<%--        });--%>
-<%--        //演示动画结束--%>
-<%--    })--%>
-<%--</script>--%>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
 
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#date1' //指定元素
+        });
+    });
+
+    layui.use(['table','laydate','form','jquery'], function(){
+        var table = layui.table,
+                laydate=layui.laydate,
+                form=layui.form,
+                $=layui.jquery;
+        //表格实例
+        table.render({
+            elem: '#demo'
+            ,height: 280
+            ,id:'testReload'
+            ,url: '${pageContext.request.contextPath}/TM/getNotice' //数据接口
+            ,page: true //开启分页
+            ,limit:5
+            ,cols: [[ //表头
+                // {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                {field: 'title', title: '标题', width:400}
+                ,{field: 'content', title: '内容', width:400 , event:'show'}
+                ,{field: 'date', title: '发布时间', templet: "<div>{{layui.util.toDateString(d.time, 'yyyy-MM-dd HH:mm:ss')}}</div>",width:150}
+                ,{field: 'type', title: '公告类型', width:150}
+                // ,{fixed: 'right', width:300, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+            ]]
+        });
+
+        //阻止表单提交
+        form.on('submit(formDemo)', function(data){
+            return false;//阻止表单跳转
+        });
+
+        //表格数据重载
+        $('#button').on('click',function () {
+            var type=$(this).data('type');
+            if(type == 'reload'){
+                table.reload('testReload',{
+                    page:{
+                        curr:1
+                    }
+                    ,where:{
+                        title:$("#title").val(),
+                        date:$("#date1").val(),
+                        type:$("#type").val(),
+                    }
+                });
+            }
+
+        });
+
+        //监听工具条
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            console.log(data);
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            console.log(layEvent);
+            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+            if(layEvent === 'show'){ //查看
+                console.log("点击了查看");
+                //do somehing
+                console.log(data);
+
+                var notice=JSON.stringify(data);
+
+                $.ajax({
+                    //相应路劲
+                    url:"${pageContext.request.contextPath}/TM/getNoticeMsg",
+                    //是否异步提交
+                    async:true,
+                    //请求类型
+                    type:"post",
+                    //数据名
+                    data:{"notice":notice},
+                    //数据类型:文本
+                    datatype:"text",
+                    //返回成功消息
+                    success:function (msg) {
+                        layer.open({
+                            type: 2,
+                            title: '查看',
+                            shadeClose: true,
+                            shade: 0.8,
+                            area: ['700px', '500px'],
+                            content: "${pageContext.request.contextPath}/TM/path/InspectNoticeMsg",
+                            yes: function (index, layero) {
+
+                            }
+                        });
+                    },
+                    //返回失败消息
+                    error:function () {
+                    }
+                });
+
+            } else if(layEvent === 'del'){ //删除
+                // console.log("点击了删除按钮");
+                layer.confirm('确定删除数据?', function(index){
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+
+                    var notice=JSON.stringify(data);
+
+                    //向服务端发送删除指令
+                    $.ajax({
+                        //相应路劲
+                        url:"${pageContext.request.contextPath}/TM/deleteNotice",
+                        //是否异步提交
+                        async:true,
+                        //请求类型
+                        type:"post",
+                        //数据名
+                        data:{"notice":notice},
+                        //数据类型:文本
+                        datatype:"text",
+                        //返回成功消息
+                        success:function (msg) {
+                            console.log(msg);
+                            layer.alert("删除成功",{icon:6});
+                        },
+                        //返回失败消息
+                        error:function () {
+                        }
+                    });
+
+                });
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+	layui.use('table',function () {
+		var table=layui.table;
+
+		table.on('tool()',function(){
+
+		})
+	})
+</script>
+
+<script type="text/javascript">
+
+	// 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('EchartZhu'));
+
+    // 指定图表的配置项和数据
+    var optionchart = {
+        title: {
+        text: '驾校和学员人数'
+        },
+        tooltip: {},
+        legend: {
+            data: ['人数']
+        },
+        xAxis: {
+            data: (function () {
+	            var arr=[];
+	            $.ajax({
+		            //相应路劲
+		            url:"${pageContext.request.contextPath}/school/getSchoolName",
+		            //是否异步提交
+		            async:true,
+		            //请求类型
+		            type:"post",
+		            //数据名
+		            data:{},
+		            //数据类型:文本
+		            datatype:"json",
+		            //返回成功消息
+		            success:function (msg) {
+			            console.log(msg);
+			            // layer.alert("删除成功",{icon:6});
+		            },
+		            //返回失败消息
+		            error:function () {
+		            }
+	            });
+            })
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name: '教练人数',
+            type: 'bar', //柱状
+            data: [20,30,10,60,40,35],
+            itemStyle: {
+            normal: { //柱子颜色
+                color: 'red'
+            }
+            }
+        },{
+            name:'学员人数',
+            type:'bar',
+            data:[40,60,15,100,80,80],
+            itemStyle:{
+            normal:{
+                color:'blue'
+            }
+            }
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    // myChart.setOption(option);
+    myChart.setOption(optionchart, true);
+</script>
 
 
 </body>

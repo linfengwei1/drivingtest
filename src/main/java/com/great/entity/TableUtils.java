@@ -14,6 +14,7 @@ public class TableUtils {
     private String sex;
     private String state;
     private String name;
+    private String coachName;
     private String phone;
     private String carNumber;
     private Integer school_id;
@@ -27,21 +28,13 @@ public class TableUtils {
     }
 
 
-//    public Date getTime3() {
-//        return time3;
-//    }
-//
-//    public void setTime3(Date time3) {
-//        this.time3 = time3;
-//    }
+    public String getCoachName() {
+        return coachName;
+    }
 
-//    public Timestamp getTime4() {
-//        return time4;
-//    }
-//
-//    public void setTime4(Timestamp time4) {
-//        this.time4 = time4;
-//    }
+    public void setCoachName(String coachName) {
+        this.coachName = coachName;
+    }
 
     public Integer getSchool_id() {
         return school_id;
