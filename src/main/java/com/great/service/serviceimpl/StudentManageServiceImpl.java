@@ -404,4 +404,71 @@ public class StudentManageServiceImpl implements StudentManageService
 		int n = studentDao.updatePwd(id,account,pwd);
 		return n;
 	}
+
+	@Override
+	public List<Question> wrongQuestion(String subject,int studentId)
+	{
+		List<Question> list;
+
+		if(subject.equals("1"))//获取科目一题目
+		{
+			list = studentDao.getWrongQuestion_1byStudentId(studentId);//获得选择题和判断题
+		}else
+		{
+			list = studentDao.getWrongQuestion_4byStudentId(studentId);
+		}
+
+		return list;
+	}
+
+	@Override
+	@Transactional
+	public String delWrongQuestion(String studentId, String subject, String qid)
+	{
+		String result = null;
+		int i = 0;
+
+		if(subject.equals("1"))
+		{
+		    i = studentDao.delWrongQuestion1(Integer.parseInt(studentId),Integer.parseInt(subject),Integer.parseInt(qid));
+		}else
+		{
+			i = studentDao.delWrongQuestion4(Integer.parseInt(studentId),Integer.parseInt(subject),Integer.parseInt(qid));
+
+		}
+
+		if(i > 0)
+		{
+			result = "success";
+		}else
+		{
+			result = "error";
+		}
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public String addWrongQuestion(WrongQuestions wrongQuestions)
+	{
+		String result = null;
+		int i = 0;
+
+		if(wrongQuestions.getSubject() == 1)
+		{
+			i = studentDao.addWrongQuestion1(wrongQuestions.getWrongList(),wrongQuestions.getStudentId());
+		}else
+		{
+			i = studentDao.addWrongQuestion4(wrongQuestions.getWrongList(),wrongQuestions.getStudentId());
+		}
+
+		if(i > 0)
+		{
+			result = "success";
+		}else
+		{
+			result = "error";
+		}
+		return result;
+	}
 }

@@ -107,6 +107,13 @@ public class StudentController
 		String result = studentManageServiceImpl.addEvaForCoach(coachId,content);
 		return result;
 	}
+	@RequestMapping("/delWrongQuestion")
+	@ResponseBody
+	public String delWrongQuestion(String studentId, String subject, String qid) throws IOException
+	{
+		String result = studentManageServiceImpl.delWrongQuestion(studentId,subject,qid);
+		return result;
+	}
 	@RequestMapping("/getStudyCondition")
 	@ResponseBody
 	public List<StudyCondition> getStudyCondition(String studentId,String status,HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -153,6 +160,16 @@ public class StudentController
 		request.setAttribute("questionList",questionList);//考试题目存入请求
 		request.setAttribute("subject",subject);
 		return "student/jsp/Exercise";
+	}
+	@RequestMapping("/wrongQuestion/{subject}")
+	public String wrongQuestion(HttpServletRequest request,@PathVariable(value = "subject") String subject)
+	{
+		int studentId = ((Student)request.getSession().getAttribute("student")).getId();
+		List<Question> questionList = studentManageServiceImpl.wrongQuestion(subject,studentId);
+		request.setAttribute("questionList",questionList);//考试题目存入请求
+		request.setAttribute("subject",subject);
+		request.setAttribute("size",questionList.size());
+		return "student/jsp/WrongQuestion";
 	}
 	@RequestMapping("/testOl/{subject}")
 	public String testOl(HttpServletRequest request,@PathVariable(value = "subject") String subject)
@@ -203,6 +220,15 @@ public class StudentController
 	}
 
 
+	@RequestMapping("/addWrongQuestion")
+	@ResponseBody
+	public String addWrongQuestion(@RequestBody WrongQuestions wrongQuestions) throws IOException
+	{
+
+		String result = studentManageServiceImpl.addWrongQuestion(wrongQuestions);
+		return result;
+
+	}
 	@RequestMapping("/getTestScore")
 	@ResponseBody
 	public String getTestScore(@RequestBody TestReplies testReplieslist) throws IOException

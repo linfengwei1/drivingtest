@@ -12,6 +12,7 @@ $(function () {
 				time: 0 //不自动关闭
 				,btn: ['确定', '取消']
 				,yes: function(index){
+					layer.close(index1);
 					puhshPaper(layer);
 					clearTimeout(timer2);
 				}
@@ -44,9 +45,14 @@ $(function () {
 
 
 function puhshPaper(layer) {
+	var layer = layui.layer;
+	var path = $("#path").val();
+	var studentId = $("#studentid").val();
+	var subject = $("#subject").val();
 	var score = 0;
 	var errorList = [];
-
+	var wrongList = [];
+	var count;
 	$(".test_content_nr_main").each(function(index, element) {
 
 		// console.log(element);
@@ -56,7 +62,8 @@ function puhshPaper(layer) {
 			$(this).parent().find(".answer").css("display","block");
 			var index = $(this).parent().attr("id");
 			errorList.push(index);//装进错题
-
+			var wrongId = $(this).children("input:last-child").val();
+			wrongList.push(wrongId);
 		}else {
 
 			var correct = $(this).find(".correct").val();
@@ -69,59 +76,65 @@ function puhshPaper(layer) {
 				$(this).parent().find(".answer").css("display","block");
 				var index = $(this).parent().attr("id");
 				errorList.push(index);//装进错题
+				var wrongId = $(this).children("input:last-child").val();
+				wrongList.push(wrongId);
 			}
 		}
 	});
+	var datas ={
+		studentId:parseInt(studentId),
+		subject:parseInt(subject),
+		wrongList: wrongList
+	};
+	$.ajax({
+		url:path+'/student/addWrongQuestion',
+		type:'post',
+		contentType:"application/json",
+		data: JSON.stringify(datas),
+		success:function(data){
+			if ("success" == data){
+				count = wrongList.length;
 
-	layer.alert('本次得分：'+score, {icon: 6,title:'考试结束'});
-	$(".layui-btn-lg").attr("disabled",true);
-	$(".layui-btn-lg").parent().append("<button type=\"button\" class=\"layui-btn layui-btn-lg\" onclick=\"flush()\">再次练习</button>")
+				layer.open({
+					type: 1
+					,title: false //不显示标题栏
+					,closeBtn: false
+					,area: '300px;'
+					,shade: 0.8
+					,anim:1
+					,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+					,closeBtn: 1
+					,btnAlign: 'c'
+					,moveType: 1 //拖拽模式，0或者1
+					,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">本次练习结束！<br>得分：<span style="color: red;font-size: 22px">'+score+'</span><br><br>共计错题'+count+'道，再接再厉哦 ^_^</div>'
+				});
+
+
+
+			}else {
+
+			}
+		},error:function (err) {
+			// layer.msg("网络繁忙",function () {
+			// 	window.location.reload();
+			// });
+		}
+	});
+
+
 
 	findError(errorList);
 
-	// $("input[type='radio']").each(function(index, element) {
-	// 	var select = $(this).val();
-	// 	var answer = $(this).parent().parent().children().eq(0).val();
-	//
-	// 	if($(this).is(":checked"))
-	// 	{
-	// 		if(select == answer)//如果这道题做对了+1分
-	// 		{
-	// 			score++;
-	// 		}
-	// 	}
-	//
-	// });
 
-	// var div_par = $(this).parent().parent().parent().parent();
-	// var answerDiv = div_par.children('.answer');
-	// answerDiv.css("display","block");
-	// $(".answer").css("display","block");
-	//
-	// layer.alert('本次得分：'+score, {icon: 6,title:'考试结束'});
-	// $(".layui-btn-lg").attr("disabled",true);
-	// $(".layui-btn-lg").parent().append("<button type=\"button\" class=\"layui-btn layui-btn-lg\" onclick=\"flush()\">再次练习</button>")
+	$(".layui-btn-lg").attr("disabled",true);
+	$(".layui-btn-lg").parent().append("<button type=\"button\" class=\"layui-btn layui-btn-lg\" onclick=\"flush()\">再次练习</button>")
+
+
 }
 
 function findError(data) {
 	for (var i  = 0;i<data.length;i++)
 	{
-		// $("#q1").find("li").each(function (index, element) {
-		//
-		// 	if($(element).find("a").attr("herf") == data[i])
-		// 	{
-		// 		$(element).css("background","red");
-		// 		$(element).css("color","white");
-		// 	}
-		// })
-		// $("#q2").find("li").each(function (index, element) {
-		//
-		// 	if($(element).find("a").attr("herf") == data[i])
-		// 	{
-		// 		$(element).css("background","red");
-		// 		$(element).css("color","white");
-		// 	}
-		// })
 
 
 		$("#q1 li a").each(function(){
