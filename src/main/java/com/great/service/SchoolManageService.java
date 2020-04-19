@@ -421,4 +421,10 @@ public class SchoolManageService {
         return msg;
     }
 
+
+    //查询驾校名称
+    public List<School> getSchoolName(){
+        return schoolAdminDao.getSchoolName();
+    }
+
 }

@@ -1123,4 +1123,19 @@ public class SchoolController {
             response.getWriter().print("error");
         }
     }
+
+
+    //查询驾校名称
+    @RequestMapping("/getSchoolName")
+    @ResponseBody//ajax返回值json格式转换
+    public void getSchoolName(HttpServletResponse response) throws IOException
+    {
+        System.out.println("getSchoolName");
+        List<School> schoolName = schoolAdminService.getSchoolName();
+        System.out.println("schoolName");
+        response.getWriter().print(schoolName);
+
+
+    }
+
 }

@@ -55,4 +55,7 @@ public interface SchoolAdminDao
 	//通过手机号码改密码
 	public Integer changePwdByPhone(SchoolAdmin schoolAdmin);
 
+	//查询驾校名称
+	public List<School> getSchoolName();
+
 }
