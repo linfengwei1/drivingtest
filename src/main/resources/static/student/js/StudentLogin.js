@@ -22,9 +22,9 @@ $(function () {
                         layer.msg("验证码错误",function () {
                             refreshCode();
                         });
-                    }else {
+                    }else if("error" == data){
                         layer.msg("密码错误",function () {
-                            window.location.reload();
+                            refreshCode();
                         });
                     }
                 },error:function (err) {

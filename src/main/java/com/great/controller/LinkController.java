@@ -1,26 +1,31 @@
 package com.great.controller;
 
+//import com.alibaba.druid.util.StringUtils;这个包错了，换成下面这个！！！
+import org.springframework.util.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+import com.great.aoplog.Log;
 import com.great.entity.*;
 import com.great.service.LinkService;
 import com.great.service.SchoolManageService;
-import com.great.service.TransportationService;
+//import javafx.scene.chart.Chart;我这个没找到，注销了
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.HTML;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller//控制层controller控制器
 @RequestMapping("/link")//访问路径：如果只是@RequestMapping则返回的是jsp页面，如果再加上@ResponseBody则返回的是字符串
@@ -33,8 +38,6 @@ public class LinkController {
 
 	@Autowired//自动注入、自动装配
 	private LinkService linkService;
-	@Resource
-	private TransportationService transportationService;
 	@RequestMapping("/path/{url}")//访问路径的路口：path/{url是作为参数PathVariable路径变量}
 	public String getUrl(@PathVariable(value = "url") String path) {
 		return "/frontjsp/jsp/" + path;//返回
@@ -90,8 +93,7 @@ public class LinkController {
 		Integer limit = Integer.parseInt(request.getParameter("limit"));
 
 		DateTable dt = new DateTable();
-//		List<School> schoolList = linkService.findAllSchool();
-		List<School> schoolList = transportationService.getSchoolList();
+		List<School> schoolList = linkService.findAllSchool();
 		Gson g = new Gson();
 		dt.setCode(0);
 		dt.setCount(schoolList.size());// 总条数

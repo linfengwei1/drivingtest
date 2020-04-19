@@ -34,6 +34,8 @@
         <div> <input type="hidden" id="id" name="id"></div>
         <div class="layui-anim layui-anim-scale" style="clear: left">
             <table id="dataTable" lay-filter="test"></table>
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="q" ><i class="layui-icon">&#xe605;</i>申请考试</button>
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="w" ><i class="layui-icon">&#x1006;</i>驳回申请</button>
         </div>
     </form>
 </div>

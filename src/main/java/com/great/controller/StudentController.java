@@ -36,9 +36,8 @@ public class StudentController
 		Boolean confirm = student.getVerification().equalsIgnoreCase(YZM);//不区分大小写
 
 		if (confirm) {
-			Student newStudent =studentManageServiceImpl.login(student.getAccount(),MD5Utils.md5(student.getPwd()));
+			Student newStudent =studentManageServiceImpl.login(student.getAccount(),MD5Utils.md5(student.getPwd()),request);
 			if (null!=newStudent){
-				request.getSession().setAttribute("student",newStudent);
 				return "success";
 			}else{
 				return "error";
@@ -52,7 +51,7 @@ public class StudentController
 	public String updatePwd(String account,String pwd,String newPwd, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		String result = null;
-		Student student =studentManageServiceImpl.login(account,MD5Utils.md5(pwd));
+		Student student =studentManageServiceImpl.login(account,MD5Utils.md5(pwd),request);
 		if(student != null)
 		{
 			int i = studentManageServiceImpl.updatePwd(student.getId(),account,MD5Utils.md5(newPwd));
@@ -75,7 +74,7 @@ public class StudentController
 	public String reload(HttpServletRequest request)
 	{
 		Student student = (Student) request.getSession().getAttribute("student");
-		Student newStudent =studentManageServiceImpl.login(student.getAccount(),student.getPwd());
+		Student newStudent =studentManageServiceImpl.login(student.getAccount(),student.getPwd(),request);
 		request.getSession().setAttribute("student",newStudent);
 		return "student/jsp/StudentMain";
 	}

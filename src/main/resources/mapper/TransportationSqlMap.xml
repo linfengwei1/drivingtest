@@ -640,19 +640,19 @@
 
 	<!--统计一阶段的人数-->
 	<select id="CountSubject1" resultType="Integer"  >
-		SELECT count(*) FROM student where student_state_id = 1
+		SELECT count(*) FROM student where student_state_id in (1,13)
 	</select>
 	<!--统计2阶段的人数-->
 	<select id="CountSubject2" resultType="Integer" >
-		SELECT count(*) FROM student where student_state_id = 2
+		SELECT count(*) FROM student where student_state_id in (2,14)
 	</select>
 	<!--统计3阶段的人数-->
 	<select id="CountSubject3" resultType="Integer" >
-		SELECT count(*) FROM student where student_state_id = 3
+		SELECT count(*) FROM student where student_state_id in (3,15)
 	</select>
 	<!--统计4阶段的人数-->
 	<select id="CountSubject4" resultType="Integer" >
-		SELECT count(*) FROM student where student_state_id = 4
+		SELECT count(*) FROM student where student_state_id in (4,16)
 	</select>
 
 	<!--统毕业的人数-->
