@@ -54,7 +54,7 @@
                     <a class="" href="javascript:;">学员管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/getStudentState" onclick="changeUrl(this)">学员信息</a></dd>
-
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/AppointTest" onclick="changeUrl(this)">学员预约审批</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

@@ -21,8 +21,17 @@ public class AppointTest {
     private String subjectName;//预约科目
     private String dateTime;//预约考试时间
     private String schoolName;//所属驾校
+    private String coachName;//教练名称
 
     public AppointTest() {
+    }
+
+    public String getCoachName() {
+        return coachName;
+    }
+
+    public void setCoachName(String coachName) {
+        this.coachName = coachName;
     }
 
     public Integer getId() {
