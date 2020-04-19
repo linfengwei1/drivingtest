@@ -72,7 +72,7 @@
             elem: '#demo'
             ,height: 500
             ,id:'testReload'
-            ,url: '${pageContext.request.contextPath}/TM/getAppointTbl' //数据接口
+            ,url: '${pageContext.request.contextPath}/school/getAppointTbl' //数据接口
             ,page: true //开启分页
             ,limit:10
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
