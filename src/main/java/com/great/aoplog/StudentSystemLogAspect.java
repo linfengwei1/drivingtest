@@ -33,7 +33,7 @@ public class StudentSystemLogAspect implements Ordered
     //这里的zxtest要和log4j.properties里的配置一致，否则写不到文件中
     private static Logger logger = Logger.getLogger("zxtest");
 
-    @Pointcut("execution(* com.great.service.serviceimpl.StudentManageServiceImpl.addStudy1Time(..))")//切入点
+    @Pointcut("execution(* com.great.service.serviceimpl.StudentManageServiceImpl.*(..))")//切入点
     public void logPointcut(){
 
     }
@@ -81,12 +81,14 @@ public class StudentSystemLogAspect implements Ordered
         //获取参数值
         Object[] args = joinPoint.getArgs();
 //        int c = args.length;
+        //得到类
         Class targetClass = Class.forName(targetClassName);
+        //得到该类的所有方法对象
         Method[] methods = targetClass.getMethods();
         boolean isMatch = true;
         String operationType = null;
         String operationName = null;
-        for(Method method : methods)
+        for(Method method : methods)//遍历该类的方法对象,目的是为了获取方法上面的日志注解信息
         {
             if(method.getName().equals(methodName))
             {
@@ -127,7 +129,7 @@ public class StudentSystemLogAspect implements Ordered
 
             }
         }
-
+        SystemLog log = new SystemLog();
         try {
             long start = System.currentTimeMillis();
             //方法执行之前  前置通知
@@ -141,18 +143,19 @@ public class StudentSystemLogAspect implements Ordered
             String ip = request.getRemoteAddr();
 
 
-            SystemLog log = new SystemLog();
+
             log.setDescription(operationName);
-            log.setLogType((long)1);
+            log.setLogType(operationType);
             log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
-            log.setParams(params);
+
             if(student != null)
             {
                 log.setCreateBy(student.getName());
+                log.setSchoolId(student.getSchool_id());
+                log.setAccount(student.getAccount());
             }
             log.setCreateDate(new Date());
             log.setRequestIp(ip);
-            systemLogService.insertLog(log);
             long end = System.currentTimeMillis();
             if(logger.isInfoEnabled()){
                 logger.info("around " + joinPoint + "\tUse time : " + (end - start) + " ms!");
@@ -163,10 +166,13 @@ public class StudentSystemLogAspect implements Ordered
             if(logger.isInfoEnabled()){//判断级别 再拼接字符串，提升性能
                 logger.info("around " + joinPoint + "  with exception : " + ex.getMessage());
             }
+            log.setExceptionDetail(ex.getMessage());
+            log.setExceptionDetail(ex.getClass().getName());
             throw new RuntimeException(ex);
         }finally
         {
             //最终通知
+            systemLogService.insertLog(log);
             return result;
         }
 
