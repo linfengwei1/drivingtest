@@ -14,6 +14,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
     <!-- 引入百度地图的API -->
     <script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=dc6nLZsjs4UaISyazpoKjxQYknUDWuT0"></script>
+
     <title>百度地图</title>
     <!-- 地图显示的样式 -->
     <style type="text/css">
