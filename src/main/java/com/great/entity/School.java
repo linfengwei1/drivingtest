@@ -1,5 +1,7 @@
 package com.great.entity;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: School <br/>
  * Description: <br/>
@@ -8,6 +10,8 @@ package com.great.entity;
  * @author lenovo<br />
  * @since JDK 1.8
  */
+
+@Component
 public class School {
     private Integer id;
     private String name;

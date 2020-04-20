@@ -165,5 +165,13 @@
         group by sc.id;
     </select>
 
+    <!-- 驾校申请-->
+    <insert id="SchoolApply" parameterType = "com.great.entity.School" >
+       insert into school (name,phone,address,admin,intro,school_state_id,information)
+		VALUES(#{name},#{phone},#{address},#{admin},#{intro},4,#{information})
+    </insert>
+
+
+
 
 </mapper>

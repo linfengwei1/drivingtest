@@ -5,6 +5,7 @@ import com.great.entity.*;
 
 import com.great.utils.ExportExcelSeedBack;
 import com.great.utils.SchoolFaceRecognitionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,6 +28,8 @@ public class SchoolManageService {
     private SchoolCarDao schoolCarDao;
     @Resource
     private SchoolLogDao schoolLogDao;
+    @Autowired
+    private School school;
 
     //驾校管理员登录
     public SchoolAdmin login(String account, String pwd){
@@ -441,4 +444,15 @@ public class SchoolManageService {
         return schoolAdminDao.getSchoolStudents();
     }
 
+    //驾校申请
+    public Integer SchoolApply(String name, String admin, String address,String phone, String intro,String path){
+        school.setName(name);
+        school.setAdmin(admin);
+        school.setAddress(address);
+        school.setPhone(phone);
+        school.setIntro(intro);
+        school.setInformation(path);
+        Integer a = schoolAdminDao.SchoolApply(school);
+        return a;
+    }
 }

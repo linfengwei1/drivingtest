@@ -61,4 +61,6 @@ public interface SchoolAdminDao
 	//查询驾校学生人数
 	public List getSchoolStudents();
 
+	//驾校申请
+	public Integer SchoolApply(School school);
 }

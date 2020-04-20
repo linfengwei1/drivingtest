@@ -52,7 +52,7 @@
     <select id="findCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
         select count(*) from coachcar s1 ,coach s2 where s1.coach_id = s2.id
 
-        <if test="name!=null">
+        <if test="name!=null and state !='' ">
             and  s2.name like concat('%',#{name},'%')
         </if>
         <if test="state !='' and state!=null">

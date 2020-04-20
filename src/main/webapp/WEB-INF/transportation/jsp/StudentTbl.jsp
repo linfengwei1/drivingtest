@@ -94,7 +94,7 @@
             ,cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
                 ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field: 'account', title: '账号', width:100}
+                ,{field: 'account', title: '账号', width:100,hidden:true}
                 ,{field: 'name', title: '姓名', width:100}
                 ,{field: 'sex', title: '性别', width:50}
                 ,{field: 'age', title: '年龄', width:50}

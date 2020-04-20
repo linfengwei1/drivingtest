@@ -206,10 +206,10 @@ public interface TransportationDao {
 
     /**
      * 获取教练车数量
-     * @param map
+     * @param tableUtils
      * @return
      */
-    public Integer getCoachCarCount(Map<String, Object> map);
+    public Integer getCoachCarCount(TableUtils tableUtils);
 
     /**
      * 获取教练车列表
@@ -442,5 +442,11 @@ public interface TransportationDao {
      */
     public void auditAppoint(Map<String, Integer> map);
 
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public School getSchoolUrl(Integer id);
 
 }
