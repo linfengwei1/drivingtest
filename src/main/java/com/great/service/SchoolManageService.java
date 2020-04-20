@@ -427,4 +427,9 @@ public class SchoolManageService {
         return schoolAdminDao.getSchoolName();
     }
 
+    //查询驾校学员人数
+    public List getSchoolStudents(){
+        return schoolAdminDao.getSchoolStudents();
+    }
+
 }

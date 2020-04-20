@@ -315,4 +315,16 @@
 		update  punish set  coach_state_id = 1;
 	</update>
 
+    <!-- 查询驾校教练人数-->
+    <select id="getSchoolCoach" resultType="integer">
+        select
+            count(co.school_id)
+        from
+            school sc
+        left join
+            coach co on co.school_id = sc.id
+        group by sc.id;
+    </select>
+
+
 </mapper>

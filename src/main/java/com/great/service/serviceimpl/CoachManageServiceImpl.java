@@ -71,4 +71,11 @@ public class CoachManageServiceImpl implements CoachManageService
         InfMap.put("count",a);
         return InfMap;
     }
+
+    //查询驾校教练人数
+	@Override
+	public List getSchoolCoach()
+	{
+		return schoolCoachDao.getSchoolCoach();
+	}
 }

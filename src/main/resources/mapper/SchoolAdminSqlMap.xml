@@ -226,13 +226,22 @@
 
 
     <!-- 查询驾校名称-->
-    <select id="getSchoolName" >
+    <select id="getSchoolName" resultType="com.great.entity.School">
         select
         name
         from school
     </select>
 
-
+    <!-- 查询驾校学生人数-->
+    <select id="getSchoolStudents" resultType="integer">
+        select
+            count(st.school_id)
+        from
+            school sc
+        left join
+            student st on st.school_id = sc.id
+        group by sc.id;
+    </select>
 
 
 </mapper>

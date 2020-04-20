@@ -58,4 +58,7 @@ public interface SchoolAdminDao
 	//查询驾校名称
 	public List<School> getSchoolName();
 
+	//查询驾校学生人数
+	public List getSchoolStudents();
+
 }
