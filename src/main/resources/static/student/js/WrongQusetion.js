@@ -24,10 +24,6 @@ $(function () {
 
 
 	});
-
-
-
-
 })
 
 function delQuestion(id,liId) {

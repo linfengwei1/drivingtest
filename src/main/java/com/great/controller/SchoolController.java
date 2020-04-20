@@ -390,6 +390,7 @@ public class SchoolController {
         utils.setMinLimit((page-1)*limit);
         utils.setMaxLimit(limit);
         Map map = (Map) schoolAdminService.getSchoolPunishTable(utils);
+        System.out.println("违规="+map.get("list").toString());
         if (null!=map.get("list")){
             dateTable.setData((List<?>) map.get("list"));
             dateTable.setCode(0);
@@ -478,6 +479,42 @@ public class SchoolController {
         }
         return null;
     }
+
+
+    //批量审批学员信息
+    @RequestMapping("/batchProcessing")
+    public void batchProcessing(AppointTest appointTest, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List list = new ArrayList();
+        Gson g = new Gson();
+        AppointTest[] tree = g.fromJson(request.getParameter("data"), AppointTest[].class);
+        for (int i = 0;i<tree.length;i++){
+            list.add(tree[i].getId());
+        }
+        Integer a = schoolAdminService.changeAppointState(list);
+        if (tree.length==a){
+            response.getWriter().print("success");
+        }else{
+            response.getWriter().print("error");
+        }
+    }
+
+    //批量驳回学员信息
+    @RequestMapping("/batchRejected")
+    public void batchRejected(AppointTest appointTest, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List list = new ArrayList();
+        Gson g = new Gson();
+        AppointTest[] tree = g.fromJson(request.getParameter("data"), AppointTest[].class);
+        for (int i = 0;i<tree.length;i++){
+            list.add(tree[i].getId());
+        }
+        Integer a = schoolAdminService.batchRejected(list);
+        if (tree.length==a){
+            response.getWriter().print("success");
+        }else{
+            response.getWriter().print("error");
+        }
+    }
+
 
 
 

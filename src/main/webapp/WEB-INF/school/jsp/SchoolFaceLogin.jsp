@@ -15,35 +15,6 @@
     <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 <%--    <script src="${pageContext.request.contextPath}/static/school/js/SchoolLogin.js" type="text/javascript" charset="UTF-8"></script>--%>
     <style>
-
-        body {
-            padding: 0;
-            margin: 0;
-            background-size: 68%;
-            overflow-x:hidden;
-            overflow-y:hidden;
-        }
-
-
-        /*#video {*/
-        /*    margin-top: 51px;*/
-        /*    margin-left: -78px;*/
-        /*    transform: scaleX(-1);*/
-        /*}*/
-
-        /*canvas#canvas {*/
-        /*    border: 6px solid white;*/
-        /*    box-shadow: 1px 1px 5px #333333;*/
-        /*    margin-top: 51px;*/
-        /*    z-index: 2;*/
-        /*}*/
-
-
-
-        .buttons span {
-            line-height: 50px;
-        }
-
         #two{
             height: 15%;
             background-color: #f9fdff;
@@ -52,11 +23,12 @@
             height: 70%;
             background-image: url(${pageContext.request.contextPath}/static/images/bgLogin.jpg);
         }
-        .layui-main-login p{
+        a{
             margin: 0px 0 20px 30px;
             font-size: 18px;
             font-weight: bold;
             color: #666;
+
         }
 
     </style>
@@ -68,33 +40,19 @@
     <h1><span style="color: #42627c; padding-top: 10%;margin-left: 10%">机动车驾驶员培训机构信息互动平台</span></h1>
 </div>
 <div id="one" >
-<%--    <div class="layui-container">--%>
-<%--        <div class="layui-row">--%>
-<%--            <div class="layui-col-md5 layui-col-md-offset2" style="margin-left: 60%;margin-top: 5%">--%>
-<%--                <video style="float: left" id="video" width="400px" height="300px"  autoplay="autoplay"></video>--%>
-<%--            </div>--%>
-<%--            <div class="layui-col-md3">--%>
-<%--                <canvas style="float: left" id="canvas" width="400px" height="300px"></canvas>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="layui-row">--%>
-<%--            <div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px;float: left" >--%>
-<%--&lt;%&ndash;                <button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击人脸打卡</button>&ndash;%&gt;--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
 
     <div class="layui-container">
-        <div class="layui-row">
-            <div   id="div1" style="margin-left: 60%;margin-top: 5%">
+
+        <div class="layui-row" style="padding-top: 1%">
+            <a href="<%=request.getContextPath()%>/school/path/SchoolLogin" style="margin-left: 80%;">普通登录</a>
+            <div   id="div1" style="margin-left: 60%">
                 <video style="float: left" id="video" width="400px" height="300px"  autoplay="autoplay"></video>
             </div>
-            <div  id="div2" style="margin-left: 60%;margin-top: 5%">
+            <div  id="div2" style="margin-left: 60%">
                 <canvas style="float: left" id="canvas" width="400px" height="300px"></canvas>
             </div>
         </div>
     </div>
-
 </div>
 <div align="center">
     <p>
@@ -131,9 +89,9 @@
         }else
         {
             openMedia();
-            setTimeout(function () {
-                takePhoto();
-            },2000);//等待摄像头开启
+            // setTimeout(function () {
+            //     takePhoto();
+            // },2000);//等待摄像头开启
         }
 
         function openMedia() {
@@ -196,7 +154,7 @@
         function takePhoto() {
 
             var path = $("#path").val();
-            setTimeout(function(){
+            // setTimeout(function(){
                 //获得Canvas对象
                 var video = document.getElementById('video');
                 var canvas = document.getElementById('canvas');
@@ -253,7 +211,7 @@
 
 
 
-            },2000);
+            // },2000);
 
         }
 

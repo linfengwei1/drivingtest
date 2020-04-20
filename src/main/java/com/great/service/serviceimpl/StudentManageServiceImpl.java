@@ -25,19 +25,24 @@ public class StudentManageServiceImpl implements StudentManageService
 
 
 	@Override
-	@Log(operationType = "登录操作", operationName = "学员登录")
-	public Student login(String account, String pwd)
+	@Log(operationType = "学员操作", operationName = "学员登录")
+	public Student login(String account, String pwd,HttpServletRequest request)
 	{
 		Student student = null;
 		HashMap<String,String> map = new HashMap<>();
 		map.put("account", account);
 		map.put("pwd", pwd);
 		student = studentDao.login(map);
+		if(student != null)
+		{
+			request.getSession().setAttribute("student",student);
+		}
+
 		return student;
 	}
 
 	@Override
-	@Log(operationType = "普通操作", operationName = "学员观看视频")
+	@Log(operationType = "学员操作", operationName = "学员观看视频")
 	public String checkStudyAuthority(String studentId, String vedioId, String subject)
 	{
 		String result = null;
@@ -154,7 +159,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Transactional
-	@Log(operationType = "普通操作", operationName = "学员科目1增加学时")
+	@Log(operationType = "学员操作", operationName = "学员科目1增加学时")
 	public String addStudy1Time(String studentId, String subject)
 	{
 		int i = studentDao.addStudy1Time(Integer.parseInt(studentId),Integer.parseInt(subject));
@@ -168,7 +173,7 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
-	@Log(operationType = "普通操作", operationName = "学员获取在线练习页面")
+	@Log(operationType = "学员操作", operationName = "学员获取在线练习页面")
 	public QuestionList getQuestionsBySubject(String subject)
 	{
 
@@ -194,7 +199,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Transactional
-	@Log(operationType = "普通操作", operationName = "学员录入人脸信息")
+	@Log(operationType = "学员操作", operationName = "学员录入人脸信息")
 	public String importFace(String studentId, String face)
 	{
 		String result = null;
@@ -212,7 +217,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Transactional
-	@Log(operationType = "普通操作", operationName = "学员登录打卡")
+	@Log(operationType = "学员操作", operationName = "学员登录打卡")
 	public String faceCheck(String studentid, String face,String subject)
 	{
 
@@ -258,7 +263,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Transactional
-	@Log(operationType = "查询操作", operationName = "学员提交试卷得到考试分数")
+	@Log(operationType = "学员操作", operationName = "学员提交试卷得到考试分数")
 	public int getTestScore(TestReplies testReplieslist)
 	{
 		int score = 0;
@@ -280,6 +285,7 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
+	@Log(operationType = "学员操作", operationName = "判断是否可以模拟考试")
 	public String getStudentState(String studentId, String subject)
 	{
 		String resulet = null;
@@ -308,6 +314,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Transactional
+	@Log(operationType = "学员操作", operationName = "得到学习状态信息")
 	public List<StudyCondition>  getStudyCondition(String studentId, String status, HttpServletRequest request)
 	{
 		System.out.println(status);
@@ -342,6 +349,7 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
+	@Log(operationType = "学员操作", operationName = "获取考试分数")
 	public List<Score> getMyScore(String studentId)
 	{
 		List<Score> list =  studentDao.getMyScore(Integer.parseInt(studentId));
@@ -350,6 +358,7 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
+	@Log(operationType = "学员操作", operationName = "获取考试预约时间")
 	public List<ExamOrder> getOrderTime(String studentId)
 	{
 		List<ExamOrder> list =  studentDao.getOrderTime(Integer.parseInt(studentId));
@@ -358,6 +367,7 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
+	@Log(operationType = "学员操作", operationName = "获取对学校的评价")
 	public List<EvaluationToSchool> getAllEvaForSchool(String schoolId)
 	{
 		List<EvaluationToSchool> list =  studentDao.getAllEvaForSchool(Integer.parseInt(schoolId));
@@ -366,6 +376,8 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
+	@Transactional
+	@Log(operationType = "学员操作", operationName = "添加对学校的评价")
 	public String addEvaForSchool(String schoolId, String content)
 	{
 		String result = null;
@@ -378,6 +390,7 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
+	@Log(operationType = "学员操作", operationName = "获取对教练的评价")
 	public List<EvaluationToCoach> getAllEvaForCoach(String coachId)
 	{
 		List<EvaluationToCoach> list =  studentDao.getAllEvaForCoach(Integer.parseInt(coachId));
@@ -386,6 +399,8 @@ public class StudentManageServiceImpl implements StudentManageService
 	}
 
 	@Override
+	@Transactional
+	@Log(operationType = "学员操作", operationName = "增加对教练的评价")
 	public String addEvaForCoach(String coachId, String content)
 	{
 		String result = null;
@@ -399,14 +414,16 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Transactional
-	public int updatePwd(int id,String account, String pwd)
+	@Log(operationType = "学员操作", operationName = "更改密码")
+	public int updatePwd(Integer id,String account, String pwd)
 	{
 		int n = studentDao.updatePwd(id,account,pwd);
 		return n;
 	}
 
 	@Override
-	public List<Question> wrongQuestion(String subject,int studentId)
+	@Log(operationType = "学员操作", operationName = "得到错题集")
+	public List<Question> wrongQuestion(String subject,Integer studentId)
 	{
 		List<Question> list;
 
@@ -423,6 +440,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Transactional
+	@Log(operationType = "学员操作", operationName = "删除错题")
 	public String delWrongQuestion(String studentId, String subject, String qid)
 	{
 		String result = null;
@@ -449,6 +467,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Transactional
+	@Log(operationType = "学员操作", operationName = "增加错题")
 	public String addWrongQuestion(WrongQuestions wrongQuestions)
 	{
 		String result = null;

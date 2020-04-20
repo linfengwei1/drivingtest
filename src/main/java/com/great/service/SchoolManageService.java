@@ -237,6 +237,15 @@ public class SchoolManageService {
     }
 
 
+    //批量审核通过学员预约
+    public Integer changeAppointState(List list){
+        return schoolStudentDao.changeAppointState(list);
+    }
+
+    //批量驳回过学员预约
+    public Integer batchRejected(List list){
+        return schoolStudentDao.batchRejected(list);
+    }
 
     //获取车辆信息表
     public Object getCarTable(TableUtils u){
