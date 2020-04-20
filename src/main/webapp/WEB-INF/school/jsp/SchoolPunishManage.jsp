@@ -128,7 +128,7 @@
                             }
                             return '运管审核不通过'
                         }}
-                    , {field: 'datetime', title: '违规时间', width: 200, sort: true,align: 'center',templet: "<div>{{layui.util.toDateString(d.datetime, 'yyyy-MM-dd HH:mm:ss')}}</div>"}
+                    , {field: 'datetime', title: '违规时间', width: 200,align: 'center',templet: "<div>{{layui.util.toDateString(d.datetime, 'yyyy-MM-dd HH:mm:ss')}}</div>"}
                     , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
                 ]]
             });

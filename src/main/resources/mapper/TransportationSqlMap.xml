@@ -455,7 +455,7 @@
 				and state = #{type}
 			</if>
 		</where>
-		limit #{minlimit} , #{maxlimit}
+-- 		limit #{minlimit} , #{maxlimit}
 	</select>
 
 <!--获取教练车列表-->

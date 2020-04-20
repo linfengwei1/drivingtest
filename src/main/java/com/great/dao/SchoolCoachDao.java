@@ -75,4 +75,7 @@ public interface SchoolCoachDao
 
 	//
 	List<StudyCondition> findStudentScore(TableUtils tableUtils);
+
+	//查询驾校教练人数
+	public List getSchoolCoach();
 }

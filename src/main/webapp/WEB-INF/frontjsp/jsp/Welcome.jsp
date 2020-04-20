@@ -80,7 +80,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">柱形图</div>
                 <div class="layui-card-body">
-                    <div id="EchartZhu" style="width: 500px;height: 500px;"></div>
+                    <div id="EchartZhu" style="width: 500px;height: 300px;"></div>
                 </div>
             </div>
         </div>
@@ -398,9 +398,100 @@
 </script>
 
 <script type="text/javascript">
+	var nameArr = [];//驾校名称
+	var studentArr = [];
+	var coachArr = [];
+	var nu1=0;
+	$(function() {
+		// var path = $("#path").val();
+		$.ajax({
+			async:true,
+			method : "POST",
+			url :"${pageContext.request.contextPath}/school/getSchoolName",
+			dataType : "text",
+			success : function(msg) {
+				var arr = JSON.parse(msg);
+				console.log("msg=="+arr);
+				for (var i = 0;i<arr.length;i++){
+					// valueArr.push(arr[i]);
+					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
+					nameArr.push(arr[i].name);
+				}
+				console.log("ms=="+nameArr);
+				createEchars();
+				// nameArr=["科目一","科目二","科目三","科目四","毕业"];
+				// createEchars();// 创建普通柱状图
+				// console.log("nu1="+nu1);
+				// $("#lab1").text(nu1);
+			},
+			error : function() {
+				alert("服务器正忙");
+			}
+		});
+	})
+
+	$(function() {
+		// var path = $("#path").val();
+		$.ajax({
+			async:true,
+			method : "POST",
+			url :"${pageContext.request.contextPath}/school/getSchoolStudents",
+			dataType : "text",
+			success : function(msg) {
+				var arr = JSON.parse(msg);
+				console.log("msg=="+arr);
+				for (var i = 0;i<arr.length;i++){
+					// valueArr.push(arr[i]);
+					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
+					studentArr.push(arr[i]);
+				}
+				console.log("ms=="+nameArr);
+				createEchars();
+				// nameArr=["科目一","科目二","科目三","科目四","毕业"];
+				// createEchars();// 创建普通柱状图
+				// console.log("nu1="+nu1);
+				// $("#lab1").text(nu1);
+			},
+			error : function() {
+				alert("服务器正忙");
+			}
+		});
+	})
+
+	$(function() {
+		// var path = $("#path").val();
+		$.ajax({
+			async:true,
+			method : "POST",
+			url :"${pageContext.request.contextPath}/coach/getSchoolCoach",
+			dataType : "text",
+			success : function(msg) {
+				var arr = JSON.parse(msg);
+				console.log("msg=="+arr);
+				for (var i = 0;i<arr.length;i++){
+					// valueArr.push(arr[i]);
+					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
+					coachArr.push(arr[i]);
+				}
+				console.log("ms=="+coachArr);
+				createEchars();
+				// nameArr=["科目一","科目二","科目三","科目四","毕业"];
+				// createEchars();// 创建普通柱状图
+				// console.log("nu1="+nu1);
+				// $("#lab1").text(nu1);
+			},
+			error : function() {
+				alert("服务器正忙");
+			}
+		});
+	})
+
+	function createEchars() {
 
 	// 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('EchartZhu'));
+
+    console.log("tupian");
 
     // 指定图表的配置项和数据
     var optionchart = {
@@ -412,29 +503,7 @@
             data: ['人数']
         },
         xAxis: {
-            data: (function () {
-	            var arr=[];
-	            $.ajax({
-		            //相应路劲
-		            url:"${pageContext.request.contextPath}/school/getSchoolName",
-		            //是否异步提交
-		            async:true,
-		            //请求类型
-		            type:"post",
-		            //数据名
-		            data:{},
-		            //数据类型:文本
-		            datatype:"json",
-		            //返回成功消息
-		            success:function (msg) {
-			            console.log(msg);
-			            // layer.alert("删除成功",{icon:6});
-		            },
-		            //返回失败消息
-		            error:function () {
-		            }
-	            });
-            })
+            data: nameArr
         },
         yAxis: {
             type: 'value'
@@ -442,7 +511,7 @@
         series: [{
             name: '教练人数',
             type: 'bar', //柱状
-            data: [20,30,10,60,40,35],
+            data: coachArr,
             itemStyle: {
             normal: { //柱子颜色
                 color: 'red'
@@ -451,7 +520,7 @@
         },{
             name:'学员人数',
             type:'bar',
-            data:[40,60,15,100,80,80],
+            data:studentArr,
             itemStyle:{
             normal:{
                 color:'blue'
@@ -463,6 +532,7 @@
     // 使用刚指定的配置项和数据显示图表。
     // myChart.setOption(option);
     myChart.setOption(optionchart, true);
+	}
 </script>
 
 

@@ -390,6 +390,7 @@ public class SchoolController {
         utils.setMinLimit((page-1)*limit);
         utils.setMaxLimit(limit);
         Map map = (Map) schoolAdminService.getSchoolPunishTable(utils);
+        System.out.println("违规="+map.get("list").toString());
         if (null!=map.get("list")){
             dateTable.setData((List<?>) map.get("list"));
             dateTable.setCode(0);
@@ -478,6 +479,42 @@ public class SchoolController {
         }
         return null;
     }
+
+
+    //批量审批学员信息
+    @RequestMapping("/batchProcessing")
+    public void batchProcessing(AppointTest appointTest, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List list = new ArrayList();
+        Gson g = new Gson();
+        AppointTest[] tree = g.fromJson(request.getParameter("data"), AppointTest[].class);
+        for (int i = 0;i<tree.length;i++){
+            list.add(tree[i].getId());
+        }
+        Integer a = schoolAdminService.changeAppointState(list);
+        if (tree.length==a){
+            response.getWriter().print("success");
+        }else{
+            response.getWriter().print("error");
+        }
+    }
+
+    //批量驳回学员信息
+    @RequestMapping("/batchRejected")
+    public void batchRejected(AppointTest appointTest, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List list = new ArrayList();
+        Gson g = new Gson();
+        AppointTest[] tree = g.fromJson(request.getParameter("data"), AppointTest[].class);
+        for (int i = 0;i<tree.length;i++){
+            list.add(tree[i].getId());
+        }
+        Integer a = schoolAdminService.batchRejected(list);
+        if (tree.length==a){
+            response.getWriter().print("success");
+        }else{
+            response.getWriter().print("error");
+        }
+    }
+
 
 
 
@@ -1128,14 +1165,29 @@ public class SchoolController {
     //查询驾校名称
     @RequestMapping("/getSchoolName")
     @ResponseBody//ajax返回值json格式转换
-    public void getSchoolName(HttpServletResponse response) throws IOException
+    public List getSchoolName(HttpServletResponse response) throws IOException
     {
         System.out.println("getSchoolName");
         List<School> schoolName = schoolAdminService.getSchoolName();
-        System.out.println("schoolName");
-        response.getWriter().print(schoolName);
+        System.out.println("list:"+schoolName.toString());
+        if (null!=schoolName){
+        	return schoolName;
+        }
+		return null;
+    }
 
-
+    //查询驾校学员人数
+    @RequestMapping("/getSchoolStudents")
+    @ResponseBody//ajax返回值json格式转换
+    public List getSchoolStudents(HttpServletResponse response) throws IOException
+    {
+        System.out.println("getSchoolStudents");
+        List schoolStudents = schoolAdminService.getSchoolStudents();
+        System.out.println("list:"+schoolStudents.toString());
+        if (null!=schoolStudents){
+            return schoolStudents;
+        }
+        return null;
     }
 
 }
