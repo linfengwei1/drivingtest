@@ -439,6 +439,11 @@ public class SchoolManageService {
         return schoolAdminDao.getSchoolName();
     }
 
+    //查询驾校学员人数
+    public List getSchoolStudents(){
+        return schoolAdminDao.getSchoolStudents();
+    }
+
     //驾校申请
     public Integer SchoolApply(String name, String admin, String address,String phone, String intro,String path){
         school.setName(name);

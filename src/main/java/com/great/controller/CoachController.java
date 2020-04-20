@@ -163,4 +163,18 @@ public class CoachController
         }
         return null;
     }
+
+	//查询驾校教练人数
+	@RequestMapping("/getSchoolCoach")
+	@ResponseBody//ajax返回值json格式转换
+	public List getSchoolCoach(HttpServletResponse response) throws IOException
+	{
+		System.out.println("getSchoolCoach");
+		List schoolCoach = coachManageService.getSchoolCoach();
+		System.out.println("list:"+schoolCoach.toString());
+		if (null!=schoolCoach){
+			return schoolCoach;
+		}
+		return null;
+	}
 }
