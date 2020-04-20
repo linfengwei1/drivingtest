@@ -2,8 +2,14 @@ package com.great.controller;
 
 
 import com.google.gson.Gson;
+import com.great.aoplog.Log;
 import com.great.entity.*;
 import com.great.service.TransportationService;
+import org.apache.commons.io.FileUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -970,5 +977,35 @@ public class TransportationManagementController {
 
 		return "";
 	}
+
+
+    /**
+     * 文件下载
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/down")
+    @ResponseBody//ajax返回值json格式转换
+//    @Log(operationType = "下载操作", operationName = "下载文件")
+    public ResponseEntity<byte[]> downDocumentInf(String id,HttpServletRequest request) throws IOException {
+       School school= transportationService.getSchoolUrl(Integer.valueOf(id.trim()));
+        String savePath = request.getSession().getServletContext().getRealPath("/");
+        String projectPath = savePath  + school.getInformation();
+        System.out.println("路径=="+projectPath);
+        File file=new File(projectPath);
+        //设置HttpHeaders,使得浏览器响应下载
+        HttpHeaders headers = new HttpHeaders();
+        //为了解决中文名称乱码问题
+        String fileName=new String(school.getName().getBytes("UTF-8"),"iso-8859-1");
+        //设置响应文件 attachment附件的意思
+        headers.setContentDispositionFormData("attachment", fileName);
+        //设置响应方式  APPLICATION_OCTET_STREAM 二进制流数据（如常见的文件下载）
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        //把文件以二进制形式写回
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
+                headers, HttpStatus.CREATED);
+
+    }
 
 }

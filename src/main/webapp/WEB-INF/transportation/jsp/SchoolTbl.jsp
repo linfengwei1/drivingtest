@@ -61,18 +61,22 @@
 <script type="text/html" id="barDemo">
 
     {{#  if(d.school_state_id == 4){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="down"><i class="layui-icon">&#xe63c;</i>文件下载</a>
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine"><i class="layui-icon">&#xe642;</i>审核</a>
     {{#  } else if(d.school_state_id ==3){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="down"><i class="layui-icon">&#xe63c;</i>文件下载</a>
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stopApply"><i class="layui-icon">&#xe642;</i>禁止报名</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stopDoing"><i class="layui-icon">&#xe642;</i>封停</a>
     {{#  } else if(d.school_state_id ==1){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="down"><i class="layui-icon">&#xe63c;</i>文件下载</a>
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
     <a class="layui-btn layui-btn-xs" lay-event="relieveApply"><i class="layui-icon">&#xe63c;</i>解除限制</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stopDoing"><i class="layui-icon">&#xe642;</i>封停</a>
     {{#  } else{ }}
     <a class="layui-btn layui-btn-xs" lay-event="lookMsg"><i class="layui-icon">&#xe63c;</i>查看信息</a>
+    <a class="layui-btn layui-btn-xs" lay-event="down"><i class="layui-icon">&#xe63c;</i>文件下载</a>
     <a class="layui-btn layui-btn-xs" lay-event="relieveDoing"><i class="layui-icon">&#xe63c;</i>解除封停</a>
     {{#  } }}
 
@@ -99,7 +103,7 @@
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
                 ,{field: 'name', title: '驾校名', width:100}
-                ,{field: 'phone', title: '联系电话', width:100}
+                ,{field: 'phone', title: '联系电话', width:130}
                 ,{field: 'address', title: '地址', width:250}
                 ,{field: 'admin', title: '负责人', width:50}
                 ,{field: 'intro', title: '口号', width:100}
@@ -116,7 +120,7 @@
                         }
                             return '审核未通过'
                     }}
-                ,{fixed: 'right', width:300, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                ,{fixed: 'right', width:360, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
         });
 
@@ -220,9 +224,7 @@
             }else if(layEvent === 'stopDoing'){
                 layer.prompt({title: '问题：', formType: 2}, function(text, index){
                     layer.close(index);
-
                     var contentS=text;
-
                     layer.prompt({title: '处理结果：', formType: 2}, function(text, index){
                         layer.close(index);
 
@@ -334,7 +336,7 @@
                         console.log("sss");
                         layer.open({
                             type: 2,
-                            title: '查看用户',
+                            title: '查看驾校',
                             shadeClose: true,
                             shade: 0.8,
                             area: ['400px', '500px'],
@@ -403,7 +405,10 @@
 
                 });
 
+            }else if(layEvent === 'down') {//文件下载
+                window.location.href='${pageContext.request.contextPath}/TM/down?id='+data.id;
             }
+
         });
 
     });

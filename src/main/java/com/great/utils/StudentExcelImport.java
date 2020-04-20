@@ -54,7 +54,7 @@ public class StudentExcelImport {
                     if (j == 1) {
                             student.setAccount(data);
                         } else if (j == 2) {
-                            student.setPwd(data);
+                            student.setPwd(MD5Utils.md5(data));
                         } else if (j == 3) {
                             student.setName(data);
                         }else if (j == 4) {

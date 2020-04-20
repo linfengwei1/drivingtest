@@ -58,4 +58,6 @@ public interface SchoolAdminDao
 	//查询驾校名称
 	public List<School> getSchoolName();
 
+	//驾校申请
+	public Integer SchoolApply(School school);
 }

@@ -370,4 +370,12 @@ public interface TransportationService {
      * @param id
      */
     public void auditAppoint(Integer id, String doing);
+
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public School getSchoolUrl(Integer id);
 }

@@ -89,9 +89,9 @@
         }else
         {
             openMedia();
-            // setTimeout(function () {
-            //     takePhoto();
-            // },2000);//等待摄像头开启
+            setTimeout(function () {
+                takePhoto();
+            },2000);//等待摄像头开启
         }
 
         function openMedia() {
@@ -154,7 +154,7 @@
         function takePhoto() {
 
             var path = $("#path").val();
-            // setTimeout(function(){
+            setTimeout(function(){
                 //获得Canvas对象
                 var video = document.getElementById('video');
                 var canvas = document.getElementById('canvas');
@@ -211,7 +211,7 @@
 
 
 
-            // },2000);
+            },2000);
 
         }
 

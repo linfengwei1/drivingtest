@@ -79,12 +79,12 @@
 
     <!--添加学员学时表-->
     <insert id="addStudyCondition"   parameterType="com.great.entity.StudyCondition">
-		insert into studycondition (subject_id,time,score,student_id) VALUES
+		insert into studycondition (subject_id,time,practise_score,student_id) VALUES
         <foreach collection="list" item="item" index="index" separator="," >
             (
             #{item.subject_id},
             #{item.time},
-            #{item.score},
+            #{item.practise_score},
             #{item.student_id}
             )
         </foreach>
