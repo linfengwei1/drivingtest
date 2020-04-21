@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -105,7 +106,7 @@ public class LinkController {
 	//文件上传
 	@RequestMapping("/fileUpload")
 	@ResponseBody//ajax返回值json格式转换
-	public Object test(@RequestParam(value="file",required = false)MultipartFile file, HttpServletRequest request) throws IOException {
+	public Object test(@RequestParam(value="file",required = false) MultipartFile file, HttpServletRequest request) throws IOException {
 		System.out.println("fileUpload");
 		System.out.println("file:"+file);
 		if (!StringUtils.isEmpty(file) && file.getSize()>0){
