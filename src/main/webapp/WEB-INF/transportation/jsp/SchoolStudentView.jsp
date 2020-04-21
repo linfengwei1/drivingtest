@@ -44,7 +44,6 @@
                 student=arr["studentNum"];
                 coach=arr["coachNum"];
                 coachCar=arr["coachCarNum"];
-
                 console.log("msg=="+msg);
 
                 createEchars();// 创建普通柱状图

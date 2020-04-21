@@ -301,27 +301,30 @@ public class TransportationServiceImp implements TransportationService {
     public ObjectResult getCoachCarTbl(Integer page, Integer limit, String name, String type, String school) {
         int maxlimit=limit;
         int minlimit=(page-1)*limit;
-
+        TableUtils tableUtils = new TableUtils();
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
+
+
         if (name!=null&&!name.equals("")){
             map.put("name",name);
+            tableUtils.setName(name);
         }
         if (type!=null&&!type.equals("")){
             map.put("type",type);
+            tableUtils.setState(type);
         }
         if (school!=null&&!school.equals("")){
             map.put("school",school);
+            tableUtils.setSchool_id(Integer.valueOf(school));
         }
-
-        //System.out.println(map);
 
         ObjectResult objectResult=new ObjectResult();
 
         objectResult.setCode(0);
         //获取记录条数
-        objectResult.setCount(td.getCoachCarCount(map));
+        objectResult.setCount(td.getCoachCarCount(tableUtils));
         //获取记录
         objectResult.setData(td.getCoachCarTbl(map));
 
@@ -715,6 +718,12 @@ public class TransportationServiceImp implements TransportationService {
             td.auditAppoint(map);
         }
 
+    }
+
+    @Override
+    public School getSchoolUrl(Integer id) {
+
+        return td.getSchoolUrl(id);
     }
 
 

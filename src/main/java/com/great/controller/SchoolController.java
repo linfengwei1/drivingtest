@@ -6,12 +6,15 @@ import com.great.aoplog.Log;
 import com.great.entity.*;
 import com.great.service.SchoolManageService;
 import com.great.service.TransportationService;
-import com.great.utils.CarExcelImport;
-import com.great.utils.PhoneCode;
-import com.great.utils.StudentExcelImport;
-import com.great.utils.IDNumber;
+import com.great.utils.*;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +33,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/school")//@RequestMapping：可以为控制器指定处理可以请求哪些URL请求。
@@ -46,10 +51,10 @@ public class SchoolController {
 
 
 
-//    @RequestMapping("/index2")
-//    public String index2(){
-//        return "back/jsp/A";
-//    }
+    @RequestMapping("/index2")
+    public String index2(){
+        return "A";
+    }
     //地址映射,path是个方法名,可以随便改动,{url}是参数
     @RequestMapping("/path/{url}")
     public String getUrl(@PathVariable(value = "url") String path){
@@ -123,7 +128,6 @@ public class SchoolController {
         if (confirm) {
             SchoolAdmin admin =schoolAdminService.login(schoolAdmin.getAccount(),schoolAdmin.getPwd());
             if (null!=admin){
-                System.out.println("登录===+"+admin.toString());
                 request.getSession().setAttribute("SchoolAdmin",admin);
                 response.getWriter().print("success");
             }else{
@@ -140,7 +144,6 @@ public class SchoolController {
     @ResponseBody
     public String faceLogin(String imageString , HttpServletRequest request, HttpServletResponse response) throws IOException {
         imageString = imageString.replaceAll(" ","+");
-        System.out.println("人脸登录==="+imageString);
         String msg=  schoolAdminService.faceLogin(imageString,request);
         System.out.println("返回的msg=="+msg);
 
@@ -282,8 +285,10 @@ public class SchoolController {
     public void addSchoolAdmin(SchoolAdmin admin, HttpServletRequest request, HttpServletResponse response) throws IOException {
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         admin.setSchool_state_id(3);
+        String md5 =MD5Utils.md5(admin.getPwd());
         admin.setSchool_id(schoolAdmin.getSchool_id());
         admin.setTime(new Date());//获取当前系统时间
+        admin.setPwd(md5);
         Integer a  =schoolAdminService.addSchoolAdmin(admin);
         ajaxReturn(a,response);
 
@@ -332,8 +337,8 @@ public class SchoolController {
                 String uuid = UUID.randomUUID()+"";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 dateStr = simpleDateFormat.format(date);
-                String savePath = request.getSession().getServletContext().getRealPath("\\WEB-INF\\classes\\static\\images");
-                String projectPath = savePath + "\\" + dateStr+File.separator + uuid+"." + prefix;;
+                String savePath = request.getSession().getServletContext().getRealPath("/images/");
+                String projectPath = savePath  + dateStr+File.separator + uuid+"." + prefix;;
 //                String filepath = "E:/JAVA/kl/src/main/resources/static/images/"+ dateStr+File.separator + uuid+"." + prefix;
 ////                String filepath = "E:/JAVA/kl/src/main/resources/static/images/" + dateStr+File.separator+uuid+"." + prefix;
 //                String filepath2 = System.getProperty("user.dir") +File.separator+"src"+File.separator+"mian"+File.separator+"resources"+File.separator+"static"+File.separator+"images"+ dateStr+File.separator+uuid+"." + prefix;
@@ -390,7 +395,6 @@ public class SchoolController {
         utils.setMinLimit((page-1)*limit);
         utils.setMaxLimit(limit);
         Map map = (Map) schoolAdminService.getSchoolPunishTable(utils);
-        System.out.println("违规="+map.get("list").toString());
         if (null!=map.get("list")){
             dateTable.setData((List<?>) map.get("list"));
             dateTable.setCode(0);
@@ -430,6 +434,8 @@ public class SchoolController {
           Boolean demo= IDNumber.isIDNumber(coach.getIdnumber());
           if (demo){
               coach.setCoach_state_id(4);
+              String md5 =MD5Utils.md5(coach.getPwd());
+              coach.setPwd(md5);
               coach.setSchool_id(schoolAdmin.getSchool_id());
               Integer a= schoolAdminService.addCoach(coach);
               ajaxReturn(a,response);
@@ -589,6 +595,8 @@ public class SchoolController {
         if (demo){
             student.setStudent_state_id(5);
             student.setSchool_id(schoolAdmin.getSchool_id());
+            String md5 = MD5Utils.md5(student.getPwd());
+            student.setPwd(md5);
             Student a= schoolAdminService.addStudent(student);
             if (0!=a.getId()){
                 List<StudyCondition> list = new ArrayList<>();
@@ -596,6 +604,7 @@ public class SchoolController {
                     StudyCondition s = new StudyCondition();
                     s.setSubject_id(i);
                     s.setTime(0);
+                    s.setPractise_score(0);
                     s.setStudent_id(a.getId());
                     list.add(s);
                 }
@@ -642,6 +651,7 @@ public class SchoolController {
                       for (int i=1;i<5;i++){
                           StudyCondition s = new StudyCondition();
                           s.setSubject_id(i);
+                          s.setPractise_score(0);
                           s.setTime(0);
                           s.setStudent_id(lis1.get(x).getId());
                           list2.add(s);
@@ -746,9 +756,26 @@ public class SchoolController {
     }
 
     public static void main(String[] args) {
-        String s = System.getProperty("user.dir")+File.separator+"src"+File.separator+"mian"+File.separator+"resources"+File.separator+"static"+File.separator+"images_dateStr"+File.separator;
-        System.out.println(System.getProperty("user.dir"));
-        System.out.println("s="+s);
+//        String s = System.getProperty("user.dir")+File.separator+"src"+File.separator+"mian"+File.separator+"resources"+File.separator+"static"+File.separator+"images_dateStr"+File.separator;
+//        System.out.println(System.getProperty("user.dir"));
+//        System.out.println("s="+s);
+//        String tomcat_path = System.getProperty("user.dir");
+//        System.out.println("tomcat_path="+tomcat_path);
+//        String pic_path;
+//        //获取tomcat中项目同级路径
+//        String bin_path = tomcat_path.substring(tomcat_path.lastIndexOf("/") + 1, tomcat_path.length());
+//        System.out.println("bin_path="+bin_path);
+//        if (("bin").equals(bin_path)) {
+//            pic_path = tomcat_path.substring(0, System.getProperty("user.dir").lastIndexOf("/")) + "/webapps" + "/upload" + "/uploadImg/";
+//            System.out.println(pic_path);
+//        } else {
+//            pic_path = tomcat_path + "/webapps" + "/upload" + "/uploadImg/";
+//            System.out.println(pic_path);
+//        }
+//
+//        String path = "http://47.96.112.105:8080/opt/tomcat/webapps/demo-0.0.1-SNAPSHOT";
+//        System.out.println(path);
+
     }
 
 
@@ -927,7 +954,6 @@ public class SchoolController {
 
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         coachCar.setCarState("待审核");
-        System.out.println("增加汽车="+coachCar.toString());
         coachCar.setSchool_id(schoolAdmin.getSchool_id());
         Integer a= schoolAdminService.addCar(coachCar);
         ajaxReturn(a,response); //结果返回封装
@@ -1189,5 +1215,64 @@ public class SchoolController {
         }
         return null;
     }
+
+
+    //文件上传
+    @RequestMapping("/upload1")
+    @ResponseBody//ajax返回值json格式转换
+    @Log(operationType = "文件上传", operationName = "文件上传")
+    public String upload1(MultipartFile file,String name, String admin, String address,String phone, String intro, HttpServletRequest request) throws IOException {
+
+        String dateStr="";
+        if (!StringUtils.isEmpty(file) && file.getSize()>0
+                &&null!=name&&!"".equals(name)&&null!=admin&&!"".equals(admin)&&null!=admin&&!"".equals(admin)
+                &&null!=address&&!"".equals(address)&&null!=phone&&!"".equals(phone)&&null!=intro&&!"".equals(intro)){
+           if (isMobileNO(phone)){
+               String fileName= file.getOriginalFilename();//是得到上传时的文件名。
+               String suffix = file.getOriginalFilename().split("\\.")[1];
+               if ("xlsx".equals(suffix)||"doc".equals(suffix)){//集合是否包含要上传的文档类型
+                   Date date = new Date();
+                   //使用UUID+后缀名保存文件名，防止中文乱码问题
+                   SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                   dateStr = simpleDateFormat.format(date);
+                   String savePath = request.getSession().getServletContext().getRealPath("/files/");
+                   String projectPath = savePath  + dateStr+File.separator + fileName;;
+                   System.out.println("projectPath=="+projectPath);
+                   File files=new File(projectPath);
+                   //打印查看上传路径
+                   if(!files.getParentFile().exists()){//判断目录是否存在
+                       System.out.println("files11111="+files.getPath());
+                       files.getParentFile().mkdirs();
+                   }
+                   file.transferTo(files); // 将接收的文件保存到指定文件中
+                   Integer a = schoolAdminService.SchoolApply(name, admin, address,phone,intro,"/files/"+ dateStr+"/"+fileName);//插入到数据库
+                   if (a==1){
+                       return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
+                   }
+           }
+               return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
+           }
+            return "{\"code\":2, \"msg\":\"\", \"data\":{}}";
+        }
+        return "{\"code\":3, \"msg\":\"\", \"data\":{}}";
+    }
+
+
+    /**
+     * 验证是否是手机号
+     * @param mobiles
+     * @return
+     */
+    public static boolean isMobileNO(String mobiles) {
+        if(mobiles==null||mobiles.isEmpty()){
+            return false;
+        }
+        Pattern p = Pattern.compile("^(\\+86)*0*((13[0-9])|(14[0-9])||(15[0-9])|(18[0-9]))\\d{8}$");
+        Matcher m = p.matcher(mobiles);
+        return m.matches();
+    }
+
+
+
 
 }

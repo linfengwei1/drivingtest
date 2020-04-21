@@ -441,21 +441,23 @@
 	</resultMap>
 
 <!--获取教练车数-->
-	<select id="getCoachCarCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
-		select count(*)
-		from coachcar
+	<select id="getCoachCarCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils" >
+
+
+		select count(*) from coachcar
 		<where>
 			<if test="name!=null">
 				and  carnumber like concat('%',#{name},'%')
 			</if>
-			<if test="state!=null">
-				and school_id = #{state}
+			<if test="school_id!=null">
+				and school_id = #{school_id}
 			</if>
-			<if test="type!=null">
-				and state = #{type}
+			<if test="state!=null">
+				and state = #{state}
 			</if>
 		</where>
--- 		limit #{minlimit} , #{maxlimit}
+<!--&#45;&#45; 		limit #{minlimit} , #{maxlimit}-->
+
 	</select>
 
 <!--获取教练车列表-->
@@ -890,5 +892,12 @@
 			id=#{id}
 		</where>
 	</update>
+
+
+
+	<!--获取预约条数-->
+	<select id="getSchoolUrl" resultType="com.great.entity.School" parameterType="java.lang.Integer">
+		select * from school where id = #{id}
+	</select>
 
 </mapper>

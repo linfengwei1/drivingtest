@@ -38,11 +38,6 @@
 </head>
 <body>
 
-<input type="hidden" id="path" value="${pageContext.request.contextPath}">
-<input type="hidden" id="studentid" value="${student.id}">
-<input type="hidden" id="subject" value="1">
-<input type="hidden" id="choice" value="${questionList.choice}">
-<input type="hidden" id="judge" value="${questionList.judge}">
 <div>
 </div>
 <%--<div class="layui-row">--%>
@@ -89,7 +84,6 @@ function takePhoto() {
 	layui.use(['layer'], function () {
 		var layer = layui.layer;
 		var path = $("#path").val();
-		var studentid = $("#studentid").val();
 		var video = document.getElementById('video');
 		var canvas = document.getElementById('canvas');
 		var ctx = canvas.getContext('2d');
