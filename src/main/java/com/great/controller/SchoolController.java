@@ -426,6 +426,25 @@ public class SchoolController {
         }
     }
 
+    //在教练违规处理中把教练状态改成封停
+    @RequestMapping("/coachStateByStop")
+    public void coachStateByStop (Coach coach,HttpServletResponse response,HttpServletRequest request) throws IOException {
+        Integer id =Integer.valueOf(coach.getId()) ;
+        Integer a=schoolAdminService.coachStateByStop(id);
+        ajaxReturn(a,response); //结果返回封装
+
+    }
+
+    //在教练违规处理中把教练状态改成禁止报名
+    @RequestMapping("/coachStateByNo")
+    public void coachStateByNo (Coach coach,HttpServletResponse response,HttpServletRequest request) throws IOException {
+        Integer id =Integer.valueOf(coach.getId()) ;
+        Integer a=schoolAdminService.coachStateByNo(id);
+        ajaxReturn(a,response); //结果返回封装
+
+    }
+
+
     //新增教练
     @RequestMapping("/addCoach")
     public void addCoach(Coach coach, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -443,6 +462,51 @@ public class SchoolController {
               response.getWriter().print("IdError");
           }
 
+    }
+
+    /**
+     * 教练信息ecxcel导入
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/AddCoachByExcel")
+    @ResponseBody
+    public Object AddCoachByExcel(@RequestParam("file") MultipartFile file,HttpServletRequest request, HttpServletResponse response ) {
+
+        String name = file.getOriginalFilename();//得到文件名
+        Map<String,Object> map=new HashMap<>();
+
+        if (name.length() < 6 || !name.substring(name.length() - 5).equals(".xlsx")) {
+            return "{\"code\":2, \"msg\":\"\", \"data\":{}}";
+        }
+        List<Coach> list = null;
+        try {
+            list= CoachExcelImport.excelToShopIdList(file.getInputStream(),request);
+            if (list == null || list.size() <= 0) {
+                return "{\"code\":3, \"msg\":\"\", \"data\":{}}";
+            }
+
+            try {
+                //excel的数据保存到数据库
+              List list1 = schoolAdminService.insertCoachByExcel(list);
+                //把重复的账号取出来，现在在页面上
+                if (null!=list1){
+                    map.put("code",4);
+                    map.put("msg","");
+                    map.put("data",list1);
+                    return map;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
+        }
+        return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
     }
 
     //以excel的形式导出所有教练信息
@@ -688,57 +752,6 @@ public class SchoolController {
     public Object  add( MultipartFile file,HttpServletRequest request) throws Exception {
         Map<String,Object> map= (Map<String, Object>) coachImage(file,request);
         return map;
-//        String name= file.getOriginalFilename();//是得到上传时的文件名。
-//        String prefix="";
-//        String dateStr="";
-//        //保存上传
-//        OutputStream out = null;
-//        InputStream fileInput=null;
-//        try{
-//            if(file!=null){
-//                String originalName = file.getOriginalFilename();
-//                prefix=originalName.substring(originalName.lastIndexOf(".")+1);
-//                Date date = new Date();
-//                //使用UUID+后缀名保存文件名，防止中文乱码问题
-//                String uuid = UUID.randomUUID()+"";
-//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//                dateStr = simpleDateFormat.format(date);
-//                String filepath = "E:/JAVA/kl/src/main/resources/static/images/" + dateStr+File.separator+uuid+"." + prefix;
-//                //String filepath2 = System.getProperty("user.dir") +File.separator+"src"+File.separator+"mian"+File.separator+"resources"+File.separator+"static"+File.separator+"images"+ dateStr+File.separator+uuid+"." + prefix;
-//                File files=new File(filepath);
-//                //打印查看上传路径
-//                if(!files.getParentFile().exists()){//判断目录是否存在
-//                    System.out.println("files11111="+files.getPath());
-//                    files.getParentFile().mkdirs();
-//                }
-//                file.transferTo(files); // 将接收的文件保存到指定文件中
-//                Map<String,Object> map2=new HashMap<>();
-//                Map<String,Object> map=new HashMap<>();
-//                map.put("code",0);
-//                map.put("msg","");
-//                map.put("data",map2);
-//                map2.put("src","/images/"+ dateStr+"/"+uuid+"." + prefix);
-//
-//                return map;
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }finally{
-//            try {
-//                if(out!=null){
-//                    out.close();
-//                }
-//                if(fileInput!=null){
-//                    fileInput.close();
-//                }
-//            } catch (IOException e) {
-//            }
-//        }
-//        Map<String,Object> map=new HashMap<>();
-//        map.put("code",1);
-//        map.put("msg","");
-//        return map;
-
     }
 
 
@@ -881,7 +894,9 @@ public class SchoolController {
         return map3;
     }
 
-    //根据驾校id查询教练的所有信息
+    /**
+     *  根据驾校id查询教练的所有信息
+     */
     @RequestMapping("/findCoach")
     public String findCoach( HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
       SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
@@ -908,14 +923,28 @@ public class SchoolController {
         return "school/jsp/CoachMsg";
     }
 
-    //更新教练车信息
+
+    /**
+     * 更新教练车信息
+     * @param coachCar
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws SQLException
+     */
     @RequestMapping("/UpdateCar")
     public void UpdateCar(CoachCar coachCar, HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
          Integer a= schoolAdminService.updateCar(coachCar);
          ajaxReturn(a,response);
     }
 
-    //删除教练车
+
+    /**
+     * 删除教练车
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     @RequestMapping("/deleteCar")
 //    @Log(operationType = "删除操作", operationName = "删除上传文档")
     public void deleteCar( HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -969,18 +998,17 @@ public class SchoolController {
      */
     @RequestMapping("/AddCarByExcel")
     @ResponseBody
-    public String AddCarByExcel(@RequestParam("file") MultipartFile file,HttpServletRequest request, HttpServletResponse response ) {
+    public Object AddCarByExcel(@RequestParam("file") MultipartFile file,HttpServletRequest request, HttpServletResponse response ) {
 
         String name = file.getOriginalFilename();//得到文件名
+        Map<String,Object> map=new HashMap<>();
         if (name.length() < 6 || !name.substring(name.length() - 5).equals(".xlsx")) {
-//            return "文件格式错误";
             return "{\"code\":2, \"msg\":\"\", \"data\":{}}";
         }
         List<CoachCar> list = null;
         try {
             list= CarExcelImport.excelToShopIdList(file.getInputStream(),request);
             if (list == null || list.size() <= 0) {
-//                return "导入的数据为空";
                 return "{\"code\":3, \"msg\":\"\", \"data\":{}}";
             }
             //excel的数据保存到数据库
@@ -988,15 +1016,19 @@ public class SchoolController {
                 for (CoachCar coachCar : list) {
                     System.out.println("导入的数据"+coachCar.toString());
                 }
-                schoolAdminService.insertCarByExcel(list);
+             List list1 =schoolAdminService.insertCarByExcel(list);
+                if (null!=list1){
+                    map.put("code",4);
+                    map.put("msg","");
+                    map.put("data",list1);
+                    return map;
+                }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-//                return e.getMessage();
                 return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-//            return e.getMessage();
             return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
         }
         return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
@@ -1009,6 +1041,7 @@ public class SchoolController {
     public DateTable findStudyTime(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
        Integer id = Integer.valueOf(request.getParameter("id").trim());
+        System.out.println("学时id=="+id);
         List<StudyCondition>list= schoolAdminService.findStudyTime(id);
         if (list!=null){
                 dateTable.setData(list);
@@ -1024,9 +1057,7 @@ public class SchoolController {
     @ResponseBody
     public List Statistics(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
-        System.out.println("====+++"+schoolAdmin.toString());
         List list= schoolAdminService.Count(schoolAdmin.getSchool_id());
-        System.out.println("list=="+list.toString());
         if (list!=null){
             return list;
         }
@@ -1170,11 +1201,12 @@ public class SchoolController {
         ajaxReturn(a,response); //结果返回封装
     }
 
-    //处罚记录改变状态
+    //教练处罚记录改变状态
     @RequestMapping("/employPunish")
     @Log(operationType = "启用操作", operationName = "从处罚记录改为启用状态")
-    public void employPunish( HttpServletResponse response) throws IOException {
-        Integer a = schoolAdminService.updatePunish();
+    public void employPunish(Coach coach, HttpServletResponse response) throws IOException {
+        Integer id =Integer.valueOf(coach.getId()) ;
+        Integer a = schoolAdminService.updatePunish(id);
         ajaxReturn(a,response); //结果返回封装
     }
 

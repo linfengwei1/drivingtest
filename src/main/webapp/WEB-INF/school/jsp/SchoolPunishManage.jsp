@@ -59,6 +59,8 @@
 
         {{# } if(d.coach_state_id == '1'){ }}
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="stop" ><i class="layui-icon">&#xe640;</i>封停</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="no" ><i class="layui-icon">&#xe640;</i>禁止报名</button>
 
         {{# } if(d.coach_state_id > '3'){ }}
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
@@ -128,8 +130,8 @@
                             }
                             return '运管审核不通过'
                         }}
-                    , {field: 'datetime', title: '违规时间', width: 200,align: 'center',templet: "<div>{{layui.util.toDateString(d.datetime, 'yyyy-MM-dd HH:mm:ss')}}</div>"}
-                    , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
+                    , {field: 'datetime', title: '违规时间', width: 180,align: 'center',templet: "<div>{{layui.util.toDateString(d.datetime, 'yyyy-MM-dd HH:mm:ss')}}</div>"}
+                    , {field: '', title: '操作', toolbar: "#butdiv", width: 300, align: 'center'}
                 ]]
             });
 
@@ -205,6 +207,57 @@
                     })
                 }
 
+                if(layEvent === 'stop'){ //封停
+                    layer.confirm('您确定要封停吗?', {icon: 3, title:'提示'}, function(index){
+                        $.ajax({
+                            async:true,
+                            method : "POST",
+                            url :path1+'/school/coachStateByStop',
+                            data: data,
+                            dataType : "text",
+                            success:function(data){
+                                if ("success"==data){
+                                    layer.alert("封停成功",{icon:6},function () {
+                                        window.parent.location.reload();
+                                    });
+                                }else {
+                                    layer.alert("封停失败",{icon:2});
+                                }
+                            },
+                            error:function (err) {
+                                layer.alert("网络繁忙",{icon:2});
+                            }
+                        })
+                    })
+
+                }
+
+
+                if(layEvent === 'no'){ //禁止报名
+                    layer.confirm('您确定要禁止报名吗?', {icon: 3, title:'提示'}, function(index){
+                        $.ajax({
+                            async:true,
+                            method : "POST",
+                            url :path1+'/school/coachStateByNo',
+                            data: data,
+                            dataType : "text",
+                            success:function(data){
+                                if ("success"==data){
+                                    layer.alert("禁止报名成功",{icon:6},function () {
+                                        window.parent.location.reload();
+                                    });
+                                }else {
+                                    layer.alert("禁止报名失败",{icon:2});
+                                }
+                            },
+                            error:function (err) {
+                                layer.alert("网络繁忙",{icon:2});
+                            }
+                        })
+                    })
+
+                }
+
 
             });
 
@@ -218,11 +271,5 @@
             })
 
         });
-
-
-
-
-
-
     </script>
 </html>

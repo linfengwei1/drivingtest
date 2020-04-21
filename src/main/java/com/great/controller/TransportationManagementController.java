@@ -6,6 +6,7 @@ import com.great.aoplog.Log;
 import com.great.entity.*;
 import com.great.service.TransportationService;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -993,11 +994,13 @@ public class TransportationManagementController {
         String savePath = request.getSession().getServletContext().getRealPath("/");
         String projectPath = savePath  + school.getInformation();
         System.out.println("路径=="+projectPath);
+        String extension = FilenameUtils.getExtension(school.getInformation());
+        String name =school.getName()+"."+extension;
         File file=new File(projectPath);
         //设置HttpHeaders,使得浏览器响应下载
         HttpHeaders headers = new HttpHeaders();
         //为了解决中文名称乱码问题
-        String fileName=new String(school.getName().getBytes("UTF-8"),"iso-8859-1");
+        String fileName=new String(name.getBytes("UTF-8"),"iso-8859-1");
         //设置响应文件 attachment附件的意思
         headers.setContentDispositionFormData("attachment", fileName);
         //设置响应方式  APPLICATION_OCTET_STREAM 二进制流数据（如常见的文件下载）

@@ -122,6 +122,26 @@ public class SchoolManageService {
         return schoolCoachDao.addCoach(coach);
     }
 
+
+    //excel插入数据库
+    public List insertCoachByExcel(List<Coach>list){
+        List list1 = new ArrayList();//用来存放重复的账号
+        //判断插入的学员账号是否被使用
+        for (int i =0;i<list.size();i++){
+            Integer a= schoolCoachDao.CheckCoachAccount(list.get(i).getAccount());
+            if (0<a){
+                //存重复的账号
+                list1.add(list.get(i));
+            }
+        }
+        if (list1.get(0)==null){//当没有重复的时候才插入
+            schoolCoachDao.insertCoachByExcel(list);
+            return null;
+        }
+        return list1;
+    }
+
+
     //单独插入图片
     public Integer AddCoachImage(Integer id,String image){
         Map<String,Object> map = new HashMap<>();
@@ -294,15 +314,32 @@ public class SchoolManageService {
         return schoolCarDao.addCar(coachCar);
     }
 
+
+
     //查看车牌号是否被注册
     public Integer CheckCarNumber(String account){
         return schoolCarDao.CheckCarNumber(account);
     }
 
+
     //excel插入数据库
-    public Integer insertCarByExcel(List<CoachCar> list){
-        return schoolCarDao.insertCarByExcel(list);
+    public List insertCarByExcel(List<CoachCar>list){
+        List list1 = new ArrayList();//用来存放重复的账号
+        //判断插入的学员账号是否被使用
+        for (int i =0;i<list.size();i++){
+            Integer a= schoolCarDao.CheckCarNumber(list.get(i).getCarNumber());
+            if (0<a){
+                //存重复的账号
+                list1.add(list.get(i));
+            }
+        }
+        if (list1.get(0)==null){//当没有重复的时候才插入
+            schoolCarDao.insertCarByExcel(list);
+            return null;
+        }
+        return list1;
     }
+
 
     //单独学员插入图片
     public Integer AddStudentImage(Integer id,String image){
@@ -406,8 +443,18 @@ public class SchoolManageService {
     }
 
     //处罚记录改变状态
-    public Integer updatePunish(){
-        return schoolCoachDao.updatePunish();
+    public Integer updatePunish(Integer id){
+        return schoolCoachDao.updatePunish(id);
+    }
+
+    //处罚记录改变状态
+    public Integer coachStateByStop( Integer id){
+        return schoolCoachDao.coachStateByStop(id);
+    }
+
+    //处罚记录改变状态
+    public Integer coachStateByNo( Integer id){
+        return schoolCoachDao.coachStateByNo(id);
     }
 
     //查看手机号是否被注册

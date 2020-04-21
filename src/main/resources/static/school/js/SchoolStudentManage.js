@@ -20,8 +20,8 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         , limit: 5
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
-            {field: 'id', title: '学员ID', width: 100, sort: true, fixed: 'left', align: 'center',hide:true}
-            , {field: 'account', title: '学员账号', width: 100, align: 'center'}
+            {field: 'id', title: '学员ID', width: 100, sort: true, fixed: 'left', align: 'center'}
+            , {field: 'account', title: '学员账号', width: 100, align: 'center',hide:true}
             , {field: 'name', title: '姓名', width: 80,  align: 'center'}
             , {field: 'sex', title: '性别', width: 60, align: 'center'}
             , {field: 'age', title: '年龄', width: 90, sort: true, align: 'center'}
@@ -152,7 +152,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                 title:'查看学时',
                 type: 2,
                 area: ['600px', '400px'],
-                content:path1+"/school/path/CheckStudyInf",//弹出的页面
+                content:path1+"/school/path/CheckStudyInf?id="+id,//弹出的页面
                 success: function (layero, index) {
                     var body = layer.getChildFrame("body", index);//弹出页面的body标签
                     body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值

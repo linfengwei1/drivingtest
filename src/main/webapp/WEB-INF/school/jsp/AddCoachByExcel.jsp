@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
-    <title>文件导入车辆信息</title>
+    <title>文件导入教练信息</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${pageContext.request.contextPath}/static/json2.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <style>
 
@@ -19,12 +20,8 @@
 
 <form >
    <div align="center">
-       <h1>文件导入车辆信息</h1>
+       <h1>文件导入教练信息</h1>
        <p>支持上传的文档格式为：.XLSX</p>
-<%--       <div style="margin-top: 1%">--%>
-<%--           <input type="file" name="file"></Br>--%>
-<%--           <button type="submit"  class="layui-btn layui-btn-normal" id="out"><i class="layui-icon">&#xe67c;</i>导入</button>--%>
-<%--       </div>--%>
    </div>
 
     <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
@@ -65,7 +62,7 @@
         //执行实例
         var uploadInst = upload.render({
             elem: '#test8' //绑定元素
-            ,url:  '${pageContext.request.contextPath}/school/AddCarByExcel' //上传接口
+            ,url:  '${pageContext.request.contextPath}/school/AddCoachByExcel' //上传接口
             ,auto: false//是否自动上传
             ,accept: 'file'
             ,bindAction: '#test9'//配合auto: false来使用，auto: true值一选中文件后就执行上传，关闭后需要根据绑定事件
@@ -80,6 +77,7 @@
                 });
             }
             ,done: function(res){
+                console.log(res)
                 if(res.code == 0){
                     //上传完毕回调
                     alert("上传成功！");
@@ -101,9 +99,9 @@
                     //上传完毕回调
                     var nameArr = [];
                     for (var i = 0;i<res.data.length;i++){
-                        nameArr.push(res.data[i].carNumber);
+                        nameArr.push(res.data[i].account);
                     }
-                    alert(nameArr+"车牌号已经被注册,请全部重新导入");
+                    alert(nameArr+"账号已经被注册,请全部重新导入");
                 }
             }
         });

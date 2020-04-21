@@ -25,7 +25,7 @@
         <div class="layadmin-user-login-box layadmin-user-login-header">
             <div style="padding-bottom: 10px;">
                 <div class="layui-upload">
-                    <div style="float: left;margin-left: 12%">
+                    <div style="float: left;margin-left: 5%">
                         <label class="layui-form-label">状态</label>
                         <div class="layui-input-block" style="width: 190px;">
                             <select  name="state" id="state" >
@@ -52,7 +52,7 @@
                             <input class="layui-input" name="phone" id="phone" autocomplete="off">
                         </div>
                     </div>
-                    <div style="float: left;margin-left: 12%">
+                    <div style="float: left;margin-left: 5%">
                         <label class="layui-form-label" >身份证号码</label>
                         <div class="layui-input-block" style="width: 190px">
                             <input class="layui-input" name="idnumber" id="idnumber" autocomplete="off">
@@ -72,6 +72,7 @@
                         <button class="layui-btn layui-btn-normal" data-type="reload" lay-submit="" lay-filter="formDemo"><i class="layui-icon">&#xe615;</i>搜索</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="add"><i class="layui-icon">&#xe654;</i>教练申请</button>
                         <button type="button"  class="layui-btn layui-btn-normal" id="out"><i class="layui-icon">&#xe654;</i>导出</button>
+                        <button type="button"  class="layui-btn layui-btn-normal" id="in"><i class="layui-icon">&#xe654;</i>Excel导入</button>
                     </div>
                     </div>
             </div>
