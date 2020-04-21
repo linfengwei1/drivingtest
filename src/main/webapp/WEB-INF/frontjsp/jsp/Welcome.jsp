@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%String path=request.getContextPath(); %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/homepage.css">--%>
@@ -69,10 +70,152 @@
 
 
 
-
+        <!-- 公示公开-->
         <div class="layui-tab-item">
 <%--            <table id="demo" class="layui-table" lay-event="" lay-skin="nob" ></table>--%>
-            <table id="demo" lay-filter="test"></table>
+<%--            <table id="demo" lay-filter="test"></table>--%>
+
+            <table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td valign="top">
+	                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>
+	                                <table width="950" border="0" align="right" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td width="425">
+	                                            <table width="425" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td width="425" height="32" style="background: #0a76a4">
+	                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td width="33%" align="center" class="baifont" style="background: #a4752b">学车课堂</td>
+                                                                    <td width="52%">　</td>
+                                                                    <td width="15%"><a href=""><img src="${pageContext.request.contextPath}/static/images/homepageimages/more.gif" width="27" height="18" border="0"></a></td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="268" valign="top" class="cbk">
+	                                                        <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr  bgcolor='#f4f4f4'>
+                                                                                <td width="95%" height="25"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">石佛寺驾校，清明节放假通知</a></td>
+                                                                                <td width="5%"  >2020/4/2</td>
+                                                                            </tr>
+	                                                                        <tr >
+                                                                                <td width="813" height="22"><a href="shownews.asp?id=2270" target="_blank" title="南京石佛寺驾校复工啦！">南京石佛寺驾校复工啦！</a></td>
+                                                                                <td width="145"  >2020/3/25</td>
+                                                                            </tr>
+                                                                            <tr  bgcolor='#f4f4f4'>
+                                                                                <td width="813" height="22"><a href="shownews.asp?id=2249" target="_blank" title="石佛寺驾校2020新年报名价格表">石佛寺驾校2020新年报名价格表</a></td>
+                                                                                <td width="145"  >2020/2/2</td>
+                                                                            </tr>
+                                                                            <tr >
+                                                                                <td width="813" height="22"><a href="shownews.asp?id=2246" target="_blank" title="石佛寺驾校2020年春节放假通知">石佛寺驾校2020年春节放假通知</a></td>
+                                                                                <td width="145"  >2020/1/23</td>
+                                                                            </tr>
+                                                                            <tr  bgcolor='#f4f4f4'>
+                                                                                <td width="813" height="22"><a href="shownews.asp?id=2057" target="_blank" title="南京石佛寺驾校2019年国庆放假通知">南京石佛寺驾校2019年国庆放假通知</a></td>
+                                                                                <td width="145"  >2019/9/19</td>
+                                                                            </tr>
+                                                                            <tr >
+                                                                                <td width="813" height="22"><a href="shownews.asp?id=1801" target="_blank" title="石佛寺驾校2019年新春报名价格表明细">石佛寺驾校2019年新春报名价格表明...</a></td>
+                                                                                <td width="145"  >2019/2/7</td>
+	                                                                        </tr>
+                                                                            <tr  bgcolor='#f4f4f4'>
+                                                                                <td width="813" height="22"><a href="shownews.asp?id=1796" target="_blank" title="石佛寺驾校2019年春节放假通知">石佛寺驾校2019年春节放假通知</a></td>
+                                                                                <td width="145"  >2019/1/28</td>
+                                                                            </tr>
+                                                                            <tr >
+                                                                                <td width="813" height="22"><a href="shownews.asp?id=1793" target="_blank" title="石佛寺驾校科目一考试理论预约流程">石佛寺驾校科目一考试理论预约流程</a></td>
+                                                                                <td width="145"  >2019/1/24</td>
+                                                                            </tr>
+
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td width="425">
+	                                            <table width="425" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td width="348" height="32" style="background: #0a76a4">
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td width="33%" align="center" class="baifont" style="background: #a4752b">驾驶技巧</td>
+                                                                    <td width="52%">　</td>
+                                                                    <td width="15%"><a href="newslist.asp?cls=驾驶技巧"><img src="${pageContext.request.contextPath}/static/images/homepageimages/more.gif" width="27" height="18" border="0"></a></td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="268" valign="top" class="cbk">
+                                                            <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr  bgcolor='#f4f4f4'>
+                                                                                <td width="95%" height="25"><a href="shownews.asp?id=2288" target="_blank" title="南京石佛驾校 带你了解几种情况下的礼让行人">南京石佛驾校 带你了解几种情况下的礼...</a></td>
+                                                                                <td width="5%"  >2020/4/19</td>
+                                                                            </tr>
+                                                                            <tr >
+                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2286" target="_blank" title="南京石佛驾校 新手刹车技巧汇总">南京石佛驾校 新手刹车技巧汇总</a></td>
+                                                                                <td width="5%"  >2020/4/15</td>
+                                                                            </tr>
+                                                                            <tr  bgcolor='#f4f4f4'>
+                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2285" target="_blank" title="南京石佛寺驾校 手动挡车急刹时如何操作离合器">南京石佛寺驾校 手动挡车急刹时如何操...</a></td>
+                                                                                <td width="5%"  >2020/4/10</td>
+                                                                            </tr>
+                                                                            <tr >
+                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2279" target="_blank" title="南京石佛驾校 带你分享学车科目口诀汇总">南京石佛驾校 带你分享学车科目口诀汇...</a></td>
+                                                                                <td width="5%"  >2020/4/8</td>
+                                                                            </tr>
+                                                                            <tr  bgcolor='#f4f4f4'>
+                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2277" target="_blank" title="南京石佛寺驾校 驾车行驶应避免的几大误区">南京石佛寺驾校 驾车行驶应避免的几大...</a></td>
+                                                                                <td width="5%"  >2020/4/3</td>
+                                                                            </tr>
+                                                                            <tr >
+                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2275" target="_blank" title="南京石佛驾校 驾驶手动档的几大不良习惯 ">南京石佛驾校 驾驶手动档的几大不良习...</a></td>
+                                                                                <td width="5%"  >2020/4/1</td>
+                                                                            </tr>
+                                                                            <tr  bgcolor='#f4f4f4'>
+                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2273" target="_blank" title="南京石佛驾校 雨天如何正确使用灯光及注意事项">南京石佛驾校 雨天如何正确使用灯光及...</a></td>
+                                                                                <td width="5%"  >2020/3/29</td>
+                                                                            </tr>
+                                                                            <tr >
+                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2272" target="_blank" title="南京石佛驾校 高速行车请注意几个危险的路段">南京石佛驾校 高速行车请注意几个危险...</a></td>
+                                                                                <td width="5%"  >2020/3/27</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="100%" height="8" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
         </div>
 
 
@@ -97,14 +240,153 @@
     </div>
 </div>
 
+<table width="1050" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td height="31"><table width="693" height="31" border="0" cellpadding="0" cellspacing="0" style="background: #0000FF">
+                    <tr>
+                        <td width="19">　</td>
+                        <td width="94" align="center" valign="bottom">
+                            <table width="100%" height="25" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="center" style="background: white">互动栏</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="102" valign="bottom">
+                            <table width="100%" height="25" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="center">　</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>　</td>
+                        <td width="46"><a href="huanjing.asp"></a></td>
+                    </tr>
+                </table></td>
+                </tr>
+                <tr>
+                <td height="3"></td>
+            </tr>
+                <tr>
+                <td><table width="690" height="165" border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+                    <tr>
+                        <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
+                                    <tr>
+                                        <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu0.jpg" width="159" height="128" border="0"></td>
+                                    </tr>
+                                </table></td>
+                            </tr>
+                        </table></td>
+
+                        <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
+                                    <tr>
+                                        <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu1.jpg" width="159" height="128" border="0"></td>
+                                    </tr>
+                                </table></td>
+                            </tr>
+                        </table></td>
+                        <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
+                                    <tr>
+                                        <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu2.jpg" width="159" height="128" border="0"></td>
+                                    </tr>
+                                </table></td>
+                            </tr>
+                        </table></td>
+                        <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
+                                    <tr>
+                                        <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu3.jpg" width="159" height="128" border="0"></td>
+                                    </tr>
+                                </table></td>
+                            </tr>
+                        </table></td>
+                    </tr>
+                </table></td>
+            </tr>
+            </table>
+        </td>
+        <td width="350" valign="top">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td><img src="${pageContext.request.contextPath}/static/images/homepageimages/r1.jpg" width="248" height="31"></td>
+                </tr>
+                <tr>
+                    <td height="168" class="cbk">
+	                <table width="100%" height="168" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td valign="top" class="lx">
+	                            <table width="98%" border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                    <td width="30%" height="23" align="right" bgcolor="#f4f4f4">总部地址：</td>
+                                    <td width="70%" height="23">福建省厦门市思明区观日路56号</td>
+                                </tr>
+                                <tr>
+                                    <td height="23" align="right" bgcolor="#f4f4f4">软件园三期分校：</td>
+                                    <td height="23">福建省厦门市集美区哈哈路56号</td>
+                                </tr>
+                                <tr>
+                                    <td height="23" align="right" bgcolor="#f4f4f4">福州分校：</td>
+                                    <td height="23">福建省福州市鼓楼区呱呱007号</td>
+                                </tr>
+                                <tr>
+                                    <td height="23" align="right" bgcolor="#f4f4f4">龙岩分校：</td>
+                                    <td height="23">福建省龙岩市新罗区观日路56号</td>
+                                </tr>
+                                <tr>
+                                    <td height="23" align="right" bgcolor="#f4f4f4">咨询热线：</td>
+                                    <td height="23">18812580007 （编主任） </td>
+                                </tr>
+
+                            </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
 <div class="footer">
     <div class="footer-box">
         <p class="footer-p">友情链接</p>
         <div class="footer-friend">
-            <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="main/webapp/image/traffic.jpg"/></a>
-            <a target="_blank" href="https://www.cttic.cn/"><img class="footer-img" src="main/webapp/image/traffic_center.jpg" /></a>
-            <a target="_blank" href="http://www.122.gov.cn"><img class="footer-img" src="main/webapp/image/traffic_safety.jpg" /></a>
-            <a target="_blank" href="http://www.crta.org.cn/"><img class="footer-imgs" src="main/webapp/image/crta.jpg"/></a>
+<%--            <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="main/webapp/image/traffic.jpg"/></a>--%>
+<%--            <a target="_blank" href="https://www.cttic.cn/"><img class="footer-img" src="main/webapp/image/traffic_center.jpg" /></a>--%>
+<%--            <a target="_blank" href="http://www.122.gov.cn"><img class="footer-img" src="main/webapp/image/traffic_safety.jpg" /></a>--%>
+<%--            <a target="_blank" href="http://www.crta.org.cn/"><img class="footer-imgs" src="main/webapp/image/crta.jpg"/></a>--%>
+            <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/traffic.jpg"/></a>
+            <a target="_blank" href="https://www.cttic.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/traffic_center.jpg" /></a>
+            <a target="_blank" href="http://www.122.gov.cn"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/traffic_safety.jpg" /></a>
+            <a target="_blank" href="http://www.crta.org.cn/"><img class="footer-imgs" src="${pageContext.request.contextPath}/static/images/homepageimages/crta.jpg"/></a>
+            <a target="_blank" href="${pageContext.request.contextPath}/link/findAllLink/">${"#dt.linkUrl"}连接地址</a>
+            <c:if test="dt != null">
+                ${"dt.linkUrl"}
+            </c:if>
+<%--    <a target="_blank" href="${pageContext.request.contextPath}/link/findAllLink">${$("#linkUrl").val()}连接地址</a>--%>
         </div>
         <p class="footer-p">导航链接</p>
         <ul class="footer-orther" style="">

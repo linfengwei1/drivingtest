@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.w3c.dom.DocumentType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -107,7 +106,7 @@ public class LinkController {
 	//文件上传
 	@RequestMapping("/fileUpload")
 	@ResponseBody//ajax返回值json格式转换
-	public Object test(@RequestParam(value="file",required = false)MultipartFile file, HttpServletRequest request) throws IOException {
+	public Object test(@RequestParam(value="file",required = false) MultipartFile file, HttpServletRequest request) throws IOException {
 		System.out.println("fileUpload");
 		System.out.println("file:"+file);
 		if (!StringUtils.isEmpty(file) && file.getSize()>0){
@@ -115,7 +114,7 @@ public class LinkController {
 			String name= file.getOriginalFilename();//是得到上传时的文件名。
 			System.out.println("name:"+name);
 			String suffix = name.substring(name.lastIndexOf(".") + 1);
-			System.out.println("suffix"+suffix);
+			System.out.println("suffix:"+suffix);
 //			User user = (User) request.getSession().getAttribute("user");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");//设置时间格式
 			String rtime = sdf.format(new Date());//操作时间
