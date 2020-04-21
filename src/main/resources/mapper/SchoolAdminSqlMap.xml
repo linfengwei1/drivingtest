@@ -172,6 +172,16 @@
     </insert>
 
 
+    <!-- 首页圆形图-->
+    <select id="School"  resultType = "com.great.entity.School" >
+            select id,name FROM school
+    </select>
+
+    <!-- 首页圆形图-->
+    <select id="SchoolCountById" parameterType = "java.lang.Integer" resultType="java.lang.Integer" >
+        SELECT count(*)FROM student WHERE school_id = #{id}
+    </select>
+
 
 
 </mapper>

@@ -502,4 +502,17 @@ public class SchoolManageService {
         Integer a = schoolAdminDao.SchoolApply(school);
         return a;
     }
+
+
+    //首页显示的南丁格尔图
+    public Object School(){
+        List<School> list = schoolAdminDao.School();
+        Integer a;
+        for (int i =0;i<list.size();i++){
+            a =schoolAdminDao.SchoolCountById(list.get(i).getId());
+            list.get(i).setCount(a);
+        }
+        return list;
+    }
+
 }

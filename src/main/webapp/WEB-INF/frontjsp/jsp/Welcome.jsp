@@ -21,11 +21,15 @@
 <body>
 <div id="header" style="background-color: white;width: 100%;height: 10%">
     <div style="font-size: 30px">驾校管理系统</div>
+<%--    <div>驾校登录</div>--%>
+<%--    <div>学员登录</div>--%>
+<%--    <div>教练登录</div>--%>
+<%--    <div>交管登录</div>--%>
 </div>
 
 <div class="layui-carousel" id="test1">
     <div carousel-item style="text-align :center">
-        <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage1.jpg" /></div>
+        <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/home_logo2.jpg" /></div>
         <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage2.png" /></div>
         <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage3.jpg" /></div>
     </div>
@@ -33,17 +37,17 @@
 
 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
     <ul class="layui-tab-title">
-        <li class="layui-this" style="left: 360px;font-size: 20px">首页</li>
-        <li style="left: 380px;font-size: 20px">公开公示</li>
-        <li style="left: 400px;font-size: 20px">信息查询</li>
-        <li style="left: 420px;font-size: 20px">开通服务</li>
-        <li style="left: 440px;font-size: 20px">登录</li>
+        <li class="layui-this" style="left: 160px;font-size: 20px">首页</li>
+        <li style="left: 200px;font-size: 20px">公开公示</li>
+        <li style="left: 240px;font-size: 20px">信息查询</li>
+        <li style="left: 280px;font-size: 20px">开通服务</li>
+        <li style="left: 320px;font-size: 20px">登录</li>
     </ul>
     <div class="layui-tab-content" style="width: 100%;height: 300px">
         <div class="layui-tab-item layui-show">
-            <table style="margin: 0px;padding: 0px;width: 100%;height: 100%">
-                <td style="margin: 0px;padding: 0px;">
-                    <div class="layui-carousel" id="test2" style="left: 250px">
+            <table style="margin: 0px;padding: 0px;width: 90%;height: 100%">
+                <td style="margin: 0px;padding: 0px;width: 450px;padding-right: 10px;">
+                    <div class="layui-carousel" id="test2" style="left: 150px">
                         <div carousel-item>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage4.jpg" /></div>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage5.jpg" /></div>
@@ -51,15 +55,96 @@
                         </div>
                     </div>
                 </td>
-                <td style="margin: 0px;padding: 0px;">
-                    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-                        <ul class="layui-tab-title" style="top: -120px">
-                            <li class="layui-this">首页</li>
-                            <li>公开公示</li>
-                            <li>信息查询</li>
-                            <li>开通服务</li>
-                            <li>登录</li>
+                <td style="width: 650px">
+                    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="height: 300px">
+                        <ul class="layui-tab-title" style="margin-top: -25px">
+                            <li class="layui-this">通知公告</li>
+                            <li>行业动态</li>
+                            <li>政策法规</li>
+                            <li>政策解读</li>
+                            <li>曝光台</li>
                         </ul>
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+                                <table class="layui-table"   lay-skin="line">
+                                    <colgroup>
+                                        <col width="250">
+                                        <col width="100">
+                                        <col width="100">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th >标题</th>
+                                        <th>文章来源</th>
+                                        <th>日期</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="title-png">
+                                    <tr>
+                                        <td >联播+丨如何成为好老师，习近平殷切寄语</td>
+                                        <td>汉族</td>
+                                        <td>1989-10-14</td>
+                                    </tr>
+                                    <tr>
+                                        <td>张爱玲</td>
+                                        <td>汉族</td>
+                                        <td>1920-09-30</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Helen Keller</td>
+                                        <td>拉丁美裔</td>
+                                        <td>1880-06-27</td>
+                                    </tr>
+                                    <tr>
+                                        <td>岳飞</td>
+                                        <td>汉族</td>
+                                        <td>1103-北宋崇宁二年</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="layui-tab-item">
+                                <table class="layui-table"   lay-skin="line">
+                                <colgroup>
+                                    <col width="250">
+                                    <col width="100">
+                                    <col width="100">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th >标题</th>
+                                    <th>文章来源</th>
+                                    <th>日期</th>
+                                </tr>
+                                </thead>
+                                <tbody class="title-png">
+                                <tr>
+                                    <td >联播+丨如何成为好老师，习近平殷切寄语qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq</td>
+                                    <td>汉族</td>
+                                    <td>1989-10-14</td>
+                                </tr>
+                                <tr>
+                                    <td>张爱玲</td>
+                                    <td>汉族</td>
+                                    <td>1920-09-30</td>
+                                </tr>
+                                <tr>
+                                    <td>Helen Keller</td>
+                                    <td>拉丁美裔</td>
+                                    <td>1880-06-27</td>
+                                </tr>
+                                <tr>
+                                    <td>岳飞</td>
+                                    <td>汉族</td>
+                                    <td>1103-北宋崇宁二年</td>
+                                </tr>
+                                </tbody>
+                             </table>
+                             </div>
+                            <div class="layui-tab-item">内容3</div>
+                            <div class="layui-tab-item">内容4</div>
+                            <div class="layui-tab-item">内容5</div>
+                        </div>
                     </div>
                 </td>
             </table>
@@ -239,138 +324,148 @@
         </div>
     </div>
 </div>
+<div style="margin-left: 11%;margin-bottom: 10px;">
+    <img src="${pageContext.request.contextPath}/static/images/homepageimages/home_logo2.jpg" style="width: 1050px;">
+</div>
+<div style="padding-left: 11%;padding-bottom: 2px">
+    <div id="echarts_div2" style="width: 500px;height: 300px;;float: left;background-color: #f2f4f9"></div>
+    <div id="echarts_div3" style="width: 550px;height: 300px;float: left;background-color: #1E9FFF"  ></div>
+</div>
 
-<table width="1050" border="0" align="center" cellpadding="0" cellspacing="0">
-    <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td height="31"><table width="693" height="31" border="0" cellpadding="0" cellspacing="0" style="background: #0000FF">
+<div style="margin-top: 1%">
+    <table width="1050" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                        <td width="19">　</td>
-                        <td width="94" align="center" valign="bottom">
-                            <table width="100%" height="25" border="0" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td align="center" style="background: white">互动栏</td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td width="102" valign="bottom">
-                            <table width="100%" height="25" border="0" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td align="center">　</td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td>　</td>
-                        <td width="46"><a href="huanjing.asp"></a></td>
-                    </tr>
-                </table></td>
-                </tr>
-                <tr>
-                <td height="3"></td>
-            </tr>
-                <tr>
-                <td><table width="690" height="165" border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
-                    <tr>
-                        <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
+                        <td height="31"><table width="693" height="31" border="0" cellpadding="0" cellspacing="0" style="background: #0000FF;margin-top: 10px;">
                             <tr>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
-                                    <tr>
-                                        <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu0.jpg" width="159" height="128" border="0"></td>
-                                    </tr>
-                                </table></td>
-                            </tr>
-                        </table></td>
-
-                        <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
-                                    <tr>
-                                        <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu1.jpg" width="159" height="128" border="0"></td>
-                                    </tr>
-                                </table></td>
-                            </tr>
-                        </table></td>
-                        <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
-                                    <tr>
-                                        <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu2.jpg" width="159" height="128" border="0"></td>
-                                    </tr>
-                                </table></td>
-                            </tr>
-                        </table></td>
-                        <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
-                                    <tr>
-                                        <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu3.jpg" width="159" height="128" border="0"></td>
-                                    </tr>
-                                </table></td>
+                                <td width="19">　</td>
+                                <td width="94" align="center" valign="bottom">
+                                    <table width="100%" height="25" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td align="center" style="background: white">互动栏</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="102" valign="bottom">
+                                    <table width="100%" height="25" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td align="center">　</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>　</td>
+                                <td width="46"><a href="huanjing.asp"></a></td>
                             </tr>
                         </table></td>
                     </tr>
-                </table></td>
-            </tr>
-            </table>
-        </td>
-        <td width="350" valign="top">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td><img src="${pageContext.request.contextPath}/static/images/homepageimages/r1.jpg" width="248" height="31"></td>
-                </tr>
-                <tr>
-                    <td height="168" class="cbk">
-	                <table width="100%" height="168" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td valign="top" class="lx">
-	                            <table width="98%" border="0" cellspacing="1" cellpadding="0">
-                                <tr>
-                                    <td width="30%" height="23" align="right" bgcolor="#f4f4f4">总部地址：</td>
-                                    <td width="70%" height="23">福建省厦门市思明区观日路56号</td>
-                                </tr>
-                                <tr>
-                                    <td height="23" align="right" bgcolor="#f4f4f4">软件园三期分校：</td>
-                                    <td height="23">福建省厦门市集美区哈哈路56号</td>
-                                </tr>
-                                <tr>
-                                    <td height="23" align="right" bgcolor="#f4f4f4">福州分校：</td>
-                                    <td height="23">福建省福州市鼓楼区呱呱007号</td>
-                                </tr>
-                                <tr>
-                                    <td height="23" align="right" bgcolor="#f4f4f4">龙岩分校：</td>
-                                    <td height="23">福建省龙岩市新罗区观日路56号</td>
-                                </tr>
-                                <tr>
-                                    <td height="23" align="right" bgcolor="#f4f4f4">咨询热线：</td>
-                                    <td height="23">18812580007 （编主任） </td>
-                                </tr>
+                    <tr>
+                        <td height="3"></td>
+                    </tr>
+                    <tr>
+                        <td><table width="690" height="165" border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+                            <tr>
+                                <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
+                                            <tr>
+                                                <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu0.jpg" width="159" height="128" border="0"></td>
+                                            </tr>
+                                        </table></td>
+                                    </tr>
+                                </table></td>
 
+                                <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
+                                            <tr>
+                                                <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu1.jpg" width="159" height="128" border="0"></td>
+                                            </tr>
+                                        </table></td>
+                                    </tr>
+                                </table></td>
+                                <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
+                                            <tr>
+                                                <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu2.jpg" width="159" height="128" border="0"></td>
+                                            </tr>
+                                        </table></td>
+                                    </tr>
+                                </table></td>
+                                <td align="center" bgcolor="#FFFFFF"><table width="170" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td height="22" align="center"><table width="93%" height="22" border="0" cellpadding="0" cellspacing="0" bgcolor="#F1F1F1">
+                                            <tr>
+                                                <td align="center"><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu3.jpg" width="159" height="128" border="0"></td>
+                                            </tr>
+                                        </table></td>
+                                    </tr>
+                                </table></td>
+                            </tr>
+                        </table></td>
+                    </tr>
+                </table>
+            </td>
+            <td width="350" valign="top">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
+                    <tr>
+                        <td><img src="${pageContext.request.contextPath}/static/images/homepageimages/r1.jpg" width="248" height="31"></td>
+                    </tr>
+                    <tr>
+                        <td height="168" class="cbk">
+                            <table width="100%" height="168" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td valign="top" class="lx">
+                                        <table width="98%" border="0" cellspacing="1" cellpadding="0">
+                                            <tr>
+                                                <td width="30%" height="23" align="right" bgcolor="#f4f4f4">总部地址：</td>
+                                                <td width="70%" height="23">福建省厦门市思明区观日路56号</td>
+                                            </tr>
+                                            <tr>
+                                                <td height="23" align="right" bgcolor="#f4f4f4">其他分校：</td>
+                                                <td height="23">福建省厦门市集美区哈哈路56号</td>
+                                            </tr>
+                                            <tr>
+                                                <td height="23" align="right" bgcolor="#f4f4f4">福州分校：</td>
+                                                <td height="23">福建省福州市鼓楼区呱呱007号</td>
+                                            </tr>
+                                            <tr>
+                                                <td height="23" align="right" bgcolor="#f4f4f4">龙岩分校：</td>
+                                                <td height="23">福建省龙岩市新罗区观日路56号</td>
+                                            </tr>
+                                            <tr>
+                                                <td height="23" align="right" bgcolor="#f4f4f4">咨询热线：</td>
+                                                <td height="23">18812580007 （编主任） </td>
+                                            </tr>
+
+                                        </table>
+                                    </td>
+                                </tr>
                             </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
 
-<div class="footer">
+
+<div class="footer" align="center" style="background-color: #0a76a4">
     <div class="footer-box">
         <p class="footer-p">友情链接</p>
         <div class="footer-friend">
@@ -684,6 +779,8 @@
 	var studentArr = [];
 	var coachArr = [];
 	var nu1=0;
+    var obArr = [];
+    var obArr1 = [];
 	$(function() {
 		// var path = $("#path").val();
 		$.ajax({
@@ -699,7 +796,7 @@
 					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
 					nameArr.push(arr[i].name);
 				}
-				console.log("ms=="+nameArr);
+				console.log("学校名ms=="+nameArr);
 				createEchars();
 				// nameArr=["科目一","科目二","科目三","科目四","毕业"];
 				// createEchars();// 创建普通柱状图
@@ -722,17 +819,13 @@
 			success : function(msg) {
 				var arr = JSON.parse(msg);
 				console.log("msg=="+arr);
-				for (var i = 0;i<arr.length;i++){
-					// valueArr.push(arr[i]);
-					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
-					studentArr.push(arr[i]);
-				}
-				console.log("ms=="+nameArr);
+				for (var i = 0;i<arr.length;i++) {
+                    studentArr.push(arr[i]);
+
+                }
+				console.log("学员ms=="+nameArr);
 				createEchars();
-				// nameArr=["科目一","科目二","科目三","科目四","毕业"];
-				// createEchars();// 创建普通柱状图
-				// console.log("nu1="+nu1);
-				// $("#lab1").text(nu1);
+
 			},
 			error : function() {
 				alert("服务器正忙");
@@ -754,13 +847,11 @@
 					// valueArr.push(arr[i]);
 					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
 					coachArr.push(arr[i]);
+                    console.log("ms=="+arr);
+
 				}
-				console.log("ms=="+coachArr);
+				console.log("教练ms=="+coachArr);
 				createEchars();
-				// nameArr=["科目一","科目二","科目三","科目四","毕业"];
-				// createEchars();// 创建普通柱状图
-				// console.log("nu1="+nu1);
-				// $("#lab1").text(nu1);
 			},
 			error : function() {
 				alert("服务器正忙");
@@ -815,6 +906,67 @@
     // myChart.setOption(option);
     myChart.setOption(optionchart, true);
 	}
+
+
+
+
+
+
+    $(function() {
+        $.ajax({
+            async:true,
+            method : "POST",
+            url :"${pageContext.request.contextPath}/school/school",
+            dataType : "text",
+            success : function(msg) {
+                var arr = JSON.parse(msg);
+                for (var i = 0;i<arr.length;i++){
+                    obArr1.push({
+                        value : arr[i].count,
+                        name : arr[i].name
+                    });
+                }
+                rose();
+            },
+            error : function() {
+                alert("服务器正忙");
+            }
+        });
+    })
+
+    //南丁格尔玫瑰图
+    function rose() {
+
+        //基于准备好的dom，初始化echarts实例
+        var myChart2 = echarts.init(document.getElementById('echarts_div2'));//dark为暗黑主题 不要可以去掉
+        var option = {
+            title : {
+                text : 'ECharts 南丁格尔玫瑰图'
+            },
+            series : [ {
+                name : '访问来源',
+                type : 'pie',
+                roseType: 'angle',//南丁格尔玫瑰图样式  去掉则显示基本圆饼图
+                radius : '55%',
+                // data : obArr1
+                data:[
+                    {value: 10, name: 'rose1'},
+                    {value: 5, name: 'rose2'},
+                    {value: 15, name: 'rose3'},
+                    {value: 25, name: 'rose4'},
+                    {value: 20, name: 'rose5'},
+                    {value: 35, name: 'rose6'},
+                    {value: 30, name: 'rose7'},
+                    {value: 40, name: 'rose8'}
+                ]
+            } ]
+        };
+        myChart2.setOption(option);
+    }
+
+
+
+
 </script>
 
 

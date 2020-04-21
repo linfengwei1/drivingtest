@@ -63,4 +63,10 @@ public interface SchoolAdminDao
 
 	//驾校申请
 	public Integer SchoolApply(School school);
+
+	//驾校申请
+	public List<School> School();
+
+	//驾校申请
+	public Integer SchoolCountById(Integer id);
 }

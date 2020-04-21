@@ -1305,6 +1305,14 @@ public class SchoolController {
     }
 
 
+    //首页显示的南丁格尔图
+    @RequestMapping("/school")
+    @ResponseBody//ajax返回值json格式转换
+    public Object school(HttpServletResponse response) throws IOException
+    {
+        List<School> map = (List<School>) schoolAdminService.School();
+        return map;
+    }
 
 
 }
