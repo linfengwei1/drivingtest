@@ -115,7 +115,7 @@ public class LinkController {
 			String name= file.getOriginalFilename();//是得到上传时的文件名。
 			System.out.println("name:"+name);
 			String suffix = name.substring(name.lastIndexOf(".") + 1);
-			System.out.println("suffix"+suffix);
+			System.out.println("suffix:"+suffix);
 //			User user = (User) request.getSession().getAttribute("user");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");//设置时间格式
 			String rtime = sdf.format(new Date());//操作时间
