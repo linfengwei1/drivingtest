@@ -37,38 +37,74 @@ public class CoachManageServiceImpl implements CoachManageService
         Map<String,Object> InfMap = new LinkedHashMap<>();
         List<StudentTable> list=schoolCoachDao.findStudentByPage(utils);
         Integer a =schoolCoachDao.findCount(utils);
-        List<StudyCondition> studentScoreList = schoolCoachDao.findStudentScore(utils);
-        System.out.println("studentScoreList:"+studentScoreList);
-        System.out.println("list:"+list);
-        System.out.println(list.size()+"---"+studentScoreList.size());
+        utils.setMaxLimit(utils.getMaxLimit()*4);
+        utils.setMinLimit(utils.getMinLimit()*4);
+        List<Score> studentScoreList = schoolCoachDao.findStudentScore(utils);
+        List<StudyCondition> studyConditions = schoolCoachDao.findStudentTime(utils);
+//        System.out.println("studyConditions:"+studyConditions);
+//        System.out.println("studentScoreList:"+studentScoreList);
+//        System.out.println("list:"+list);
+//        System.out.println(list.size()+"---"+studentScoreList.size());
+
+
         for(int i = 0;i<list.size();i++)
         {
-            System.out.println("循环");
             for(int j = 0;j<4;j++)
             {
-                if(studentScoreList.get(j).getSubject_id()==1)
+                //成绩判断
+                if(studentScoreList.get(j).getSubject()==1)
                 {
-                    list.get(i).setOneScore(studentScoreList.get(j*i).getPractise_score());
-                    System.out.println("listname:"+list.get(i).getName());
-                    System.out.println("分数："+list.get(i).getOneScore());
+                    list.get(i).setOneScore(studentScoreList.get(i*4).getScore());
                 }
-                if(studentScoreList.get(j).getSubject_id()==2)
+                else if(studentScoreList.get(j).getSubject()==2)
                 {
-                    list.get(i).setTwoScore(studentScoreList.get(j*i+1).getPractise_score());
+                    list.get(i).setTwoScore(studentScoreList.get(i*4+1).getScore());
                 }
-                if(studentScoreList.get(j).getSubject_id()==3)
+                else if(studentScoreList.get(j).getSubject()==3)
                 {
-                    list.get(i).setThreeScore(studentScoreList.get(j*i+2).getPractise_score());
+                    list.get(i).setThreeScore(studentScoreList.get(i*4+2).getScore());
                 }
-                if(studentScoreList.get(j).getSubject_id()==4)
+                else if(studentScoreList.get(j).getSubject()==4)
                 {
-                    list.get(i).setFourScore(studentScoreList.get(j*i+3).getPractise_score());
+                    list.get(i).setFourScore(studentScoreList.get(i*4+3).getScore());
+                }
+
+                //学时判断
+                if(list.get(i).getStudent_state_id()==1||list.get(i).getStudent_state_id()==9||list.get(i).getStudent_state_id()==13)
+                {
+                    list.get(i).setTime(studyConditions.get(i*4).getTime());
+                }
+                else if (list.get(i).getStudent_state_id()==2||list.get(i).getStudent_state_id()==10||list.get(i).getStudent_state_id()==14)
+                {
+                    list.get(i).setTime(studyConditions.get(i*4+1).getTime());
+                }
+                else if (list.get(i).getStudent_state_id()==3||list.get(i).getStudent_state_id()==11||list.get(i).getStudent_state_id()==15)
+                {
+                    list.get(i).setTime(studyConditions.get(i*4+2).getTime());
+                }
+                else if (list.get(i).getStudent_state_id()==4||list.get(i).getStudent_state_id()==12||list.get(i).getStudent_state_id()==16)
+                {
+                    list.get(i).setTime(studyConditions.get(i*4+3).getTime());
                 }
             }
         }
 
         InfMap.put("list",list);
         InfMap.put("count",a);
+        return InfMap;
+    }
+
+    @Override
+    public Object getCoachStudentEvaluation(TableUtils utils)
+    {
+        Map<String,Object> InfMap = new LinkedHashMap<>();
+
+        List<EvaluationToCoach> evaluationToCoaches = schoolCoachDao.findStudentEvaluation(utils);
+        System.out.println("list:"+evaluationToCoaches);
+        Integer count = schoolCoachDao.findStudentEvaluationByCount(utils);
+
+        InfMap.put("list",evaluationToCoaches);
+        InfMap.put("count",count);
         return InfMap;
     }
 }

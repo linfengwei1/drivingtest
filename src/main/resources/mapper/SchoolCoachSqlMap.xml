@@ -12,9 +12,24 @@
         <result column="student_state_id" property="student_state_id"></result>
     </resultMap>
 
-    <resultMap id="StudentScore" type="com.great.entity.StudyCondition">
+    <resultMap id="StudentScore" type="com.great.entity.Score">
+        <result column="subject_id" property="subject"></result>
+    </resultMap>
+
+    <resultMap id="StudentTime" type="com.great.entity.StudyCondition">
+        <result column="student_id" property="student_id"></result>
+        <result column="practise_score" property="practise_score"></result>
+        <result column="subject_id" property="subject_id"></result>
+    </resultMap>
+
+    <resultMap id="newStudent" type="com.great.entity.StudentTable">
         <result column="subject_id" property="subject_id"></result>
         <result column="practise_score" property="practise_score"></result>
+        <result column="subject_id" property="subject_id"></result>
+    </resultMap>
+
+    <resultMap id="evaCoach" type="com.great.entity.EvaluationToCoach">
+        <result column="coachid" property="coachId"></result>
     </resultMap>
 
     <!--查询教练记录并分页    -->
@@ -101,11 +116,34 @@
 		select * from coach where account = #{account} and pwd = #{pwd}
 	</select>
 
+    <!--查询学生评论-->
+    <select id="findStudentEvaluation" parameterType="com.great.entity.TableUtils" resultMap="evaCoach">
+        select *
+        from evaluationforcoach
+        where coachid = #{coach_id}
+    </select>
+
+    <!--查询学生评论页数-->
+    <select id="findStudentEvaluationByCount" parameterType="com.great.entity.TableUtils" resultType="java.lang.Integer">
+        select count(*)
+        from evaluationforcoach
+        where coachid = #{coach_id}
+    </select>
+
+    <!--查询学生学时-->
+    <select id="findStudentTime" resultMap="StudentTime" parameterType="com.great.entity.TableUtils">
+		select studycondition.*
+		from studycondition,student,coach
+		where studycondition.student_id=student.id and coach.id=student.coach_id and coach_id=#{coach_id}
+        limit #{minLimit},#{maxLimit};
+	</select>
+
     <!--查询学生分数-->
     <select id="findStudentScore" resultMap="StudentScore" parameterType="com.great.entity.TableUtils">
-		select student.id,studycondition.*
-        from student,coach,studycondition
-        where student.id=studycondition.student_id and student.coach_id=coach.id and coach_id=#{coach_id};
+		select student.id,score.*
+        from student,coach,score
+        where student.id=score.student_id and student.coach_id=coach.id and coach_id=#{coach_id}
+        limit #{minLimit},#{maxLimit};
 	</select>
 
     <!--教练查询学生信息-->
@@ -133,6 +171,34 @@
             </if>
         </where>
         limit #{minLimit},#{maxLimit}
+    </select>
+
+    <!--新教练查询学生信息-->
+    <select id="newFindstudentBypage" resultMap="newStudent" parameterType="com.great.entity.TableUtils">
+        select s.*,sc.time ,sc.subject_id ,sc.practise_score
+        from student s
+        left join studycondition sc on s.id=sc.student_id
+        left join coach c on s.coach_id = c.id
+        <where>
+            <if test="coach_id !='' and coach_id!=null">
+                and c.id = #{coach_id}
+            </if>
+            <if test="name !='' and name!=null">
+                and s.name like concat('%',#{name},'%')
+            </if>
+            <if test="phone !='' and phone!=null">
+                and s.phone = #{phone}
+            </if>
+            <if test="state !='' and state!=null">
+                and s.student_state_id = #{state}
+            </if>
+            <if test="idnumber!= '' and idnumber != null">
+                and s.idnumber= #{idnumber}
+            </if>
+            <if test="sex != '' and sex != null">
+                and s.sex = #{sex}
+            </if>
+        </where>
     </select>
 
     <!--教练查询学生信息总页数-->

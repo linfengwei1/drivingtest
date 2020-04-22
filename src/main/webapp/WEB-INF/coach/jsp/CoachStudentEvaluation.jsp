@@ -13,13 +13,13 @@
     <%String path = request.getContextPath(); %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-    <script src="${pageContext.request.contextPath}/static/coach/js/CoachStudentManage.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="${pageContext.request.contextPath}/static/coach/js/CoachStudentEvaluation.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
 <input type="hidden" id="path" value="<%=path%>">
 <form class="layui-form" action="" onsubmit="return false;">
     <div class="layadmin-user-login-box layadmin-user-login-header" style="background-color: #dadada">
-        <h2 style="margin-left: 43%">学员管理</h2>
+        <h2 style="margin-left: 43%">学员评价</h2>
     </div>
     <div class="layui-fluid" id="searchTable" style="margin-top: 1%;">
         <div class="layadmin-user-login-box layadmin-user-login-header">

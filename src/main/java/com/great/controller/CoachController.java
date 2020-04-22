@@ -163,4 +163,27 @@ public class CoachController
         }
         return null;
     }
+
+    //获取学员评价表格显示
+    @RequestMapping("/CoachStudentEvaluationTable")
+    @ResponseBody//ajax返回值json格式转换
+    public DateTable CoachStudentEvaluationTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer page= Integer.parseInt(request.getParameter("page"));
+        Integer limit= Integer.parseInt(request.getParameter("limit"));
+        Coach coach = (Coach) request.getSession().getAttribute("coach");
+        utils.setCoach_id(coach.getId());
+        utils.setMinLimit((page-1)*limit);
+        utils.setMaxLimit(limit);
+        System.out.println("utils:"+utils);
+        Map map = (Map) coachManageService.getCoachStudentEvaluation(utils);
+        System.out.println("map:"+map);
+        if (null!=map.get("list")){
+            dateTable.setData((List<?>) map.get("list"));
+            dateTable.setCode(0);
+            dateTable.setCount((Integer) map.get("count"));//总条数
+            return dateTable;
+        }
+        return null;
+    }
+
 }

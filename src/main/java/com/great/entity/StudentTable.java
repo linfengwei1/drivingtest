@@ -24,12 +24,14 @@ public class StudentTable
     private int twoScore;
     private int threeScore;
     private int fourScore;
+    private int subject_id;
+    private int practise_score;
     public StudentTable()
     {
 
     }
 
-    public StudentTable(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school, String schoolName, String image, String audit_results, int identity_state, int coach_id, int time, int oneScore, int twoScore, int threeScore, int fourScore) {
+    public StudentTable(int id, String account, String pwd, String name, String sex, String age, String idNumber, String phone, int student_state_id, int school_id, String verification, School school, String schoolName, String image, String audit_results, int identity_state, int coach_id, int time, int oneScore, int twoScore, int threeScore, int fourScore, int subject_id, int practise_score) {
         this.id = id;
         this.account = account;
         this.pwd = pwd;
@@ -52,6 +54,8 @@ public class StudentTable
         this.twoScore = twoScore;
         this.threeScore = threeScore;
         this.fourScore = fourScore;
+        this.subject_id = subject_id;
+        this.practise_score = practise_score;
     }
 
     public int getCoach_id() {
@@ -256,6 +260,22 @@ public class StudentTable
         this.fourScore = fourScore;
     }
 
+    public int getSubject_id() {
+        return subject_id;
+    }
+
+    public void setSubject_id(int subject_id) {
+        this.subject_id = subject_id;
+    }
+
+    public int getPractise_score() {
+        return practise_score;
+    }
+
+    public void setPractise_score(int practise_score) {
+        this.practise_score = practise_score;
+    }
+
     @Override
     public String toString() {
         return "StudentTable{" +
@@ -276,11 +296,13 @@ public class StudentTable
                 ", audit_results='" + audit_results + '\'' +
                 ", identity_state=" + identity_state +
                 ", coach_id=" + coach_id +
-                ", time='" + time + '\'' +
+                ", time=" + time +
                 ", oneScore=" + oneScore +
                 ", twoScore=" + twoScore +
                 ", threeScore=" + threeScore +
                 ", fourScore=" + fourScore +
+                ", subject_id=" + subject_id +
+                ", practise_score=" + practise_score +
                 '}';
     }
 }
