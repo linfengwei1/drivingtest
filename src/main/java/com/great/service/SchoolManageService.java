@@ -546,4 +546,10 @@ public class SchoolManageService {
         return InfMap;
     }
 
+
+    //首页通知公告信息显示
+    public List<Notice> getNotice(){
+        return schoolAdminDao.getNotice();
+    }
+
 }

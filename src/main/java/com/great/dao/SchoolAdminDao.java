@@ -1,10 +1,7 @@
 package com.great.dao;
 
 
-import com.great.entity.Evaluation;
-import com.great.entity.School;
-import com.great.entity.SchoolAdmin;
-import com.great.entity.TableUtils;
+import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -81,4 +78,8 @@ public interface SchoolAdminDao
 
 	//首页表格驾校数
 	public Integer SchoolCount();
+
+
+	//首页通知公告信息显示
+	public List<Notice> getNotice();
 }
