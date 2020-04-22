@@ -20,6 +20,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             , {field: 'linkName', title: '连接名称', width: 100, align: 'center'}
             , {field: 'linkUrl', title: '连接地址',  sort: true, align: 'center'}
             , {field: 'linkSort', title: '连接排序', width: 120, sort: true, align: 'center'}
+            , {field: 'pictureUrl', title: '图片地址', width: 120, sort: true, align: 'center'}
             , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
         ]]
     });
@@ -35,7 +36,8 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                 , where: {
                     linkUrl: $("#linkUrl").val(),
                     linkName: $("#linkName").val(),
-                    linkSort: $("#linkSort").val()
+                    linkSort: $("#linkSort").val(),
+                    picture: $("#pictureUrl").val()
                 }
             });
         }

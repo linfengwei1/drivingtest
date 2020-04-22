@@ -21,7 +21,7 @@
             type="text/javascript" charset="UTF-8"></script>
     <style>
         .layui-main-login {
-            margin-top: 7%;
+            margin-top: 1%;
             margin-left: 20%;
             padding-left: 5%;
             padding-top: 2%;
@@ -39,7 +39,7 @@
     <form class="layui-form" action=" " onsubmit="return false">
 <%--        <div class="layadmin-user-login-box layadmin-user-login-header"--%>
 <%--             style="background-color: #dadada">--%>
-            <h2 style="margin-left: 43%">更新友情链接</h2>
+            <h3 style="margin-left: 43%">更新友情链接</h3>
 <%--        </div>--%>
         <div class="layui-form-item">
             <label class="layui-form-label">连接ID</label>
@@ -77,6 +77,29 @@
             </div>
             <span id="err2"></span>
         </div>
+    <!--************这里是上传图片的代码***************-->
+    <!--************这里添加的隐藏的输入框，用来传递images的参数***************-->
+    <input type="hidden" name="pictureUrl" class="image"  >
+    <div class="layui-form-item">
+        <label class="layui-form-label ">连接图片:</label>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="test1">上传图片</button>
+            <div class="layui-upload-list">
+                <img class="layui-upload-img" id="demo1" style="width: 100px;height: 80px;margin-left: 18%;">
+                <p id="demoText"></p>
+            </div>
+        </div>
+    </div>
+    <!--************上面里是上传图片的代码***************-->
+<%--    <div class="layui-form-item">--%>
+<%--        <label class="layui-form-label">图片地址</label>--%>
+<%--        <div class="layui-input-inline">--%>
+<%--            <input type="text" id="pictureUrl" name="pictureUrl" required--%>
+<%--                   lay-verify="required" placeholder="请上传图片" autocomplete="off"--%>
+<%--                   class="layui-input">--%>
+<%--        </div>--%>
+<%--        <span id="err3"></span>--%>
+<%--    </div>--%>
 
         <div class="layui-form-item">
             <div class="layui-input-block">
