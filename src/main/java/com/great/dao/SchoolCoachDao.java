@@ -84,9 +84,19 @@ public interface SchoolCoachDao
 	//查找学员总数
 	public Integer findCount(TableUtils tableUtils);
 
-	//
-	List<StudyCondition> findStudentScore(TableUtils tableUtils);
-
 	//查询驾校教练人数
 	public List getSchoolCoach();
+	//查询学生分数
+	List<Score> findStudentScore(TableUtils tableUtils);
+
+	List<StudentTable> newFindstudentBypage(TableUtils tableUtils);
+
+	//查询学生学时
+    List<StudyCondition> findStudentTime(TableUtils tableUtils);
+
+    //查询学生评论
+	List<EvaluationToCoach> findStudentEvaluation(TableUtils tableUtils);
+
+	//查询学生评论页数
+	Integer findStudentEvaluationByCount(TableUtils tableUtils);
 }

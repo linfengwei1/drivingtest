@@ -61,4 +61,14 @@ public class EvaluationToCoach implements Serializable
 	{
 		this.time = time;
 	}
+
+	@Override
+	public String toString() {
+		return "EvaluationToCoach{" +
+				"id=" + id +
+				", content='" + content + '\'' +
+				", coachId=" + coachId +
+				", time=" + time +
+				'}';
+	}
 }

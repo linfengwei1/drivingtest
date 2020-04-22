@@ -185,15 +185,22 @@ public class TableUtils {
 
     @Override
     public String toString() {
-        return "Utils{" +
+        return "TableUtils{" +
                 "page='" + page + '\'' +
                 ", minLimit=" + minLimit +
                 ", maxLimit=" + maxLimit +
                 ", time1='" + time1 + '\'' +
                 ", time2='" + time2 + '\'' +
+                ", idnumber='" + idnumber + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", sex='" + sex + '\'' +
                 ", state='" + state + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
+                ", carNumber='" + carNumber + '\'' +
+                ", school_id=" + school_id +
+                ", schoolStateId=" + schoolStateId +
+                ", coach_id=" + coach_id +
                 '}';
     }
 }

@@ -18,7 +18,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         , cols: [[
             {field: 'id', title: '学员ID', width: 120, sort: true, fixed: 'left', align: 'center'}
             , {field: 'account', title: '学员账号', width: 100, align: 'center'}
-            , {field: 'name', title: '姓名', width: 80,  align: 'center'}
+            , {field: 'name', title: '姓名', width: 100,  align: 'center'}
             , {field: 'sex', title: '性别', width: 80, align: 'center'}
             , {field: 'age', title: '年龄', width: 90, sort: true, align: 'center'}
             , {field: 'idNumber', title: '身份证号码', width: 180, sort: true, align: 'center'}
@@ -119,25 +119,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             })
 
         }
-        if(layEvent === 'update'){ //更新
-            var $td = $(this).parents('tr').children('td');
-            var id = $td.eq(0).text();//获取点击按钮相对应的id
-            var name = $td.eq(2).text();
-            var phone = $td.eq(6).text();
-            layer.open({
-                title:'更改学员信息',
-                type: 2,
-                area: ['500px', '400px'],
-                content:path1+"/school/path/UpdateStudent",//弹出的页面
-                success: function (layero, index) {
-                    var body = layer.getChildFrame("body", index);//弹出页面的body标签
-                    body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值
-                    body.find("#name").val(name);//设置弹窗的值
-                    body.find("#phone").val(phone);
-                },
 
-            });
-        }
     });
 
     $("#add").click(function () {
