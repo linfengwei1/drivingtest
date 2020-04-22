@@ -1349,5 +1349,12 @@ public class SchoolController {
         }
         return null;
     }
-
+        //首页通知公告信息显示
+        //获取日志表格显示
+        @RequestMapping("/getNotice")
+        @ResponseBody//ajax返回值json格式转换
+        public Object getNotice() throws IOException {
+            List<Notice> list =  schoolAdminService.getNotice();
+            return list;
+        }
 }
