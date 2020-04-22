@@ -177,7 +177,7 @@ public class LinkController {
 		return dt;//返回前端的数据
 	}
 
-	//文件上传
+	//文件上传（上传图片）
 	@RequestMapping("/fileUpload")
 	@ResponseBody//ajax返回值json格式转换
 	public Object test(@RequestParam(value="file",required = false) MultipartFile file, HttpServletRequest request) throws IOException {
