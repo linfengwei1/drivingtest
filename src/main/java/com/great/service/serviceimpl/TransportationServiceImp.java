@@ -705,17 +705,33 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
-    public void auditAppoint(Integer id, String doing) {
-        Map<String,Integer> map=new HashMap<>();
-
+    public void auditAppoint(Integer id, String doing,String name,Integer studentId) {
+        Map<String,Object> map=new HashMap<>();
+        Map<String,Object> map1=new HashMap<>();
         if (doing.equals("批准")){
             map.put("id",id);
             map.put("state",1);
+            map1.put("id",studentId);
+            if ("科目一".equals(name)){
+                map1.put("student_state_id",13);
+            }
+            if ("科目二".equals(name)){
+                map1.put("student_state_id",14);
+            }
+            if ("科目三".equals(name)){
+                map1.put("student_state_id",15);
+            }
+            if ("科目四".equals(name)){
+                map1.put("student_state_id",16);
+            }
             td.auditAppoint(map);
+            td.AppointYes(map1);
         }else {
             map.put("id",id);
             map.put("state",2);
             td.auditAppoint(map);
+            td.AppointNo(studentId);
+
         }
 
     }

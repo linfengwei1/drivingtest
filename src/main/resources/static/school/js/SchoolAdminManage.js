@@ -20,7 +20,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         , limit: 5
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
-            {field: 'id', title: '管理员ID', width: 120, sort: true, fixed: 'left', align: 'center'}
+            {field: 'id', title: '管理员1ID', width: 120, sort: true, fixed: 'left', align: 'center'}
             , {field: 'account', title: '管理员账号', width: 100, align: 'center'}
             , {field: 'name', title: '管理员昵称', width: 180, sort: true, align: 'center'}
             , {field: 'phone', title: '联系方式', width: 120, sort: true, align: 'center'}

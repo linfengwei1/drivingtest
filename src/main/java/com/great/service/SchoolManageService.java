@@ -30,6 +30,7 @@ public class SchoolManageService {
     private SchoolLogDao schoolLogDao;
     @Autowired
     private School school;
+    private Object image;
 
     //驾校管理员登录
     public SchoolAdmin login(String account, String pwd){
@@ -265,9 +266,14 @@ public class SchoolManageService {
         return schoolStudentDao.changeAppointState(list);
     }
 
+
+
+
     //批量驳回过学员预约
     public Integer batchRejected(List list){
-        return schoolStudentDao.batchRejected(list);
+        Integer a =schoolStudentDao.batchRejected(list);
+              schoolStudentDao.AppointNo(list);
+        return a;
     }
 
     //获取车辆信息表
@@ -345,7 +351,6 @@ public class SchoolManageService {
     public Integer AddStudentImage(Integer id,String image){
         Map<String,Object> loginMap = new HashMap<>();
         loginMap.put("id",id);
-        loginMap.put("image",image);
         return schoolStudentDao.AddStudentImage(loginMap);
     }
 
@@ -458,8 +463,8 @@ public class SchoolManageService {
     }
 
     //查看手机号是否被注册
-    public Integer CheckCoachPhone(String phone){
-        return schoolAdminDao.CheckCoachPhone(phone);
+    public Integer CheckAdminPhone(String phone){
+        return schoolAdminDao.CheckAdminPhone(phone);
     }
 
     //通过手机号码改密码
@@ -474,7 +479,7 @@ public class SchoolManageService {
         
         msg= SchoolFaceRecognitionUtils.faceRegister(imageString, user_id);
        if ("success".equals(msg.trim())){
-           System.out.println("添加到数据库");
+           System.out.println("人脸添加到数据库");
        }
 
         return msg;
@@ -513,6 +518,32 @@ public class SchoolManageService {
             list.get(i).setCount(a);
         }
         return list;
+    }
+
+
+    //首页显示的南丁格尔图
+    public Object School1(TableUtils tableUtils){
+        List<School> list = schoolAdminDao.SchoolInf(tableUtils);
+
+        List<TableUtils> list1 = new ArrayList<>();
+        Integer a,b,c,d;
+        d = schoolAdminDao.SchoolCount();
+        for (int i =0;i<list.size();i++){
+            a =schoolAdminDao.SchoolCountById(list.get(i).getId());
+            b =schoolAdminDao.SchoolCountCarById(list.get(i).getId());
+            c =schoolAdminDao.SchoolCountCoachById(list.get(i).getId());
+            TableUtils tb = new TableUtils();
+            tb.setName(list.get(i).getName());
+            tb.setCountStudent(a);
+            tb.setCountCar(b);
+            tb.setCountCoach(c);
+            list1.add(tb);
+        }
+
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        InfMap.put("list",list1);
+        InfMap.put("count",d);
+        return InfMap;
     }
 
 }

@@ -23,10 +23,36 @@ public class TableUtils {
 //    private Date time3;
 //    private Timestamp time4;
     private Integer coach_id;
+    private Integer countCar;
+    private Integer countCoach;
+    private Integer countStudent;
 
     public TableUtils() {
     }
 
+    public Integer getCountCar() {
+        return countCar;
+    }
+
+    public void setCountCar(Integer countCar) {
+        this.countCar = countCar;
+    }
+
+    public Integer getCountCoach() {
+        return countCoach;
+    }
+
+    public void setCountCoach(Integer countCoach) {
+        this.countCoach = countCoach;
+    }
+
+    public Integer getCountStudent() {
+        return countStudent;
+    }
+
+    public void setCountStudent(Integer countStudent) {
+        this.countStudent = countStudent;
+    }
 
     public String getCoachName() {
         return coachName;

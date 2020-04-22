@@ -58,8 +58,8 @@
                 <td style="width: 650px">
                     <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="height: 300px">
                         <ul class="layui-tab-title" style="margin-top: -25px">
-                            <li class="layui-this">通知公告</li>
-                            <li>行业动态</li>
+                            <li class="layui-this">收费明细</li>
+                            <li>通知公告</li>
                             <li>政策法规</li>
                             <li>政策解读</li>
                             <li>曝光台</li>
@@ -68,37 +68,37 @@
                             <div class="layui-tab-item layui-show">
                                 <table class="layui-table"   lay-skin="line">
                                     <colgroup>
-                                        <col width="250">
-                                        <col width="100">
-                                        <col width="100">
+                                        <col width="80" height="25">
+                                        <col width="80">
+                                        <col width="290">
                                     </colgroup>
                                     <thead>
                                     <tr>
-                                        <th >标题</th>
-                                        <th>文章来源</th>
-                                        <th>日期</th>
+                                        <th>阶段</th>
+                                        <th>费用(参考)</th>
+                                        <th>备注</th>
                                     </tr>
                                     </thead>
                                     <tbody class="title-png">
                                     <tr>
-                                        <td >联播+丨如何成为好老师，习近平殷切寄语</td>
-                                        <td>汉族</td>
-                                        <td>1989-10-14</td>
+                                        <td >科目一</td>
+                                        <td>500元</td>
+                                        <td>不同地区根据实际情况定价,最高不得大于定价的百分之30</td>
                                     </tr>
                                     <tr>
-                                        <td>张爱玲</td>
-                                        <td>汉族</td>
-                                        <td>1920-09-30</td>
+                                        <td >科目一</td>
+                                        <td>1000元</td>
+                                        <td>不同地区根据实际情况定价,最高不得大于定价的百分之30</td>
                                     </tr>
                                     <tr>
-                                        <td>Helen Keller</td>
-                                        <td>拉丁美裔</td>
-                                        <td>1880-06-27</td>
+                                        <td >科目一</td>
+                                        <td>1000元</td>
+                                        <td>不同地区根据实际情况定价,最高不得大于定价的百分之30</td>
                                     </tr>
                                     <tr>
-                                        <td>岳飞</td>
-                                        <td>汉族</td>
-                                        <td>1103-北宋崇宁二年</td>
+                                        <td >科目一</td>
+                                        <td>500元</td>
+                                        <td>不同地区根据实际情况定价,最高不得大于定价的百分之30</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -312,8 +312,9 @@
                 </div>
             </div>
         </div>
-
-        <div class="layui-tab-item">内容4</div>
+        <div class="layui-tab-item"  >内容四
+            <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">驾校申请</a>
+        </div>
         <div class="layui-tab-item">
 	        <div style="padding: 50px">
 		        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">运管门户</a>
@@ -329,7 +330,10 @@
 </div>
 <div style="padding-left: 11%;padding-bottom: 2px">
     <div id="echarts_div2" style="width: 500px;height: 300px;;float: left;background-color: #f2f4f9"></div>
-    <div id="echarts_div3" style="width: 550px;height: 300px;float: left;background-color: #1E9FFF"  ></div>
+
+    <div class="layui-anim layui-anim-scale" style="width: 550px;height: 300px;float: left;">
+        <table id="dataTable" lay-filter="test"></table>
+    </div>
 </div>
 
 <div style="margin-top: 1%">
@@ -792,16 +796,10 @@
 				var arr = JSON.parse(msg);
 				console.log("msg=="+arr);
 				for (var i = 0;i<arr.length;i++){
-					// valueArr.push(arr[i]);
-					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
 					nameArr.push(arr[i].name);
 				}
 				console.log("学校名ms=="+nameArr);
 				createEchars();
-				// nameArr=["科目一","科目二","科目三","科目四","毕业"];
-				// createEchars();// 创建普通柱状图
-				// console.log("nu1="+nu1);
-				// $("#lab1").text(nu1);
 			},
 			error : function() {
 				alert("服务器正忙");
@@ -941,29 +939,50 @@
         var myChart2 = echarts.init(document.getElementById('echarts_div2'));//dark为暗黑主题 不要可以去掉
         var option = {
             title : {
-                text : 'ECharts 南丁格尔玫瑰图'
+                text : '基础数据'
             },
             series : [ {
-                name : '访问来源',
+                name : '驾校',
                 type : 'pie',
                 roseType: 'angle',//南丁格尔玫瑰图样式  去掉则显示基本圆饼图
                 radius : '55%',
-                // data : obArr1
-                data:[
-                    {value: 10, name: 'rose1'},
-                    {value: 5, name: 'rose2'},
-                    {value: 15, name: 'rose3'},
-                    {value: 25, name: 'rose4'},
-                    {value: 20, name: 'rose5'},
-                    {value: 35, name: 'rose6'},
-                    {value: 30, name: 'rose7'},
-                    {value: 40, name: 'rose8'}
-                ]
+                data : obArr1
+                // data:[
+                //     {value: 10, name: 'rose1'},
+                //     {value: 5, name: 'rose2'},
+                //     {value: 15, name: 'rose3'},
+                //     {value: 25, name: 'rose4'},
+                //     {value: 20, name: 'rose5'},
+                //     {value: 35, name: 'rose6'},
+                //     {value: 30, name: 'rose7'},
+                //     {value: 40, name: 'rose8'}
+                // ]
             } ]
         };
         myChart2.setOption(option);
     }
 
+
+    layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导入模块
+        $ = layui.jquery;
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#dataTable'
+            , height: 280
+            , url: '${pageContext.request.contextPath}/school/WelcomeTable' //数据接口
+            , page: true //开启分页
+            , id: 'searchTable'
+            , limit: 5
+            , limits: [5]
+            , cols: [[ //表头
+                {field: 'name', title: '驾校', width: 145, sort: true, fixed: 'left', align: 'center',unresize:true}
+                , {field: 'countCoach', title: '教练员', width: 110, sort: true,align: 'center',unresize:true}
+                , {field: 'countCar', title: '教练车', width: 140, sort: true, align: 'center',unresize:true}
+                , {field: 'countStudent', title: '培训能力(人)', width: 150, sort: true, align: 'center',unresize:true}
+            ]]
+        });
+    });
 
 
 
@@ -973,67 +992,3 @@
 </body>
 </html>
 
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>友情链接_编辑修改</title>--%>
-<%--    <link href="main.css" rel="stylesheet" type="text/css" />--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--&lt;%&ndash;<script LANGUAGE=javascript>&ndash;%&gt;--%>
-<%--&lt;%&ndash;    function rewlink(){&ndash;%&gt;--%>
-<%--&lt;%&ndash;        if((refform.linkname.value == "")||(refform.linkurl.value == "")){&ndash;%&gt;--%>
-<%--&lt;%&ndash;            alert("关键字不能为空，")&ndash;%&gt;--%>
-<%--&lt;%&ndash;        }else{&ndash;%&gt;--%>
-<%--&lt;%&ndash;            if(refform.linkurl.value.substring(0,7).toLowerCase() == 'http://'){&ndash;%&gt;--%>
-<%--&lt;%&ndash;                return true;&ndash;%&gt;--%>
-<%--&lt;%&ndash;            }else{&ndash;%&gt;--%>
-<%--&lt;%&ndash;                alert("必须带http://");&ndash;%&gt;--%>
-<%--&lt;%&ndash;                return false;&ndash;%&gt;--%>
-<%--&lt;%&ndash;            }&ndash;%&gt;--%>
-<%--&lt;%&ndash;        }&ndash;%&gt;--%>
-<%--&lt;%&ndash;        return false;&ndash;%&gt;--%>
-<%--&lt;%&ndash;    }&ndash;%&gt;--%>
-<%--&lt;%&ndash;</script>&ndash;%&gt;--%>
-<%--&lt;%&ndash;<div id="main">&ndash;%&gt;--%>
-<%--&lt;%&ndash;    <div id="inmain">&ndash;%&gt;--%>
-<%--&lt;%&ndash;        <div id="main_head">当前位置:<strong>后台首页</strong> >； <strong>其它信息管理e5a48de588b6e799bee5baa631333337393632</strong> >； <strong>友情链接管理</strong></div>&ndash;%&gt;--%>
-<%--&lt;%&ndash;        <div id="main_text">&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <form name="refform" action="../admin/LinkServlet？method=rewLink&link_id=${rew.link_id }" method="post" onSubmit="return rewlink();">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <input name="link_id" type="hidden" value="${rew.link_id }"/>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <div class="main_table">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <dl>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <dt>修改友情链接</dt>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <dd class="table_style">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:150px;">描述</li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:200px;"><input name="linkname" value="${rew.link_name }" type="text" class="border" /></li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li></li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            </ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </dd>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <dd class="table_style">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:150px;">链接地址</li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:200px;"><input type="text" name="linkurl" value="${rew.link_url }" class="border" /></li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li><span>[ 需要添加 “http://” ]</span></li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            </ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </dd>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <dd class="table_handle">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:83px;">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                    <input type="submit" value="修改" class="bt" />&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                </li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:50px;">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                    <input type="reset" value="重置" class="bt" />&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                </li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            </ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </dd>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    </dl>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                </div>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            </form>&ndash;%&gt;--%>
-<%--&lt;%&ndash;        </div>&ndash;%&gt;--%>
-<%--&lt;%&ndash;    </div>&ndash;%&gt;--%>
-<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-<%--</body>--%>
-<%--</html>--%>

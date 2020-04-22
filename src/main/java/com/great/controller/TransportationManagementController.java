@@ -816,9 +816,11 @@ public class TransportationManagementController {
      */
     @RequestMapping("/auditAppoint")
     @ResponseBody
-    public String auditAppoint(Integer id,String doing,HttpServletResponse response){
+    public String auditAppoint(Integer id,String doing,String name,Integer studentId ,HttpServletResponse response){
 
-            transportationService.auditAppoint(id,doing);
+        System.out.println("name=="+name);
+        System.out.println("studentId=="+studentId);
+            transportationService.auditAppoint(id,doing,name,studentId);
 
         return "Success";
     }

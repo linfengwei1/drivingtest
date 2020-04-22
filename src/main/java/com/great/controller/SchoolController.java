@@ -171,24 +171,33 @@ public class SchoolController {
     public void phoneMsg(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String msg = request.getParameter("phone");
-
-        if (null!=msg||!"".equals(msg.trim())){
-            String phoneMsg = PhoneCode.getPhonemsg(msg);
-            System.out.println("验证码=="+phoneMsg);
-            request.getSession().setAttribute("phoneMsg",phoneMsg);
-            //5分钟后移除存在域里的验证码
-            HttpSession hs = request.getSession();
-            final Timer timer=new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    hs.removeAttribute("phoneMsg");
-                    System.out.println("checkCode删除成功");
-                    timer.cancel();
-                }
-            },5*60*1000);
-
+        //判断手机号是否存在
+        Integer a =schoolAdminService.CheckAdminPhone(msg);
+        System.out.println("手机是否存在=="+a);
+        if (0<a){
+            if (null!=msg||!"".equals(msg.trim())){
+                String phoneMsg = PhoneCode.getPhonemsg(msg);
+                request.getSession().setAttribute("phoneMsg",phoneMsg);
+                response.getWriter().print("success");
+                //5分钟后移除存在域里的验证码
+                HttpSession hs = request.getSession();
+                //创建一个计时器
+                final Timer timer=new Timer();
+                //schedule(TimerTask t,Date time);改方法是指在指定的time时间内执行指定的任务
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        hs.removeAttribute("phoneMsg");
+                        System.out.println("checkCode删除成功");
+                        timer.cancel();
+                    }
+                },5*60*1000);
+            }
+        }else {
+            //手机号码不存在
+            response.getWriter().print("no");
         }
+
 
 
     }
@@ -199,14 +208,20 @@ public class SchoolController {
         System.out.println("验证码="+phoneMsg);
         System.out.println("输入的值="+schoolAdmin.getPhoneMsg());
         //手机验证码不为空的情况
-        if(null==phoneMsg||"".equals(phoneMsg)){
+        if(null!=phoneMsg||!"".equals(phoneMsg)){
+            //判断短信验证码是否一致
             if (phoneMsg.equals(schoolAdmin.getPhoneMsg())){
+                //修改密码
+                Integer b=schoolAdminService.changePwdByPhone(schoolAdmin);
+                ajaxReturn(b,response); //结果返回封装
                 System.out.println(1);
-            }else{
-                System.out.println(2);
+            }else {
+                response.getWriter().print("error");
             }
-        }else {
-
+        }else{
+            System.out.println(2);
+            //短信已失效
+            response.getWriter().print("cancel");
         }
 
 
@@ -553,12 +568,14 @@ public class SchoolController {
 
     //批量审批学员信息
     @RequestMapping("/batchProcessing")
-    public void batchProcessing(AppointTest appointTest, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void batchProcessing( HttpServletRequest request, HttpServletResponse response) throws IOException {
         List list = new ArrayList();
         Gson g = new Gson();
         AppointTest[] tree = g.fromJson(request.getParameter("data"), AppointTest[].class);
         for (int i = 0;i<tree.length;i++){
             list.add(tree[i].getId());
+            Student s = new Student();
+            s.setId(tree[i].getId());
         }
         Integer a = schoolAdminService.changeAppointState(list);
         if (tree.length==a){
@@ -1314,5 +1331,23 @@ public class SchoolController {
         return map;
     }
 
+
+    //获取日志表格显示
+    @RequestMapping("/WelcomeTable")
+    @ResponseBody//ajax返回值json格式转换
+    public DateTable WelcomeTable(TableUtils utils, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer page= Integer.parseInt(request.getParameter("page"));
+        Integer limit= Integer.parseInt(request.getParameter("limit"));
+        utils.setMinLimit((page-1)*limit);
+        utils.setMaxLimit(limit);
+        Map map = (Map) schoolAdminService.School1(utils);
+        if (null!=map.get("list")){
+            dateTable.setData((List<?>) map.get("list"));
+            dateTable.setCode(0);
+            dateTable.setCount((Integer) map.get("count"));//总条数
+            return dateTable;
+        }
+        return null;
+    }
 
 }

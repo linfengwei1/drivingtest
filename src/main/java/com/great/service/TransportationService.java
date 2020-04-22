@@ -369,7 +369,7 @@ public interface TransportationService {
      * 批准考试
      * @param id
      */
-    public void auditAppoint(Integer id, String doing);
+    public void auditAppoint(Integer id, String doing,String name,Integer studentId);
 
 
     /**

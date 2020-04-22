@@ -16,7 +16,7 @@
 
 	<!--登录-->
     <select id="login" resultMap="SchoolAdmin" parameterType="java.util.Map">
-		select * from schooladmin where account = #{account} and pwd = #{pwd}
+		select * from schooladmin where account = #{account} and pwd = #{pwd} and school_state_id in (1,3)
 	</select>
 
 
@@ -177,10 +177,35 @@
             select id,name FROM school
     </select>
 
+
+
     <!-- 首页圆形图-->
     <select id="SchoolCountById" parameterType = "java.lang.Integer" resultType="java.lang.Integer" >
         SELECT count(*)FROM student WHERE school_id = #{id}
     </select>
+
+
+    <!-- 首页表格-->
+    <select id="SchoolInf"  resultType = "com.great.entity.School" parameterType ="com.great.entity.TableUtils">
+        select id,name FROM school limit #{minLimit},#{maxLimit}
+    </select>
+
+    <!-- 首页表格-->
+    <select id="SchoolCountCoachById" parameterType = "java.lang.Integer" resultType="java.lang.Integer" >
+        SELECT count(*)FROM coach WHERE school_id = #{id}
+    </select>
+
+    <!-- 首页表格-->
+    <select id="SchoolCountCarById" parameterType = "java.lang.Integer" resultType="java.lang.Integer" >
+        SELECT count(*)FROM coachcar WHERE school_id = #{id}
+    </select>
+
+    <!-- 首页表格-->
+    <select id="SchoolCount"  resultType="java.lang.Integer" >
+        SELECT count(*)FROM school
+    </select>
+
+
 
 
 

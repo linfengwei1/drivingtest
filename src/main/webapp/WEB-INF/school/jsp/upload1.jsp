@@ -22,6 +22,9 @@
 
 <body>
 <input type="hidden" id="path" value="<%=path%>">
+<div align="center">
+
+</div>
 <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
     <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
 </div>

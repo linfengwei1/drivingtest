@@ -440,7 +440,7 @@ public interface TransportationDao {
      * 批准考试
      * @param map
      */
-    public void auditAppoint(Map<String, Integer> map);
+    public void auditAppoint(Map<String, Object> map);
 
     /**
      *
@@ -449,4 +449,18 @@ public interface TransportationDao {
      */
     public School getSchoolUrl(Integer id);
 
+
+    /**
+     *判断是否已经预约改为0
+     * @param id
+     * @return
+     */
+    public Integer AppointNo(Integer id);
+
+    /**
+     *把学员状态改成考试中的状态
+     * @param
+     * @return
+     */
+    public Integer AppointYes(Map<String, Object> map);
 }
