@@ -60,6 +60,14 @@
                         <dd><a href="javascript:;">列表二</a></dd>
                     </dl>
                 </li>
+
+
+                <li class="layui-nav-item">
+                    <a href="javascript:;">考试预约</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/coach/path/ToOrder" onclick="changeUrl(this)">帮学生预约考试</a></dd>
+                    </dl>
+                </li>
             </ul>
         </div>
     </div>

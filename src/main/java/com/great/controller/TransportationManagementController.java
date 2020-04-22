@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.great.aoplog.Log;
 import com.great.entity.*;
 import com.great.service.TransportationService;
+import com.great.utils.ScoreExcelImport;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -1011,6 +1014,48 @@ public class TransportationManagementController {
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
                 headers, HttpStatus.CREATED);
 
+    }
+
+    /**
+     * 学员信息ecxcel导入
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/addScoreByExcel")
+    @ResponseBody
+    public String ImportExcel(@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response ) {
+        int i = 0;
+        String name = file.getOriginalFilename();//得到文件名
+        if (name.length() < 6 || !name.substring(name.length() - 5).equals(".xlsx")) {
+            //            return "文件格式错误";
+            return "{\"code\":2, \"msg\":\"\", \"data\":{}}";
+        }
+        List<TestScore> list = null;
+        try {
+            list = ScoreExcelImport.excelToShopIdList(file.getInputStream(),request);
+            if (list == null || list.size() <= 0) {
+                //                return "导入的数据为空";
+                return "{\"code\":3, \"msg\":\"\", \"data\":{}}";
+            }
+            //excel的数据保存到数据库
+            try {
+                for (TestScore coachCar : list) {
+                    System.out.println("导入的数据"+coachCar.toString());
+                }
+                i = transportationService.insertScoreByExcel(list);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                //                return e.getMessage();
+                return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            //            return e.getMessage();
+            return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
+        }
+        return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
     }
 
 }

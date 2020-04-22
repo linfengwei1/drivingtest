@@ -2,6 +2,7 @@ package com.great.dao;
 
 import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -99,4 +100,15 @@ public interface SchoolCoachDao
 
 	//查询学生评论页数
 	Integer findStudentEvaluationByCount(TableUtils tableUtils);
+
+	List<Student> getStudentBySubject(@Param("subject")int subject, @Param("coachId")Integer coachId);
+	int getOrderTimeBySchool(@Param("time")String time,@Param("schoolId")Integer schoolId);
+	int checkHasOrder(@Param("subject")Integer subject,@Param("date")String date);
+
+	List<Integer> getOrderTimeId(@Param("subject")Integer subject, @Param("date")String date);
+
+	void addOrderRecord(@Param("timeId")Integer timeId,  @Param("list")List<Integer> studentIds);
+
+	int addOrderTimeId(OrderTime orderTime);
+	int updateOrderStatus(@Param("list")List<Integer> studentIds);
 }

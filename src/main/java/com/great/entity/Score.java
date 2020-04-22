@@ -8,14 +8,14 @@ public class Score implements Serializable
 
 	private int score;
 	private Timestamp examTime;
-	private int subject;
+	private String subject;
 
 
 	public Score()
 	{
 	}
 
-	public Score(int score, Timestamp examTime, int subject)
+	public Score(int score, Timestamp examTime, String subject)
 	{
 		this.score = score;
 		this.examTime = examTime;
@@ -42,22 +42,13 @@ public class Score implements Serializable
 		this.examTime = examTime;
 	}
 
-	public int getSubject()
+	public String getSubject()
 	{
 		return subject;
 	}
 
-	public void setSubject(int subject)
+	public void setSubject(String subject)
 	{
 		this.subject = subject;
-	}
-
-	@Override
-	public String toString() {
-		return "Score{" +
-				"score=" + score +
-				", examTime=" + examTime +
-				", subject=" + subject +
-				'}';
 	}
 }

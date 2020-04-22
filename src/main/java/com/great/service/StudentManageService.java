@@ -4,13 +4,12 @@ package com.great.service;
 import com.great.entity.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
 
 public interface StudentManageService
 {
 
-	Student login(String account, String pwd,HttpServletRequest request);
+	Student login(String account, String pwd, HttpServletRequest request);
 
 	String checkStudyAuthority(String studentId, String vedioId, String subject);
 
@@ -40,9 +39,9 @@ public interface StudentManageService
 
 	String addEvaForCoach(String coachId, String content);
 
-	int updatePwd(Integer id,String account, String pwd);
+	int updatePwd(Integer id, String account, String pwd);
 
-	List<Question> wrongQuestion(String subject,Integer studentId);
+	List<Question> wrongQuestion(String subject, Integer studentId);
 
 	String delWrongQuestion(String studentId, String subject, String qid);
 

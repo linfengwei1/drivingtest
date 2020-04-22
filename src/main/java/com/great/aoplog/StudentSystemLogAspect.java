@@ -2,7 +2,6 @@ package com.great.aoplog;
 
 
 import com.great.entity.Student;
-import com.great.entity.User;
 import com.great.service.SystemLogService;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -130,6 +129,7 @@ public class StudentSystemLogAspect implements Ordered
             }
         }
         SystemLog log = new SystemLog();
+        Student student = null;
         try {
             long start = System.currentTimeMillis();
             //方法执行之前  前置通知
@@ -139,7 +139,7 @@ public class StudentSystemLogAspect implements Ordered
             System.out.println("方法返回结果"+result);
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             HttpSession session = request.getSession();
-            Student student = (Student) session.getAttribute("student");
+            student = (Student) session.getAttribute("student");
             String ip = request.getRemoteAddr();
 
 
@@ -172,7 +172,10 @@ public class StudentSystemLogAspect implements Ordered
         }finally
         {
             //最终通知
-            systemLogService.insertLog(log);
+            if(student != null)
+            {
+                systemLogService.insertLog(log);
+            }
             return result;
         }
 

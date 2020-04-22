@@ -378,4 +378,10 @@ public interface TransportationService {
      * @return
      */
     public School getSchoolUrl(Integer id);
+
+    /**
+     * 插入考试分数到分数表
+     * @param list
+     */
+    public int insertScoreByExcel(List<TestScore> list);
 }
