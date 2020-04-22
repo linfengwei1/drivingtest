@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,18 +32,22 @@ import java.util.*;
 @Controller//控制层controller控制器
 @RequestMapping("/link")//访问路径：如果只是@RequestMapping则返回的是jsp页面，如果再加上@ResponseBody则返回的是字符串
 public class LinkController {
-
-	@RequestMapping("/first")
-	public String first(){
-		return "/frontjsp/jsp/Welcome";
-	}
+	Gson g=new Gson();
 
 	@Autowired//自动注入、自动装配
 	private LinkService linkService;
 	@RequestMapping("/path/{url}")//访问路径的路口：path/{url是作为参数PathVariable路径变量}
-	public String getUrl(@PathVariable(value = "url") String path) {
-		return "/frontjsp/jsp/" + path;//返回
+	public ModelAndView getUrl(@PathVariable(value = "url") String path) {
+		List<Link> linkList = linkService.findAllLink();
+		List<Notice> noticeDS = linkService.getNoticeDS();
+		List<Notice> noticeCS = linkService.getNoticeCS();
+		ModelAndView mav = new ModelAndView("/frontjsp/jsp/" + path);
+		mav.addObject("linkList", linkList);
+		mav.addObject("noticeDS",noticeDS);
+		mav.addObject("noticeCS",noticeCS);
+		return mav;
 	}
+
 
 	// 新增友情链接：插入成功返回前台success
 	@RequestMapping("/addLink")
@@ -166,6 +171,29 @@ public class LinkController {
 //		} else {
 //			return null;
 //		}
+//	}
+
+
+//	/**
+//	 * 获取驾驶技巧通告信息
+//	 * @param response
+//	 * @param request
+//	 * @return
+//	 */
+//	@RequestMapping("/getDSNoticeMsg")
+//	@ResponseBody
+//	public String getDSNoticeMsg(HttpServletResponse response,HttpServletRequest request){
+//
+//		// 设置浏览器字符集编码.
+//		response.setHeader("Content-Type","text/html;charset=UTF-8");
+//		// 设置response的缓冲区的编码.
+//		response.setCharacterEncoding("UTF-8");
+//
+//		List<Notice> noticeDS = linkService.getNoticeDS();
+//		request.getSession().setAttribute("noticeDS",noticeDS);
+//		System.out.println(noticeDS);
+//
+//		return g.toJson(noticeDS);
 //	}
 
 }
