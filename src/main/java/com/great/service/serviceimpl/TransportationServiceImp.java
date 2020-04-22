@@ -7,6 +7,7 @@ import com.great.service.LinkService;
 import com.great.service.TransportationService;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -740,6 +741,13 @@ public class TransportationServiceImp implements TransportationService {
     public School getSchoolUrl(Integer id) {
 
         return td.getSchoolUrl(id);
+    }
+
+    @Override
+    @Transactional
+    public int insertScoreByExcel(List<TestScore> list)
+    {
+        return td.insertScoreByExcel(list);
     }
 
 

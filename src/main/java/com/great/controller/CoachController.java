@@ -1,13 +1,11 @@
 package com.great.controller;
 
-import com.great.entity.Coach;
-import com.great.entity.DateTable;
-import com.great.entity.SchoolAdmin;
-import com.great.entity.TableUtils;
+import com.great.entity.*;
 import com.great.service.CoachManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -198,6 +196,42 @@ public class CoachController
             return dateTable;
         }
         return null;
+    }
+
+
+
+
+
+
+
+
+
+
+    @RequestMapping("/toOrder")
+    @ResponseBody
+    public String toOrder(@RequestBody Orders orders) throws IOException
+    {
+        String result = "";
+        result = coachManageService.toOrder(orders);
+        return result;
+    }
+
+
+    @RequestMapping("/getStudentBySubject")
+    @ResponseBody
+    public List<Student> getStudentBySubject(String subject, String coachId, HttpServletRequest request, HttpServletResponse response) throws IOException
+    {
+        List<Student> list = coachManageService.getStudentBySubject(subject,coachId);
+        return list;
+    }
+    @RequestMapping("/getOrderTimeBydate")
+    @ResponseBody
+    public String getOrderTimeBydate(String data, String schoolId, HttpServletRequest request, HttpServletResponse response) throws IOException
+    {
+        String result = null;
+        result = coachManageService.getOrderTimeBydate(schoolId,data);
+
+        return result;
     }
 
 }

@@ -3,11 +3,38 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.great.dao.SchoolCoachDao">
+    <resultMap id="studentMap" type="Student">
+        <!-- 主键字段的对应 -->
+        <id property="id" column="id"></id>
+        <!--非主键字段的对应-->
+        <result property="account" column="account"></result>
+        <result property="name" column="name"></result>
+        <result property="pwd" column="pwd"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+        <result property="idNumber" column="idnumber"></result>
+        <result property="phone" column="phone"></result>
+        <result property="student_state_id" column="student_state_id"></result>
+        <result property="school_id" column="school_id"></result>
+        <result property="coach_id" column="coach_id"></result>
+        <result property="identity_state" column="identity_state"></result>
+    </resultMap>
 
+    <resultMap id="Coach" type="com.great.entity.Coach">
+        <id property="id" column="id"></id>
+        <result column="account" property="account"></result>
+        <result column="pwd" property="pwd"></result>
+        <result column="sex" property="sex"></result>
+        <result column="age" property="age"></result>
+        <result column="name" property="name"></result>
+        <result column="phone" property="phone"></result>
+        <result column="idnumber" property="idnumber"></result>
+        <result column="coach_state_id" property="coach_state_id"></result>
+        <result column="school_id" property="school_id"></result>
+        <result column="audit_results" property="audit_results"></result>
+        <result column="image" property="image"></result>
+    </resultMap>
 
-     <resultMap id="Coach" type="com.great.entity.Coach">
-            <result column="coach_state_id" property="coach_state_id"></result>
-     </resultMap>
     <resultMap id="Student" type="com.great.entity.StudentTable">
         <result column="student_state_id" property="student_state_id"></result>
     </resultMap>
@@ -112,7 +139,7 @@
 	</update>
 
     <!--登录-->
-    <select id="login" resultType="com.great.entity.Coach" parameterType="java.util.Map">
+    <select id="login" resultMap="Coach" parameterType="java.util.Map">
 		select * from coach where account = #{account} and pwd = #{pwd}
 	</select>
 
@@ -358,5 +385,57 @@
             )
         </foreach>
     </insert>
+    <update id="updateOrderStatus">
+        update student set hasordered=1
+        where id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
 
+    <insert id="addOrderTimeId" parameterType="OrderTime"  useGeneratedKeys="true" keyProperty="id">
+        insert into time
+        (datetime,subject_id)
+        values
+        (#{dateTime},#{subject})
+    </insert>
+
+    <insert id="addOrderRecord">
+        insert into appoint_time_relation
+        (time_id,student_id,appoint_state_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{timeId},
+            #{item},
+            3
+            )
+        </foreach>
+    </insert>
+
+    <select id="getOrderTimeId" resultType="int">
+		select id from time where subject_id = #{subject}
+        and DATE_FORMAT(datetime,'%Y-%m-%d %H:%i:%S') = #{date}
+	</select>
+
+    <select id="checkHasOrder" resultType="int">
+		select count(*) from time where subject_id = #{subject}
+        and DATE_FORMAT(datetime,'%Y-%m-%d %H:%i:%S') = #{date}
+	</select>
+
+    <select id="getOrderTimeBySchool" resultType="int">
+        select count(*) from test_allocation where start_time &lt;= #{time} and end_time &gt;= #{time} and school_id = #{schoolId}
+	</select>
+
+    <select id="getStudentBySubject" resultMap="studentMap">
+		select s.* from student as s,studycondition as sd
+        where s.coach_id = #{coachId}
+        and s.student_state_id = #{subject}
+        and s.hasordered = 0
+        and s.id = sd.student_id
+        and s.student_state_id = sd.subject_id
+        and sd.time=3
+        and sd.practise_score >=90
+	</select>
 </mapper>

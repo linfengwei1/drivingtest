@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%String path=request.getContextPath(); %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/homepage.css">--%>
@@ -186,38 +187,17 @@
                                                                 <tr>
                                                                     <td>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr  bgcolor='#f4f4f4'>
-                                                                                <td width="95%" height="25"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">石佛寺驾校，清明节放假通知</a></td>
-                                                                                <td width="5%"  >2020/4/2</td>
-                                                                            </tr>
-	                                                                        <tr >
-                                                                                <td width="813" height="22"><a href="shownews.asp?id=2270" target="_blank" title="南京石佛寺驾校复工啦！">南京石佛寺驾校复工啦！</a></td>
-                                                                                <td width="145"  >2020/3/25</td>
-                                                                            </tr>
-                                                                            <tr  bgcolor='#f4f4f4'>
-                                                                                <td width="813" height="22"><a href="shownews.asp?id=2249" target="_blank" title="石佛寺驾校2020新年报名价格表">石佛寺驾校2020新年报名价格表</a></td>
-                                                                                <td width="145"  >2020/2/2</td>
-                                                                            </tr>
-                                                                            <tr >
-                                                                                <td width="813" height="22"><a href="shownews.asp?id=2246" target="_blank" title="石佛寺驾校2020年春节放假通知">石佛寺驾校2020年春节放假通知</a></td>
-                                                                                <td width="145"  >2020/1/23</td>
-                                                                            </tr>
-                                                                            <tr  bgcolor='#f4f4f4'>
-                                                                                <td width="813" height="22"><a href="shownews.asp?id=2057" target="_blank" title="南京石佛寺驾校2019年国庆放假通知">南京石佛寺驾校2019年国庆放假通知</a></td>
-                                                                                <td width="145"  >2019/9/19</td>
-                                                                            </tr>
-                                                                            <tr >
-                                                                                <td width="813" height="22"><a href="shownews.asp?id=1801" target="_blank" title="石佛寺驾校2019年新春报名价格表明细">石佛寺驾校2019年新春报名价格表明...</a></td>
-                                                                                <td width="145"  >2019/2/7</td>
-	                                                                        </tr>
-                                                                            <tr  bgcolor='#f4f4f4'>
-                                                                                <td width="813" height="22"><a href="shownews.asp?id=1796" target="_blank" title="石佛寺驾校2019年春节放假通知">石佛寺驾校2019年春节放假通知</a></td>
-                                                                                <td width="145"  >2019/1/28</td>
-                                                                            </tr>
-                                                                            <tr >
-                                                                                <td width="813" height="22"><a href="shownews.asp?id=1793" target="_blank" title="石佛寺驾校科目一考试理论预约流程">石佛寺驾校科目一考试理论预约流程</a></td>
-                                                                                <td width="145"  >2019/1/24</td>
-                                                                            </tr>
+	                                                                        <c:if test="${not empty noticeCS}">
+		                                                                        <c:forEach items="${noticeCS}"  var="cs">
+                                                                                    <tr  bgcolor='#f4f4f4'>
+                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">${cs.title}</a></td>
+                                                                                        <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${cs.time}" /></td>
+                                                                                    </tr>
+                                                                                </c:forEach>
+	                                                                        </c:if>
+	                                                                        <c:if test="${empty noticeCS}">
+		                                                                        暂无消息
+	                                                                        </c:if>
 
                                                                         </table>
                                                                     </td>
@@ -246,38 +226,18 @@
                                                                 <tr>
                                                                     <td>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr  bgcolor='#f4f4f4'>
-                                                                                <td width="95%" height="25"><a href="shownews.asp?id=2288" target="_blank" title="南京石佛驾校 带你了解几种情况下的礼让行人">南京石佛驾校 带你了解几种情况下的礼...</a></td>
-                                                                                <td width="5%"  >2020/4/19</td>
-                                                                            </tr>
-                                                                            <tr >
-                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2286" target="_blank" title="南京石佛驾校 新手刹车技巧汇总">南京石佛驾校 新手刹车技巧汇总</a></td>
-                                                                                <td width="5%"  >2020/4/15</td>
-                                                                            </tr>
-                                                                            <tr  bgcolor='#f4f4f4'>
-                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2285" target="_blank" title="南京石佛寺驾校 手动挡车急刹时如何操作离合器">南京石佛寺驾校 手动挡车急刹时如何操...</a></td>
-                                                                                <td width="5%"  >2020/4/10</td>
-                                                                            </tr>
-                                                                            <tr >
-                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2279" target="_blank" title="南京石佛驾校 带你分享学车科目口诀汇总">南京石佛驾校 带你分享学车科目口诀汇...</a></td>
-                                                                                <td width="5%"  >2020/4/8</td>
-                                                                            </tr>
-                                                                            <tr  bgcolor='#f4f4f4'>
-                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2277" target="_blank" title="南京石佛寺驾校 驾车行驶应避免的几大误区">南京石佛寺驾校 驾车行驶应避免的几大...</a></td>
-                                                                                <td width="5%"  >2020/4/3</td>
-                                                                            </tr>
-                                                                            <tr >
-                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2275" target="_blank" title="南京石佛驾校 驾驶手动档的几大不良习惯 ">南京石佛驾校 驾驶手动档的几大不良习...</a></td>
-                                                                                <td width="5%"  >2020/4/1</td>
-                                                                            </tr>
-                                                                            <tr  bgcolor='#f4f4f4'>
-                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2273" target="_blank" title="南京石佛驾校 雨天如何正确使用灯光及注意事项">南京石佛驾校 雨天如何正确使用灯光及...</a></td>
-                                                                                <td width="5%"  >2020/3/29</td>
-                                                                            </tr>
-                                                                            <tr >
-                                                                                <td width="95%" height="22"><a href="shownews.asp?id=2272" target="_blank" title="南京石佛驾校 高速行车请注意几个危险的路段">南京石佛驾校 高速行车请注意几个危险...</a></td>
-                                                                                <td width="5%"  >2020/3/27</td>
-                                                                            </tr>
+                                                                            <c:if test="${not empty noticeDS}">
+                                                                                <c:forEach items="${noticeDS}"  var="ds">
+                                                                                    <tr  bgcolor='#f4f4f4'>
+                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">${ds.title}</a></td>
+                                                                                        <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${ds.time}" /></td>
+                                                                                    </tr>
+                                                                                </c:forEach>
+                                                                            </c:if>
+                                                                            <c:if test="${empty noticeDS}">
+                                                                                暂无消息
+                                                                            </c:if>
+
                                                                         </table>
                                                                     </td>
                                                                 </tr>
@@ -493,10 +453,6 @@
     <div class="footer-box">
         <p class="footer-p">友情链接</p>
         <div class="footer-friend">
-<%--            <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="main/webapp/image/traffic.jpg"/></a>--%>
-<%--            <a target="_blank" href="https://www.cttic.cn/"><img class="footer-img" src="main/webapp/image/traffic_center.jpg" /></a>--%>
-<%--            <a target="_blank" href="http://www.122.gov.cn"><img class="footer-img" src="main/webapp/image/traffic_safety.jpg" /></a>--%>
-<%--            <a target="_blank" href="http://www.crta.org.cn/"><img class="footer-imgs" src="main/webapp/image/crta.jpg"/></a>--%>
             <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/traffic.jpg"/></a>
             <a target="_blank" href="https://www.cttic.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/traffic_center.jpg" /></a>
             <a target="_blank" href="http://www.122.gov.cn"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/traffic_safety.jpg" /></a>
@@ -569,43 +525,6 @@
 <%--            </form>--%>
 <%--        </div>--%>
 <%--    </div>--%>
-<%--</div>--%>
-
-<%--<div class="layui-header">--%>
-<%--	<ul class="layui-nav layui-bg-blue" lay-filter="">--%>
-<%--	<li class="layui-nav-item"><a href="">首页</a></li>--%>
-<%--	<li class="layui-nav-item">--%>
-<%--		<a href="javascript:;">公开公示</a>--%>
-<%--		<dl class="layui-nav-child">--%>
-<%--			<dd><a href="">通知公告</a></dd>--%>
-<%--			<dd><a href="">行业动态</a></dd>--%>
-<%--			<dd><a href="">政策法规</a></dd>--%>
-<%--			<dd><a href="">曝光台</a></dd>--%>
-<%--		</dl>--%>
-<%--	</li>--%>
-<%--	<li class="layui-nav-item">--%>
-<%--		<a href="javascript:;">信息查询</a>--%>
-<%--		<dl class="layui-nav-child">--%>
-<%--			<dd><a href="">培训机构查询</a></dd>--%>
-<%--		</dl>--%>
-<%--	</li>--%>
-<%--	<li class="layui-nav-item">--%>
-<%--		<a href="javascript:;">开通服务</a>--%>
-<%--		<dl class="layui-nav-child">--%>
-<%--			<dd><a href="">学员注册</a></dd>--%>
-<%--			<dd><a href="">驾校开通申请</a></dd>--%>
-<%--		</dl>--%>
-<%--	</li>--%>
-<%--	<li class="layui-nav-item">--%>
-<%--		<a href="javascript:;">登录</a>--%>
-<%--		<dl class="layui-nav-child">--%>
-<%--			<dd><a href="">运管人员</a></dd>--%>
-<%--			<dd><a href="">驾校人员</a></dd>--%>
-<%--			<dd><a href="">教练</a></dd>--%>
-<%--			<dd><a href="">学员</a></dd>--%>
-<%--		</dl>--%>
-<%--	</li>--%>
-<%--</ul>--%>
 <%--</div>--%>
 
 
@@ -1044,7 +963,6 @@
     }
 
 </script>
-
 
 </body>
 </html>

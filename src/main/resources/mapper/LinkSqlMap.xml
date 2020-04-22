@@ -351,4 +351,22 @@
     </select>
 
 
+    <!-- 查询驾驶技巧通告-->
+    <select id="getNoticeDS" resultType="com.great.entity.Notice">
+        select
+        *
+        from notice
+        where type='驾驶技巧'
+        limit 0,10
+    </select>
+
+    <!-- 查询学车学堂通告-->
+    <select id="getNoticeCS" resultType="com.great.entity.Notice">
+        select
+        *
+        from notice
+        where type='学车课堂'
+        limit 0,10
+    </select>
+
 </mapper>

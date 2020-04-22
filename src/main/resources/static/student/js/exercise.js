@@ -106,7 +106,7 @@ function puhshPaper(layer) {
 					,closeBtn: 1
 					,btnAlign: 'c'
 					,moveType: 1 //拖拽模式，0或者1
-					,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">本次练习结束！<br>得分：<span style="color: red;font-size: 22px">'+score+'</span><br><br>共计错题'+count+'道，再接再厉哦 ^_^</div>'
+					,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;font-size: 25px;">本次练习结束！<br><br>得分：<span style="color: red;font-size: 22px">'+score+'</span><br><br>共计错题'+count+'道，再接再厉哦 ^_^</div>'
 				});
 
 

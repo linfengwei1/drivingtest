@@ -410,7 +410,17 @@
 					} else if(data == "repeat")
 					{
 						layer.msg('您今天已经打过卡了哦，不需要重复打卡', {icon: 6});
-					}else
+					}else if(data == "error")
+					{
+						// $("#import").css("disabled",false);
+						layer.msg('未匹配到人脸信息', {icon: 5});
+					}
+					else if(data == "notEffect")
+					{
+						// $("#import").css("disabled",false);
+						layer.msg('提前签退，无效学时', {icon: 5});
+					}
+					else
 					{
 						// $("#import").css("disabled",false);
 						layer.msg('未匹配到人脸信息', {icon: 5});

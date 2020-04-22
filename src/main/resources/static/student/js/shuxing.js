@@ -1,4 +1,4 @@
-﻿$(function () {
+﻿﻿$(function () {
 	layui.use(['layer'], function() {
 		var path = $("#path").val();
 		var layer = layui.layer;

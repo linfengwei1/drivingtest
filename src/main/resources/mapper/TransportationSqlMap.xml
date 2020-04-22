@@ -716,7 +716,7 @@
 			  )
 	</insert>
 
-<!--解禁驾校	-->
+    <!--解禁驾校	-->
 	<update id="relieveApplySchool" parameterType="java.util.Map">
 		update school
 		<set>
@@ -922,4 +922,19 @@
 		select * from school where id = #{id}
 	</select>
 
+
+	<!--插入成绩-->
+	<insert id="insertScoreByExcel">
+		insert into score
+		(student_id,subject_id,appoint_time_relation_id,score)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.studentId},
+			#{item.subjectId},
+			#{item.TestId},
+			#{item.score}
+			)
+		</foreach>
+	</insert>
 </mapper>

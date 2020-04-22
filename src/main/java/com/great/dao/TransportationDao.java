@@ -2,6 +2,7 @@ package com.great.dao;
 
 import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -463,4 +464,10 @@ public interface TransportationDao {
      * @return
      */
     public Integer AppointYes(Map<String, Object> map);
+
+    /**
+     * 插入考试分数到分数表
+     * @param list
+     */
+    public int insertScoreByExcel(@Param("list")List<TestScore> list);
 }
