@@ -52,7 +52,18 @@ public interface SchoolCoachDao
 	public Integer deletePunish(Integer punish);
 
 	//处罚记录改变状态
-	public Integer updatePunish();
+	public Integer updatePunish(Integer id);
+
+	//处罚记录改变状态
+	public Integer coachStateByStop( Integer id);
+
+	//处罚记录改变状态
+	public Integer coachStateByNo( Integer id);
+
+	//excel插入数据库
+	public Integer insertCoachByExcel(List<Coach> list);
+
+
 
 	/**
 	 * 修改教练密码 2020-4-9 16：46 王良德
@@ -73,6 +84,8 @@ public interface SchoolCoachDao
 	//查找学员总数
 	public Integer findCount(TableUtils tableUtils);
 
+	//查询驾校教练人数
+	public List getSchoolCoach();
 	//查询学生分数
 	List<Score> findStudentScore(TableUtils tableUtils);
 

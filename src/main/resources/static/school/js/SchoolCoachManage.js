@@ -158,7 +158,6 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             });
         }
 
-
         if(layEvent === 'AddCoachImage'){ //上传图片
             var $td = $(this).parents('tr').children('td');
             var id = $td.eq(0).text();//获取点击按钮相对应的id
@@ -184,6 +183,15 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             type: 2,
             area: ['1000px', '425px'],
             content:path+"/school/path/AddCoach",//弹出的页面
+        });
+    })
+
+    $("#in").click(function () {
+        layer.open({
+            title:'教练信息导入',
+            type: 2,
+            area: ['500', '425px'],
+            content:path+"/school/path/AddCoachByExcel",//弹出的页面
         });
     })
 

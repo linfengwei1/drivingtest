@@ -17,13 +17,26 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
             {field: 'id', title: '驾校ID', width: 120, sort: true, fixed: 'left', align: 'center'}
-            , {field: 'name', title: '驾校名称', width: 100, align: 'center'}
-            , {field: 'phone', title: '联系电话',  sort: true, align: 'center'}
+            , {field: 'name', title: '驾校名称', width: 120, align: 'center'}
+            , {field: 'phone', title: '联系电话', width: 120,sort: true, align: 'center'}
             , {field: 'address', title: '联系地址', width: 120, sort: true, align: 'center'}
             , {field: 'admin', title: '负责人', width: 120, sort: true, align: 'center'}
-            , {field: 'intro', title: '学校简介', width: 120, sort: true, align: 'center'}
+            , {field: 'intro', title: '口号', width: 120, sort: true, align: 'center'}
             , {field: 'school_state_id', title: '状态ID', width: 120, sort: true, align: 'center'}
             , {field: 'information', title: '通知', width: 120, sort: true, align: 'center'}
+            ,{field: 'school_state_id', title: '状态', width: 100, templet: function(d){
+                    var state;
+                    if (1==d.school_state_id){
+                        return '禁止报名'
+                    }else if (2==d.school_state_id){
+                        return '封停'
+                    }else if(3==d.school_state_id){
+                        return '启用'
+                    }else if(4==d.school_state_id){
+                        return '待审核'
+                    }
+                    return '审核未通过'
+                }}
             , {field: 'audit_results', title: '审核状态', width: 120, sort: true, align: 'center'}
             , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}
         ]]
@@ -46,8 +59,8 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                     phone: $("#phone").val(),
                     address: $("#address").val(),
                     intro: $("#intro").val(),
-                    school_state_id: $("#state").val(),
-                    information: $("#intro").val(),
+                    school_state_id: $("#school_state_id").val(),
+                    information: $("#information").val(),
                     audit_results:$("#audit_results").val()
                 }
             });

@@ -36,9 +36,8 @@ public class StudentController
 		Boolean confirm = student.getVerification().equalsIgnoreCase(YZM);//不区分大小写
 
 		if (confirm) {
-			Student newStudent =studentManageServiceImpl.login(student.getAccount(),MD5Utils.md5(student.getPwd()));
+			Student newStudent =studentManageServiceImpl.login(student.getAccount(),MD5Utils.md5(student.getPwd()),request);
 			if (null!=newStudent){
-				request.getSession().setAttribute("student",newStudent);
 				return "success";
 			}else{
 				return "error";
@@ -52,7 +51,7 @@ public class StudentController
 	public String updatePwd(String account,String pwd,String newPwd, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		String result = null;
-		Student student =studentManageServiceImpl.login(account,MD5Utils.md5(pwd));
+		Student student =studentManageServiceImpl.login(account,MD5Utils.md5(pwd),request);
 		if(student != null)
 		{
 			int i = studentManageServiceImpl.updatePwd(student.getId(),account,MD5Utils.md5(newPwd));
@@ -75,7 +74,7 @@ public class StudentController
 	public String reload(HttpServletRequest request)
 	{
 		Student student = (Student) request.getSession().getAttribute("student");
-		Student newStudent =studentManageServiceImpl.login(student.getAccount(),student.getPwd());
+		Student newStudent =studentManageServiceImpl.login(student.getAccount(),student.getPwd(),request);
 		request.getSession().setAttribute("student",newStudent);
 		return "student/jsp/StudentMain";
 	}
@@ -105,6 +104,13 @@ public class StudentController
 	public String addEvaForCoach(String coachId, String content) throws IOException
 	{
 		String result = studentManageServiceImpl.addEvaForCoach(coachId,content);
+		return result;
+	}
+	@RequestMapping("/delWrongQuestion")
+	@ResponseBody
+	public String delWrongQuestion(String studentId, String subject, String qid) throws IOException
+	{
+		String result = studentManageServiceImpl.delWrongQuestion(studentId,subject,qid);
 		return result;
 	}
 	@RequestMapping("/getStudyCondition")
@@ -153,6 +159,16 @@ public class StudentController
 		request.setAttribute("questionList",questionList);//考试题目存入请求
 		request.setAttribute("subject",subject);
 		return "student/jsp/Exercise";
+	}
+	@RequestMapping("/wrongQuestion/{subject}")
+	public String wrongQuestion(HttpServletRequest request,@PathVariable(value = "subject") String subject)
+	{
+		int studentId = ((Student)request.getSession().getAttribute("student")).getId();
+		List<Question> questionList = studentManageServiceImpl.wrongQuestion(subject,studentId);
+		request.setAttribute("questionList",questionList);//考试题目存入请求
+		request.setAttribute("subject",subject);
+		request.setAttribute("size",questionList.size());
+		return "student/jsp/WrongQuestion";
 	}
 	@RequestMapping("/testOl/{subject}")
 	public String testOl(HttpServletRequest request,@PathVariable(value = "subject") String subject)
@@ -203,6 +219,15 @@ public class StudentController
 	}
 
 
+	@RequestMapping("/addWrongQuestion")
+	@ResponseBody
+	public String addWrongQuestion(@RequestBody WrongQuestions wrongQuestions) throws IOException
+	{
+
+		String result = studentManageServiceImpl.addWrongQuestion(wrongQuestions);
+		return result;
+
+	}
 	@RequestMapping("/getTestScore")
 	@ResponseBody
 	public String getTestScore(@RequestBody TestReplies testReplieslist) throws IOException

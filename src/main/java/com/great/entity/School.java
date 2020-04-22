@@ -1,5 +1,7 @@
 package com.great.entity;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ClassName: School <br/>
  * Description: <br/>
@@ -8,6 +10,8 @@ package com.great.entity;
  * @author lenovo<br />
  * @since JDK 1.8
  */
+
+@Component
 public class School {
     private Integer id;
     private String name;
@@ -18,12 +22,17 @@ public class School {
     private Integer school_state_id;
     private String information;
     private String audit_results;//审核结果
+    private String content;//问题
+    private String result;//处理结果
+    private String dateTime;//处理时间
+    private Integer count;//统计多少学员
+
 
     public School() {
 
     }
 
-    public School(Integer id, String name, String phone, String address, String admin, String intro, Integer school_state_id, String information, String audit_results) {
+    public School(Integer id, String name, String phone, String address, String admin, String intro, Integer school_state_id, String information, String audit_results, String content, String result, String dateTime) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -33,6 +42,17 @@ public class School {
         this.school_state_id = school_state_id;
         this.information = information;
         this.audit_results = audit_results;
+        this.content = content;
+        this.result = result;
+        this.dateTime = dateTime;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public Integer getId() {
@@ -107,6 +127,30 @@ public class School {
         this.audit_results = audit_results;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public String toString() {
         return "School{" +
@@ -119,6 +163,9 @@ public class School {
                 ", school_state_id=" + school_state_id +
                 ", information='" + information + '\'' +
                 ", audit_results='" + audit_results + '\'' +
+                ", content='" + content + '\'' +
+                ", result='" + result + '\'' +
+                ", dateTime='" + dateTime + '\'' +
                 '}';
     }
 }

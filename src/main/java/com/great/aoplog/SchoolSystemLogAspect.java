@@ -103,7 +103,8 @@ public class SchoolSystemLogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         //读取session中的用户
-      SchoolAdmin schoolAdmin = (SchoolAdmin) session.getAttribute("SchoolAdmin");
+        SchoolAdmin schoolAdmin = (SchoolAdmin) session.getAttribute("SchoolAdmin");
+        TbLog log = new TbLog();
         //请求的IP
         String ip = request.getRemoteAddr();
          try {
@@ -138,38 +139,34 @@ public class SchoolSystemLogAspect {
 //            System.out.println("请求人:" + user.getName());
 //            System.out.println("请求IP:" + ip);
             //*========数据库日志=========*//  
-            TbLog log = new TbLog();
-            log.setName(schoolAdmin.getName());//操作用户
-            log.setType(operationType);//操作类型
-            log.setContent(operationName);//操作内容
-//             log.setOperationresult("正常");
-//             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置时间格式
-//             String rtime = sdf.format(new Date());//操作时间
+
+             if(schoolAdmin != null)
+             {
+                 log.setName(schoolAdmin.getName());//操作用户
+                 log.setSchool_id(schoolAdmin.getSchool_id());//驾校id
+                 log.setAccount(schoolAdmin.getAccount());;//操作账号
+             }
+
+             log.setType(operationType);//操作类型
+             log.setContent(operationName);//操作内容
+             log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));//操作方法
              Timestamp d = new Timestamp(System.currentTimeMillis());
              log.setDatetime(d);//操作日期
              log.setIp(ip);
-             log.setSchool_id(schoolAdmin.getSchool_id());
-//            log.setId(UUID.randomUUID().toString());
-//            log.setDescription(operationName);
-//            log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()")+"."+operationType);
-//            log.setLogType((long)0);
-//            log.setRequestIp(ip);
-//            log.setExceptioncode( null);
-//            log.setExceptionDetail( null);
-//            log.setParams( null);
-//            log.setCreateBy(user.getName());
-//            log.setCreateDate(new Date());
-            //保存数据库
-             service.addLog(log);
+
+
 //            System.out.println("=====controller后置通知结束=====");
         }  catch (Exception e) {
-            //记录本地异常日志  
-            logger.error("==后置通知异常==");  
-            logger.error("异常信息:{}------"+ e.getMessage());  
-            
-            
+            //记录本地异常日志
+            logger.error("==后置通知异常==");
+            logger.error("异常信息:{}------"+ e.getMessage());
+            log.setExceptionDetail(e.getMessage());//异常信息
+            log.setExceptionCode(e.getClass().getName());//异常位置
             throw e;
-        }  
+        } finally {
+             //保存数据库
+             service.addLog(log);
+         }
     } 
     
     //配置后置返回通知,使用在方法aspect()上注册的切入点

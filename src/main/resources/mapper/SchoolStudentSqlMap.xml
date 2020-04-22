@@ -79,12 +79,12 @@
 
     <!--添加学员学时表-->
     <insert id="addStudyCondition"   parameterType="com.great.entity.StudyCondition">
-		insert into studycondition (subject_id,time,score,student_id) VALUES
+		insert into studycondition (subject_id,time,practise_score,student_id) VALUES
         <foreach collection="list" item="item" index="index" separator="," >
             (
             #{item.subject_id},
             #{item.time},
-            #{item.score},
+            #{item.practise_score},
             #{item.student_id}
             )
         </foreach>
@@ -168,85 +168,93 @@
 		SELECT count(*) FROM student where student_state_id = 7 and school_id = #{id}
 	</select>
 
+    <!--批量审核学员预约时间通过-->
+    <update id="changeAppointState" parameterType="java.util.List" >
+        update appoint_time_relation set appoint_state_id = 4 where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
 
+    <!--批量审核学员预约时间不通过-->
+    <update id="batchRejected" parameterType="java.util.List" >
+        update appoint_time_relation set appoint_state_id = 2 where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    
 
+    <!--封装预约类-->
+    <resultMap id="appointMap" type="com.great.entity.AppointTest">
+        <id property="id" column="id"/>
+        <result property="timeId" column="timeId"/>
+        <result property="studentId" column="studentId"/>
+        <result property="subjectId" column="subjectId"/>
+        <result property="appointStateId" column="appointStateId"/>
+        <result property="studentName" column="studentName"/>
+        <result property="studentSex" column="studentSex"/>
+        <result property="studentAge" column="studentAge"/>
+        <result property="studentPhone" column="studentPhone"/>
+        <result property="subjectName" column="subjectName"/>
+        <result property="dateTime" column="dateTime"/>
+        <result property="coachName" column="coachName"/>
+    </resultMap>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--添加用户-->
-	<insert id="addUser"   parameterType="com.great.entity.User">
-		insert into user (account,pwd,name,sex,education,profession,phone,email,rtime,state,roleid,score,upcount,downcount)
-		VALUES(#{account},#{pwd},#{name},#{sex},#{education},#{profession},#{phone},#{email},#{rtime},#{state},#{roleid},#{score},#{upcount},#{downcount})
-
-	</insert>
-    <!--查找角色信息并带条件的分页-->
-    <select id="findAllUserByPage" resultType="User" parameterType="java.util.Map" >
-		select * from  user where 1=1
-        <if test="rtime1 != '' and rtime1 != null">
-            and rtime &gt;= #{rtime1}
-        </if>
-        <if test="rtime2 != '' and rtime2 != null">
-            and rtime &lt;= #{rtime2}
-        </if>
-        <if test="userid != '' and userid != null">
-            and userid like concat ('%',#{userid},'%')
-        </if>
-        limit #{minLimit},#{maxLimit}
-	</select>
-    <!--查找用户信息总数-->
-    <select id="findAllUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
-		select count(*) from user
-		<where>
-            <if test="userid !='' and userid!=null">
-                and userid like#{userid}
+    <!--获取预约条数-->
+    <select id="getAppointCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
+        select count(*)
+        from appoint_time_relation atr
+        left join student s2 on atr.student_id = s2.id
+        left join coach s3 on s2.coach_id = s3.id
+        <where>
+            <if test="name != '' and name != null">
+                s2.name=#{name}
             </if>
+            <if test="coachName != '' and coachName != null">
+                s3.name=#{coachName}
+            </if>
+            and atr.appoint_state_id=3
         </where>
 
-	</select>
-
-    <!--更新用户信息-->
-    <update id="updateUserInf" parameterType="com.great.entity.User" >
-        update user  set name = #{name},sex = #{sex},education = #{education},profession=#{profession},
-        phone =#{phone} , email = #{email},state = #{state} where userid =#{userid}
-    </update>
-    <!--更新用户状态-->
-    <update id="changeUserState" parameterType="java.util.Map" >
-        update user  set state = #{state} where userid =#{userid}
-
-    </update>
-    <select id="cUser" parameterType = "String" resultType="java.lang.Integer">
-        select count(userid) FROM user where account= #{account}
     </select>
+
+    <!--获取预约记录-->
+    <select id="getAppointTbl" resultMap="appointMap" parameterType="com.great.entity.TableUtils">
+        select
+        atr.id,
+        atr.time_id "timeId",
+        atr.student_id "studentId",
+        t.subject_id "subjectId",
+        atr.appoint_state_id "appointStateId",
+        s2.name "studentName",
+        s2.sex "studentSex",
+        s2.age "studentAge",
+        s2.phone "studentPhone",
+        s2.coach_id ,
+        s.name "subjectName",
+        t.datetime "dateTime",
+        s3.name "coachName"
+        from appoint_time_relation atr
+        left join time t on atr.time_id = t.id
+        left join subject s on t.subject_id = s.id
+        left join student s2 on atr.student_id = s2.id
+        left join appoint_state as1 on atr.appoint_state_id = as1.id
+        left join coach s3 on s2.coach_id = s3.id
+        <where>
+            <if test="name != '' and name != null">
+                s2.name=#{name}
+            </if>
+            <if test="coachName != '' and coachName != null">
+                s3.name=#{coachName}
+            </if>
+            and atr.appoint_state_id=3
+        </where>
+        limit #{minLimit},#{maxLimit}
+
+
+    </select>
+
 
 
 

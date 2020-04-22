@@ -20,7 +20,7 @@
 <form >
    <div align="center">
        <h1>文件导入车辆信息</h1>
-       <p>支持上传的文档格式为：.XMLX</p>
+       <p>支持上传的文档格式为：.XLSX</p>
 <%--       <div style="margin-top: 1%">--%>
 <%--           <input type="file" name="file"></Br>--%>
 <%--           <button type="submit"  class="layui-btn layui-btn-normal" id="out"><i class="layui-icon">&#xe67c;</i>导入</button>--%>
@@ -96,6 +96,14 @@
                 if(res.code == 3){
                     //上传完毕回调
                     alert("导入的数据为空！");
+                }
+                if(res.code == 4){
+                    //上传完毕回调
+                    var nameArr = [];
+                    for (var i = 0;i<res.data.length;i++){
+                        nameArr.push(res.data[i].carNumber);
+                    }
+                    alert(nameArr+"车牌号已经被注册,请全部重新导入");
                 }
             }
         });

@@ -10,7 +10,7 @@ import java.util.List;
 public interface StudentManageService
 {
 
-	Student login(String account, String pwd);
+	Student login(String account, String pwd,HttpServletRequest request);
 
 	String checkStudyAuthority(String studentId, String vedioId, String subject);
 
@@ -40,7 +40,13 @@ public interface StudentManageService
 
 	String addEvaForCoach(String coachId, String content);
 
-	int updatePwd(int id,String account, String pwd);
+	int updatePwd(Integer id,String account, String pwd);
+
+	List<Question> wrongQuestion(String subject,Integer studentId);
+
+	String delWrongQuestion(String studentId, String subject, String qid);
+
+	String addWrongQuestion(WrongQuestions wrongQuestions);
 	//	public User findUser(String uname, String pwd);
 //	public List<User> findAll(HashMap<String, Object> map) throws SQLException;
 //

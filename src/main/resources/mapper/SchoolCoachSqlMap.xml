@@ -296,74 +296,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--添加用户-->
-	<insert id="addUser"   parameterType="com.great.entity.User">
-		insert into user (account,pwd,name,sex,education,profession,phone,email,rtime,state,roleid,score,upcount,downcount)
-		VALUES(#{account},#{pwd},#{name},#{sex},#{education},#{profession},#{phone},#{email},#{rtime},#{state},#{roleid},#{score},#{upcount},#{downcount})
-
-	</insert>
-    <!--查找角色信息并带条件的分页-->
-    <select id="findAllUserByPage" resultType="User" parameterType="java.util.Map" >
-		select * from  user where 1=1
-        <if test="rtime1 != '' and rtime1 != null">
-            and rtime &gt;= #{rtime1}
-        </if>
-        <if test="rtime2 != '' and rtime2 != null">
-            and rtime &lt;= #{rtime2}
-        </if>
-        <if test="userid != '' and userid != null">
-            and userid like concat ('%',#{userid},'%')
-        </if>
-        limit #{minLimit},#{maxLimit}
-	</select>
-    <!--查找用户信息总数-->
-    <select id="findAllUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
-		select count(*) from user
-		<where>
-            <if test="userid !='' and userid!=null">
-                and userid like#{userid}
-            </if>
-        </where>
-
-	</select>
-
-    <!--更新用户信息-->
-    <update id="updateUserInf" parameterType="com.great.entity.User" >
-        update user  set name = #{name},sex = #{sex},education = #{education},profession=#{profession},
-        phone =#{phone} , email = #{email},state = #{state} where userid =#{userid}
-    </update>
-    <!--更新用户状态-->
-    <update id="changeUserState" parameterType="java.util.Map" >
-        update user  set state = #{state} where userid =#{userid}
-
-    </update>
-    <select id="cUser" parameterType = "String" resultType="java.lang.Integer">
-        select count(userid) FROM user where account= #{account}
-    </select>
-
-
     <!--添加处罚记录-->
     <insert id="AddPunish"   parameterType="com.great.entity.Punish">
 		insert into punish (content,datetime,coach_id,school_id,result,coach_state_id)
@@ -376,9 +308,55 @@
 		delete from punish where id=#{id}
 	</delete>
 
-    <!--处罚记录改变状态-->
+    <!--处罚记录改变状态（启用）-->
     <update id="updatePunish" >
-		update  punish set  coach_state_id = 1;
+		update  punish set  coach_state_id = 1 where id = #{id};
 	</update>
+
+
+    <!--处罚记录改变状态（封停）-->
+    <update id="coachStateByStop" >
+		update  punish set  coach_state_id = 2 where id = #{id};
+	</update>
+
+
+    <!--处罚记录改变状态（禁止报名）-->
+    <update id="coachStateByNo" >
+		update  punish set  coach_state_id = 3 where id = #{id};
+	</update>
+
+
+
+
+    <!-- 查询驾校教练人数-->
+    <select id="getSchoolCoach" resultType="integer">
+        select
+            count(co.school_id)
+        from
+            school sc
+        left join
+            coach co on co.school_id = sc.id
+        group by sc.id;
+    </select>
+
+
+    <!--excel插入数据库-->
+    <insert id="insertCoachByExcel" parameterType="java.util.List">
+        insert into coach (account,pwd,name,sex,age,idnumber,phone,coach_state_id,school_id)values
+        <foreach collection="list" item="item" index="index"
+                 separator="," >
+            (
+            #{item.account},
+            #{item.pwd},
+            #{item.name},
+            #{item.sex},
+            #{item.age},
+            #{item.idnumber},
+            #{item.phone},
+            #{item.coach_state_id},
+            #{item.school_id}
+            )
+        </foreach>
+    </insert>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.great.dao;
 
 
+import com.great.entity.AppointTest;
 import com.great.entity.Student;
 import com.great.entity.StudyCondition;
 import com.great.entity.TableUtils;
@@ -68,5 +69,18 @@ public interface SchoolStudentDao
 
 	//统计毕业人数
 	public Integer CountOver(Integer a);
+
+	//批量审核通过学员预约
+	public Integer changeAppointState(List list);
+
+	//批量驳回过学员预约
+	public Integer batchRejected(List list);
+
+
+	//获取预约条数
+	public Integer getAppointCount(TableUtils u);
+
+	//查询学员记录并分页
+	public List<AppointTest> getAppointTbl(TableUtils u);
 
 }

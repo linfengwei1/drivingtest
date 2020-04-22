@@ -14,7 +14,7 @@ public class SystemLog {
 
 	private String method;
 
-	private Long logType;
+	private String logType;
 
 	private String requestIp;
 
@@ -22,11 +22,21 @@ public class SystemLog {
 
 	private String exceptionDetail;
 
-	private String params;
 
 	private String createBy;
 
 	private Date createDate;
+
+	private int schoolId;
+
+	private String account;
+
+
+	public SystemLog()
+	{
+	}
+
+
 
 	public int getId() {
 		return id;
@@ -53,11 +63,13 @@ public class SystemLog {
 		this.method = method == null ? null : method.trim();
 	}
 
-	public Long getLogType() {
+	public String getLogType()
+	{
 		return logType;
 	}
 
-	public void setLogType(Long logType) {
+	public void setLogType(String logType)
+	{
 		this.logType = logType;
 	}
 
@@ -87,14 +99,6 @@ public class SystemLog {
 				.trim();
 	}
 
-	public String getParams() {
-		return params;
-	}
-
-	public void setParams(String params) {
-		this.params = params == null ? null : params.trim();
-	}
-
 	public String getCreateBy() {
 		return createBy;
 	}
@@ -109,5 +113,25 @@ public class SystemLog {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public int getSchoolId()
+	{
+		return schoolId;
+	}
+
+	public void setSchoolId(int schoolId)
+	{
+		this.schoolId = schoolId;
+	}
+
+	public String getAccount()
+	{
+		return account;
+	}
+
+	public void setAccount(String account)
+	{
+		this.account = account;
 	}
 }

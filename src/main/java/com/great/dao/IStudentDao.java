@@ -1,6 +1,7 @@
 package com.great.dao;
 
 
+import com.great.aoplog.SystemLog;
 import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,6 +24,9 @@ public interface IStudentDao
 
 	public List<Question> getChoicesBySubject_4();
 	public List<Question> getjudgesBySubject_4();
+
+	public List<Question> getWrongQuestion_1byStudentId(@Param("studentId")int studentId);
+	public List<Question> getWrongQuestion_4byStudentId(@Param("studentId")int studentId);
 
 	public void setStudentIsIdentified(@Param("studentId") int studentId);
 
@@ -60,4 +64,12 @@ public interface IStudentDao
 	int addEvaForCoach(@Param("coachId")int coachId, @Param("content")String content);
 
 	int updatePwd(@Param("id")int id, @Param("account")String account,  @Param("pwd")String pwd);
+
+	int delWrongQuestion1(@Param("studentId")int studentId, @Param("subject")int subject,  @Param("qid")int qid);
+	int delWrongQuestion4(@Param("studentId")int studentId, @Param("subject")int subject,  @Param("qid")int qid);
+
+	int addWrongQuestion1(@Param("list")List<Integer> wrongList,@Param("studentId")int studentId);
+	int addWrongQuestion4(@Param("list")List<Integer> wrongList,@Param("studentId")int studentId);
+
+	void insertLog(SystemLog systemLog);
 }

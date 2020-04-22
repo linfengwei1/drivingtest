@@ -94,6 +94,13 @@ public class CoachManageServiceImpl implements CoachManageService
         return InfMap;
     }
 
+    //查询驾校教练人数
+	@Override
+	public List getSchoolCoach()
+	{
+		return schoolCoachDao.getSchoolCoach();
+	}
+
     @Override
     public Object getCoachStudentEvaluation(TableUtils utils)
     {

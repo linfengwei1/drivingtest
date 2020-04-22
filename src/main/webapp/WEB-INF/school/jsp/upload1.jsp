@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>文件上传</title>
+    <title>驾校申请</title>
     <%String path = request.getContextPath();%>
     <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
@@ -27,30 +27,44 @@
 </div>
 <div class="layui-form" action="" lay-filter="example">
     <div class="layadmin-user-login-box layadmin-user-login-header">
-        <h2>文件上传</h2>
+        <h2>驾校申请</h2>
     </div>
     <div class="layui-inline" style="width:500px;">
         <hr>
     </div>
     <div class="layadmin-user-login-box layadmin-user-login-header">
         <div class="layui-form-item">
-            <label class="layui-form-label">文档标题：</label>
+            <label class="layui-form-label">驾校名称：</label>
             <div class="layui-input-inline">
-                <input type="text" name="title" id="hideBookName" required  lay-verify="title"  autocomplete="off"
+                <input type="text" name="name" id="name" required  lay-verify="title"  autocomplete="off"
                        class="layui-input"style="width: 300px" >
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">文件简介：</label>
+            <label class="layui-form-label">驾校简介：</label>
             <div class="layui-input-block">
                 <textarea name="intro" placeholder="请输入内容" id="intro" required  class="layui-textarea" style="width: 300px"></textarea>
             </div>
         </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">驾校法人：</label>
+            <div class="layui-input-block">
+                <input type="text" name="admin" id="admin" required  lay-verify="title"  autocomplete="off"
+                       class="layui-input"style="width: 300px" >
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">驾校地址：</label>
+            <div class="layui-input-block">
+                <input type="text" name="address" id="address" required  lay-verify="title"  autocomplete="off"
+                       class="layui-input"style="width: 300px" >
+            </div>
+        </div>
         <div class="layadmin-user-login-box layadmin-user-login-header">
             <div class="layui-form-item">
-                <label class="layui-form-label">下载积分：</label>
+                <label class="layui-form-label">联系方式：</label>
                 <div class="layui-input-inline">
-                    <input type="text"  onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" name="downscore" id="downScore" required  lay-verify="title"  autocomplete="off"
+                    <input type="text"  onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" name="phone" id="phone" required  lay-verify="title"  autocomplete="off"
                            class="layui-input"style="width: 300px" >
                 </div>
             </div>
@@ -80,9 +94,9 @@
 <script>
     layui.use(['upload','jquery','element'], function(){
         var upload = layui.upload;
-        //     $=layui.jquery,
-        //     element=layui.element;
-        // element.init();
+            $=layui.jquery,
+            element=layui.element;
+        element.init();
         var path =$("#path").val();
         //执行实例
         var uploadInst = upload.render({
@@ -90,30 +104,26 @@
             ,url:  path + '/school/upload1' //上传接口
             ,auto: false//是否自动上传
             ,accept: 'file'
-            // ,data : {//要传递的数据
-            //     bookName: $("#hideBookName").val(),//用户输入的标题名字
-            //     downScore: $("#downScore").val(),//下载分数
-            //     intro: $("#intro").val(),//文件简介
-            // }
-            // ,multiple:true//上传多个文件
             ,bindAction: '#test9'//配合auto: false来使用，auto: true值一选中文件后就执行上传，关闭后需要根据绑定事件
-            // ,progress:function (value) {//上传进度回调 value为进度值
-            //     element.progress('demo',value+'%')
-            // }
-            // ,choose: function(obj){  //上传前选择回调方法
-            //     obj.preview(function(index, file, result){
-            //         //file表示文件信息，result表示文件src地址
-            //         $("#fileName").text(file.name)
-            //
-            //     });
-            // }
-            // ,before: function(obj){
-            //     //预读本地文件示例，不支持ie8
-            //     obj.preview(function(index, file, result){
-            //         $('#demo1').attr('src', result); //图片链接（base64）
-            //     });
-            //
-            // }
+            ,progress:function (value) {//上传进度回调 value为进度值
+                element.progress('demo',value+'%')
+            },before: function(obj){
+                this.data = {//要传递的数据
+                    name: $("#name").val(),//驾校名
+                    intro: $("#intro").val(),//简介
+                    admin: $("#admin").val(),//法人
+                    address: $("#address").val(),//地址
+                    phone: $("#phone").val(),//联系方式
+                }
+
+            }
+            ,choose: function(obj){  //上传前选择回调方法
+                obj.preview(function(index, file, result){
+                    //file表示文件信息，result表示文件src地址
+                    $("#fileName").text(file.name)
+
+                });
+            }
             ,done: function(res){
                 if(res.code == 0){
                     //上传完毕回调
@@ -122,11 +132,11 @@
                 }
                 if(res.code == 1){
                     //上传完毕回调
-                    alert("上传异常11111！");
+                    alert("只接收doc和xlsx文件");
                 }
                 if(res.code == 2){
                     //上传完毕回调
-                    alert("文件类型不匹配！");
+                    alert("请填写正确的手机号码！");
                 }
                 if(res.code == 3){
                     //上传完毕回调

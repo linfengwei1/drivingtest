@@ -5,6 +5,7 @@ import com.great.entity.*;
 
 import com.great.utils.ExportExcelSeedBack;
 import com.great.utils.SchoolFaceRecognitionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,6 +28,8 @@ public class SchoolManageService {
     private SchoolCarDao schoolCarDao;
     @Resource
     private SchoolLogDao schoolLogDao;
+    @Autowired
+    private School school;
 
     //驾校管理员登录
     public SchoolAdmin login(String account, String pwd){
@@ -119,6 +122,26 @@ public class SchoolManageService {
         return schoolCoachDao.addCoach(coach);
     }
 
+
+    //excel插入数据库
+    public List insertCoachByExcel(List<Coach>list){
+        List list1 = new ArrayList();//用来存放重复的账号
+        //判断插入的学员账号是否被使用
+        for (int i =0;i<list.size();i++){
+            Integer a= schoolCoachDao.CheckCoachAccount(list.get(i).getAccount());
+            if (0<a){
+                //存重复的账号
+                list1.add(list.get(i));
+            }
+        }
+        if (list1.get(0)==null){//当没有重复的时候才插入
+            schoolCoachDao.insertCoachByExcel(list);
+            return null;
+        }
+        return list1;
+    }
+
+
     //单独插入图片
     public Integer AddCoachImage(Integer id,String image){
         Map<String,Object> map = new HashMap<>();
@@ -207,7 +230,7 @@ public class SchoolManageService {
         return student;
     }
 
-    //excel插入数据库1
+    //学员信息excel插入数据库
     public List<Student> insertStudentByExcel(List<Student>list){
         List<Student> list1 = new ArrayList();//用来存放重复的账号
         //判断插入的学员账号是否被使用
@@ -223,6 +246,28 @@ public class SchoolManageService {
            return list;
        }
         return list1;
+    }
+
+
+    //查询学员预约记录并分页
+    public Object getAppointTbl(TableUtils utils){
+        Map<String,Object>InfMap = new LinkedHashMap<>();
+        List<AppointTest> list=schoolStudentDao.getAppointTbl(utils);
+        Integer a =schoolStudentDao.getAppointCount(utils);
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+        return InfMap;
+    }
+
+
+    //批量审核通过学员预约
+    public Integer changeAppointState(List list){
+        return schoolStudentDao.changeAppointState(list);
+    }
+
+    //批量驳回过学员预约
+    public Integer batchRejected(List list){
+        return schoolStudentDao.batchRejected(list);
     }
 
     //获取车辆信息表
@@ -269,15 +314,32 @@ public class SchoolManageService {
         return schoolCarDao.addCar(coachCar);
     }
 
+
+
     //查看车牌号是否被注册
     public Integer CheckCarNumber(String account){
         return schoolCarDao.CheckCarNumber(account);
     }
 
+
     //excel插入数据库
-    public Integer insertCarByExcel(List<CoachCar> list){
-        return schoolCarDao.insertCarByExcel(list);
+    public List insertCarByExcel(List<CoachCar>list){
+        List list1 = new ArrayList();//用来存放重复的账号
+        //判断插入的学员账号是否被使用
+        for (int i =0;i<list.size();i++){
+            Integer a= schoolCarDao.CheckCarNumber(list.get(i).getCarNumber());
+            if (0<a){
+                //存重复的账号
+                list1.add(list.get(i));
+            }
+        }
+        if (list1.get(0)==null){//当没有重复的时候才插入
+            schoolCarDao.insertCarByExcel(list);
+            return null;
+        }
+        return list1;
     }
+
 
     //单独学员插入图片
     public Integer AddStudentImage(Integer id,String image){
@@ -381,8 +443,18 @@ public class SchoolManageService {
     }
 
     //处罚记录改变状态
-    public Integer updatePunish(){
-        return schoolCoachDao.updatePunish();
+    public Integer updatePunish(Integer id){
+        return schoolCoachDao.updatePunish(id);
+    }
+
+    //处罚记录改变状态
+    public Integer coachStateByStop( Integer id){
+        return schoolCoachDao.coachStateByStop(id);
+    }
+
+    //处罚记录改变状态
+    public Integer coachStateByNo( Integer id){
+        return schoolCoachDao.coachStateByNo(id);
     }
 
     //查看手机号是否被注册
@@ -406,6 +478,41 @@ public class SchoolManageService {
        }
 
         return msg;
+    }
+
+
+    //查询驾校名称
+    public List<School> getSchoolName(){
+        return schoolAdminDao.getSchoolName();
+    }
+
+    //查询驾校学员人数
+    public List getSchoolStudents(){
+        return schoolAdminDao.getSchoolStudents();
+    }
+
+    //驾校申请
+    public Integer SchoolApply(String name, String admin, String address,String phone, String intro,String path){
+        school.setName(name);
+        school.setAdmin(admin);
+        school.setAddress(address);
+        school.setPhone(phone);
+        school.setIntro(intro);
+        school.setInformation(path);
+        Integer a = schoolAdminDao.SchoolApply(school);
+        return a;
+    }
+
+
+    //首页显示的南丁格尔图
+    public Object School(){
+        List<School> list = schoolAdminDao.School();
+        Integer a;
+        for (int i =0;i<list.size();i++){
+            a =schoolAdminDao.SchoolCountById(list.get(i).getId());
+            list.get(i).setCount(a);
+        }
+        return list;
     }
 
 }

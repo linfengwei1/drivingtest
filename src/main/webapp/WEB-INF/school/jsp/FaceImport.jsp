@@ -38,14 +38,14 @@
 </head>
 <body>
 
-<input type="hidden" id="path" value="${pageContext.request.contextPath}">
-<input type="hidden" id="studentid" value="${student.id}">
-<input type="hidden" id="subject" value="1">
-<input type="hidden" id="choice" value="${questionList.choice}">
-<input type="hidden" id="judge" value="${questionList.judge}">
 <div>
 </div>
+<%--<div class="layui-row">--%>
+<%--	<div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px">--%>
+		<button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击录入人脸信息</button>
+<%--	</div>--%>
 
+<%--</div>--%>
 <div class="layui-container">
 	<div class="layui-row">
 		<div class="layui-col-md5 layui-col-md-offset2">
@@ -55,12 +55,7 @@
 			<canvas id="canvas" width="400px" height="300px"></canvas>
 		</div>
 	</div>
-	<div class="layui-row">
-		<div class="layui-col-md7 layui-col-md-offset5" style="margin-top: 10px">
-			<button type="button" id="import" onclick="takePhoto()" class="layui-btn layui-btn-lg layui-btn-normal">点击录入人脸信息</button>
-		</div>
 
-	</div>
 </div>
 
 <script>
@@ -89,7 +84,6 @@ function takePhoto() {
 	layui.use(['layer'], function () {
 		var layer = layui.layer;
 		var path = $("#path").val();
-		var studentid = $("#studentid").val();
 		var video = document.getElementById('video');
 		var canvas = document.getElementById('canvas');
 		var ctx = canvas.getContext('2d');

@@ -3,7 +3,9 @@ package com.great.service.serviceimpl;
 import com.great.dao.TransportationDao;
 import com.great.entity.*;
 
+import com.great.service.LinkService;
 import com.great.service.TransportationService;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -299,27 +301,30 @@ public class TransportationServiceImp implements TransportationService {
     public ObjectResult getCoachCarTbl(Integer page, Integer limit, String name, String type, String school) {
         int maxlimit=limit;
         int minlimit=(page-1)*limit;
-
+        TableUtils tableUtils = new TableUtils();
         Map<String,Object> map=new HashMap<>();
         map.put("maxlimit",maxlimit);
         map.put("minlimit",minlimit);
+
+
         if (name!=null&&!name.equals("")){
             map.put("name",name);
+            tableUtils.setName(name);
         }
         if (type!=null&&!type.equals("")){
             map.put("type",type);
+            tableUtils.setState(type);
         }
         if (school!=null&&!school.equals("")){
             map.put("school",school);
+            tableUtils.setSchool_id(Integer.valueOf(school));
         }
-
-        //System.out.println(map);
 
         ObjectResult objectResult=new ObjectResult();
 
         objectResult.setCode(0);
         //获取记录条数
-        objectResult.setCount(td.getCoachCarCount(map));
+        objectResult.setCount(td.getCoachCarCount(tableUtils));
         //获取记录
         objectResult.setData(td.getCoachCarTbl(map));
 
@@ -366,8 +371,7 @@ public class TransportationServiceImp implements TransportationService {
 
 
     @Override
-    public ObjectResult getNotice(Integer page, Integer limit, String title ,String date, String type)
-    {
+    public ObjectResult getNotice(Integer page, Integer limit, String title ,String date, String type) {
         int maxlimit=limit;
         int minlimit=(page-1)*limit;
 
@@ -528,5 +532,199 @@ public class TransportationServiceImp implements TransportationService {
     public Integer deleteExamTime(Integer tid) {
         return td.deleteExamTime(tid);
     }
+
+    @Override
+    public List<?> countStatistics() {
+        Integer one= td.CountSubject1();
+        Integer two=   td.CountSubject2();
+        Integer three=   td.CountSubject3();
+        Integer four=   td.CountSubject4();
+        Integer over=   td.CountOver();
+        List list = new ArrayList();
+        list.add(one);  list.add(two);  list.add(three);  list.add(four);  list.add(over);
+        return  list;
+
+    }
+
+    @Override
+    public void stopApply(Integer id, String content, String result, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("content",content);
+        map.put("result",result);
+        map.put("state",i);
+        map.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        System.out.println(map);
+        //停驾校
+        td.stopApplySchool(map);
+        //记录
+        td.recordApply(map);
+    }
+
+    @Override
+    public void stopDoing(Integer id, String content, String result, Integer i) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("content",content);
+        map.put("result",result);
+        map.put("state",i);
+        map.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+        System.out.println(map);
+        //停驾校
+        td.stopDoingSchool(map);
+        //查询驾校教练
+        List<Coach> coaches=td.getCoachBySchoolId(id);
+        //停教练
+        for(int a=0;a<coaches.size();a++){
+            td.stopDoingCoach(coaches.get(a).getId());
+        }
+
+        //记录
+        td.recordDoing(map);
+    }
+
+    @Override
+    public void relieveApply(Integer id, Integer i) {
+        Map<String,Integer> map=new HashMap<>();
+        map.put("id",id);
+        map.put("state",i);
+        //解停
+        td.relieveApplySchool(map);
+    }
+
+    @Override
+    public void relieveDoing(Integer id, Integer i) {
+        Map<String,Integer> map=new HashMap<>();
+        map.put("id",id);
+        map.put("state",i);
+        //解封驾校
+        td.relieveDoingSchool(map);
+        //解封教练
+        //查询驾校教练
+        List<Coach> coaches=td.getCoachBySchoolId(id);
+        //停教练
+        for(int a=0;a<coaches.size();a++){
+            td.stopDoingCoach(coaches.get(a).getId());
+        }
+    }
+
+    @Override
+    public ObjectResult punishTable(Integer page, Integer limit, String time1, String time2) {
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+        if (time1!=null&&!time1.equals("")){
+            map.put("time1",time1);
+        }
+        if (time2!=null&&!time2.equals("")){
+            map.put("time2",time2);
+        }
+
+        //System.out.println(map);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getPunishTabCount(map));
+        //获取记录
+        objectResult.setData(td.getPunishTable(map));
+
+        //System.out.println(objectResult);
+
+        return objectResult;
+    }
+
+    @Override
+    public void deletePunish(Integer id) {
+        td.deletePunish(id);
+    }
+
+    @Override
+    public Map<String, List<String>> schoolStudentView() {
+
+        Map<String,List<String>> map=new LinkedHashMap<>();
+        List<School> list=td.getSchoolList();
+        List<String> schoolName=new ArrayList<>();
+        List<String> studentNum=new ArrayList<>();
+        List<String> coachNum=new ArrayList<>();
+        List<String> coachCarNum=new ArrayList<>();
+
+        for (int i=0;i<list.size();i++){
+            schoolName.add(list.get(i).getName());
+        }
+
+        for (int i=0;i<list.size();i++){
+            studentNum.add(td.getStudentCountBySchoolId(list.get(i).getId())+"");
+        }
+
+        for (int i=0;i<list.size();i++){
+            coachNum.add(td.getCoachCountBySchoolId(list.get(i).getId())+"");
+        }
+
+        for (int i=0;i<list.size();i++){
+            coachCarNum.add(td.getCoachCarCountBySchoolId(list.get(i).getId())+"");
+        }
+        //学校名
+        map.put("school_name",schoolName);
+        //学员数
+        map.put("studentNum",studentNum);
+        //教练数
+        map.put("coachNum",coachNum);
+        //教练车数
+        map.put("coachCarNum",coachCarNum);
+
+        return map;
+    }
+
+    @Override
+    public ObjectResult getAppointTest(Integer page, Integer limit, String id) {
+
+        int maxlimit=limit;
+        int minlimit=(page-1)*limit;
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("maxlimit",maxlimit);
+        map.put("minlimit",minlimit);
+
+        map.put("id",id);
+
+        ObjectResult objectResult=new ObjectResult();
+
+        objectResult.setCode(0);
+        //获取记录条数
+        objectResult.setCount(td.getAppointCount(map));
+        //获取记录
+        objectResult.setData(td.getAppointTbl(map));
+
+        return objectResult;
+    }
+
+    @Override
+    public void auditAppoint(Integer id, String doing) {
+        Map<String,Integer> map=new HashMap<>();
+
+        if (doing.equals("批准")){
+            map.put("id",id);
+            map.put("state",1);
+            td.auditAppoint(map);
+        }else {
+            map.put("id",id);
+            map.put("state",2);
+            td.auditAppoint(map);
+        }
+
+    }
+
+    @Override
+    public School getSchoolUrl(Integer id) {
+
+        return td.getSchoolUrl(id);
+    }
+
 
 }

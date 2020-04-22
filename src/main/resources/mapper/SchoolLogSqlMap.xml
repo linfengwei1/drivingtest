@@ -42,8 +42,8 @@
 
 
     <insert id="addLog"   parameterType="com.great.entity.TbLog">
-		insert into log (name,type,content,datetime,ip,school_id)
-		VALUES(#{name},#{type},#{content},#{datetime},#{ip},#{school_id})
+		insert into log (name,type,content,datetime,ip,school_id,exceptioncode,exceptionDetail,account,method)
+		VALUES(#{name},#{type},#{content},#{datetime},#{ip},#{school_id},#{exceptionCode},#{exceptionDetail},#{account},#{method})
 	</insert>
 
 

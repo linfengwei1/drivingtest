@@ -206,10 +206,10 @@ public interface TransportationDao {
 
     /**
      * 获取教练车数量
-     * @param map
+     * @param tableUtils
      * @return
      */
-    public Integer getCoachCarCount(Map<String, Object> map);
+    public Integer getCoachCarCount(TableUtils tableUtils);
 
     /**
      * 获取教练车列表
@@ -321,4 +321,132 @@ public interface TransportationDao {
      * @return
      */
     public Integer deleteExamTime(Integer tid);
+
+    /**
+     * 统计一阶段人数
+     * @return
+     */
+    public Integer CountSubject1();
+
+    /**
+     * 统计2阶段人数
+     */
+    public Integer CountSubject2();
+
+    /**
+     * 统计3阶段人数
+     */
+    public Integer CountSubject3();
+
+    /**
+     *  统计4阶段人数
+     */
+    public Integer CountSubject4();
+
+    /**
+     * 统计毕业人数
+     */
+    public Integer CountOver();
+
+    /**
+     * 禁止学校
+     * @param map
+     */
+    public void stopApplySchool(Map<String, Object> map);
+
+    /**
+     * 禁止记录
+     * @param map
+     */
+    public void recordApply(Map<String, Object> map);
+
+    /**
+     *  封停学校
+     * @param map
+     */
+    public void stopDoingSchool(Map<String, Object> map);
+
+    /**
+     * 封停教练
+     * @param id
+     */
+    public void stopDoingCoach(Integer id);
+
+    /**
+     * 封停记录
+     * @param map
+     */
+    public void recordDoing(Map<String, Object> map);
+
+    /**
+     * 解禁驾校
+     * @param map
+     */
+    public void relieveApplySchool(Map<String, Integer> map);
+
+    /**
+     * 解封驾校
+     * @param map
+     */
+    public void relieveDoingSchool(Map<String, Integer> map);
+
+    /**
+     * 解封教练
+     * @param id
+     */
+    public void relieveDoingCoach(Integer id);
+
+    /**
+     * 获取教练通过学校id
+     * @param id
+     */
+    public List<Coach> getCoachBySchoolId(Integer id);
+
+    /**
+     * 获取违规条数
+     * @param map
+     * @return
+     */
+    public Integer getPunishTabCount(Map<String, Object> map);
+
+    /**
+     * 获取违规列表
+     * @param map
+     * @return
+     */
+    public List<?> getPunishTable(Map<String, Object> map);
+
+    /**
+     * 删除违规记录
+     * @param id
+     */
+    public void deletePunish(Integer id);
+
+    /**
+     * 获取预约记录条数
+     * @param map
+     * @return
+     */
+    public Integer getAppointCount(Map<String, Object> map);
+
+    /**
+     * 获取预约表
+     * @param map
+     * @return
+     */
+    public List<?> getAppointTbl(Map<String, Object> map);
+
+    /**
+     * 批准考试
+     * @param map
+     */
+    public void auditAppoint(Map<String, Integer> map);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public School getSchoolUrl(Integer id);
+
 }

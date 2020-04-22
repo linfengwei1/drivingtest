@@ -17,8 +17,19 @@ $(function () {
 			}
 			for (var i= 0; i <data.length; i++)
 			{
-
-				$("#demo").append("<tr><td>"+data[i].subject+"</td><td>"+data[i].orderTime+"</td></tr>");
+				var result;
+				var status = parseInt(data[i].status);
+				if(status == 1)
+				{
+					result = '预约成功';
+				}else if(status == 2)
+				{
+					result = '预约失败';
+				}else
+				{
+					break;
+				}
+				$("#demo").append("<tr><td>"+data[i].subject+"</td><td>"+data[i].orderTime+"</td><td>"+result+"</td></tr>");
 			}
 
 		},error:function (err) {

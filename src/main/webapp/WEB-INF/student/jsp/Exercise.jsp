@@ -116,6 +116,7 @@
 													</label>
 												</li>
 											</ul>
+											<input type="hidden" value="${c.id}">
 										</div>
 
 										<c:if test="${not empty c.url}">
@@ -182,6 +183,7 @@
 												</label>
 											</li>
 										</ul>
+										<input type="hidden" value="${c.id}">
 									</div>
 
 									<c:if test="${not empty c.url}">
