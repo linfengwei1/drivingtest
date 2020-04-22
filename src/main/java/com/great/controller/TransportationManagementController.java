@@ -5,7 +5,9 @@ import com.google.gson.Gson;
 import com.great.aoplog.Log;
 import com.great.entity.*;
 import com.great.service.TransportationService;
+import com.great.utils.ScoreExcelImport;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -815,9 +819,11 @@ public class TransportationManagementController {
      */
     @RequestMapping("/auditAppoint")
     @ResponseBody
-    public String auditAppoint(Integer id,String doing,HttpServletResponse response){
+    public String auditAppoint(Integer id,String doing,String name,Integer studentId ,HttpServletResponse response){
 
-            transportationService.auditAppoint(id,doing);
+        System.out.println("name=="+name);
+        System.out.println("studentId=="+studentId);
+            transportationService.auditAppoint(id,doing,name,studentId);
 
         return "Success";
     }
@@ -993,11 +999,13 @@ public class TransportationManagementController {
         String savePath = request.getSession().getServletContext().getRealPath("/");
         String projectPath = savePath  + school.getInformation();
         System.out.println("路径=="+projectPath);
+        String extension = FilenameUtils.getExtension(school.getInformation());
+        String name =school.getName()+"."+extension;
         File file=new File(projectPath);
         //设置HttpHeaders,使得浏览器响应下载
         HttpHeaders headers = new HttpHeaders();
         //为了解决中文名称乱码问题
-        String fileName=new String(school.getName().getBytes("UTF-8"),"iso-8859-1");
+        String fileName=new String(name.getBytes("UTF-8"),"iso-8859-1");
         //设置响应文件 attachment附件的意思
         headers.setContentDispositionFormData("attachment", fileName);
         //设置响应方式  APPLICATION_OCTET_STREAM 二进制流数据（如常见的文件下载）
@@ -1006,6 +1014,48 @@ public class TransportationManagementController {
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
                 headers, HttpStatus.CREATED);
 
+    }
+
+    /**
+     * 学员信息ecxcel导入
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/addScoreByExcel")
+    @ResponseBody
+    public String ImportExcel(@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response ) {
+        int i = 0;
+        String name = file.getOriginalFilename();//得到文件名
+        if (name.length() < 6 || !name.substring(name.length() - 5).equals(".xlsx")) {
+            //            return "文件格式错误";
+            return "{\"code\":2, \"msg\":\"\", \"data\":{}}";
+        }
+        List<TestScore> list = null;
+        try {
+            list = ScoreExcelImport.excelToShopIdList(file.getInputStream(),request);
+            if (list == null || list.size() <= 0) {
+                //                return "导入的数据为空";
+                return "{\"code\":3, \"msg\":\"\", \"data\":{}}";
+            }
+            //excel的数据保存到数据库
+            try {
+                for (TestScore coachCar : list) {
+                    System.out.println("导入的数据"+coachCar.toString());
+                }
+                i = transportationService.insertScoreByExcel(list);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                //                return e.getMessage();
+                return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            //            return e.getMessage();
+            return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
+        }
+        return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
     }
 
 }

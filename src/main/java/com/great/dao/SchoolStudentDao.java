@@ -73,8 +73,12 @@ public interface SchoolStudentDao
 	//批量审核通过学员预约
 	public Integer changeAppointState(List list);
 
+
 	//批量驳回过学员预约
 	public Integer batchRejected(List list);
+
+	//把学员是否预约改成0
+	public Integer AppointNo(List list);
 
 
 	//获取预约条数

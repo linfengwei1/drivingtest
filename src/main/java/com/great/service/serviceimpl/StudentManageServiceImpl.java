@@ -26,7 +26,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Log(operationType = "学员操作", operationName = "学员登录")
-	public Student login(String account, String pwd,HttpServletRequest request)
+	public Student login(String account, String pwd, HttpServletRequest request)
 	{
 		Student student = null;
 		HashMap<String,String> map = new HashMap<>();
@@ -222,6 +222,12 @@ public class StudentManageServiceImpl implements StudentManageService
 	{
 
 		String result = null;
+		result = FaceRecognitionUtils.identify(face,Integer.parseInt(studentid));
+		if(result.equals("again") || result.equals("error"))
+		{
+			return result;
+		}
+
 		//1.先检查学时有没有打满，打满了不需要打卡
 		HashMap<String,Integer> map = new HashMap<>();
 		map.put("studentId", Integer.parseInt(studentid));//传学员ID
@@ -239,19 +245,31 @@ public class StudentManageServiceImpl implements StudentManageService
 			result =  "full";
 		}else
 		{
-			if(repeatSign > 0)
+			if(repeatSign == 2)
 			{
 				result =  "repeat";//一天内重复打卡
-			}else
+			}else if(repeatSign == 1)//签退打卡
 			{
-				result = FaceRecognitionUtils.identify(face,Integer.parseInt(studentid));
-				if("success".equals(result))
+				//得到和今天第一次打卡时间差
+				int diff = studentDao.getTimeDiff(Integer.parseInt(studentid),Integer.parseInt(subject));
+				System.out.println("时间差"+diff);
+				if(diff>=6)//大于6小时签退，学时记录有效
 				{
+
 					//认证成功，记录打卡
 					studentDao.addStudyTime(Integer.parseInt(studentid),Integer.parseInt(subject));
 					studentDao.addSignUpRecord(Integer.parseInt(studentid),Integer.parseInt(subject),time);
 
+				}else
+				{
+					result = "notEffect";//记录学时失败
+					studentDao.addSignUpRecord(Integer.parseInt(studentid),Integer.parseInt(subject),time);
+
 				}
+			}else if(repeatSign == 0)//今天第一次打卡
+			{
+				//认证成功，记录打卡
+				studentDao.addSignUpRecord(Integer.parseInt(studentid),Integer.parseInt(subject),time);
 			}
 		}
 
@@ -338,6 +356,7 @@ public class StudentManageServiceImpl implements StudentManageService
 				}else
 				{
 					studentDao.setStage(Integer.parseInt(studentId),stage+1);//进入下一阶段
+					studentDao.updateOrderStatus(Integer.parseInt(studentId));//更新预约状态为0
 					newStage = stage+1;
 				}
 				Student student = (Student) request.getSession().getAttribute("student");
@@ -423,7 +442,7 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Override
 	@Log(operationType = "学员操作", operationName = "得到错题集")
-	public List<Question> wrongQuestion(String subject,Integer studentId)
+	public List<Question> wrongQuestion(String subject, Integer studentId)
 	{
 		List<Question> list;
 

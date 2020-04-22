@@ -25,8 +25,8 @@ public interface IStudentDao
 	public List<Question> getChoicesBySubject_4();
 	public List<Question> getjudgesBySubject_4();
 
-	public List<Question> getWrongQuestion_1byStudentId(@Param("studentId")int studentId);
-	public List<Question> getWrongQuestion_4byStudentId(@Param("studentId")int studentId);
+	public List<Question> getWrongQuestion_1byStudentId(@Param("studentId") int studentId);
+	public List<Question> getWrongQuestion_4byStudentId(@Param("studentId") int studentId);
 
 	public void setStudentIsIdentified(@Param("studentId") int studentId);
 
@@ -41,6 +41,7 @@ public interface IStudentDao
 	public int changeStudentState(@Param("studentId") int studentId, @Param("stateId") int stateId);
 	// 查询学员处于什么阶段
 	public int getStudentState(@Param("studentId") int studentId);
+	public int getTimeDiff(@Param("studentId") int studentId, @Param("subject") int subject);
 
 	int getPractiseScoreById(HashMap<String, Integer> map);
 	int getScoreById(HashMap<String, Integer> map);
@@ -51,25 +52,27 @@ public interface IStudentDao
 
 	List<ExamOrder> getOrderTime(int parseInt);
 
-	void updatePractiseScore(@Param("studentId")int studentId, @Param("score")int score);
+	void updatePractiseScore(@Param("studentId") int studentId, @Param("score") int score);
 
-	void setStage(@Param("studentId")int studentId, @Param("stage")int stage);
+	void setStage(@Param("studentId") int studentId, @Param("stage") int stage);
 
-	List<EvaluationToSchool> getAllEvaForSchool(@Param("school_id")int school_id);
+	List<EvaluationToSchool> getAllEvaForSchool(@Param("school_id") int school_id);
 
-	int addEvaForSchool(@Param("school_id")int school_id, @Param("content")String content);
+	int addEvaForSchool(@Param("school_id") int school_id, @Param("content") String content);
 
-	List<EvaluationToCoach> getAllEvaForCoach(@Param("coachId")int coachId);
+	List<EvaluationToCoach> getAllEvaForCoach(@Param("coachId") int coachId);
 
-	int addEvaForCoach(@Param("coachId")int coachId, @Param("content")String content);
+	int addEvaForCoach(@Param("coachId") int coachId, @Param("content") String content);
 
-	int updatePwd(@Param("id")int id, @Param("account")String account,  @Param("pwd")String pwd);
+	int updatePwd(@Param("id") int id, @Param("account") String account, @Param("pwd") String pwd);
 
-	int delWrongQuestion1(@Param("studentId")int studentId, @Param("subject")int subject,  @Param("qid")int qid);
-	int delWrongQuestion4(@Param("studentId")int studentId, @Param("subject")int subject,  @Param("qid")int qid);
+	int delWrongQuestion1(@Param("studentId") int studentId, @Param("subject") int subject, @Param("qid") int qid);
+	int delWrongQuestion4(@Param("studentId") int studentId, @Param("subject") int subject, @Param("qid") int qid);
 
-	int addWrongQuestion1(@Param("list")List<Integer> wrongList,@Param("studentId")int studentId);
-	int addWrongQuestion4(@Param("list")List<Integer> wrongList,@Param("studentId")int studentId);
+	int addWrongQuestion1(@Param("list") List<Integer> wrongList, @Param("studentId") int studentId);
+	int addWrongQuestion4(@Param("list") List<Integer> wrongList, @Param("studentId") int studentId);
 
 	void insertLog(SystemLog systemLog);
+
+	void updateOrderStatus(@Param("studentId") int studentId);
 }

@@ -50,7 +50,7 @@ public interface SchoolAdminDao
 	public Integer EvaluationCount(TableUtils u);
 
 	//查看手机号是否被注册
-	public Integer CheckCoachPhone(String phone);
+	public Integer CheckAdminPhone(String phone);
 
 	//通过手机号码改密码
 	public Integer changePwdByPhone(SchoolAdmin schoolAdmin);
@@ -63,4 +63,22 @@ public interface SchoolAdminDao
 
 	//驾校申请
 	public Integer SchoolApply(School school);
+
+	//首页圆形图
+	public List<School> School();
+
+	//首页圆形图
+	public Integer SchoolCountById(Integer id);
+
+	//首页表格
+	public List<School> SchoolInf(TableUtils tableUtils);
+
+	//首页表格
+	public Integer SchoolCountCoachById(Integer id);
+
+	//首页表格
+	public Integer SchoolCountCarById(Integer id);
+
+	//首页表格驾校数
+	public Integer SchoolCount();
 }

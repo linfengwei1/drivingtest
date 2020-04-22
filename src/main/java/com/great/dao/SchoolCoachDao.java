@@ -2,6 +2,7 @@ package com.great.dao;
 
 import com.great.entity.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,18 @@ public interface SchoolCoachDao
 	public Integer deletePunish(Integer punish);
 
 	//处罚记录改变状态
-	public Integer updatePunish();
+	public Integer updatePunish(Integer id);
+
+	//处罚记录改变状态
+	public Integer coachStateByStop( Integer id);
+
+	//处罚记录改变状态
+	public Integer coachStateByNo( Integer id);
+
+	//excel插入数据库
+	public Integer insertCoachByExcel(List<Coach> list);
+
+
 
 	/**
 	 * 修改教练密码 2020-4-9 16：46 王良德
@@ -73,9 +85,30 @@ public interface SchoolCoachDao
 	//查找学员总数
 	public Integer findCount(TableUtils tableUtils);
 
-	//
-	List<StudyCondition> findStudentScore(TableUtils tableUtils);
-
 	//查询驾校教练人数
 	public List getSchoolCoach();
+	//查询学生分数
+	List<Score> findStudentScore(TableUtils tableUtils);
+
+	List<StudentTable> newFindstudentBypage(TableUtils tableUtils);
+
+	//查询学生学时
+    List<StudyCondition> findStudentTime(TableUtils tableUtils);
+
+    //查询学生评论
+	List<EvaluationToCoach> findStudentEvaluation(TableUtils tableUtils);
+
+	//查询学生评论页数
+	Integer findStudentEvaluationByCount(TableUtils tableUtils);
+
+	List<Student> getStudentBySubject(@Param("subject")int subject, @Param("coachId")Integer coachId);
+	int getOrderTimeBySchool(@Param("time")String time,@Param("schoolId")Integer schoolId);
+	int checkHasOrder(@Param("subject")Integer subject,@Param("date")String date);
+
+	List<Integer> getOrderTimeId(@Param("subject")Integer subject, @Param("date")String date);
+
+	void addOrderRecord(@Param("timeId")Integer timeId,  @Param("list")List<Integer> studentIds);
+
+	int addOrderTimeId(OrderTime orderTime);
+	int updateOrderStatus(@Param("list")List<Integer> studentIds);
 }

@@ -1,8 +1,6 @@
 package com.great.entity;
 
 
-import java.sql.Timestamp;
-
 /**
  * ClassName: TestTime <br/>
  * Description: <br/>

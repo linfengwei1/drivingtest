@@ -25,6 +25,7 @@ public class School {
     private String content;//问题
     private String result;//处理结果
     private String dateTime;//处理时间
+    private Integer count;//统计多少学员
 
 
     public School() {
@@ -44,6 +45,14 @@ public class School {
         this.content = content;
         this.result = result;
         this.dateTime = dateTime;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public Integer getId() {

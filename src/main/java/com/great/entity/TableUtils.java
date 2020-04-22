@@ -23,10 +23,36 @@ public class TableUtils {
 //    private Date time3;
 //    private Timestamp time4;
     private Integer coach_id;
+    private Integer countCar;
+    private Integer countCoach;
+    private Integer countStudent;
 
     public TableUtils() {
     }
 
+    public Integer getCountCar() {
+        return countCar;
+    }
+
+    public void setCountCar(Integer countCar) {
+        this.countCar = countCar;
+    }
+
+    public Integer getCountCoach() {
+        return countCoach;
+    }
+
+    public void setCountCoach(Integer countCoach) {
+        this.countCoach = countCoach;
+    }
+
+    public Integer getCountStudent() {
+        return countStudent;
+    }
+
+    public void setCountStudent(Integer countStudent) {
+        this.countStudent = countStudent;
+    }
 
     public String getCoachName() {
         return coachName;
@@ -159,15 +185,22 @@ public class TableUtils {
 
     @Override
     public String toString() {
-        return "Utils{" +
+        return "TableUtils{" +
                 "page='" + page + '\'' +
                 ", minLimit=" + minLimit +
                 ", maxLimit=" + maxLimit +
                 ", time1='" + time1 + '\'' +
                 ", time2='" + time2 + '\'' +
+                ", idnumber='" + idnumber + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", sex='" + sex + '\'' +
                 ", state='" + state + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
+                ", carNumber='" + carNumber + '\'' +
+                ", school_id=" + school_id +
+                ", schoolStateId=" + schoolStateId +
+                ", coach_id=" + coach_id +
                 '}';
     }
 }

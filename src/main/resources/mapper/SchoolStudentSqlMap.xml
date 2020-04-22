@@ -176,9 +176,22 @@
         </foreach>
     </update>
 
+
+
+
+
     <!--批量审核学员预约时间不通过-->
     <update id="batchRejected" parameterType="java.util.List" >
         update appoint_time_relation set appoint_state_id = 2 where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+
+    <!--把学员是否预约改成0-->
+    <update id="AppointNo" parameterType="java.util.List" >
+        update student set hasordered = 0 where id in
         <foreach collection="list" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>

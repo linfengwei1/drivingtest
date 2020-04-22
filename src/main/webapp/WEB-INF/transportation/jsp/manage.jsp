@@ -72,6 +72,8 @@
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/getAT" onclick="changeUrl(this)">考试审批</a></dd>
 <%--                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">各阶段考试人数配置</a></dd>--%>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gSGH" onclick="changeUrl(this)">考试时间配置</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/AddScoreByExcel" onclick="changeUrl(this)">导入成绩</a></dd>
+
                     </dl>
                 </li>
 

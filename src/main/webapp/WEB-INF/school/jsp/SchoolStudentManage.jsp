@@ -85,8 +85,8 @@
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="delete" ><i class="layui-icon">&#xe640;</i>删除</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="AddStudentImage" ><i class="layui-icon">&#xe681;</i>上传图片</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="update" ><i class="layui-icon">&#xe642;</i>更新</button>
-        {{# }if(d.student_state_id >= 9 ) { }}
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
+<%--        {{# }if(d.student_state_id >= 9 ) { }}--%>
+<%--        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>--%>
         {{# }if(d.student_state_id ==6) { }}
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="StudentMsg" ><i class="layui-icon">&#xe63c;</i>个人详情</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="resubmit" ><i class="layui-icon">&#xe643;</i>重新审核</button>

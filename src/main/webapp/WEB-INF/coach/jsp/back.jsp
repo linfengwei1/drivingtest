@@ -56,8 +56,16 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">业务查看</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">查看学员评价</a></dd>
-                        <dd><a href="javascript:;">学员查看</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/coach/path/CoachStudentEvaluation" onclick="changeUrl(this)">查看学员信息</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                    </dl>
+                </li>
+
+
+                <li class="layui-nav-item">
+                    <a href="javascript:;">考试预约</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/coach/path/ToOrder" onclick="changeUrl(this)">帮学生预约考试</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -78,7 +86,7 @@
         </p>
     </div>
 </div>
-<script src="../layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){

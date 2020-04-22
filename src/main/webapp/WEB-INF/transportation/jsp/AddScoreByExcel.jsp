@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
-    <title>文件导入车辆信息</title>
+    <title>导入学员分数</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -20,7 +20,7 @@
 <form >
    <div align="center">
        <h1>文件导入车辆信息</h1>
-       <p>支持上传的文档格式为：.XLSX</p>
+       <p>导入学员分数：.xlsx</p>
 <%--       <div style="margin-top: 1%">--%>
 <%--           <input type="file" name="file"></Br>--%>
 <%--           <button type="submit"  class="layui-btn layui-btn-normal" id="out"><i class="layui-icon">&#xe67c;</i>导入</button>--%>
@@ -65,7 +65,7 @@
         //执行实例
         var uploadInst = upload.render({
             elem: '#test8' //绑定元素
-            ,url:  '${pageContext.request.contextPath}/school/AddCarByExcel' //上传接口
+            ,url:  '${pageContext.request.contextPath}/TM/addScoreByExcel' //上传接口
             ,auto: false//是否自动上传
             ,accept: 'file'
             ,bindAction: '#test9'//配合auto: false来使用，auto: true值一选中文件后就执行上传，关闭后需要根据绑定事件
@@ -96,14 +96,6 @@
                 if(res.code == 3){
                     //上传完毕回调
                     alert("导入的数据为空！");
-                }
-                if(res.code == 4){
-                    //上传完毕回调
-                    var nameArr = [];
-                    for (var i = 0;i<res.data.length;i++){
-                        nameArr.push(res.data[i].carNumber);
-                    }
-                    alert(nameArr+"车牌号已经被注册,请全部重新导入");
                 }
             }
         });

@@ -3,18 +3,60 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.great.dao.SchoolCoachDao">
+    <resultMap id="studentMap" type="Student">
+        <!-- 主键字段的对应 -->
+        <id property="id" column="id"></id>
+        <!--非主键字段的对应-->
+        <result property="account" column="account"></result>
+        <result property="name" column="name"></result>
+        <result property="pwd" column="pwd"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+        <result property="idNumber" column="idnumber"></result>
+        <result property="phone" column="phone"></result>
+        <result property="student_state_id" column="student_state_id"></result>
+        <result property="school_id" column="school_id"></result>
+        <result property="coach_id" column="coach_id"></result>
+        <result property="identity_state" column="identity_state"></result>
+    </resultMap>
 
+    <resultMap id="Coach" type="com.great.entity.Coach">
+        <id property="id" column="id"></id>
+        <result column="account" property="account"></result>
+        <result column="pwd" property="pwd"></result>
+        <result column="sex" property="sex"></result>
+        <result column="age" property="age"></result>
+        <result column="name" property="name"></result>
+        <result column="phone" property="phone"></result>
+        <result column="idnumber" property="idnumber"></result>
+        <result column="coach_state_id" property="coach_state_id"></result>
+        <result column="school_id" property="school_id"></result>
+        <result column="audit_results" property="audit_results"></result>
+        <result column="image" property="image"></result>
+    </resultMap>
 
-     <resultMap id="Coach" type="com.great.entity.Coach">
-            <result column="coach_state_id" property="coach_state_id"></result>
-     </resultMap>
     <resultMap id="Student" type="com.great.entity.StudentTable">
         <result column="student_state_id" property="student_state_id"></result>
     </resultMap>
 
-    <resultMap id="StudentScore" type="com.great.entity.StudyCondition">
+    <resultMap id="StudentScore" type="com.great.entity.Score">
+        <result column="subject_id" property="subject"></result>
+    </resultMap>
+
+    <resultMap id="StudentTime" type="com.great.entity.StudyCondition">
+        <result column="student_id" property="student_id"></result>
+        <result column="practise_score" property="practise_score"></result>
+        <result column="subject_id" property="subject_id"></result>
+    </resultMap>
+
+    <resultMap id="newStudent" type="com.great.entity.StudentTable">
         <result column="subject_id" property="subject_id"></result>
         <result column="practise_score" property="practise_score"></result>
+        <result column="subject_id" property="subject_id"></result>
+    </resultMap>
+
+    <resultMap id="evaCoach" type="com.great.entity.EvaluationToCoach">
+        <result column="coachid" property="coachId"></result>
     </resultMap>
 
     <!--查询教练记录并分页    -->
@@ -97,15 +139,38 @@
 	</update>
 
     <!--登录-->
-    <select id="login" resultType="com.great.entity.Coach" parameterType="java.util.Map">
+    <select id="login" resultMap="Coach" parameterType="java.util.Map">
 		select * from coach where account = #{account} and pwd = #{pwd}
+	</select>
+
+    <!--查询学生评论-->
+    <select id="findStudentEvaluation" parameterType="com.great.entity.TableUtils" resultMap="evaCoach">
+        select *
+        from evaluationforcoach
+        where coachid = #{coach_id}
+    </select>
+
+    <!--查询学生评论页数-->
+    <select id="findStudentEvaluationByCount" parameterType="com.great.entity.TableUtils" resultType="java.lang.Integer">
+        select count(*)
+        from evaluationforcoach
+        where coachid = #{coach_id}
+    </select>
+
+    <!--查询学生学时-->
+    <select id="findStudentTime" resultMap="StudentTime" parameterType="com.great.entity.TableUtils">
+		select studycondition.*
+		from studycondition,student,coach
+		where studycondition.student_id=student.id and coach.id=student.coach_id and coach_id=#{coach_id}
+        limit #{minLimit},#{maxLimit};
 	</select>
 
     <!--查询学生分数-->
     <select id="findStudentScore" resultMap="StudentScore" parameterType="com.great.entity.TableUtils">
-		select student.id,studycondition.*
-        from student,coach,studycondition
-        where student.id=studycondition.student_id and student.coach_id=coach.id and coach_id=#{coach_id};
+		select student.id,score.*
+        from student,coach,score
+        where student.id=score.student_id and student.coach_id=coach.id and coach_id=#{coach_id}
+        limit #{minLimit},#{maxLimit};
 	</select>
 
     <!--教练查询学生信息-->
@@ -133,6 +198,34 @@
             </if>
         </where>
         limit #{minLimit},#{maxLimit}
+    </select>
+
+    <!--新教练查询学生信息-->
+    <select id="newFindstudentBypage" resultMap="newStudent" parameterType="com.great.entity.TableUtils">
+        select s.*,sc.time ,sc.subject_id ,sc.practise_score
+        from student s
+        left join studycondition sc on s.id=sc.student_id
+        left join coach c on s.coach_id = c.id
+        <where>
+            <if test="coach_id !='' and coach_id!=null">
+                and c.id = #{coach_id}
+            </if>
+            <if test="name !='' and name!=null">
+                and s.name like concat('%',#{name},'%')
+            </if>
+            <if test="phone !='' and phone!=null">
+                and s.phone = #{phone}
+            </if>
+            <if test="state !='' and state!=null">
+                and s.student_state_id = #{state}
+            </if>
+            <if test="idnumber!= '' and idnumber != null">
+                and s.idnumber= #{idnumber}
+            </if>
+            <if test="sex != '' and sex != null">
+                and s.sex = #{sex}
+            </if>
+        </where>
     </select>
 
     <!--教练查询学生信息总页数-->
@@ -230,74 +323,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--添加用户-->
-	<insert id="addUser"   parameterType="com.great.entity.User">
-		insert into user (account,pwd,name,sex,education,profession,phone,email,rtime,state,roleid,score,upcount,downcount)
-		VALUES(#{account},#{pwd},#{name},#{sex},#{education},#{profession},#{phone},#{email},#{rtime},#{state},#{roleid},#{score},#{upcount},#{downcount})
-
-	</insert>
-    <!--查找角色信息并带条件的分页-->
-    <select id="findAllUserByPage" resultType="User" parameterType="java.util.Map" >
-		select * from  user where 1=1
-        <if test="rtime1 != '' and rtime1 != null">
-            and rtime &gt;= #{rtime1}
-        </if>
-        <if test="rtime2 != '' and rtime2 != null">
-            and rtime &lt;= #{rtime2}
-        </if>
-        <if test="userid != '' and userid != null">
-            and userid like concat ('%',#{userid},'%')
-        </if>
-        limit #{minLimit},#{maxLimit}
-	</select>
-    <!--查找用户信息总数-->
-    <select id="findAllUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
-		select count(*) from user
-		<where>
-            <if test="userid !='' and userid!=null">
-                and userid like#{userid}
-            </if>
-        </where>
-
-	</select>
-
-    <!--更新用户信息-->
-    <update id="updateUserInf" parameterType="com.great.entity.User" >
-        update user  set name = #{name},sex = #{sex},education = #{education},profession=#{profession},
-        phone =#{phone} , email = #{email},state = #{state} where userid =#{userid}
-    </update>
-    <!--更新用户状态-->
-    <update id="changeUserState" parameterType="java.util.Map" >
-        update user  set state = #{state} where userid =#{userid}
-
-    </update>
-    <select id="cUser" parameterType = "String" resultType="java.lang.Integer">
-        select count(userid) FROM user where account= #{account}
-    </select>
-
-
     <!--添加处罚记录-->
     <insert id="AddPunish"   parameterType="com.great.entity.Punish">
 		insert into punish (content,datetime,coach_id,school_id,result,coach_state_id)
@@ -310,10 +335,25 @@
 		delete from punish where id=#{id}
 	</delete>
 
-    <!--处罚记录改变状态-->
+    <!--处罚记录改变状态（启用）-->
     <update id="updatePunish" >
-		update  punish set  coach_state_id = 1;
+		update  punish set  coach_state_id = 1 where id = #{id};
 	</update>
+
+
+    <!--处罚记录改变状态（封停）-->
+    <update id="coachStateByStop" >
+		update  punish set  coach_state_id = 2 where id = #{id};
+	</update>
+
+
+    <!--处罚记录改变状态（禁止报名）-->
+    <update id="coachStateByNo" >
+		update  punish set  coach_state_id = 3 where id = #{id};
+	</update>
+
+
+
 
     <!-- 查询驾校教练人数-->
     <select id="getSchoolCoach" resultType="integer">
@@ -327,4 +367,75 @@
     </select>
 
 
+    <!--excel插入数据库-->
+    <insert id="insertCoachByExcel" parameterType="java.util.List">
+        insert into coach (account,pwd,name,sex,age,idnumber,phone,coach_state_id,school_id)values
+        <foreach collection="list" item="item" index="index"
+                 separator="," >
+            (
+            #{item.account},
+            #{item.pwd},
+            #{item.name},
+            #{item.sex},
+            #{item.age},
+            #{item.idnumber},
+            #{item.phone},
+            #{item.coach_state_id},
+            #{item.school_id}
+            )
+        </foreach>
+    </insert>
+    <update id="updateOrderStatus">
+        update student set hasordered=1
+        where id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <insert id="addOrderTimeId" parameterType="OrderTime"  useGeneratedKeys="true" keyProperty="id">
+        insert into time
+        (datetime,subject_id)
+        values
+        (#{dateTime},#{subject})
+    </insert>
+
+    <insert id="addOrderRecord">
+        insert into appoint_time_relation
+        (time_id,student_id,appoint_state_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{timeId},
+            #{item},
+            3
+            )
+        </foreach>
+    </insert>
+
+    <select id="getOrderTimeId" resultType="int">
+		select id from time where subject_id = #{subject}
+        and DATE_FORMAT(datetime,'%Y-%m-%d %H:%i:%S') = #{date}
+	</select>
+
+    <select id="checkHasOrder" resultType="int">
+		select count(*) from time where subject_id = #{subject}
+        and DATE_FORMAT(datetime,'%Y-%m-%d %H:%i:%S') = #{date}
+	</select>
+
+    <select id="getOrderTimeBySchool" resultType="int">
+        select count(*) from test_allocation where start_time &lt;= #{time} and end_time &gt;= #{time} and school_id = #{schoolId}
+	</select>
+
+    <select id="getStudentBySubject" resultMap="studentMap">
+		select s.* from student as s,studycondition as sd
+        where s.coach_id = #{coachId}
+        and s.student_state_id = #{subject}
+        and s.hasordered = 0
+        and s.id = sd.student_id
+        and s.student_state_id = sd.subject_id
+        and sd.time=3
+        and sd.practise_score >=90
+	</select>
 </mapper>
