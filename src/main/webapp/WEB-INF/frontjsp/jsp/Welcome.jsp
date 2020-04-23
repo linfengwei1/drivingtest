@@ -316,9 +316,9 @@
 <%--                    <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/4.PNG"/></a>--%>
 <%--                </div>--%>
     <div style="padding: 50px">
-        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">驾校查询</a>
-        <a href="${pageContext.request.contextPath}/school/path/SchoolLogin" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit">教练查询</a>
-
+<%--        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">驾校查询</a>--%>
+<%--        <a href="${pageContext.request.contextPath}/school/path/SchoolLogin" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit">教练查询</a>--%>
+        <a href="${pageContext.request.contextPath}/coach/testwelcome" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit" style="margin-left: 400px">信息查询</a>
     </div>
 
 
@@ -327,6 +327,20 @@
 <%--                    <div id="EchartZhu" style="width: 500px;height: 300px;"></div>--%>
 <%--                </div>--%>
             </div>
+<%--            <a href="${pageContext.request.contextPath}/coach/testwelcome" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">进入查询</a>--%>
+<%--            <ul id="selectParent" class="layui-tab-title" style="float: left;width: 150px;height: 200px;top: 45px;">--%>
+<%--                <li onclick="selectSchInfoJump();" class="layui-this">查驾培机构</li>--%>
+<%--                <li id="selectTwo" onclick="selectCoaInfoJump();">查教练员</li>--%>
+<%--                <li id="selectThree" onclick="selectVueInfoJump();">查教练车</li>--%>
+<%--            </ul>--%>
+
+
+<%--            <div class="layui-card">--%>
+<%--                <div class="layui-card-header">柱形图</div>--%>
+<%--                <div class="layui-card-body">--%>
+<%--                    <div id="EchartZhu" style="width: 500px;height: 300px;"></div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
         </div>
         <div class="layui-tab-item"  align="center" >
             <p style="font-size: 20px">注意：</p>

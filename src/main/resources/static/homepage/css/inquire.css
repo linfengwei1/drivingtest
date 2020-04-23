@@ -1,0 +1,118 @@
+.layui-tab-title li{display: block;}
+.main .layui-tab .layui-tab-title{
+	border-style: none;
+}
+.main .layui-tab .layui-tab-title .layui-this{
+	background: url(../../img/list_bg.png) no-repeat;
+	background-size: cover;
+	color: #fff;
+}
+.main .layui-tab .layui-tab-title li{
+	border-style: none;
+	background: #e2eaf2;
+	margin: 5px 0;
+	line-height: 45px;
+}
+/*本页面单独样式*/
+.main{
+	width: 1100px;margin: 10px  auto;overflow: hidden;
+}
+.inq-inf{
+	float: left;margin-left: -150px;line-height: 45px;padding: 0 28px;background: #274472;color: #fff;
+}
+.inq-inf img{
+	margin-right: 10px;
+}
+.inq-con{
+	height: 38px;line-height: 38px; border-top: 1px solid #ddd;background: #fafbfd;padding: 0 15px;
+}
+.inq-con .title-con{
+	font-size: 15px;color: #00528C;font-weight: bold;
+}
+.inq-con .title-num{
+	float: right;margin-right: 5px;
+}
+.inq-con .title-num span{
+	color: red;
+}
+.layui-tab-item .ul1{
+	background: #fff;
+}
+.layui-tab-item ul li{
+	border-bottom: 1px solid #eee;height: 37px;line-height: 37px;
+}
+.layui-tab-item ul li .title-area{
+	background: #e2eaf2;padding: 10px 15px;
+}
+.layui-tab-item ul li .inq-sel{
+	height: 27px; line-height: 27px;width: 70px;background: #f2f4f9;color: #00528C;border: 1px solid #eee;
+}
+.layui-tab-item ul li .button1{
+	width: 70px;height: 27px;line-height: 27px;
+	display: inline-block;margin-left: 20px;
+}
+.layui-tab-item ul li .buttonbackground{
+	background: #65b3f5;border: 1px solid #65b3f5;color: #fff;
+}
+
+.layui-tab-item ul li button{
+	width: 70px;height: 27px;line-height: 27px;background: #fafbfd;
+	display: inline-block;margin-left: 15px;border: 1px solid #d3d7e1;color: #00528C;
+	cursor: pointer;
+}
+.inq-rank{
+	height: 40px;
+}
+.inq-rank ul{
+	border: 1px solid #eee;overflow: hidden;line-height: 30px;margin-top: 5px;width: 590px;
+}
+.inq-rank ul .li1{
+	float: left;padding: 0 10px;
+}
+.inq-rank ul li{
+	float: left;border-left: 1px solid #eee;padding: 0 13px;cursor: pointer;
+}
+.inq-rank ul .buttonbackground{
+	background: #65b3f5;border: 1px solid #65b3f5;color: #fff;
+}
+
+.inq-rank ul li img{
+	margin-left: 8px;
+}
+.inq-school ul .list-school{
+	display: inline-block;border: 1px solid #eee;width: 295px;height: auto; color: #728db8;line-height: 25px;margin: 10px 10px 0 0;box-shadow: 1px 2px 1px #ddd;
+}
+.inq-school ul .list-school img{
+	width:295px;height: 196px;
+}
+.inq-school ul .list-school .inf-school{
+	padding: 10px;
+	background: #fff;
+}
+.inq-school ul .list-school .inf-school .word-1{
+	font-size: 16px;color: #4d7dc9;
+}
+.inq-school ul .list-school .inf-school .stars{
+	width: 14px;height: 19px; margin: 0 1px;
+}
+.inq-student ul .list-student{
+	display: inline-block;border: 1px solid #eee;color: #728db8;line-height: 25px;width: 450px;
+	height: 190px;margin: 10px 10px 0 0;box-shadow: 1px 2px 1px #ddd;
+}
+.inq-student ul .list-student img{
+	width:141px;height: 190;
+}
+.inq-student ul .list-student .inf-student{
+	padding: 10px;float: right;width: 289px;
+	background: #fff;
+	height: -webkit-fill-available;
+}
+.inq-student ul .list-student .inf-student .word-1{
+	font-size: 16px;color: #4d7dc9;
+}
+.inq-student ul .list-student .inf-student .stars{
+	width: 14px;height: 19px; margin: 0 1px;
+}
+hr{
+	margin-bottom: 0;
+}
