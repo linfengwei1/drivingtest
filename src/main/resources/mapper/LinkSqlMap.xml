@@ -369,4 +369,187 @@
         limit 0,10
     </select>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <resultMap id="SchoolInfoMap" type="SchoolInfoPage">
+        <id property="schoolId" column="id"></id>
+        <result property="schoolName" column="name"></result>
+        <result property="addr" column="address"></result>
+
+        <collection property="coaches" ofType="Coach" column="id" select="getCoachsBySchoolId"/>
+        <collection property="students" ofType="Student" column="id" select="getStudentsBySchoolId"/>
+        <collection property="coachCars" ofType="CoachCar" column="id" select="getCoachCarsBySchoolId"/>
+    </resultMap>
+
+    <!--封装教练结果集-->
+    <resultMap id="coachbyIdMap" type="com.great.entity.Coach">
+        <id property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="pwd" column="pwd"/>
+        <result property="sex" column="sex"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="age" column="age"/>
+        <result property="idnumber" column="idnumber"/>
+        <result property="coach_state_id" column="coach_state_id"/>
+        <result property="schoolName" column="s_name"/>
+        <result property="audit_results" column="audit_results"/>
+
+    </resultMap>
+
+    <resultMap id="studentMap1" type="Student">
+        <!-- 主键字段的对应 -->
+        <id property="id" column="id"></id>
+        <!--非主键字段的对应-->
+        <result property="account" column="account"></result>
+        <result property="name" column="name"></result>
+        <result property="pwd" column="pwd"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+        <result property="idNumber" column="idnumber"></result>
+        <result property="phone" column="phone"></result>
+        <result property="student_state_id" column="student_state_id"></result>
+        <result property="school_id" column="school_id"></result>
+        <result property="coach_id" column="coach_id"></result>
+        <result property="identity_state" column="identity_state"></result>
+    </resultMap>
+    <resultMap id="coachcarMap" type="CoachCar">
+        <!-- 主键字段的对应 -->
+        <id property="id" column="id"></id>
+        <!--非主键字段的对应-->
+    </resultMap>
+
+    <!--获取教练信息-->
+    <select id="getCoachsBySchoolId" resultMap="coachbyIdMap" parameterType="java.lang.Integer">
+        select c.*
+        from coach c
+        where
+            c.school_id=#{id}
+    </select>
+    <!--获取教练信息-->
+    <select id="getStudentsBySchoolId" resultMap="studentMap1" parameterType="java.lang.Integer">
+        select s.*
+        from student s
+        where
+            s.school_id=#{id}
+    </select>
+    <select id="getCoachCarsBySchoolId" resultMap="coachcarMap" parameterType="java.lang.Integer">
+        select c.*
+        from coachcar c
+        where
+            c.school_id=#{id}
+    </select>
+    <!-- 查询学车学堂通告-->
+    <select id="getSchoolInfoByPage" resultMap="SchoolInfoMap">
+        select * from school
+        <where>
+            <if test="shcoolName != null and shcoolName != ''">
+                name like CONCAT('%', #{shcoolName},'%')
+            </if>
+
+            <if test="addr != null and addr != ''">
+                and address like CONCAT('%', #{addr},'%')
+            </if>
+        </where>
+        limit #{beg},#{end}
+    </select>
+    <!-- 查询学车学堂通告-->
+    <select id="getSchoolInfoByPageCount" resultType="int">
+        select count(*) from school
+        <where>
+            <if test="shcoolName != null and shcoolName != ''">
+                name like CONCAT('%', #{shcoolName},'%')
+            </if>
+
+            <if test="addr != null and addr != ''">
+                and address like CONCAT('%', #{addr},'%')
+            </if>
+        </where>
+    </select>
+
 </mapper>

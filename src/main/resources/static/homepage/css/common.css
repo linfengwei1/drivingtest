@@ -97,20 +97,7 @@ body {
 	border: 1px solid #eee;
 }
 
-.top-search input {
-	height: 22px;
-	margin: 0 -6px;
-	border: 1px solid #eee;
-	border-radius: 2px;
-	padding: 0 10px;
-}
 
-.top-search label {
-	color: #fff;
-	background: #63b2f5;
-	padding: 4px 15px;
-	border-radius: 2px;
-}
 
 .top-search label:active {
 	border: 1px solid #63b2f5;

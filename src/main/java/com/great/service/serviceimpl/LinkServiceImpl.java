@@ -1,11 +1,8 @@
 package com.great.service.serviceimpl;
 
 import com.great.dao.LinkMapper;
-import com.great.entity.Link;
-import com.great.entity.LinkUtils;
+import com.great.entity.*;
 
-import com.great.entity.Notice;
-import com.great.entity.School;
 import com.great.service.LinkService;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +58,72 @@ public class LinkServiceImpl implements LinkService {
 	{
 		linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);//获得代理对象
 		return linkMapper.getNoticeCS();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@Override
+	public SchoolInfoList getSchoolInfoByPage(String curr, String shcoolName, String addr)
+	{
+		SchoolInfoList schoolInfoList = new SchoolInfoList();
+		int beg = (Integer.parseInt(curr)-1)*6;
+		int end = 6;
+		linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);//获得代理对象
+		List<SchoolInfoPage> list =  linkMapper.getSchoolInfoByPage(Integer.parseInt(curr),shcoolName,addr,beg,end);
+		int count  =  linkMapper.getSchoolInfoByPageCount(shcoolName,addr);
+		schoolInfoList.setList(list);
+		schoolInfoList.setCount(count);
+		return schoolInfoList;
 	}
 }

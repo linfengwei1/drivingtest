@@ -1,9 +1,9 @@
-﻿﻿function getStudentState(subject) {
+﻿function getStudentState(subject) {
 
-	layui.use(['layer'], function () {
+	layui.use(['layer','$'], function () {
+	var $ = layui.$; //重点处
 	var studentId = $("#studentid").val();
 	var path = $("#path").val();
-
 	console.log(path);
 	$.ajax({
 		url:path+'/student/getStudentState',

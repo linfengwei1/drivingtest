@@ -4,7 +4,9 @@ package com.great.dao;
 import com.great.entity.Link;
 import com.great.entity.Notice;
 import com.great.entity.School;
+import com.great.entity.SchoolInfoPage;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,4 +24,7 @@ public interface LinkMapper {
     //查询学车学堂的通告(Car school)
 	public List<Notice> getNoticeCS();
 
+	List<SchoolInfoPage> getSchoolInfoByPage(@Param("curr") int curr, @Param("shcoolName")String shcoolName, @Param("addr")String addr,@Param("beg")Integer beg,@Param("end")Integer end);
+
+	int getSchoolInfoByPageCount( @Param("shcoolName")String shcoolName,  @Param("addr")String addr);
 }

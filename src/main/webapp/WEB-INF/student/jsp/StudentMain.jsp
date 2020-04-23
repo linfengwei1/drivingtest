@@ -8,8 +8,10 @@
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/studentmain.css">
-	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<%--	<script src="${pageContext.request.contextPath}/static/jquery-2.2.4.js" type="text/javascript" charset="UTF-8"></script>--%>
+<%--	<script src="${pageContext.request.contextPath}/static/student/js/kefu.js" type="text/javascript" charset="utf-8"></script>--%>
+	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${pageContext.request.contextPath}/static/student/js/StudentMain.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -43,7 +45,7 @@
 	</script>
 
 </head>
-<body class="layui-layout-body"  style="overflow-y:scroll;overflow-x:scroll">
+<body class="layui-layout-body"  style="overflow-y:scroll;overflow-x:hidden">
 <input type="hidden" id="path" value="${pageContext.request.contextPath}">
 <input type="hidden" id="studentid" value="${student.id}">
 <div class="untop">
@@ -155,5 +157,7 @@
 
 	});
 </script>
+
+
 </body>
 </html>
