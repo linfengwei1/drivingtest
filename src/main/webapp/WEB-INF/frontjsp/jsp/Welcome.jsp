@@ -10,7 +10,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%String path=request.getContextPath(); %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
-<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/homepage.css">--%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/homepage.css">
 <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 <script src="${pageContext.request.contextPath}/static/echarts.js" type="text/javascript" charset="UTF-8"></script>
@@ -39,8 +39,9 @@
         <li style="left: 240px;font-size: 20px">信息查询</li>
         <li style="left: 280px;font-size: 20px">开通服务</li>
         <li style="left: 320px;font-size: 20px">登录</li>
+	    <li style="left: 360px;font-size: 20px">关于我们</li>
     </ul>
-    <div class="layui-tab-content" style="width: 100%;height: 300px">
+    <div class="layui-tab-content" style="width: 100%;height: auto">
         <div class="layui-tab-item layui-show">
             <table style="margin: 0px;padding: 0px;width: 90%;height: 100%">
                 <td style="margin: 0px;padding: 0px;width: 450px;padding-right: 10px;">
@@ -146,10 +147,6 @@
                 </td>
             </table>
         </div>
-
-
-
-
 
 
         <!-- 公示公开-->
@@ -268,9 +265,11 @@
                 </div>
             </div>
         </div>
-        <div class="layui-tab-item"  >内容四
+
+        <div class="layui-tab-item"  >
             <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">驾校申请</a>
         </div>
+
         <div class="layui-tab-item">
 	        <div style="padding: 50px">
 		        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">运管门户</a>
@@ -279,6 +278,182 @@
 		        <a href="${pageContext.request.contextPath}/student/path/StudentLogin" class="layui-btn layui-btn layui-btn-radius layui-btn-primary layui-btn-lg layui-anim layui-anim-scaleSpring">学员门户</a>
 	        </div>
         </div>
+
+	    <!--关于我们-->
+	    <div class="layui-tab-item" >
+		    <!-- banner部分 -->
+		    <div class="banner about" style="margin-top: 0px">
+			    <div class="title">
+				    <p>关于我们</p>
+				    <p class="en">About Us</p>
+			    </div>
+		    </div>
+		    <!-- main部分 -->
+		    <div class="main-about">
+			    <div class="layui-container">
+				    <div class="layui-row">
+					    <ul class="aboutab">
+						    <li class="layui-this">简介</li>
+                            <li>驾驶计时系统介绍</li>
+                            <li>发展历程</li>
+					    </ul>
+					    <div class="tabIntro">
+						    <div class="content">
+							    <div class="layui-inline img" style="float: left">
+								    <img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage5.jpg" style="padding-left: 150px">
+							    </div>
+							    <div class="layui-inline panel" style="float: right;text-align: center">
+								    <p>传一机动车计时培训系统成立于2020年，致力于为道路运输驾乘人提供驾乘全面信息服务。自成立以来，一直围绕安全，不断创新产品和服务，目标通过6余年积累，在产品体系打造、运营经验、市场规模、商业模式构建上处于领先水平。</p>
+						        </div>
+							    <div style="clear: both"></div>
+						    </div>
+						    <div class="content" style="width: 100%">
+							    <img src="${pageContext.request.contextPath}/static/images/homepageimages/gltb.png" style="width: 100%">
+						    </div>
+						    <div class="content">
+							    <div class="layui-inline panel p_block" style="float: left">
+								    <h2>计时平台</h2>
+								    <p style="font-size: 16px">
+									    稳定性:<br>
+									    千万级数据承载量。<br>
+									    安全性:<br>
+									    构建物理服务器加云服务器的完整灾备体系，在系统遭到不可抗力因素下仍能保证系统的持续运转以及数据的完整、安全<br>
+									    智能维护性:<br>
+									    网管系统具有监控、故障检测、故障诊断、故障隔离、过滤等功能。<br>
+								    </p>
+							    </div>
+							    <div class="layui-inline img" style="float: right;margin-left: 50px;margin-top: 100px;width: 500px">
+								    <img src="${pageContext.request.contextPath}/static/images/homepageimages/about1.jpg">
+							    </div>
+							    <div style="clear: both"></div>
+						    </div>
+
+						    <div class="content">
+							    <div class="layui-inline img" style="float: left">
+								    <img src="${pageContext.request.contextPath}/static/images/homepageimages/cygltb.png" style="padding-left: 150px;width: 80%;height: 80%">
+							    </div>
+							    <div class="layui-inline panel" style="float: right">
+								    <h2>内部管理</h2>
+								        <h3>车管业务管理</h3>
+								            <p style="font-size: 14px">
+									            学员状态管理：学员报名、预约考试、考试成绩、合格率详情查询及统计分析<br>
+									            学员信息预录入：适应各地交管报开学业务流程，减免人员大量重复录入、减少财务风险<br>
+								            </p>
+									    <h3>视频功能</h3>
+								            <p style="font-size: 14px">
+									            实时监控：实时展现车内教学情况,保障人车对应，避免违规用车；及时发现和优化培训服务质量问题<br>
+									            培训总结：回放教学过程，优化服务态度、提升教学技能<br>
+									            直播：培训视频直播，方便打通各类互联网传播工具，吸引用户关注，差异化 招生营销，提升品牌<br>
+								            </p>
+									    <h3>财务管理</h3>
+								            <p style="font-size: 14px">
+									            财务审核：教练管理制度化，保证驾校和教练财务结算清晰<br>
+									            财务单据：各类财务数据痕迹化，保证驾校和承包教练管理有据可查<br>
+									            支付管理：打通支付宝等支付工具，适应多种管理、培训模式（以下正在开发）<br>
+								            </p>
+									    <h3>管理人员手机端</h3>
+								            <p style="font-size: 14px">
+									            满足管理层移动办公需求，专属分权限手机端，实时展示驾校招生、培训、出勤、考试、财务等数据<br>
+								            </p>
+									    <h3>驾校微信公众号</h3>
+								            <p style="font-size: 14px">
+									            提供多样业务模板，快速搭建驾校自己的微信公众号官网，打通学员咨询、报名、预约、扫码签到等业务数据<br>
+								            </p>
+							    </div>
+							    <div style="clear: both"></div>
+						    </div>
+
+						    <div class="content" style="width: 100%">
+							    <div class="layui-inline img">
+								    <img src="${pageContext.request.contextPath}/static/images/homepageimages/service.jpg" style="width: 1250px">
+							    </div>
+						    </div>
+					    </div>
+
+					    <div class="tabJob">
+						    <div class="content">
+							    <p class="title">机动车驾驶员计时培训系统介绍</p>
+							    <p>>计时系统</p>
+							    <p>
+								    <span style="padding-left: 2em"></span>机动车驾驶员计时培训系统，以计算机系统及通信信息技术为基础，为提高机动车驾驶员培训质量，满足机动车驾驶员培训机构对学员进行计时计程培训的要求，实现培训记录的电子化，满足道路运输管理机构对学员培训过程进行监管，同时可以面向其他相关机构提供信息服务的系统平台。<br>
+							    </p>
+							    <p>
+								    <span style="padding-left: 2em"></span>机动车驾驶员计时培训系统主要借助卫星定位技术、无线通信技术、图像技术等技术，完成行业管理中心软硬件平台和企业端软件建设。实现驾培机构理论教学点学时记录及教学监管，衔接公安交警部门考试业务流程，实现报名、培训、考试等服务的无缝链接，保证驾培企业的培训质量，维护正规驾培企业和学员的利益，实现整个驾驶培训行业规范化、信息化的管理。<br>
+							    </p>
+							    <p>>>系统建设目标</p>
+							    <ol>
+								    <li>实现对普通机动车（汽车）驾驶员培训学时里程信息进行管理, 对机动车驾驶员驾培机构、教练员、教练车、学员培训情况、毕业学员信息等相关内容进行查询、统计和监管。</li>
+								    <li>对驾培行业实施许可情况进行记录、监督，对达不到许可条件要求的驾培企业不予登记，使许可实施部门严格按照法规要求实施许可。</li>
+								    <li>对驾培企业教学实行全程信息化实时监控，从而实现教学过程、培训学时自动记录，严格避免违规教学，擅自减少学员学时情况。</li>
+								    <li>对教练车实行统一登记管理、核发标志牌和相关证件。</li>
+								    <li>结合驾培企业质量信誉考评体系对驾培企业考评情况进行记录并通过互联网向社会公布。</li>
+								    <li>对招生点实行统一登记管理，招生点信息通过网站向社会公布。</li>
+								    <li>与外部平台的对接，与交通、公安、交警等职能部门的数据共享。</li>
+							    </ol>
+						    </div>
+<%--						    <div class="content">--%>
+<%--							    <p class="title">IOS 开发工程师</p>--%>
+<%--							    <p>> 职位描述</p>--%>
+<%--							    <ol>--%>
+<%--								    <li>前端开发及维护工作；</li>--%>
+<%--								    <li>有良好的技术基础，熟悉 Web 标准，熟练掌握多种 Web 前端技术；</li>--%>
+<%--								    <li>掌握行业内流行的类库，Vue.js， React 等主流框架；</li>--%>
+<%--								    <li>参与公司前端工程的设计、研发；</li>--%>
+<%--								    <li>了解不同浏览器之间的差异，移动设备之间的差异。</li>--%>
+<%--							    </ol>--%>
+<%--						    </div>--%>
+<%--						    <div class="content">--%>
+<%--							    <p class="title">JAVA 工程师</p>--%>
+<%--							    <p>> 职位描述</p>--%>
+<%--							    <ol>--%>
+<%--								    <li>前端开发及维护工作；</li>--%>
+<%--								    <li>有良好的技术基础，熟悉 Web 标准，熟练掌握多种 Web 前端技术；</li>--%>
+<%--								    <li>掌握行业内流行的类库，Vue.js， React 等主流框架；</li>--%>
+<%--								    <li>参与公司前端工程的设计、研发；</li>--%>
+<%--								    <li>了解不同浏览器之间的差异，移动设备之间的差异。</li>--%>
+<%--							    </ol>--%>
+<%--						    </div>--%>
+					    </div>
+
+					    <div class="tabCour">
+						    <p class="title">我们的蜕变</p>
+						    <ul class="timeline">
+							    <li class="odd">
+								    <div class="cour-img"><img src="${pageContext.request.contextPath}/static/images/homepageimages/us_img4.png"></div>
+								    <div class="cour-panel layui-col-sm4 layui-col-lg5">
+									    <p class="label">2020 年 4 月 7 日</p>
+									    <p>我们相遇了，从一个人到组成了一个团队。</p>
+								    </div>
+							    </li>
+							    <li>
+								    <div class="cour-img"><img src="${pageContext.request.contextPath}/static/images/homepageimages/us_img5.png"></div>
+								    <div class="cour-panel layui-col-sm4 layui-col-sm-offset8 layui-col-lg5 layui-col-lg-offset7">
+									    <p class="label">2020 年 4 月 13 日</p>
+									    <p>我们共同分析问题，一起迎接挑战，不再孤单。</p>
+								    </div>
+							    </li>
+							    <li class="odd">
+								    <div class="cour-img"><img src="${pageContext.request.contextPath}/static/images/homepageimages/us_img7.png"></div>
+								    <div class="cour-panel layui-col-sm4 layui-col-lg5">
+									    <p class="label">2020 年 4 月 20 日</p>
+									    <p>携手共进，砥砺前行共同进退，相互帮助。</p>
+								    </div>
+							    </li>
+							    <li>
+								    <div class="cour-img"><img src="${pageContext.request.contextPath}/static/images/homepageimages/us_img8.jpg"></div>
+								    <div class="cour-panel layui-col-sm4 layui-col-sm-offset8 layui-col-lg5 layui-col-lg-offset7">
+									    <p class="label">2020 年 4 月 28日</p>
+									    <p>项目结束，友谊永恒,感谢有你们。</p>
+								    </div>
+							    </li>
+						    </ul>
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+
+
     </div>
 </div>
 <div style="margin-left: 11%;margin-bottom: 10px;">
@@ -409,7 +584,7 @@
                                             </tr>
                                             <tr>
                                                 <td height="23" align="right" bgcolor="#f4f4f4">咨询热线：</td>
-                                                <td height="23">18812580007 （编主任） </td>
+                                                <td height="23">18812580580 （编主任） </td>
                                             </tr>
 
                                         </table>
