@@ -72,6 +72,8 @@
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/getAT" onclick="changeUrl(this)">考试审批</a></dd>
 <%--                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">各阶段考试人数配置</a></dd>--%>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/gSGH" onclick="changeUrl(this)">考试时间配置</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/AddScoreByExcel" onclick="changeUrl(this)">导入成绩</a></dd>
+
                     </dl>
                 </li>
 
@@ -94,7 +96,7 @@
                     <a class="" href="javascript:;"><i class="layui-icon">&#xe716;</i>     其他</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/link/path/LinkManage" onclick="changeUrl(this)">友情连接管理</a></dd>
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/" onclick="changeUrl(this)">通知公告发布</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/TM/path/NoticeManagement" onclick="changeUrl(this)">通知公告发布</a></dd>
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/SchoolLogManage" onclick="changeUrl(this)">日志查看</a></dd>
                     </dl>
                 </li>

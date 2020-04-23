@@ -27,7 +27,7 @@ $(function () {
 					result = '预约失败';
 				}else
 				{
-					break;
+					result = '待审核';
 				}
 				$("#demo").append("<tr><td>"+data[i].subject+"</td><td>"+data[i].orderTime+"</td><td>"+result+"</td></tr>");
 			}

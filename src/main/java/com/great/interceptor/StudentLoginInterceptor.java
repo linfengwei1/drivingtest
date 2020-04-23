@@ -14,17 +14,7 @@ public class StudentLoginInterceptor extends HandlerInterceptorAdapter
 		String uri = request.getRequestURI();
 		String path = request.getContextPath();
 		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
-//		if(uri.endsWith("/login") || uri.endsWith("/StudentLogin"))
-//		{
-//			if(request.getSession() != null && request.getSession().getAttribute("student") != null)
-//			{
-//				response.sendRedirect(basePath+"/student/path/StudentMain");
-//				return false;
-//			}else
-//			{
-//				return true;
-//			}
-//		}
+
 		if(request.getSession() != null && request.getSession().getAttribute("student") != null)
 		{
 			return true;

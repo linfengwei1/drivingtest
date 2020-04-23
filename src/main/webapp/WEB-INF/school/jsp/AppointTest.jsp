@@ -134,9 +134,9 @@
                             dataType : "text",
                             success:function(data){
                                 if ("error"==data){
-                                    layer.alert("审核失败",{icon:2});
+                                    layer.alert("驳回失败",{icon:2});
                                 }else if ("success"==data) {
-                                    layer.alert("审核成功",{icon:6},function () {
+                                    layer.alert("驳回成功",{icon:6},function () {
                                         window.parent.location.reload();
                                     });
                                 }
@@ -188,7 +188,7 @@
                     async:true,
                     method : "POST",
                     url :'${pageContext.request.contextPath}/TM/auditAppoint',
-                    data: {"id":data.id,"doing":"批准"},
+                    data: {"id":data.id,"doing":"批准","name":data.subjectName,"studentId":data.studentId},
                     dataType : "text",
                     success:function(data){
 
@@ -207,7 +207,7 @@
                     async:true,
                     method : "POST",
                     url :'${pageContext.request.contextPath}/TM/auditAppoint',
-                    data: {"id":data.id,"doing":"驳回"},
+                    data: {"id":data.id,"doing":"驳回","studentId":data.studentId},
                     dataType : "text",
                     success:function(data){
 

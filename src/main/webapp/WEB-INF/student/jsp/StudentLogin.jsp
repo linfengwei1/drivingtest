@@ -16,6 +16,8 @@
 			float: right;
 			margin:50px 100px 0 0 ;
 			box-shadow: 1px 5px 20px #999;
+			border-radius: 21px;
+
 		}
 		#two{
 			height: 15%;

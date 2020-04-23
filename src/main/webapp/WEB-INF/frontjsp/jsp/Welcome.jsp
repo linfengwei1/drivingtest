@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%String path=request.getContextPath(); %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/homepage.css">--%>
@@ -19,12 +20,8 @@
     <title>机动车驾驶员计时培训系统</title>
 </head>
 <body>
-<div id="header" style="background-color: white;width: 100%;height: 10%">
-    <div style="font-size: 30px">驾校管理系统</div>
-<%--    <div>驾校登录</div>--%>
-<%--    <div>学员登录</div>--%>
-<%--    <div>教练登录</div>--%>
-<%--    <div>交管登录</div>--%>
+<div id="header" style="background-color: white;width: 100%;height:20%">
+    <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/1.jpg" /></div>
 </div>
 
 <div class="layui-carousel" id="test1">
@@ -59,8 +56,8 @@
                     <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="height: 300px">
                         <ul class="layui-tab-title" style="margin-top: -25px">
                             <li class="layui-this">通知公告</li>
-                            <li>行业动态</li>
-                            <li>政策法规</li>
+                            <li>收费明细</li>
+                            <li>学驾流程</li>
                             <li>政策解读</li>
                             <li>曝光台</li>
                         </ul>
@@ -79,69 +76,72 @@
                                         <th>日期</th>
                                     </tr>
                                     </thead>
-                                    <tbody class="title-png">
-                                    <tr>
-                                        <td >联播+丨如何成为好老师，习近平殷切寄语</td>
-                                        <td>汉族</td>
-                                        <td>1989-10-14</td>
-                                    </tr>
-                                    <tr>
-                                        <td>张爱玲</td>
-                                        <td>汉族</td>
-                                        <td>1920-09-30</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Helen Keller</td>
-                                        <td>拉丁美裔</td>
-                                        <td>1880-06-27</td>
-                                    </tr>
-                                    <tr>
-                                        <td>岳飞</td>
-                                        <td>汉族</td>
-                                        <td>1103-北宋崇宁二年</td>
-                                    </tr>
+                                    <tbody class="title-png" id="body1">
+<%--                                    <tr>--%>
+<%--                                        <td >联播+丨如何成为好老师，习近平殷切寄语</td>--%>
+<%--                                        <td>汉族</td>--%>
+<%--                                        <td>1989-10-14</td>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td>张爱玲</td>--%>
+<%--                                        <td>汉族</td>--%>
+<%--                                        <td>1920-09-30</td>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td>Helen Keller</td>--%>
+<%--                                        <td>拉丁美裔</td>--%>
+<%--                                        <td>1880-06-27</td>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td>岳飞</td>--%>
+<%--                                        <td>汉族</td>--%>
+<%--                                        <td>1103-北宋崇宁二年</td>--%>
+<%--                                    </tr>--%>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="layui-tab-item">
                                 <table class="layui-table"   lay-skin="line">
-                                <colgroup>
-                                    <col width="250">
-                                    <col width="100">
-                                    <col width="100">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th >标题</th>
-                                    <th>文章来源</th>
-                                    <th>日期</th>
-                                </tr>
-                                </thead>
-                                <tbody class="title-png">
-                                <tr>
-                                    <td >联播+丨如何成为好老师，习近平殷切寄语qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq</td>
-                                    <td>汉族</td>
-                                    <td>1989-10-14</td>
-                                </tr>
-                                <tr>
-                                    <td>张爱玲</td>
-                                    <td>汉族</td>
-                                    <td>1920-09-30</td>
-                                </tr>
-                                <tr>
-                                    <td>Helen Keller</td>
-                                    <td>拉丁美裔</td>
-                                    <td>1880-06-27</td>
-                                </tr>
-                                <tr>
-                                    <td>岳飞</td>
-                                    <td>汉族</td>
-                                    <td>1103-北宋崇宁二年</td>
-                                </tr>
-                                </tbody>
-                             </table>
+                                    <colgroup>
+                                        <col width="80" height="25">
+                                        <col width="80">
+                                        <col width="290">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>阶段</th>
+                                        <th>费用(参考)</th>
+                                        <th>备注</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="title-png">
+                                    <tr>
+                                        <td >科目一</td>
+                                        <td>500元</td>
+                                        <td>不同地区根据实际情况定价</td>
+                                    </tr>
+                                    <tr>
+                                        <td >科目二</td>
+                                        <td>1000元</td>
+                                        <td>不同地区根据实际情况定价</td>
+                                    </tr>
+                                    <tr>
+                                        <td >科目三</td>
+                                        <td>1000元</td>
+                                        <td>不同地区根据实际情况定价</td>
+                                    </tr>
+                                    <tr>
+                                        <td >科目四</td>
+                                        <td>500元</td>
+                                        <td>不同地区根据实际情况定价</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
                              </div>
-                            <div class="layui-tab-item">内容3</div>
+                            <div class="layui-tab-item">
+                                <img src="${pageContext.request.contextPath}/static/images/homepageimages/home_logo3.png" />
+                            </div>
                             <div class="layui-tab-item">内容4</div>
                             <div class="layui-tab-item">内容5</div>
                         </div>
@@ -305,6 +305,25 @@
 
 
         <div class="layui-tab-item">
+            <div class="layui-card">
+
+<%--                <div align="cencer">--%>
+<%--                    <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/2.PNG"/></a><br><br>--%>
+<%--                    <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/3.PNG"/></a><br><br>--%>
+<%--                    <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/4.PNG"/></a>--%>
+<%--                </div>--%>
+    <div style="padding: 50px">
+        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">驾校查询</a>
+        <a href="${pageContext.request.contextPath}/school/path/SchoolLogin" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit">教练查询</a>
+
+    </div>
+
+
+<%--                <div class="layui-card-header">柱形图</div>--%>
+<%--                <div class="layui-card-body">--%>
+<%--                    <div id="EchartZhu" style="width: 500px;height: 300px;"></div>--%>
+<%--                </div>--%>
+            </div>
             <a href="${pageContext.request.contextPath}/coach/testwelcome" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">进入查询</a>
 <%--            <ul id="selectParent" class="layui-tab-title" style="float: left;width: 150px;height: 200px;top: 45px;">--%>
 <%--                <li onclick="selectSchInfoJump();" class="layui-this">查驾培机构</li>--%>
@@ -320,8 +339,17 @@
 <%--                </div>--%>
 <%--            </div>--%>
         </div>
+        <div class="layui-tab-item"  align="center" >
+            <p style="font-size: 20px">注意：</p>
+            <div align="left" style="margin-left: 35%;">
+                <br>1、申请驾校需要准备营业制造、法人等相应的证件,以world的形式上传；
+                <br>2、申请驾校所需要的的信息均为必填项
+                <br>3、申请驾校所需要的的信息必须真实,如果虚假将追究法律责任;
+                <br>4、审核时间为15个工作日,在网上审核通过后需到当地交管部门备案；
+            </div>
 
-        <div class="layui-tab-item">内容4</div>
+            <br> <a href="${pageContext.request.contextPath}/school/path/upload1" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" >驾校申请</a>
+        </div>
         <div class="layui-tab-item">
 	        <div style="padding: 50px">
 		        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">运管门户</a>
@@ -337,7 +365,10 @@
 </div>
 <div style="padding-left: 11%;padding-bottom: 2px">
     <div id="echarts_div2" style="width: 500px;height: 300px;;float: left;background-color: #f2f4f9"></div>
-    <div id="echarts_div3" style="width: 550px;height: 300px;float: left;background-color: #1E9FFF"  ></div>
+
+    <div class="layui-anim layui-anim-scale" style="width: 550px;height: 300px;float: left;">
+        <table id="dataTable" lay-filter="test"></table>
+    </div>
 </div>
 
 <div style="margin-top: 1%">
@@ -472,32 +503,17 @@
     </table>
 </div>
 
-
+<%--友情链接--%>
 <div class="footer" align="center" style="background-color: #0a76a4">
     <div class="footer-box">
-        <p class="footer-p">友情链接</p>
         <div class="footer-friend">
-<%--            <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="main/webapp/image/traffic.jpg"/></a>--%>
-<%--            <a target="_blank" href="https://www.cttic.cn/"><img class="footer-img" src="main/webapp/image/traffic_center.jpg" /></a>--%>
-<%--            <a target="_blank" href="http://www.122.gov.cn"><img class="footer-img" src="main/webapp/image/traffic_safety.jpg" /></a>--%>
-<%--            <a target="_blank" href="http://www.crta.org.cn/"><img class="footer-imgs" src="main/webapp/image/crta.jpg"/></a>--%>
-            <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/traffic.jpg"/></a>
-            <a target="_blank" href="https://www.cttic.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/traffic_center.jpg" /></a>
-            <a target="_blank" href="http://www.122.gov.cn"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/traffic_safety.jpg" /></a>
-            <a target="_blank" href="http://www.crta.org.cn/"><img class="footer-imgs" src="${pageContext.request.contextPath}/static/images/homepageimages/crta.jpg"/></a>
-            <a target="_blank" href="${pageContext.request.contextPath}/link/findAllLink/">${"#dt.linkUrl"}连接地址</a>
-            <c:if test="dt != null">
-                ${"dt.linkUrl"}
-            </c:if>
-<%--    <a target="_blank" href="${pageContext.request.contextPath}/link/findAllLink">${$("#linkUrl").val()}连接地址</a>--%>
+            <c:forEach items="${linkList}" var="link">
+                <a target="_blank" href="${link.linkUrl}" alt="${link.linkName}"><img
+<%--                        src="${pageContext.request.contextPath}/static/images/homepageimages/traffic_safety.jpg" width="252px" height="48px"/></a>--%>
+                src="${pageContext.request.contextPath}/static/${link.pictureUrl}" width="252px" height="48px"/></a>
+            </c:forEach>
         </div>
-        <p class="footer-p">导航链接</p>
-        <ul class="footer-orther" style="">
-            <li><a target="_blank" href="http://www.jpxcw.com/">全国驾驶培训公共服务平台</a></li>
-            <li><a target="_blank"  href="http://www.bjmcn.com">交通运输通信信息集团有限公司</a></li>
-        </ul>
     </div>
-
 </div>
 
 <%--<script LANGUAGE=javascript>--%>
@@ -800,16 +816,10 @@
 				var arr = JSON.parse(msg);
 				console.log("msg=="+arr);
 				for (var i = 0;i<arr.length;i++){
-					// valueArr.push(arr[i]);
-					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
 					nameArr.push(arr[i].name);
 				}
 				console.log("学校名ms=="+nameArr);
 				createEchars();
-				// nameArr=["科目一","科目二","科目三","科目四","毕业"];
-				// createEchars();// 创建普通柱状图
-				// console.log("nu1="+nu1);
-				// $("#lab1").text(nu1);
 			},
 			error : function() {
 				alert("服务器正忙");
@@ -949,31 +959,89 @@
         var myChart2 = echarts.init(document.getElementById('echarts_div2'));//dark为暗黑主题 不要可以去掉
         var option = {
             title : {
-                text : 'ECharts 南丁格尔玫瑰图'
+                text : '基础数据'
             },
             series : [ {
-                name : '访问来源',
+                name : '驾校',
                 type : 'pie',
                 roseType: 'angle',//南丁格尔玫瑰图样式  去掉则显示基本圆饼图
                 radius : '55%',
-                // data : obArr1
-                data:[
-                    {value: 10, name: 'rose1'},
-                    {value: 5, name: 'rose2'},
-                    {value: 15, name: 'rose3'},
-                    {value: 25, name: 'rose4'},
-                    {value: 20, name: 'rose5'},
-                    {value: 35, name: 'rose6'},
-                    {value: 30, name: 'rose7'},
-                    {value: 40, name: 'rose8'}
-                ]
+                data : obArr1
+                // data:[
+                //     {value: 10, name: 'rose1'},
+                //     {value: 5, name: 'rose2'},
+                //     {value: 15, name: 'rose3'},
+                //     {value: 25, name: 'rose4'},
+                //     {value: 20, name: 'rose5'},
+                //     {value: 35, name: 'rose6'},
+                //     {value: 30, name: 'rose7'},
+                //     {value: 40, name: 'rose8'}
+                // ]
             } ]
         };
         myChart2.setOption(option);
     }
 
 
+    layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导入模块
+        $ = layui.jquery;
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#dataTable'
+            , height: 280
+            , url: '${pageContext.request.contextPath}/school/WelcomeTable' //数据接口
+            , page: true //开启分页
+            , id: 'searchTable'
+            , limit: 5
+            , limits: [5]
+            , cols: [[ //表头
+                {field: 'name', title: '驾校', width: 145, sort: true, fixed: 'left', align: 'center',unresize:true}
+                , {field: 'countCoach', title: '教练员', width: 110, sort: true,align: 'center',unresize:true}
+                , {field: 'countCar', title: '教练车', width: 140, sort: true, align: 'center',unresize:true}
+                , {field: 'countStudent', title: '培训能力(人)', width: 150, sort: true, align: 'center',unresize:true}
+            ]]
+        });
+    });
 
+    //获取前台通知公告
+    $(function() {
+        $.ajax({
+            async:true,
+            method : "POST",
+            url :"${pageContext.request.contextPath}/school/getNotice",
+            dataType : "text",
+            success : function(msg) {
+                var arr = JSON.parse(msg);
+                var tbody = document.getElementById('body1');
+                for(var i = 0;i < arr.length; i++){ //遍历一下json数据  
+                    var trow = getDataRow(arr[i]); //定义一个方法,返回tr数据  
+                    console.log("trow=="+trow)
+                    tbody.appendChild(trow);
+                }  
+            },
+            error : function() {
+                alert("服务器正忙");
+            }
+        });
+    })
+    function getDataRow(h) {
+        var row = document.createElement('tr'); //创建行  
+
+        var idCell = document.createElement('td'); //创建第一列id 
+        idCell.innerHTML = h.title; //填充数据  
+        row.appendChild(idCell); //加入行  ，下面类似  
+
+        var nameCell = document.createElement('td');//创建第二列name  
+        nameCell.innerHTML = h.type;
+        row.appendChild(nameCell);
+
+        var jobCell = document.createElement('td');//创建第三列job  
+        jobCell.innerHTML = h.time;
+        row.appendChild(jobCell);
+
+        return row; //返回tr数据
+    }
 
 </script>
 
@@ -981,67 +1049,3 @@
 </body>
 </html>
 
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>友情链接_编辑修改</title>--%>
-<%--    <link href="main.css" rel="stylesheet" type="text/css" />--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--&lt;%&ndash;<script LANGUAGE=javascript>&ndash;%&gt;--%>
-<%--&lt;%&ndash;    function rewlink(){&ndash;%&gt;--%>
-<%--&lt;%&ndash;        if((refform.linkname.value == "")||(refform.linkurl.value == "")){&ndash;%&gt;--%>
-<%--&lt;%&ndash;            alert("关键字不能为空，")&ndash;%&gt;--%>
-<%--&lt;%&ndash;        }else{&ndash;%&gt;--%>
-<%--&lt;%&ndash;            if(refform.linkurl.value.substring(0,7).toLowerCase() == 'http://'){&ndash;%&gt;--%>
-<%--&lt;%&ndash;                return true;&ndash;%&gt;--%>
-<%--&lt;%&ndash;            }else{&ndash;%&gt;--%>
-<%--&lt;%&ndash;                alert("必须带http://");&ndash;%&gt;--%>
-<%--&lt;%&ndash;                return false;&ndash;%&gt;--%>
-<%--&lt;%&ndash;            }&ndash;%&gt;--%>
-<%--&lt;%&ndash;        }&ndash;%&gt;--%>
-<%--&lt;%&ndash;        return false;&ndash;%&gt;--%>
-<%--&lt;%&ndash;    }&ndash;%&gt;--%>
-<%--&lt;%&ndash;</script>&ndash;%&gt;--%>
-<%--&lt;%&ndash;<div id="main">&ndash;%&gt;--%>
-<%--&lt;%&ndash;    <div id="inmain">&ndash;%&gt;--%>
-<%--&lt;%&ndash;        <div id="main_head">当前位置:<strong>后台首页</strong> >； <strong>其它信息管理e5a48de588b6e799bee5baa631333337393632</strong> >； <strong>友情链接管理</strong></div>&ndash;%&gt;--%>
-<%--&lt;%&ndash;        <div id="main_text">&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <form name="refform" action="../admin/LinkServlet？method=rewLink&link_id=${rew.link_id }" method="post" onSubmit="return rewlink();">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <input name="link_id" type="hidden" value="${rew.link_id }"/>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <div class="main_table">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <dl>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <dt>修改友情链接</dt>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <dd class="table_style">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:150px;">描述</li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:200px;"><input name="linkname" value="${rew.link_name }" type="text" class="border" /></li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li></li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            </ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </dd>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <dd class="table_style">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:150px;">链接地址</li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:200px;"><input type="text" name="linkurl" value="${rew.link_url }" class="border" /></li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li><span>[ 需要添加 “http://” ]</span></li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            </ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </dd>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <dd class="table_handle">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:83px;">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                    <input type="submit" value="修改" class="bt" />&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                </li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <li style="width:50px;">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                    <input type="reset" value="重置" class="bt" />&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                </li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            </ul>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </dd>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    </dl>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                </div>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            </form>&ndash;%&gt;--%>
-<%--&lt;%&ndash;        </div>&ndash;%&gt;--%>
-<%--&lt;%&ndash;    </div>&ndash;%&gt;--%>
-<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-<%--</body>--%>
-<%--</html>--%>

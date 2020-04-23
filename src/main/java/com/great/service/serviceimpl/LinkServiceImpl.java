@@ -4,6 +4,7 @@ import com.great.dao.LinkMapper;
 import com.great.entity.Link;
 import com.great.entity.LinkUtils;
 
+import com.great.entity.Notice;
 import com.great.entity.School;
 import com.great.service.LinkService;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -45,4 +46,20 @@ public class LinkServiceImpl implements LinkService {
         linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);//获得代理对象
         return linkMapper.findAllSchool();
     }
+
+	//查询驾驶技巧通告(Driving skills)
+    @Override
+    public List<Notice> getNoticeDS()
+    {
+        linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);//获得代理对象
+        return linkMapper.getNoticeDS();
+    }
+
+	//查询学车学堂的通告(Car school)
+	@Override
+	public List<Notice> getNoticeCS()
+	{
+		linkMapper = sqlSessionTemplate.getMapper(LinkMapper.class);//获得代理对象
+		return linkMapper.getNoticeCS();
+	}
 }

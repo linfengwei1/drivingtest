@@ -17,14 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.HTML;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -32,16 +30,92 @@ import java.util.*;
 @RequestMapping("/link")//访问路径：如果只是@RequestMapping则返回的是jsp页面，如果再加上@ResponseBody则返回的是字符串
 public class LinkController {
 
-	@RequestMapping("/first")
-	public String first(){
-		return "/frontjsp/jsp/Welcome";
-	}
-
 	@Autowired//自动注入、自动装配
 	private LinkService linkService;
-	@RequestMapping("/path/{url}")//访问路径的路口：path/{url是作为参数PathVariable路径变量}
-	public String getUrl(@PathVariable(value = "url") String path) {
-		return "/frontjsp/jsp/" + path;//返回
+    @RequestMapping("/path/{url}") // 访问路径的路口：path/{url是作为参数PathVariable路径变量}
+    public ModelAndView getUrl(@PathVariable(value = "url") String path) {
+        List<Link> linkList = linkService.findAllLink();//调用查询所有友情链接数据接口，得到友情链接数据列表linkList
+        ModelAndView mav = new ModelAndView("/frontjsp/jsp/" + path);//实例化ModelAndView对象，给mav对象指定名称为/frontjsp/jsp/+ 路径path
+        mav.addObject("linkList", linkList);//将友情链接数据列表linkList添加到mav对象里面；
+        return mav;//返回给前端数据信息为 mav对象
+    }
+
+//	/**
+//	 * 增加友情链接图片上传
+//	 * @param file
+//	 * @return
+//	 * @throws Exception
+//	 */
+//	@RequestMapping("/linkImage")
+//	@ResponseBody
+//	public Object  linkImage( MultipartFile file,HttpServletRequest request) throws Exception {
+//		Map<String,Object> map= (Map<String, Object>) linkImage(file,request);
+//		return map;
+//	}
+
+	/**
+	 * 友情链接图片上传
+	 * @param file
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/linkImage")
+	@ResponseBody
+	public Object linkImage( MultipartFile file, HttpServletRequest request) throws Exception {
+
+		String prefix="";
+		String dateStr="";
+		//保存上传
+		OutputStream out = null;
+		InputStream fileInput=null;
+		try{
+			if(file!=null){
+				String originalName = file.getOriginalFilename();
+				prefix=originalName.substring(originalName.lastIndexOf(".")+1);
+				Date date = new Date();
+				//使用UUID+后缀名保存文件名，防止中文乱码问题
+				String uuid = UUID.randomUUID()+"";
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				dateStr = simpleDateFormat.format(date);
+				String savePath = request.getSession().getServletContext().getRealPath("/images/");
+				String projectPath = savePath  + dateStr+File.separator + uuid+"." + prefix;;
+//                String filepath = "E:/JAVA/kl/src/main/resources/static/images/"+ dateStr+File.separator + uuid+"." + prefix;
+////                String filepath = "E:/JAVA/kl/src/main/resources/static/images/" + dateStr+File.separator+uuid+"." + prefix;
+//                String filepath2 = System.getProperty("user.dir") +File.separator+"src"+File.separator+"mian"+File.separator+"resources"+File.separator+"static"+File.separator+"images"+ dateStr+File.separator+uuid+"." + prefix;
+				System.out.println("projectPath=="+projectPath);
+				File files=new File(projectPath);
+				//打印查看上传路径
+				if(!files.getParentFile().exists()){//判断目录是否存在
+					System.out.println("files11111="+files.getPath());
+					files.getParentFile().mkdirs();
+				}
+				file.transferTo(files); // 将接收的文件保存到指定文件中
+				Map<String,Object> map2=new HashMap<>();
+				Map<String,Object> map=new HashMap<>();
+				map.put("code",0);
+				map.put("msg","");
+				map.put("data",map2);
+				map2.put("src","/images/"+ dateStr+"/"+uuid+"." + prefix);
+				return map;
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally{
+			try {
+				if(out!=null){
+					out.close();
+				}
+				if(fileInput!=null){
+					fileInput.close();
+				}
+			} catch (IOException e) {
+			}
+		}
+		Map<String,Object> map=new HashMap<>();
+		map.put("code",1);
+		map.put("msg","");
+		return map;
+
 	}
 
 	// 新增友情链接：插入成功返回前台success
@@ -103,7 +177,7 @@ public class LinkController {
 		return dt;//返回前端的数据
 	}
 
-	//文件上传
+	//文件上传（上传图片）
 	@RequestMapping("/fileUpload")
 	@ResponseBody//ajax返回值json格式转换
 	public Object test(@RequestParam(value="file",required = false) MultipartFile file, HttpServletRequest request) throws IOException {
@@ -115,57 +189,11 @@ public class LinkController {
 			System.out.println("name:"+name);
 			String suffix = name.substring(name.lastIndexOf(".") + 1);
 			System.out.println("suffix:"+suffix);
-//			User user = (User) request.getSession().getAttribute("user");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");//设置时间格式
 			String rtime = sdf.format(new Date());//操作时间
-//			Chart document=null;
-//			document.setDownscore(Integer.valueOf(downScore));
-//			document.setTitle(bookName);
-//			document.setIntro(intro);
-//			document.setTypename(suffix);
-//			document.setUptime(rtime);
-//			document.setDstate("待审核");
-//			document.setDowncount(0);
-//			document.setUserid( user.getUserid());
-//			document.setUrl("D:\\test\\" + name);
-//			List<DocumentType> documentTypes=myService.findDocumentType();
-//			List typeName = new ArrayList();//存类型名
-//			for (int i= 0;i<documentTypes.size();i++){
-//				typeName.add(documentTypes.get(i).getTypename());
-//			}
-//			if (typeName.contains(suffix)){//集合是否包含要上传的文档类型
-//				Integer a= myService.insertInfByUid(document);
-//				file.transferTo(new File("D:\\test\\" + name));
-//				return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
-//			}
 			return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
 		}
 		return "{\"code\":3, \"msg\":\"\", \"data\":{}}";
 	}
-
-
-//	public final static String UPLOAD_FILE_PATH = "D:\\file\\";
-//	@RequestMapping("uploadFile")
-//	public String uploadImage(@RequestParam("file") MultipartFile file) {
-//		if (!file.isEmpty()) {
-//			Map<String, String> resObj = new HashMap<>();
-//			try {
-//				BufferedOutputStream out = new BufferedOutputStream(
-//						new FileOutputStream(new File(UPLOAD_FILE_PATH, file.getOriginalFilename())));
-//				out.write(file.getBytes());
-//				out.flush();
-//				out.close();
-//			} catch (IOException e) {
-//				resObj.put("msg", "error");
-//				resObj.put("code", "1");
-//				return JSONObject.toJSONString(resObj);
-//			}
-//			resObj.put("msg", "ok");
-//			resObj.put("code", "0");
-//			return JSONObject.toJSONString(resObj);
-//		} else {
-//			return null;
-//		}
-//	}
 
 }

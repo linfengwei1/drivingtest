@@ -1,8 +1,6 @@
 package com.great.service;
 
-import com.great.entity.Coach;
-import com.great.entity.SchoolAdmin;
-import com.great.entity.TableUtils;
+import com.great.entity.*;
 
 import java.util.List;
 
@@ -44,4 +42,13 @@ public interface CoachManageService
      * @return
      */
     Object getCoachStudentEvaluation(TableUtils utils);
+
+
+
+
+	List<Student> getStudentBySubject(String subject, String coachId);
+
+	String getOrderTimeBydate(String schoolId, String data);
+
+	String toOrder(Orders orders);
 }

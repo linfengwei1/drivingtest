@@ -5,6 +5,7 @@ import com.great.dao.SchoolCoachDao;
 import com.great.entity.*;
 import com.great.service.CoachManageService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.LinkedHashMap;
@@ -52,19 +53,19 @@ public class CoachManageServiceImpl implements CoachManageService
             for(int j = 0;j<4;j++)
             {
                 //成绩判断
-                if(studentScoreList.get(j).getSubject()==1)
+                if(studentScoreList.get(j).getSubject().equals("1"))
                 {
                     list.get(i).setOneScore(studentScoreList.get(i*4).getScore());
                 }
-                else if(studentScoreList.get(j).getSubject()==2)
+                else if(studentScoreList.get(j).getSubject().equals("2"))
                 {
                     list.get(i).setTwoScore(studentScoreList.get(i*4+1).getScore());
                 }
-                else if(studentScoreList.get(j).getSubject()==3)
+                else if(studentScoreList.get(j).getSubject().equals("3"))
                 {
                     list.get(i).setThreeScore(studentScoreList.get(i*4+2).getScore());
                 }
-                else if(studentScoreList.get(j).getSubject()==4)
+                else if(studentScoreList.get(j).getSubject().equals("4"))
                 {
                     list.get(i).setFourScore(studentScoreList.get(i*4+3).getScore());
                 }
@@ -113,5 +114,52 @@ public class CoachManageServiceImpl implements CoachManageService
         InfMap.put("list",evaluationToCoaches);
         InfMap.put("count",count);
         return InfMap;
+    }
+
+
+
+
+    @Override
+    public List<Student> getStudentBySubject(String subject, String coachId)
+    {
+        return schoolCoachDao.getStudentBySubject(Integer.parseInt(subject),Integer.parseInt(coachId));
+    }
+
+    @Override
+    public String getOrderTimeBydate(String schoolId, String data)
+    {
+        String result = null;
+        int i = schoolCoachDao.getOrderTimeBySchool(data,Integer.parseInt(schoolId));
+        if(i>0)
+        {
+            result = "success";
+        }else
+        {
+            result = "error";
+        }
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public String toOrder(Orders orders)
+    {
+        String result = null;
+        List<Integer> list;
+        //        String date = orders.getTime().split(" ")[0];
+        String date = orders.getTime();
+        Integer timeId = 0;
+        Integer subject = Integer.parseInt(orders.getSubject());
+
+        OrderTime o = new OrderTime();
+        o.setDateTime(date);
+        o.setSubject(subject);
+        schoolCoachDao.addOrderTimeId(o);
+
+        System.out.println("最新主键"+o.getId());
+        schoolCoachDao.addOrderRecord(o.getId(),orders.getStudentIds());
+        schoolCoachDao.updateOrderStatus(orders.getStudentIds());//更新预约成功状态
+
+        return "success";
     }
 }

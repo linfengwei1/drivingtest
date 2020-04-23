@@ -1,4 +1,4 @@
-﻿function getStudentState(subject) {
+﻿﻿function getStudentState(subject) {
 
 	layui.use(['layer'], function () {
 	var studentId = $("#studentid").val();

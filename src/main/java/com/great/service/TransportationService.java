@@ -369,7 +369,7 @@ public interface TransportationService {
      * 批准考试
      * @param id
      */
-    public void auditAppoint(Integer id, String doing);
+    public void auditAppoint(Integer id, String doing,String name,Integer studentId);
 
 
     /**
@@ -378,4 +378,10 @@ public interface TransportationService {
      * @return
      */
     public School getSchoolUrl(Integer id);
+
+    /**
+     * 插入考试分数到分数表
+     * @param list
+     */
+    public int insertScoreByExcel(List<TestScore> list);
 }

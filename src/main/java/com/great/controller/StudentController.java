@@ -6,7 +6,10 @@ import com.great.entity.*;
 import com.great.service.StudentManageService;
 import com.great.utils.MD5Utils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -36,7 +39,7 @@ public class StudentController
 		Boolean confirm = student.getVerification().equalsIgnoreCase(YZM);//不区分大小写
 
 		if (confirm) {
-			Student newStudent =studentManageServiceImpl.login(student.getAccount(),MD5Utils.md5(student.getPwd()),request);
+			Student newStudent =studentManageServiceImpl.login(student.getAccount(), MD5Utils.md5(student.getPwd()),request);
 			if (null!=newStudent){
 				return "success";
 			}else{
@@ -51,10 +54,10 @@ public class StudentController
 	public String updatePwd(String account,String pwd,String newPwd, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		String result = null;
-		Student student =studentManageServiceImpl.login(account,MD5Utils.md5(pwd),request);
+		Student student =studentManageServiceImpl.login(account, MD5Utils.md5(pwd),request);
 		if(student != null)
 		{
-			int i = studentManageServiceImpl.updatePwd(student.getId(),account,MD5Utils.md5(newPwd));
+			int i = studentManageServiceImpl.updatePwd(student.getId(),account, MD5Utils.md5(newPwd));
 			if(i > 0)
 			{
 				result = "success";
@@ -115,7 +118,7 @@ public class StudentController
 	}
 	@RequestMapping("/getStudyCondition")
 	@ResponseBody
-	public List<StudyCondition> getStudyCondition(String studentId,String status,HttpServletRequest request, HttpServletResponse response) throws IOException
+	public List<StudyCondition> getStudyCondition(String studentId, String status, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		//得到最新的学习动态，成绩从score表上面取
 		List<StudyCondition> list = studentManageServiceImpl.getStudyCondition(studentId,status,request);
@@ -233,6 +236,11 @@ public class StudentController
 	public String getTestScore(@RequestBody TestReplies testReplieslist) throws IOException
 	{
 
+		if(testReplieslist.getTestReplieslist().size() == 0)
+		{
+			//一题都没有做  返回0分
+			return "0";
+		}
 		int score = studentManageServiceImpl.getTestScore(testReplieslist);
 		return score+"";
 

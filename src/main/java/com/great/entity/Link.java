@@ -5,6 +5,7 @@ public class Link {
     private String linkName;
     private String linkUrl;
     private String linkSort;
+    private String pictureUrl;
 
     public Integer getLinkId() {
         return linkId;
@@ -38,6 +39,14 @@ public class Link {
         this.linkSort = linkSort;
     }
 
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
     @Override
     public String toString() {
         return "Link{" +
@@ -45,6 +54,7 @@ public class Link {
                 ", linkName='" + linkName + '\'' +
                 ", linkUrl='" + linkUrl + '\'' +
                 ", linkSort='" + linkSort + '\'' +
+                ", pictureUrl='" + pictureUrl + '\'' +
                 '}';
     }
 }

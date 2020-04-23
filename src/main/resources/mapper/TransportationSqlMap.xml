@@ -716,7 +716,7 @@
 			  )
 	</insert>
 
-<!--解禁驾校	-->
+    <!--解禁驾校	-->
 	<update id="relieveApplySchool" parameterType="java.util.Map">
 		update school
 		<set>
@@ -893,6 +893,28 @@
 		</where>
 	</update>
 
+	<!--判断是否已经预约改为0-->
+	<update id="AppointNo" parameterType="java.lang.Integer">
+		update student
+		<set>
+			hasordered=0
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+
+	<!--把学员状态改成考试中的状态-->
+	<update id="AppointYes" parameterType="java.util.Map">
+		update student
+		<set>
+		student_state_id= #{student_state_id}
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+
 
 
 	<!--获取预约条数-->
@@ -900,4 +922,19 @@
 		select * from school where id = #{id}
 	</select>
 
+
+	<!--插入成绩-->
+	<insert id="insertScoreByExcel">
+		insert into score
+		(student_id,subject_id,appoint_time_relation_id,score)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.studentId},
+			#{item.subjectId},
+			#{item.TestId},
+			#{item.score}
+			)
+		</foreach>
+	</insert>
 </mapper>

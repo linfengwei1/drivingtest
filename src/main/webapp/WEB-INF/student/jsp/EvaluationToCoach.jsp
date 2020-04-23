@@ -5,7 +5,6 @@
 	<%String path = request.getContextPath();%>
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
-	<%--	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/studentmain.css">--%>
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 <%--	<script src="${pageContext.request.contextPath}/static/student/js/jquery-3.0.0.min.js" type="text/javascript" charset="UTF-8"></script>--%>

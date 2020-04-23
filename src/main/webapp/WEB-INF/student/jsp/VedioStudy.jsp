@@ -118,7 +118,7 @@
 <%--		.vjs-loading-spinner {--%>
 <%--			font-size: 2.5em;--%>
 <%--			width: 2em;--%>
-<%--			height: 2em;--%>
+<%--			height:  2em;--%>
 <%--			border-radius: 1em;--%>
 <%--			margin-top: -1em;--%>
 <%--			margin-left: -1.5em;--%>

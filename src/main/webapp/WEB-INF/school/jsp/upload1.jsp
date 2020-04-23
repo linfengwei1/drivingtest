@@ -14,82 +14,92 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 
-
+    <style>
+        .layui-form-label{
+            margin-left: 35%;
+            color: red;
+        }
+        body{
+            background-image: url(${pageContext.request.contextPath}/static/images/demo-1-bg.jpg);
+            /*overflow:auto; !*这边设置是为了弹出的时候，如果框的大小小于内容，就出现滑动条*!*/
+        }
+    </style>
 
 </head>
-<body>
-
 
 <body>
 <input type="hidden" id="path" value="<%=path%>">
-<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
-    <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+<div align="center">
+
 </div>
-<div class="layui-form" action="" lay-filter="example">
-    <div class="layadmin-user-login-box layadmin-user-login-header">
-        <h2>驾校申请</h2>
+
+    <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
+        <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
     </div>
-    <div class="layui-inline" style="width:500px;">
-        <hr>
-    </div>
-    <div class="layadmin-user-login-box layadmin-user-login-header">
-        <div class="layui-form-item">
-            <label class="layui-form-label">驾校名称：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="name" id="name" required  lay-verify="title"  autocomplete="off"
-                       class="layui-input"style="width: 300px" >
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">驾校简介：</label>
-            <div class="layui-input-block">
-                <textarea name="intro" placeholder="请输入内容" id="intro" required  class="layui-textarea" style="width: 300px"></textarea>
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">驾校法人：</label>
-            <div class="layui-input-block">
-                <input type="text" name="admin" id="admin" required  lay-verify="title"  autocomplete="off"
-                       class="layui-input"style="width: 300px" >
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">驾校地址：</label>
-            <div class="layui-input-block">
-                <input type="text" name="address" id="address" required  lay-verify="title"  autocomplete="off"
-                       class="layui-input"style="width: 300px" >
-            </div>
+    <div class="layui-form" action="" lay-filter="example">
+        <div class="layadmin-user-login-box layadmin-user-login-header" style="margin-left: 50%;">
+            <h2 style="color: red">驾校申请</h2>
         </div>
         <div class="layadmin-user-login-box layadmin-user-login-header">
             <div class="layui-form-item">
-                <label class="layui-form-label">联系方式：</label>
+                <label class="layui-form-label">驾校名称：</label>
                 <div class="layui-input-inline">
-                    <input type="text"  onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" name="phone" id="phone" required  lay-verify="title"  autocomplete="off"
+                    <input type="text" name="name" id="name" required  lay-verify="title"  autocomplete="off"
                            class="layui-input"style="width: 300px" >
                 </div>
             </div>
-        </div>
-        <div class="layadmin-user-login-box layadmin-user-login-header">
-            <div class="layui-form-item">
-                <label class="layui-form-label">选择文件：</label>
-                <div class="layui-input-inline">
-                    <label type="text" id="fileName"   required  lay-verify="title"  autocomplete="off"
-                           class="layui-input"style="width: 200px" ></label>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">驾校简介：</label>
+                <div class="layui-input-block">
+                    <textarea name="intro" placeholder="请输入内容" id="intro" required  class="layui-textarea" style="width: 300px"></textarea>
                 </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">驾校法人：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="admin" id="admin" required  lay-verify="title"  autocomplete="off"
+                           class="layui-input"style="width: 300px" >
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">驾校地址：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="address" id="address" required  lay-verify="title"  autocomplete="off"
+                           class="layui-input"style="width: 300px" >
+                </div>
+            </div>
+            <div class="layadmin-user-login-box layadmin-user-login-header">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">联系方式：</label>
+                    <div class="layui-input-inline">
+                        <input type="text"  onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" name="phone" id="phone" required  lay-verify="title"  autocomplete="off"
+                               class="layui-input"style="width: 300px" >
+                    </div>
+                </div>
+            </div>
+            <div class="layadmin-user-login-box layadmin-user-login-header">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">选择文件：</label>
+                    <div class="layui-input-inline">
+                        <label type="text" id="fileName"   required  lay-verify="title"  autocomplete="off"
+                               class="layui-input"style="width: 200px" ></label>
+                    </div>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn layui-btn-normal" id="test8" style="margin-left: 10px;">选择文件</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="demoTable">
+            <div style="padding-bottom: 10px;">
                 <div class="layui-upload">
-                <button type="button" class="layui-btn layui-btn-normal" id="test8" style="margin-left: 10px;">选择文件</button>
+                    <button type="button" class="layui-btn" id="test9" style="margin-left: 50%;">上传</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="demoTable">
-        <div style="padding-bottom: 10px;">
-            <div class="layui-upload">
-                <button type="button" class="layui-btn" id="test9" style="margin-left: 160px;">上传</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 </body>
 <script>
     layui.use(['upload','jquery','element'], function(){

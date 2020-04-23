@@ -6,8 +6,8 @@
 <mapper namespace="com.great.dao.LinkMapper">
     <!--新增链接-->
     <insert id="addLink" parameterType="com.great.entity.Link">
-        insert into link (link_name, link_url, link_sort) values
-            (#{linkName}, #{linkUrl}, #{linkSort})
+        insert into link (link_name, link_url, link_sort, picture_url) values
+            (#{linkName}, #{linkUrl}, #{linkSort}, #{pictureUrl})
     </insert>
     <!--查询所有链接：这个是要显示到前台的所有数据，结果类型Link对象-->
     <select id="findAllLink" resultType="com.great.entity.Link">
@@ -15,7 +15,7 @@
     </select>
     <!--修改链接-->
     <update id="updateLink" parameterType="com.great.entity.Link">
-        update link set link_name = #{linkName},link_url= #{linkUrl},link_sort = #{linkSort} where link_id = #{linkId}
+        update link set link_name = #{linkName},link_url= #{linkUrl},link_sort = #{linkSort}, picture_url = #{pictureUrl} where link_id = #{linkId}
     </update>
     <!--删除连接-->
     <delete id="deleteLink" parameterType="com.great.entity.Link">
@@ -350,5 +350,23 @@
         limit #{minlimit} , #{maxlimit}
     </select>
 
+
+    <!-- 查询驾驶技巧通告-->
+    <select id="getNoticeDS" resultType="com.great.entity.Notice">
+        select
+        *
+        from notice
+        where type='驾驶技巧'
+        limit 0,10
+    </select>
+
+    <!-- 查询学车学堂通告-->
+    <select id="getNoticeCS" resultType="com.great.entity.Notice">
+        select
+        *
+        from notice
+        where type='学车课堂'
+        limit 0,10
+    </select>
 
 </mapper>
