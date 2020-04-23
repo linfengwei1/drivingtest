@@ -113,6 +113,12 @@ public class CoachController
 
     }
 
+    @RequestMapping("/testwelcome" )
+    public String test()
+    {
+        return "frontjsp/jsp/MessageSelect";
+    }
+
     @RequestMapping("/login" )
     public String login()
     {

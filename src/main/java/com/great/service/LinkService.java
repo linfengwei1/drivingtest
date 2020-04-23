@@ -1,10 +1,7 @@
 package com.great.service;
 
 
-import com.great.entity.Link;
-import com.great.entity.LinkUtils;
-import com.great.entity.Notice;
-import com.great.entity.School;
+import com.great.entity.*;
 
 
 import java.util.List;
@@ -23,4 +20,40 @@ public interface LinkService {
 	//查询学车学堂的通告(Car school)
 	public List<Notice> getNoticeCS();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	SchoolInfoList getSchoolInfoByPage(String curr, String shcoolName, String addr);
 }
