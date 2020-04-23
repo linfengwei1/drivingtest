@@ -315,7 +315,7 @@
     <div style="padding: 50px">
 <%--        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">驾校查询</a>--%>
 <%--        <a href="${pageContext.request.contextPath}/school/path/SchoolLogin" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit">教练查询</a>--%>
-        <a href="${pageContext.request.contextPath}/coach/welcometest" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit">信息查询</a>
+        <a href="${pageContext.request.contextPath}/coach/testwelcome" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit" style="margin-left: 400px">信息查询</a>
     </div>
 
 
