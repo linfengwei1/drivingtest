@@ -79,9 +79,6 @@ public class LinkController {
 				dateStr = simpleDateFormat.format(date);
 				String savePath = request.getSession().getServletContext().getRealPath("/images/");
 				String projectPath = savePath  + dateStr+File.separator + uuid+"." + prefix;;
-//                String filepath = "E:/JAVA/kl/src/main/resources/static/images/"+ dateStr+File.separator + uuid+"." + prefix;
-////                String filepath = "E:/JAVA/kl/src/main/resources/static/images/" + dateStr+File.separator+uuid+"." + prefix;
-//                String filepath2 = System.getProperty("user.dir") +File.separator+"src"+File.separator+"mian"+File.separator+"resources"+File.separator+"static"+File.separator+"images"+ dateStr+File.separator+uuid+"." + prefix;
 				System.out.println("projectPath=="+projectPath);
 				File files=new File(projectPath);
 				//打印查看上传路径

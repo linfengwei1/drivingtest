@@ -20,8 +20,11 @@
     <title>机动车驾驶员计时培训系统</title>
 </head>
 <body>
-<div id="header" style="background-color: white;width: 100%;height:20%">
-    <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/1.jpg" /></div>
+<div id="header" style="background-color: #f2f4f9;width: 100%;height:10%">
+    <a href="">学员登录</a>
+    <a href="">教练登录</a>
+    <a href="">驾校登录</a>
+    <a href="">交管登录</a>
 </div>
 
 <div class="layui-carousel" id="test1">
@@ -496,103 +499,12 @@
             <c:forEach items="${linkList}" var="link">
                 <a target="_blank" href="${link.linkUrl}" alt="${link.linkName}"><img
 <%--                        src="${pageContext.request.contextPath}/static/images/homepageimages/traffic_safety.jpg" width="252px" height="48px"/></a>--%>
-                src="${pageContext.request.contextPath}/static/${link.pictureUrl}" width="252px" height="48px"/></a>
+                src="${pageContext.request.contextPath}${link.pictureUrl}" width="252px" height="48px"/></a>
             </c:forEach>
         </div>
     </div>
 </div>
 
-<%--<script LANGUAGE=javascript>--%>
-<%--    function rewlink(){--%>
-<%--        if((refform.linkname.value == "")||(refform.linkurl.value == "")){--%>
-<%--            alert("关键字不能为空，")--%>
-<%--        }else{--%>
-<%--            if(refform.linkurl.value.substring(0,7).toLowerCase() == 'http://'){--%>
-<%--                return true;--%>
-<%--            }else{--%>
-<%--                alert("必须带http://");--%>
-<%--                return false;--%>
-<%--            }--%>
-<%--        }--%>
-<%--        return false;--%>
-<%--    }--%>
-<%--</script>--%>
-<%--<div id="main">--%>
-<%--    <div id="inmain">--%>
-<%--        <div id="main_head">当前位置:<strong>后台首页</strong> >； <strong>其它信息管理e5a48de588b6e799bee5baa631333337393632</strong> >； <strong>友情链接管理</strong></div>--%>
-<%--        <div id="main_text">--%>
-<%--            <form name="refform" action="../admin/LinkServlet？method=rewLink&link_id=${rew.link_id }" method="post" onSubmit="return rewlink();">--%>
-<%--                <input name="link_id" type="hidden" value="${rew.link_id }"/>--%>
-<%--                <div class="main_table">--%>
-<%--                    <dl>--%>
-<%--                        <dt>修改友情链接</dt>--%>
-<%--                        <dd class="table_style">--%>
-<%--                            <ul>--%>
-<%--                                <li style="width:150px;">描述</li>--%>
-<%--                                <li style="width:200px;"><input name="linkname" value="${rew.link_name }" type="text" class="border" /></li>--%>
-<%--                                <li></li>--%>
-<%--                            </ul>--%>
-<%--                        </dd>--%>
-<%--                        <dd class="table_style">--%>
-<%--                            <ul>--%>
-<%--                                <li style="width:150px;">链接地址</li>--%>
-<%--                                <li style="width:200px;"><input type="text" name="linkurl" value="${rew.link_url }" class="border" /></li>--%>
-<%--                                <li><span>[ 需要添加 “http://” ]</span></li>--%>
-<%--                            </ul>--%>
-<%--                        </dd>--%>
-<%--                        <dd class="table_handle">--%>
-<%--                            <ul>--%>
-<%--                                <li style="width:83px;">--%>
-<%--                                    <input type="submit" value="修改" class="bt" />--%>
-<%--                                </li>--%>
-<%--                                <li style="width:50px;">--%>
-<%--                                    <input type="reset" value="重置" class="bt" />--%>
-<%--                                </li>--%>
-<%--                            </ul>--%>
-<%--                        </dd>--%>
-<%--                    </dl>--%>
-<%--                </div>--%>
-<%--            </form>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-
-<%--<div class="layui-header">--%>
-<%--	<ul class="layui-nav layui-bg-blue" lay-filter="">--%>
-<%--	<li class="layui-nav-item"><a href="">首页</a></li>--%>
-<%--	<li class="layui-nav-item">--%>
-<%--		<a href="javascript:;">公开公示</a>--%>
-<%--		<dl class="layui-nav-child">--%>
-<%--			<dd><a href="">通知公告</a></dd>--%>
-<%--			<dd><a href="">行业动态</a></dd>--%>
-<%--			<dd><a href="">政策法规</a></dd>--%>
-<%--			<dd><a href="">曝光台</a></dd>--%>
-<%--		</dl>--%>
-<%--	</li>--%>
-<%--	<li class="layui-nav-item">--%>
-<%--		<a href="javascript:;">信息查询</a>--%>
-<%--		<dl class="layui-nav-child">--%>
-<%--			<dd><a href="">培训机构查询</a></dd>--%>
-<%--		</dl>--%>
-<%--	</li>--%>
-<%--	<li class="layui-nav-item">--%>
-<%--		<a href="javascript:;">开通服务</a>--%>
-<%--		<dl class="layui-nav-child">--%>
-<%--			<dd><a href="">学员注册</a></dd>--%>
-<%--			<dd><a href="">驾校开通申请</a></dd>--%>
-<%--		</dl>--%>
-<%--	</li>--%>
-<%--	<li class="layui-nav-item">--%>
-<%--		<a href="javascript:;">登录</a>--%>
-<%--		<dl class="layui-nav-child">--%>
-<%--			<dd><a href="">运管人员</a></dd>--%>
-<%--			<dd><a href="">驾校人员</a></dd>--%>
-<%--			<dd><a href="">教练</a></dd>--%>
-<%--			<dd><a href="">学员</a></dd>--%>
-<%--		</dl>--%>
-<%--	</li>--%>
-<%--</ul>--%>
-<%--</div>--%>
 
 
 <script>
