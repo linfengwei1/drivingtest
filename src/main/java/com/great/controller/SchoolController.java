@@ -15,7 +15,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -25,14 +30,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.List;
+import java.util.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -203,7 +211,7 @@ public class SchoolController {
     }
     //手机验证码更改密码
     @RequestMapping("/changePwdByPhone")
-    public void changePwdByPhone(SchoolAdmin schoolAdmin,HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void changePwdByPhone(SchoolAdmin schoolAdmin, HttpServletRequest request, HttpServletResponse response) throws IOException {
          String phoneMsg = (String) request.getSession().getAttribute("phoneMsg");
         System.out.println("验证码="+phoneMsg);
         System.out.println("输入的值="+schoolAdmin.getPhoneMsg());
@@ -267,7 +275,7 @@ public class SchoolController {
     //删除用户
     @RequestMapping("/deleteSchoolAdmin")
     @Log(operationType = "删除操作", operationName = "删除驾校管理员")
-    public void deleteSchoolAdmin(SchoolAdmin schoolAdmin,  HttpServletResponse response) throws IOException {
+    public void deleteSchoolAdmin(SchoolAdmin schoolAdmin, HttpServletResponse response) throws IOException {
         Integer a = schoolAdminService.deleteSchoolAdmin(schoolAdmin.getId());
         ajaxReturn(a,response);
     }
@@ -275,7 +283,7 @@ public class SchoolController {
     //更新用户信息
     @RequestMapping("/UpdateSchoolAdmin")
 //    @Log(operationType = "更新操作", operationName = "更新驾校管理员信息")
-    public void UpdateSchoolAdmin(SchoolAdmin admin,HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    public void UpdateSchoolAdmin(SchoolAdmin admin, HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         Integer a= schoolAdminService.updateSchoolAdmin(admin);
         ajaxReturn(a,response);
     }
@@ -300,7 +308,7 @@ public class SchoolController {
     public void addSchoolAdmin(SchoolAdmin admin, HttpServletRequest request, HttpServletResponse response) throws IOException {
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         admin.setSchool_state_id(3);
-        String md5 =MD5Utils.md5(admin.getPwd());
+        String md5 = MD5Utils.md5(admin.getPwd());
         admin.setSchool_id(schoolAdmin.getSchool_id());
         admin.setTime(new Date());//获取当前系统时间
         admin.setPwd(md5);
@@ -422,7 +430,7 @@ public class SchoolController {
     //删除教练
     @RequestMapping("/deleteCoach")
 //    @Log(operationType = "删除操作", operationName = "删除上传文档")
-    public void deleteCoach(Coach coach,  HttpServletResponse response) throws IOException {
+    public void deleteCoach(Coach coach, HttpServletResponse response) throws IOException {
         Integer a = schoolAdminService.deleteCount(coach.getId());
         ajaxReturn(a,response);
     }
@@ -443,7 +451,7 @@ public class SchoolController {
 
     //在教练违规处理中把教练状态改成封停
     @RequestMapping("/coachStateByStop")
-    public void coachStateByStop (Coach coach,HttpServletResponse response,HttpServletRequest request) throws IOException {
+    public void coachStateByStop (Coach coach, HttpServletResponse response, HttpServletRequest request) throws IOException {
         Integer id =Integer.valueOf(coach.getId()) ;
         Integer a=schoolAdminService.coachStateByStop(id);
         ajaxReturn(a,response); //结果返回封装
@@ -452,7 +460,7 @@ public class SchoolController {
 
     //在教练违规处理中把教练状态改成禁止报名
     @RequestMapping("/coachStateByNo")
-    public void coachStateByNo (Coach coach,HttpServletResponse response,HttpServletRequest request) throws IOException {
+    public void coachStateByNo (Coach coach, HttpServletResponse response, HttpServletRequest request) throws IOException {
         Integer id =Integer.valueOf(coach.getId()) ;
         Integer a=schoolAdminService.coachStateByNo(id);
         ajaxReturn(a,response); //结果返回封装
@@ -468,7 +476,7 @@ public class SchoolController {
           Boolean demo= IDNumber.isIDNumber(coach.getIdnumber());
           if (demo){
               coach.setCoach_state_id(4);
-              String md5 =MD5Utils.md5(coach.getPwd());
+              String md5 = MD5Utils.md5(coach.getPwd());
               coach.setPwd(md5);
               coach.setSchool_id(schoolAdmin.getSchool_id());
               Integer a= schoolAdminService.addCoach(coach);
@@ -633,7 +641,7 @@ public class SchoolController {
     //删除学员
     @RequestMapping("/deleteStudent")
 //    @Log(operationType = "删除操作", operationName = "删除上传文档")
-    public void deleteStudent(Student student,  HttpServletResponse response) throws IOException {
+    public void deleteStudent(Student student, HttpServletResponse response) throws IOException {
         Integer a = schoolAdminService.deleteStudent(student.getId());
         ajaxReturn(a,response);
     }
@@ -1056,16 +1064,19 @@ public class SchoolController {
     @RequestMapping("/findStudyTime")
     @ResponseBody
     public DateTable findStudyTime(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-       Integer id = Integer.valueOf(request.getParameter("id").trim());
-        System.out.println("学时id=="+id);
-        List<StudyCondition>list= schoolAdminService.findStudyTime(id);
-        if (list!=null){
-                dateTable.setData(list);
-                dateTable.setCode(0);
-                dateTable.setCount(4);//总条数
-                return dateTable;
-        }
+//        com.alibaba.druid.util.StringUtils.isEmpty()
+       if (null!=request.getParameter("id")&&!"".equals(request.getParameter("id").trim())){
+           Integer id = Integer.valueOf(request.getParameter("id"));
+//           Integer id = id;
+           System.out.println("学时id=="+ id);
+           List<StudyCondition>list= schoolAdminService.findStudyTime(id);
+           if (list!=null){
+               dateTable.setData(list);
+               dateTable.setCode(0);
+               dateTable.setCount(4);//总条数
+               return dateTable;
+           }
+       }
         return null;
     }
 
@@ -1095,7 +1106,7 @@ public class SchoolController {
 
     //获取驾校信息
     @RequestMapping("/updateSchoolInf")
-    public void updateSchoolInf(School school,HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void updateSchoolInf(School school, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         school.setId(schoolAdmin.getId());
@@ -1349,12 +1360,64 @@ public class SchoolController {
         }
         return null;
     }
-        //首页通知公告信息显示
-        //获取日志表格显示
+
+        //首页通知公告信息显
         @RequestMapping("/getNotice")
         @ResponseBody//ajax返回值json格式转换
         public Object getNotice() throws IOException {
             List<Notice> list =  schoolAdminService.getNotice();
             return list;
         }
+
+
+
+    //首页通知公告信息显
+    @RequestMapping("/jumpNwePage")
+    public String jumpNwePage(HttpServletRequest request) throws IOException {
+        Integer id =Integer.valueOf(request.getParameter("id")) ;
+        Notice notice =  schoolAdminService.jumpNwePage(id);
+        request.setAttribute("jumpNwePage",notice);
+//        ModelAndView mav = new ModelAndView("/frontjsp/jsp/Welcome1");//实例化ModelAndView对象，给mav对象指定名称为/frontjsp/jsp/+ 路径path
+//        if (null!=list){
+//            mav.addObject("jumpNwePage",list);
+//        }
+//            return mav;
+
+        return "frontjsp/jsp/Welcome1";
+    }
+
+
+    //模板下载
+    @RequestMapping("/downTemplate")
+    @ResponseBody//ajax返回值json格式转换
+    @Log(operationType = "下载操作", operationName = "下载文件")
+    public ResponseEntity<byte[]> downTemplate(String name , HttpServletRequest request) throws IOException {
+        String projectPath ="";
+        String suffix =name+".xlsx";
+        String savePath = request.getSession().getServletContext().getRealPath("files/");
+        if (name.equals("教练模板")){
+            projectPath = savePath  + "coach.xlsx";
+        }
+        if (name.equals("学员模板")){
+            projectPath = savePath  + "student.xlsx";
+        }
+        if (name.equals("教练车模板")){
+            projectPath = savePath  + "car.xlsx";
+        }
+
+        File file=new File(projectPath);
+        //设置HttpHeaders,使得浏览器响应下载
+        HttpHeaders headers = new HttpHeaders();
+        //为了解决中文名称乱码问题
+        String fileName=new String(suffix.getBytes("UTF-8"),"iso-8859-1");
+        //设置响应文件 attachment附件的意思
+        headers.setContentDispositionFormData("attachment", fileName);
+        //设置响应方式  APPLICATION_OCTET_STREAM 二进制流数据（如常见的文件下载）
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        //把文件以二进制形式写回
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
+                headers, HttpStatus.CREATED);
+    }
+
+
 }

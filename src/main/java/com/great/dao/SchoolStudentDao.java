@@ -6,8 +6,6 @@ import com.great.entity.Student;
 import com.great.entity.StudyCondition;
 import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +32,9 @@ public interface SchoolStudentDao
 	public Integer addStudent(Student coach);
 
 	//添加学员学时表
-	public Integer addStudyCondition(List<StudyCondition>list);
+
+	public Integer addStudyCondition(List<StudyCondition> list);
+
 
 
   	//单独插入图片
@@ -44,7 +44,9 @@ public interface SchoolStudentDao
     public List<Student> findAllStudent(Integer schoolid);
 
     //excel插入数据库
-    public Integer insertStudentByExcel(List<Student>list);
+
+    public Integer insertStudentByExcel(List<Student> list);
+
 
 	//判断excel插入的账号是否被注册
 	public String CheckAccount(String account);

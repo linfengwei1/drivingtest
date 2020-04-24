@@ -5,8 +5,9 @@ import com.great.entity.SchoolAdmin;
 import com.great.entity.TbLog;
 import com.great.service.SchoolManageService;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,9 +17,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 /**
@@ -106,7 +106,11 @@ public class SchoolSystemLogAspect {
         SchoolAdmin schoolAdmin = (SchoolAdmin) session.getAttribute("SchoolAdmin");
         TbLog log = new TbLog();
         //请求的IP
-        String ip = request.getRemoteAddr();
+
+        InetAddress addr = InetAddress.getLocalHost();
+        String ip = addr.getHostAddress();
+//        String ip = request.getRemoteAddr();
+
          try {
              //拿到类名
              String targetName = joinPoint.getTarget().getClass().getName();

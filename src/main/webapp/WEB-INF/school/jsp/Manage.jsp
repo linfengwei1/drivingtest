@@ -61,7 +61,7 @@
                     <a class="" href="javascript:;">教练车管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/SchoolCarManage" onclick="changeUrl(this)">教练车信息</a></dd>
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/upload1" onclick="changeUrl(this)">上传测试</a></dd>
+<%--                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/school/path/upload1" onclick="changeUrl(this)">上传测试</a></dd>--%>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

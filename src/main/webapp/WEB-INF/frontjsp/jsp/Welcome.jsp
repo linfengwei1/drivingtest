@@ -20,11 +20,12 @@
     <title>机动车驾驶员计时培训系统</title>
 </head>
 <body>
-<div id="header" style="background-color: #f2f4f9;width: 100%;height:10%">
-    <a href="">学员登录</a>
-    <a href="">教练登录</a>
-    <a href="">驾校登录</a>
-    <a href="">交管登录</a>
+
+<div id="header" style="background-color: #f2f4f9;width: 100%;height:5%" align="right">
+    <a href="${pageContext.request.contextPath}/student/path/StudentLogin">学员登录</a>
+    <a href="${pageContext.request.contextPath}/coach/login">教练登录</a>
+    <a href="${pageContext.request.contextPath}/school/path/SchoolLogin">驾校登录</a>
+    <a href="${pageContext.request.contextPath}/TM/login" style="margin-right: 10%;">交管登录</a>
 </div>
 
 <div class="layui-carousel" id="test1">
@@ -46,7 +47,7 @@
     </ul>
     <div class="layui-tab-content" style="width: 100%;height: auto">
         <div class="layui-tab-item layui-show">
-            <table style="margin: 0px;padding: 0px;width: 90%;height: auto">
+            <table style="margin: 0px;padding: 0px;width: 90%;height: 100%">
                 <td style="margin: 0px;padding: 0px;width: 450px;padding-right: 10px;">
                     <div class="layui-carousel" id="test2" style="left: 150px">
                         <div carousel-item>
@@ -62,47 +63,26 @@
                             <li class="layui-this">通知公告</li>
                             <li>收费明细</li>
                             <li>学驾流程</li>
-                            <li>政策解读</li>
-                            <li>曝光台</li>
+                            <li>模板下载</li>
                         </ul>
                         <div class="layui-tab-content">
                             <div class="layui-tab-item layui-show">
-                                <table class="layui-table"   lay-skin="line">
-                                    <colgroup>
-                                        <col width="250">
-                                        <col width="100">
-                                        <col width="100">
-                                    </colgroup>
-                                    <thead>
-                                    <tr>
-                                        <th >标题</th>
-                                        <th>文章来源</th>
+                                <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                    <tr style="background: #186ca4">
+                                        <th width="300px">标题</th>
+                                        <th width="100px">文章来源</th>
                                         <th>日期</th>
                                     </tr>
-                                    </thead>
-                                    <tbody class="title-png" id="body1">
-<%--                                    <tr>--%>
-<%--                                        <td >联播+丨如何成为好老师，习近平殷切寄语</td>--%>
-<%--                                        <td>汉族</td>--%>
-<%--                                        <td>1989-10-14</td>--%>
-<%--                                    </tr>--%>
-<%--                                    <tr>--%>
-<%--                                        <td>张爱玲</td>--%>
-<%--                                        <td>汉族</td>--%>
-<%--                                        <td>1920-09-30</td>--%>
-<%--                                    </tr>--%>
-<%--                                    <tr>--%>
-<%--                                        <td>Helen Keller</td>--%>
-<%--                                        <td>拉丁美裔</td>--%>
-<%--                                        <td>1880-06-27</td>--%>
-<%--                                    </tr>--%>
-<%--                                    <tr>--%>
-<%--                                        <td>岳飞</td>--%>
-<%--                                        <td>汉族</td>--%>
-<%--                                        <td>1103-北宋崇宁二年</td>--%>
-<%--                                    </tr>--%>
+                                    <c:forEach items="${model.noticeList}" var="link">
+                                        <tr style="height: 30px;background: #dadada" >
+                                            <td onclick="Jump(this)" title="${link.id}">${link.title}</td>
+                                            <td align="center">${link.type}</td>
+                                            <td align="center"><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${link.time}" /></td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
+                                <%--                                <div align="right">查看更多>>></div>--%>
                             </div>
                             <div class="layui-tab-item">
                                 <table class="layui-table"   lay-skin="line">
@@ -146,7 +126,12 @@
                             <div class="layui-tab-item">
                                 <img src="${pageContext.request.contextPath}/static/images/homepageimages/home_logo3.png" />
                             </div>
-                            <div class="layui-tab-item">内容4</div>
+                            <div class="layui-tab-item">
+                                <a >驾校申请模板</a><br>
+                                <a href="${pageContext.request.contextPath}/school/downTemplate?name=教练模板">教练申请模板</a><br>
+                                <a href="${pageContext.request.contextPath}/school/downTemplate?name=学员模板">学员申请模板</a><br>
+                                <a href="${pageContext.request.contextPath}/school/downTemplate?name=教练车模板">教练车申请模板</a>
+                            </div>
                             <div class="layui-tab-item">内容5</div>
                         </div>
                     </div>
@@ -186,15 +171,15 @@
                                                                 <tr>
                                                                     <td>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-	                                                                        <c:if test="${not empty noticeCS}">
-		                                                                        <c:forEach items="${noticeCS}"  var="cs">
+	                                                                        <c:if test="${not empty model}">
+		                                                                        <c:forEach items="${model.noticeCS}"  var="cs">
                                                                                     <tr  bgcolor='#f4f4f4'>
-                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title=${cs.title}>${cs.title}</a></td>
+                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">${cs.title}</a></td>
                                                                                         <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${cs.time}" /></td>
                                                                                     </tr>
                                                                                 </c:forEach>
 	                                                                        </c:if>
-	                                                                        <c:if test="${empty noticeCS}">
+	                                                                        <c:if test="${empty model}">
 		                                                                        暂无消息
 	                                                                        </c:if>
 
@@ -225,15 +210,15 @@
                                                                 <tr>
                                                                     <td>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <c:if test="${not empty noticeDS}">
-                                                                                <c:forEach items="${noticeDS}"  var="ds">
+                                                                            <c:if test="${not empty model}">
+                                                                                <c:forEach items="${model.noticeDS}"  var="ds">
                                                                                     <tr  bgcolor='#f4f4f4'>
-                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title=${ds.title}>${ds.title}</a></td>
+                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">${ds.title}</a></td>
                                                                                         <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${ds.time}" /></td>
                                                                                     </tr>
                                                                                 </c:forEach>
                                                                             </c:if>
-                                                                            <c:if test="${empty noticeDS}">
+                                                                            <c:if test="${empty model}">
                                                                                 暂无消息
                                                                             </c:if>
 
@@ -271,25 +256,10 @@
 <%--                    <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/4.PNG"/></a>--%>
 <%--                </div>--%>
     <div style="padding: 50px">
-<%--        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">驾校查询</a>--%>
-<%--        <a href="${pageContext.request.contextPath}/school/path/SchoolLogin" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit">教练查询</a>--%>
         <a href="${pageContext.request.contextPath}/coach/testwelcome" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit" style="margin-left: 400px">信息查询</a>
     </div>
 
-
-<%--                <div class="layui-card-header">柱形图</div>--%>
-<%--                <div class="layui-card-body">--%>
-<%--                    <div id="EchartZhu" style="width: 500px;height: 300px;"></div>--%>
-<%--                </div>--%>
             </div>
-<%--            <a href="${pageContext.request.contextPath}/coach/testwelcome" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">进入查询</a>--%>
-<%--            <ul id="selectParent" class="layui-tab-title" style="float: left;width: 150px;height: 200px;top: 45px;">--%>
-<%--                <li onclick="selectSchInfoJump();" class="layui-this">查驾培机构</li>--%>
-<%--                <li id="selectTwo" onclick="selectCoaInfoJump();">查教练员</li>--%>
-<%--                <li id="selectThree" onclick="selectVueInfoJump();">查教练车</li>--%>
-<%--            </ul>--%>
-
-
 <%--            <div class="layui-card">--%>
 <%--                <div class="layui-card-header">柱形图</div>--%>
 <%--                <div class="layui-card-body">--%>
@@ -639,17 +609,25 @@
 </div>
 
 <%--友情链接--%>
-<div class="footer" align="center" style="background-color: #0a76a4">
+<div class="footer" align="center" style="background-color: #0a76a4;padding-bottom: 0px;">
     <div class="footer-box">
         <div class="footer-friend">
-            <c:forEach items="${linkList}" var="link">
+            <c:forEach items="${model.linkList}" var="link">
                 <a target="_blank" href="${link.linkUrl}" alt="${link.linkName}"><img
-<%--                        src="${pageContext.request.contextPath}/static/images/homepageimages/traffic_safety.jpg" width="252px" height="48px"/></a>--%>
-                src="${pageContext.request.contextPath}${link.pictureUrl}" width="252px" height="48px"/></a>
+                        src="${pageContext.request.contextPath}/static${link.pictureUrl}" width="252px" height="48px"/></a>
             </c:forEach>
         </div>
     </div>
 </div>
+
+<div align="center" style="background-color: #0a76a4">
+    <p class="footer-p">导航链接</p>
+    <ul class="footer-orther" style="">
+        <li><a target="_blank" href="http://www.jpxcw.com/">全国驾驶培训公共服务平台</a></li>
+        <li><a target="_blank"  href="http://www.bjmcn.com">交通运输通信信息集团有限公司</a></li>
+    </ul>
+</div>
+
 
 	<script>
     //JavaScript代码区域
@@ -1009,16 +987,7 @@
                 roseType: 'angle',//南丁格尔玫瑰图样式  去掉则显示基本圆饼图
                 radius : '55%',
                 data : obArr1
-                // data:[
-                //     {value: 10, name: 'rose1'},
-                //     {value: 5, name: 'rose2'},
-                //     {value: 15, name: 'rose3'},
-                //     {value: 25, name: 'rose4'},
-                //     {value: 20, name: 'rose5'},
-                //     {value: 35, name: 'rose6'},
-                //     {value: 30, name: 'rose7'},
-                //     {value: 40, name: 'rose8'}
-                // ]
+
             } ]
         };
         myChart2.setOption(option);
@@ -1046,46 +1015,16 @@
         });
     });
 
-    //获取前台通知公告
-    $(function() {
-        $.ajax({
-            async:true,
-            method : "POST",
-            url :"${pageContext.request.contextPath}/school/getNotice",
-            dataType : "text",
-            success : function(msg) {
-                var arr = JSON.parse(msg);
-                var tbody = document.getElementById('body1');
-                for(var i = 0;i < arr.length; i++){ //遍历一下json数据  
-                    var trow = getDataRow(arr[i]); //定义一个方法,返回tr数据  
-                    console.log("trow=="+trow)
-                    tbody.appendChild(trow);
-                }  
-            },
-            error : function() {
-                alert("服务器正忙");
-            }
-        });
-    })
-    function getDataRow(h) {
-        var row = document.createElement('tr'); //创建行  
 
-        var idCell = document.createElement('td'); //创建第一列id 
-        idCell.innerHTML = h.title; //填充数据  
-        row.appendChild(idCell); //加入行  ，下面类似  
 
-        var nameCell = document.createElement('td');//创建第二列name  
-        nameCell.innerHTML = h.type;
-        row.appendChild(nameCell);
+    //首页新闻页面跳转
+    function Jump(node) {
+        var REPORTID = $(node).attr('title');
+        window.location.href="${pageContext.request.contextPath}/school/jumpNwePage?id="+REPORTID
+        console.log("REPORTID="+REPORTID)
 
-        var jobCell = document.createElement('td');//创建第三列job  
-        jobCell.innerHTML = h.time;
-        row.appendChild(jobCell);
-
-        return row; //返回tr数据
     }
 
 </script>
 </body>
 </html>
-

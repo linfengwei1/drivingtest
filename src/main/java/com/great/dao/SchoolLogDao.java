@@ -1,7 +1,10 @@
 package com.great.dao;
 
 
-import com.great.entity.*;
+
+import com.great.entity.SchoolAdmin;
+import com.great.entity.TableUtils;
+import com.great.entity.TbLog;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -208,7 +208,13 @@
 
     <!--首页通知公告信息显示-->
     <select id="getNotice"  resultType="Notice" >
-        SELECT * FROM notice where type = "全员通知" limit 0,5
+
+        SELECT * FROM notice where type = "全员通知" ORDER BY time desc limit 0,5
+    </select>
+
+    <!--首页通知公告信息显示-->
+    <select id="jumpNwePage"  resultType="Notice" parameterType="java.lang.Integer" >
+        SELECT * FROM notice where id = #{id}
     </select>
 
 
