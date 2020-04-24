@@ -2,7 +2,6 @@ package com.great.service;
 
 import com.great.dao.*;
 import com.great.entity.*;
-
 import com.great.utils.ExportExcelSeedBack;
 import com.great.utils.SchoolFaceRecognitionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,8 @@ public class SchoolManageService {
     private SchoolCarDao schoolCarDao;
     @Resource
     private SchoolLogDao schoolLogDao;
+
+
     @Autowired
     private School school;
     private Object image;
@@ -552,4 +553,9 @@ public class SchoolManageService {
         return schoolAdminDao.getNotice();
     }
 
+
+    //首页通知公告信息跳转到详情页
+    public Notice jumpNwePage(Integer id){
+        return schoolAdminDao.jumpNwePage(id);
+    }
 }

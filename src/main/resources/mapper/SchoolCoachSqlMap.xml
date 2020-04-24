@@ -143,6 +143,11 @@
 		select * from coach where account = #{account} and pwd = #{pwd}
 	</select>
 
+    <!--查询教练信息-->
+    <select id="CoachInf" resultMap="Coach" parameterType="com.great.entity.TableUtils">
+		select * from coach where id = #{coach_id}
+	</select>
+
     <!--查询学生评论-->
     <select id="findStudentEvaluation" parameterType="com.great.entity.TableUtils" resultMap="evaCoach">
         select *

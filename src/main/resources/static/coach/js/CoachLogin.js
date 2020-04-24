@@ -13,13 +13,15 @@ layui.use(['form','jquery'],  function(){
                 // layer.msg(data);
                 console.log("data="+data)
                 if ("success"==data){
-                    location.href=path+"/coach/path/back"
+                    layer.alert("欢迎",{icon:6},function () {
+                        location.href=path+"/coach/path/back"
+                    });
                 }else if ("yzm"==data) {
                     layer.alert("验证码错误",{icon:3},function () {
                         window.location.reload();
                     });
                 }else {
-                    layer.alert("密码错误",{icon:3},function () {
+                    layer.alert("账号异常或密码错误！",{icon:3},function () {
                         window.location.reload();
                     });
                 }

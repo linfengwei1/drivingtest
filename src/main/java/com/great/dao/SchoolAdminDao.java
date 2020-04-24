@@ -82,4 +82,9 @@ public interface SchoolAdminDao
 
 	//首页通知公告信息显示
 	public List<Notice> getNotice();
+
+
+	//首页通知公告信息跳转到详情页
+	public Notice jumpNwePage(Integer id);
+
 }

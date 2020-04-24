@@ -3,7 +3,6 @@ package com.great.dao;
 
 import com.great.entity.Coach;
 import com.great.entity.CoachCar;
-import com.great.entity.Student;
 import com.great.entity.TableUtils;
 import org.apache.ibatis.annotations.Mapper;
 

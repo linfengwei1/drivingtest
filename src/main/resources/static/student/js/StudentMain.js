@@ -1,7 +1,6 @@
 ﻿function getStudentState(subject) {
 
-	layui.use(['layer','$'], function () {
-	var $ = layui.$; //重点处
+	layui.use(['layer'], function () {
 	var studentId = $("#studentid").val();
 	var path = $("#path").val();
 	console.log(path);
