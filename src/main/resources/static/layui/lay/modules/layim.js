@@ -193,7 +193,7 @@ layui.define(['layer', 'laytpl', 'upload'], function(exports){
         ,listTpl({
           type: "friend"
           ,item: "item.list"
-          ,index: "index"
+          ,index: "static.student.css.index"
         })
         ,'</ul>'
       ,'</li>'
@@ -510,7 +510,7 @@ layui.define(['layer', 'laytpl', 'upload'], function(exports){
     //自定义历史会话右键菜单
     layimMain.find('.layim-list-history').on('contextmenu', 'li', function(e){
       var othis = $(this);
-      var html = '<ul data-id="'+ othis[0].id +'" data-index="'+ othis.data('index') +'"><li layim-event="menuHistory" data-type="one">移除该会话</li><li layim-event="menuHistory" data-type="all">清空全部会话列表</li></ul>';
+      var html = '<ul data-id="'+ othis[0].id +'" data-index="'+ othis.data('static.student.css.index') +'"><li layim-event="menuHistory" data-type="one">移除该会话</li><li layim-event="menuHistory" data-type="all">清空全部会话列表</li></ul>';
       
       if(othis.hasClass('layim-null')) return;
       
@@ -1528,7 +1528,7 @@ layui.define(['layer', 'laytpl', 'upload'], function(exports){
     //弹出聊天面板
     ,chat: function(othis){
       var local = layui.data('layim')[cache.mine.id] || {};
-      var type = othis.data('type'), index = othis.data('index');
+      var type = othis.data('type'), index = othis.data('static.student.css.index');
       var list = othis.attr('data-list') || othis.index(), data = {};
       if(type === 'friend'){
         data = cache[type][index].list[list];
@@ -1833,7 +1833,7 @@ layui.define(['layer', 'laytpl', 'upload'], function(exports){
 
       if(type === 'one'){
         var history = local.history;
-        delete history[parent.data('index')];
+        delete history[parent.data('static.student.css.index')];
         local.history = history;
         layui.data('layim', {
           key: cache.mine.id
