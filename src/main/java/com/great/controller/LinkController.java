@@ -35,9 +35,13 @@ public class LinkController {
     @RequestMapping("/path/{url}") // 访问路径的路口：path/{url是作为参数PathVariable路径变量}
     public ModelAndView getUrl(@PathVariable(value = "url") String path) {
         List<Link> linkList = linkService.findAllLink();//调用查询所有友情链接数据接口，得到友情链接数据列表linkList
+	    List<Notice> noticeDS = linkService.getNoticeDS();//获取前台驾驶技巧通告
+	    List<Notice> noticeCS = linkService.getNoticeCS();//获取学车课堂通告
         ModelAndView mav = new ModelAndView("/frontjsp/jsp/" + path);//实例化ModelAndView对象，给mav对象指定名称为/frontjsp/jsp/+ 路径path
         mav.addObject("linkList", linkList);//将友情链接数据列表linkList添加到mav对象里面；
-        return mav;//返回给前端数据信息为 mav对象
+	    mav.addObject("noticeDS",noticeDS);//将前台驾驶技巧通告添加到mav对象里
+	    mav.addObject("noticeCS",noticeCS);//学车课堂通告添加到mav对象里
+	    return mav;//返回给前端数据信息为 mav对象
     }
 
 //	/**
