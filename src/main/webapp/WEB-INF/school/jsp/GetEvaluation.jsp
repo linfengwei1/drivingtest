@@ -17,7 +17,7 @@
 <input type="hidden" id="path" value="<%=path%>">
 <form class="layui-form" onsubmit="return false" >
 <div style="clear: left;padding-top: 10px;margin-left: 25%">
-    <label class="layui-form-label" >评价时间1</label>
+    <label class="layui-form-label" >评价时间</label>
     <div class="layui-inline">
         <input class="layui-input" type="date" name="time1" id="time1" autocomplete="off">
     </div>
@@ -44,11 +44,11 @@
         //第一个实例
         table.render({
             elem: '#dataTable'
-            , height: 280
+            , height: 450
             , url: path + '/school/getEvaluation' //数据接口
             , page: true //开启分页
             , id: 'searchTable'
-            , limit: 5
+            , limit: 10
             , limits: [5, 10, 15, 20]
             , cols: [[ //表头
                   {field: 'id', title: 'ID', width: 120, sort: true, fixed: 'left', align: 'center'}

@@ -73,18 +73,18 @@
             //第一个实例
             table.render({
                 elem: '#dataTable'
-                , height: 280
+                , height: 450
                 , url: path + '/school/LogTable' //数据接口
                 , page: true //开启分页
                 , id: 'searchTable'
-                ,toolbar: 'true' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-                , limit: 5
+                // ,toolbar: 'true' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                , limit: 10
                 , limits: [5, 10, 15, 20]
                 , cols: [[ //表头
                     {field: 'id', title: '日志ID', width: 120, sort: true, fixed: 'left', align: 'center'}
                     , {field: 'name', title: '操作者', width: 100, align: 'center'}
                     , {field: 'type', title: '操作事件', width: 180, sort: true, align: 'center'}
-                    , {field: 'content', title: '操作内容', width: 120, sort: true, align: 'center'}
+                    , {field: 'content', title: '操作内容', width: 200, sort: true, align: 'center'}
                     , {field: 'datetime', title: '操作时间', width: 160, sort: true,align: 'center',templet: "<div>{{layui.util.toDateString(d.datetime, 'yyyy-MM-dd HH:mm:ss')}}</div>"}
                     , {field: 'ip', title: 'ip地址', width: 130, sort: true, align: 'center'}
                     // , {field: '', title: '操作', toolbar: "#butdiv", width: 200, align: 'center'}

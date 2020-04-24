@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>驾校后台管理系统</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
+    <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body class="layui-layout-body">
@@ -26,10 +27,10 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    ${transportation.name}
+                    ${SchoolAdmin.name}
                 </a>
             </li>
-            <li class="layui-nav-item"><a href="<%=request.getContextPath()%>/school/deleteAdmin">退出</a></li>
+            <li class="layui-nav-item"><a id="close" >退出</a></li>
         </ul>
     </div>
 
@@ -108,6 +109,17 @@
         console.log(node.title);
         document.getElementById("ifram_div_iframe").src=node.title;
     }
+
+    $(function () {
+        $("#close").click(function () {
+            layui.use(['layer'], function () {
+                layer.confirm('您确定要退出吗?', {icon: 3, title:'提示'}, function(index){
+                    window.location.href ="${pageContext.request.contextPath}/school/deleteAdmin";
+                })
+            })
+
+        })
+    })
 </script>
 </body>
 </html>
