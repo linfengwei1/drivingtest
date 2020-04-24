@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.great.dao.IStudentDao">
+
+	<resultMap id="studentMap" type="Student">
+		<!-- 主键字段的对应 -->
+		<id property="id" column="id"></id>
+		<!--非主键字段的对应-->
+		<result property="account" column="account"></result>
+		<result property="name" column="name"></result>
+		<result property="pwd" column="pwd"></result>
+		<result property="sex" column="sex"></result>
+		<result property="age" column="age"></result>
+		<result property="idNumber" column="idnumber"></result>
+		<result property="phone" column="phone"></result>
+		<result property="student_state_id" column="student_state_id"></result>
+		<result property="school_id" column="school_id"></result>
+		<result property="coach_id" column="coach_id"></result>
+		<result property="identity_state" column="identity_state"></result>
+		<association property="school"
+					 select="selectSchoolById"
+					 column="school_id">
+		</association>
+		<association property="coach"
+					 select="selectCoachById"
+					 column="coach_id">
+		</association>
+	</resultMap>
+
+
+	<resultMap id="coachMap" type="com.great.entity.Coach">
+		<result column="coach_state_id" property="coach_state_id"></result>
+		<result column="school_id" property="school_id"></result>
+		<result column="audit_results" property="audit_results"></result>
+	</resultMap>
+	<resultMap id="schoolMap" type="com.great.entity.School">
+		<result column="school_state_id" property="school_state_id"></result>
+		<result column="audit_results" property="audit_results"></result>
+	</resultMap>
+	<resultMap id="evaSchoolMap" type="com.great.entity.EvaluationToSchool">
+		<result column="school_id" property="school_id"></result>
+	</resultMap>
+	<resultMap id="evaCoach" type="com.great.entity.EvaluationToCoach">
+		<result column="coachid" property="coachId"></result>
+	</resultMap>
+
+
+	<resultMap id="studyConditionMap" type="StudyCondition">
+<!--		<id property="id" column="id"></id>-->
+		<!--非主键字段的对应-->
+		<result property="id" column="id"></result>
+		<result property="student_id" column="student_id"></result>
+		<result property="subject_id" column="subject_id"></result>
+		<result property="score" column="score"></result>
+		<result property="time" column="time"></result>
+		<result property="practise_score" column="practise_score"></result>
+<!--		<association property="score" javaType="int" column="{student_id=student_id,subject_id=subject_id}" select="getScoreById"/>-->
+	</resultMap>
+	<resultMap id="scoreMap" type="Score">
+<!--		<id property="id" column="id"></id>-->
+		<!--非主键字段的对应-->
+		<result property="subject" column="name"></result>
+		<result property="examTime" column="datetime"></result>
+		<result property="score" column="score"></result>
+	</resultMap>
+
+
+	<resultMap id="questionMap" type="Question">
+		<!-- 主键字段的对应 -->
+		<id property="id" column="iid"></id>
+	</resultMap>
+
+
+	<select id="login" resultMap="studentMap" parameterType="java.util.HashMap">
+		select * from student where account = #{account} and pwd = #{pwd}
+	</select>
+
+	<select id="selectSchoolById" resultMap="schoolMap" parameterType="int">
+		select * from school where id = #{id}
+	</select>
+	<select id="selectCoachById" resultMap="coachMap" parameterType="int">
+		select * from coach where id = #{id}
+	</select>
+
+
+	<select id="getStudentState" resultType="int">
+		select student_state_id from student where id = #{studentId}
+	</select>
+
+	<select id="checkStudyAuthority" resultType="int" parameterType="java.util.HashMap">
+		select time from studycondition where student_id = #{studentId} and subject_id = #{subject}
+	</select>
+	<select id="getPractiseScoreById" resultType="int" parameterType="java.util.HashMap">
+		select ifnull(practise_score,0) from studycondition where student_id = #{studentId} and subject_id = #{subject}
+	</select>
+	<select id="checkReapSignUp" resultType="int" >
+		select count(*) from signuprecord where studentid = #{studentId} and subjectid = #{subject} and  date_format(now(), '%Y-%m-%d') = date_format(time, '%Y-%m-%d')
+	</select>
+	<select id="getTimeDiff" resultType="int" >
+		select TIMESTAMPDIFF(HOUR,time,now()) from signuprecord where studentid = #{studentId} and subjectid = #{subject} and date_format(now(), '%Y-%m-%d') = date_format(time, '%Y-%m-%d')	</select>
+	<select id="getStudyConditionById" resultMap="studyConditionMap" >
+		select s.id,s.practise_score,IFNULL(sc.score,0) as score,s.student_id,s.subject_id,s.time  from
+		(select * from studycondition where student_id = #{studentId}) as s LEFT JOIN score as sc
+		on s.subject_id = sc.subject_id and sc.student_id = s.student_id
+	</select>
+
+	<select id="getAllEvaForSchool" resultMap="evaSchoolMap" >
+		select * from evaluation where school_id = ${school_id}
+	</select>
+	<select id="getAllEvaForCoach" resultMap="evaCoach" >
+		select * from evaluationforcoach where coachid = ${coachId}
+	</select>
+
+
+
+
+
+	<select id="getMyScore" resultMap="scoreMap" >
+		select s.name,t.datetime,sc.score from time as t,score as sc,appoint_time_relation as a,`subject` as s
+		where sc.student_id = #{studentId} and sc.appoint_time_relation_id =  a.id and a.time_id=t.id and sc.subject_id = s.id
+	</select>
+	<select id="getOrderTime" resultType="ExamOrder">
+		select s.name as subject,t.datetime as ordertime,a.appoint_state_id as status from `subject` as s,appoint_time_relation as a,time t
+		where a.student_id = #{studentId}
+		and a.time_id = t.id
+		and t.subject_id = s.id
+	</select>
+<!--	用于关联查询成绩，保证每次查出最新成绩-->
+	<select id="getScoreById" resultType="int">
+		select score from score where student_id = #{studentId} and subject_id = #{subject}
+	</select>
+
+	<select id="getChoicesBySubject_1" resultMap="questionMap">
+		SELECT
+    		*
+		FROM
+    		question1
+		WHERE
+			id >= (
+				SELECT
+					floor(
+						RAND() * (SELECT MAX(id) FROM question1)
+					)
+			)
+		and
+		type = 1
+		ORDER BY
+    		id
+		LIMIT 80;
+	</select>
+	<select id="getjudgesBySubject_1" resultMap="questionMap">
+		SELECT
+    		*
+		FROM
+    		question1
+		WHERE
+			id >= (
+				SELECT
+					floor(
+						RAND() * (SELECT MAX(id) FROM question1)
+					)
+			)
+		and
+		type = 2
+		ORDER BY
+    		id
+		LIMIT 20;
+	</select>
+	<select id="getChoicesBySubject_4" resultMap="questionMap">
+		SELECT
+    		*
+		FROM
+    		question4
+		WHERE
+			id >= (
+				SELECT
+					floor(
+						RAND() * (SELECT MAX(id) FROM question4)
+					)
+			)
+		and
+		type = 1
+		ORDER BY
+    		id
+		LIMIT 80;
+	</select>
+	<select id="getjudgesBySubject_4" resultMap="questionMap">
+		SELECT
+    		*
+		FROM
+    		question4
+		WHERE
+			id >= (
+				SELECT
+					floor(
+						RAND() * (SELECT MAX(id) FROM question4)
+					)
+			)
+		and
+		type = 2
+		ORDER BY
+    		id
+		LIMIT 20;
+	</select>
+	<select id="getWrongQuestion_1byStudentId" resultMap="questionMap">
+		select * from question1 where iid in(select DISTINCT qid from wrongquestion1 where studentid = #{studentId})
+	</select>
+	<select id="getWrongQuestion_4byStudentId" resultMap="questionMap">
+		select * from question4 where iid in(select DISTINCT qid from wrongquestion4 where studentid = #{studentId})
+	</select>
+
+
+	<select id="getTest_1Score" resultType="int">
+		SELECT  count(*) from question1
+		WHERE (iid,answer) in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			(#{item.id},#{item.answer})
+		</foreach>
+	</select>
+	<select id="getTest_4Score" resultType="int">
+		SELECT count(*) from question4
+		WHERE (iid,answer) in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			(#{item.id},#{item.answer})
+		</foreach>
+	</select>
+
+	<update id="updatePwd">
+		update student set pwd = #{pwd} where id = #{id}
+	</update>
+
+	<delete id="delWrongQuestion1">
+		DELETE from wrongquestion1 where qid = #{qid} and studentid = #{studentId}
+	</delete>
+	<delete id="delWrongQuestion4">
+		DELETE from wrongquestion4 where qid = #{qid} and studentid = #{studentId}
+	</delete>
+	<update id="addStudy1Time">
+		update studycondition set time = time +1 where student_id = #{studentId} and subject_id = #{subject}
+	</update>
+	<update id="addStudyTime">
+		update studycondition set time = time +1 where student_id = #{studentId} and subject_id = #{subject}
+	</update>
+	<update id="setStudentIsIdentified">
+		update student set identity_state = 1 where id = #{studentId}
+	</update>
+	<update id="changeStudentState">
+		update student set student_state_id = #{stateId} where id = #{studentId}
+	</update>
+	<update id="updatePractiseScore">
+		update studycondition set practise_score = #{score} where student_id = #{studentId}
+	</update>
+	<update id="setStage">
+		update student set student_state_id = #{stage} where id = #{studentId}
+	</update>
+
+	<insert id="addSignUpRecord">
+		insert into signuprecord(studentid,subjectid,time) values (#{studentId},#{subject},#{time})
+	</insert>
+	<insert id="addEvaForSchool">
+		insert into evaluation(content,time,school_id) values (#{content},now() ,#{school_id})
+	</insert>
+	<insert id="addEvaForCoach">
+		insert into evaluationforcoach(content,time,coachid) values (#{content},now() ,#{coachId})
+	</insert>
+	<insert id="addWrongQuestion1">
+		insert into wrongquestion1
+		(qid,studentid)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item},
+			#{studentId}
+			)
+		</foreach>
+	</insert>
+	<insert id="addWrongQuestion4">
+		insert into wrongquestion4
+		(qid,studentid)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item},
+			#{studentId}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="insertLog" parameterType="com.great.aoplog.SystemLog">
+		insert into log(
+			 name
+			,type
+			,content
+			,datetime
+			,ip
+			,school_id
+			,exceptioncode
+			,exceptionDetail
+			,account
+			,method
+		)values(
+			 #{createBy}
+			,#{logType}
+			,#{description}
+			,#{createDate}
+			,#{requestIp}
+			,#{schoolId}
+			,#{exceptioncode}
+			,#{exceptionDetail}
+			,#{account}
+			,#{method}
+		)
+
+	</insert>
+
+	<update id="updateOrderStatus">
+			update student
+			<set>
+				hasordered=0
+			</set>
+			where id = #{studentId}
+	</update>
+
+
+<!--	<resultMap id="menuMap" type="TreeData">-->
+<!--		<id property="id" column="id"></id>-->
+<!--		<result property="title" column="name"></result>-->
+<!--		<result property="href" column="url"></result>-->
+
+<!--		&lt;!&ndash; 配置user对象中accounts集合的映射 &ndash;&gt;-->
+<!--		<collection property="children" ofType="TreeData" column="{id=id,roleid=roleid}" select="getMenuChildren"/>-->
+<!--	</resultMap>-->
+
+<!--	<resultMap id="fileMap" type="File">-->
+<!--		<id property="id" column="id"></id>-->
+<!--		<result property="fileName" column="filename"></result>-->
+<!--		<result property="uid" column="uid"></result>-->
+<!--		<result property="uploadTime" column="uploadtime" jdbcType="TIMESTAMP"></result>-->
+<!--		<result property="times" column="times"></result>-->
+<!--		<result property="styleId" column="styleid"></result>-->
+<!--		<result property="score" column="score"></result>-->
+<!--		<result property="styleName" column="name"></result>-->
+<!--		<result property="uname" column="uname"></result>-->
+<!--	</resultMap>-->
+<!--	<resultMap id="menuMap2" type="TreeData">-->
+<!--		<id property="id" column="id"></id>-->
+<!--		<result property="title" column="name"></result>-->
+<!--		<result property="href" column="url"></result>-->
+
+<!--		&lt;!&ndash; 配置user对象中accounts集合的映射 &ndash;&gt;-->
+<!--		<collection property="children" ofType="TreeData" column="id" select="getAllMenuChildren"/>-->
+<!--	</resultMap>-->
+<!--&lt;!&ndash;找出根节点菜单&ndash;&gt;-->
+<!--	<select id="findAllRecursion" resultMap="menuMap" parameterType="int">-->
+<!--     	SELECT r.roleid,m.id,m.name,m.url-->
+<!--        FROM-->
+<!--            menu m,role_menu r-->
+<!--        WHERE-->
+<!--            m.pid =0 and r.menuid = m.id and r.roleid = #{roleid}-->
+<!--    </select>-->
+<!--&lt;!&ndash;递归查询子菜单&ndash;&gt;-->
+<!--	<select id="getMenuChildren" resultMap="menuMap">-->
+<!--      SELECT-->
+<!--             r.roleid,m.id,m.name,m.url-->
+<!--        FROM-->
+<!--            menu m,role_menu r-->
+<!--        WHERE-->
+<!--            m.pid= #{id}  and r.roleid = #{roleid} and m.id in(select menuid from role_menu where roleid = #{roleid}) and m.id=r.menuid-->
+<!--    </select>-->
+<!--&lt;!&ndash;找出根节点菜单&ndash;&gt;-->
+<!--	<select id="findAllMenu" resultMap="menuMap2" parameterType="int">-->
+<!--     	SELECT m.id,m.name,m.url-->
+<!--        FROM-->
+<!--            menu m-->
+<!--        WHERE-->
+<!--            m.pid =0-->
+<!--    </select>-->
+<!--&lt;!&ndash;递归查询子菜单&ndash;&gt;-->
+<!--	<select id="getAllMenuChildren" resultMap="menuMap2">-->
+<!--      SELECT-->
+<!--             m.id,m.name,m.url-->
+<!--        FROM-->
+<!--            menu m-->
+<!--        WHERE-->
+<!--            m.pid= #{id}-->
+<!--    </select>-->
+
+<!--    <delete id="delUser" parameterType="int">-->
+<!--        delete from user-->
+<!--        where uid = #{uid}-->
+<!--    </delete>-->
+
+
+<!--&lt;!&ndash;	<select id="findById"parameterType="java.lang.Integer" resultMap=""></select>&ndash;&gt;-->
+
+
+<!--    <select id="findByUid" resultType="com.great.entity.User" parameterType="int">-->
+<!--		select * from user where uid = #{uid}-->
+<!--	</select>-->
+
+<!--    <select id="findMenuByPid" resultType="com.great.entity.Menu" parameterType="int">-->
+<!--		select * from menu where id in (select distinct  m.pid from menu m where m.id in (select id from role_menu where roleid = #{roleid}))-->
+<!--	</select>-->
+<!--	<select id="getMenuById" resultType="com.great.entity.Menu"  parameterType="java.util.HashMap">-->
+<!--		select m.* from menu m,role_menu r where r.roleid=#{roleid} and r.menuid=m.id and m.pid=#{id}-->
+<!--	</select>-->
+
+<!--    <select id="login" resultType="com.great.entity.User" parameterType="java.util.HashMap">-->
+<!--		select * from user where uname = #{uname} and pwd = #{pwd}-->
+<!--	</select>-->
+<!--    <select id="findAll" resultType="com.great.entity.User">-->
+<!--		select * from user-->
+<!--		<where>-->
+<!--			<if test="uname != null and uname != ''">-->
+<!--				uname like CONCAT('%', #{uname},'%')-->
+<!--			</if>-->
+
+<!--			<if test="pwd != null and pwd != ''">-->
+<!--				pwd like CONCAT('%', #{pwd},'%')-->
+<!--			</if>-->
+<!--		</where>-->
+<!--		limit #{beg},#{end}-->
+<!--	</select>-->
+
+
+<!--    <select id="findAllFile" resultMap="fileMap">-->
+<!--		SELECT f.*,s.name,s.score, u.uname from fiel as f,style as s ,user u where f.styleid = s.id and f.uid = u.uid-->
+<!--		limit #{beg},#{end}-->
+<!--	</select>-->
+
+
+<!--    <select id="findCount" resultType="int">-->
+<!--		select count(*) from user-->
+<!--		<where>-->
+<!--			<if test="uname != null and uname != ''">-->
+<!--				uname like CONCAT('%', #{uname},'%')-->
+<!--			</if>-->
+
+<!--			<if test="pwd != null and pwd != ''">-->
+<!--				pwd like CONCAT('%', #{pwd},'%')-->
+<!--			</if>-->
+<!--		</where>-->
+<!--	</select>-->
+<!--    <select id="findFileCount" resultType="int">-->
+<!--		select count(*) from fiel-->
+<!--	</select>-->
+
+
+
+<!--	&lt;!&ndash;    <select id="findAllForMap" resultType="java.util.HashMap">&ndash;&gt;-->
+<!--&lt;!&ndash;		select deptno, dname, loc from g_dept&ndash;&gt;-->
+<!--&lt;!&ndash;	</select>&ndash;&gt;-->
+
+<!--    <insert id="addUser" parameterType="com.great.entity.User">-->
+<!--		insert into user(-->
+<!--			 uname-->
+<!--			,pwd-->
+<!--		)values(-->
+<!--			 #{uname}-->
+<!--			,#{pwd}-->
+<!--		)-->
+<!--	</insert>-->
+<!--    <insert id="reg" parameterType="java.util.HashMap">-->
+<!--		insert into user(-->
+<!--			 uname-->
+<!--			,pwd-->
+<!--		)values(-->
+<!--			 #{uname}-->
+<!--			,#{pwd}-->
+<!--		)-->
+<!--	</insert>-->
+<!--    <insert id="insertMenuByRoleId" parameterType="java.util.HashMap">-->
+<!--		insert into role_menu(-->
+<!--			 roleid-->
+<!--			,menuid-->
+<!--		)values(-->
+<!--			 #{roleid}-->
+<!--			,#{menuid}-->
+<!--		)-->
+<!--	</insert>-->
+<!--    <insert id="insertLog" parameterType="com.great.aoplog.SystemLog">-->
+<!--		insert into SystemLog(-->
+<!--			 description-->
+<!--			,method-->
+<!--			,logType-->
+<!--			,requestIp-->
+<!--			,exceptioncode-->
+<!--			,exceptionDetail-->
+<!--			,params-->
+<!--			,createBy-->
+<!--			,createDate-->
+<!--		)values(-->
+<!--			 #{description}-->
+<!--			,#{method}-->
+<!--			,#{logType}-->
+<!--			,#{requestIp}-->
+<!--			,#{exceptioncode}-->
+<!--			,#{exceptionDetail}-->
+<!--			,#{params}-->
+<!--			,#{createBy}-->
+<!--			,#{createDate}-->
+<!--		)-->
+
+<!--	</insert>-->
+<!--    <insert id="uploadFile" parameterType="com.great.entity.File">-->
+<!--		insert into fiel(-->
+<!--			 filename-->
+<!--			,uid-->
+<!--			,uploadtime-->
+<!--			,styleid-->
+<!--			,times-->
+<!--		)values(-->
+<!--			 #{fileName}-->
+<!--			,#{uid}-->
+<!--			,#{uploadTime}-->
+<!--			,#{styleId}-->
+<!--			,#{times}-->
+<!--		)-->
+
+<!--	</insert>-->
+
+<!--    <delete id="deleteMenuByRoleid" parameterType="int">-->
+<!--        delete from role_menu-->
+<!--        where roleid = #{roleid}-->
+<!--    </delete>-->
+
+<!--    <update id="updateUser"  parameterType="java.util.HashMap"  >-->
+<!--        update user-->
+<!--        set  uname = #{uname}-->
+<!--            ,pwd = #{pwd}-->
+<!--        where uid = #{uid}-->
+<!--    </update>-->
+</mapper>

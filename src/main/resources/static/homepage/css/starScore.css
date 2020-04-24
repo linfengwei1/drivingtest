@@ -1,0 +1,109 @@
+
+.clearfix::after {
+	display: block;
+	content: '';
+	height: 0;
+	overflow: hidden;
+	clear: both;
+}
+
+
+/*星星样式*/
+
+.content {
+}
+
+.title {
+	font-size: 14px;
+	background: #dfdfdf;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.block {
+	
+}
+
+.block .star_score {
+	display: inline-block;
+}
+
+.star_list {
+	height: 21px;
+	margin: 50px;
+	line-height: 21px;
+}
+
+.block p{
+	display: inline-block;
+	position: relative;
+    top: -5px;
+}
+.block .attitude {
+	padding-left: 20px;
+	line-height: 21px;
+}
+
+.block p span {
+	color: #C00;
+	font-size: 14px;
+}
+
+.star_score {
+	background: url(../../img/stark2.png);
+	width: 150px;
+	height: 21px;
+	position: relative;
+}
+
+.star_score a {
+	height: 21px;
+	display: block;
+	text-indent: -999em;
+	position: absolute;
+	left: 0;
+}
+
+.star_score a:hover {
+	background: url(../../img/stars2.png);
+	left: 0;
+}
+
+.star_score a.clibg {
+	background: url(../../img/stars2.png);
+	left: 0;
+}
+
+
+/*星星样式*/
+
+.show_number {
+}
+
+.show_number li {
+	width: 240px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin-right: 5px;
+	margin-bottom: 20px;
+}
+
+.atar_Show {
+	background: url(../../img/stark2.png);
+	width: 150px;
+	height: 21px;
+	position: relative;
+	float: left;
+}
+
+.atar_Show p {
+	background: url(../../img/stars2.png);
+	left: 0;
+	height: 21px;
+	width: 134px;
+}
+
+.show_number li span {
+	display: inline-block;
+	line-height: 21px;
+}

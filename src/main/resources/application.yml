@@ -1,0 +1,66 @@
+
+
+server:
+  port: 8080
+  servlet:
+    context-path: /dt
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.96.112.105/jx190817?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 8 #初始化时建立物理连接的个数
+      min-idle: 1  #最小连接池数量
+      max-active: 20 #最大连接池数量
+      max-wait: 5 #获取连接时最大等待时间，单位毫秒
+      time-between-eviction-runsMillis: 60000 #1) Destroy线程会检测连接的间隔时间2) testWhileIdle的判断依据
+      min-evictable-idle-timeMillis: 300000 #Destory线程中如果检测到当前连接的最后活跃时间和当前时间的差值大于minEvictableIdleTimeMillis，则关闭当前连接。
+      validation-query: select 'x' FROM DUAL
+      test-while-idle: true #申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      test-on-borrow: false #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-return: false #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      pool-prepared-statements: true #是否缓存preparedStatement
+      max-open-prepared-statements: 20 #要启用PSCache，必须配置大于0
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：
+        #监控统计用的filter:stat
+      #日志用的filter:log4j
+      #防御sql注入的filter:wall
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      use-global-data-source-stat: true #合并多个DruidDataSource的监控数据
+  jackson:
+    default-property-inclusion: ALWAYS
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /WEB-INF/
+    pathmatch:
+      #设置是否是后缀模式匹配，如“/user”是否匹配/user.*，默认真即匹配；
+      #当此参数设置为true的时候，那么/user.html，/user.aa，/user.*都能是正常访问的。
+      use-suffix-pattern: true
+    static-path-pattern: /static/**
+    spring:
+      resources:
+        static-locations:classpath:static/**
+
+#  jackson:
+#    #参数意义：
+#    #JsonInclude.Include.ALWAYS       默认
+#    #JsonInclude.Include.NON_DEFAULT   属性为默认值不序列化
+#    #JsonInclude.Include.NON_EMPTY     属性为 空（””） 或者为 NULL 都不序列化
+#    #JsonInclude.Include.NON_NULL      属性为NULL  不序列化
+#    default-property-inclusion: ALWAYS
+#    time-zone: GMT+8
+#    date-format: yyyy-MM-dd HH:mm:ss
+
+
+mybatis:
+  config-location: classpath:SqlMapConfig.xml
+  mapper-locations: classpath:/mapper/*.xml
+
+
