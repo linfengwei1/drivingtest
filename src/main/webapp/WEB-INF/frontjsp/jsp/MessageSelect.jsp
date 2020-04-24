@@ -79,7 +79,7 @@
         var form = layui.form;
         var laypage = layui.laypage;
         var layer = layui.layer;
-        var count;
+        var count;//记录总数
         getPage(1,laypage);
         //执行一个laypage实例
 
