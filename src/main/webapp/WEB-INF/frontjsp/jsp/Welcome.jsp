@@ -652,9 +652,38 @@
     </div>
 </div>
 
+<div id="codefans_net" style="position:absolute">
+	<!--链接地址--><a href="#" target="_blank">
+	<!--图片地址--><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu3.jpg" border="0">
+</a>
+
+	<script>
+		var x = 50,y = 60
+		var xin = true, yin = true
+		var step = 1
+		var delay = 10
+		var obj=document.getElementById("codefans_net")
+		function float() {
+			var L=T=0
+			var R= document.body.clientWidth-obj.offsetWidth
+			var B = document.body.clientHeight-obj.offsetHeight
+			obj.style.left = x + document.body.scrollLeft
+			obj.style.top = y + document.body.scrollTop
+			x = x + step*(xin?1:-1)
+			if (x < L) { xin = true; x = L}
+			if (x > R){ xin = false; x = R}
+			y = y + step*(yin?1:-1)
+			if (y < T) { yin = true; y = T }
+			if (y > B) { yin = false; y = B }
+		}
+		var itl= setInterval("float()", delay)
+		obj.onmouseover=function(){clearInterval(itl)}
+		obj.onmouseout=function(){itl=setInterval("float()", delay)}
+	</script>
 
 
-<script>
+
+	<script>
     //JavaScript代码区域
     layui.use('element', function(){
         var element = layui.element;
