@@ -1,0 +1,52 @@
+*{box-sizing:border-box;}
+
+#chatWindow{position:fixed; z-index:9999;width: 360px;height: 424px;border:1px solid #666;border-radius:5px;background: #fff;right: 0;bottom: 0;display:flex;flex-direction:column;}
+#chatWindow.big{width:800px;height: 600px;}
+
+#chatWindow .top{height: 43px;background: #58bc58;color:white;padding-top: 8px;}
+#chatWindow .top .Name{float: left;font-size: 16px;padding-left: 10px;}
+#chatWindow .top .ope{float: right;}
+#chatWindow .top .ope b{margin-right: 8px;transition:all 0.5s;cursor:pointer;}
+#chatWindow .top .ope b:hover{color:#58bc58;}
+
+#chatWindow .body{flex:1;overflow: auto;padding: 10px;}
+#chatWindow .body .code img{display: block;margin: 10px auto;}
+#chatWindow .body .msglist ul{list-style: none;margin: 0;padding: 0;}
+#chatWindow .body .msglist ul li{margin-bottom: 5px;}
+#chatWindow .body .msglist ul li.Time{margin: 10px 0 0;}
+#chatWindow .body .msglist ul li .robot{position: relative;display: inline-block;padding: 5px;background: #fff;border:1px solid #ccc;border-radius:4px;}
+#chatWindow .body .msglist ul li .customer{position: relative;display: inline-block;padding: 5px;background: #58bc58;border:1px solid #ccc;border-radius:4px;}
+#chatWindow .body .msglist ul li img{width: 80px;}
+#chatWindow .body .msglist ul li .time{font-size:12px;color:#999;}
+/*#chatWindow .body .msglist ol.news{padding: 10px;background: #eee;}*/
+#chatWindow .body .msglist ol.news li a{margin-right: 10px;}
+#chatWindow .body .msglist ol.news li span{font-size:12px;color:#666;}
+
+#chatWindow .foot .tab{height: 28px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;padding-top: 3px;padding-left: 5px;}
+#chatWindow .foot .tab i{margin-right: 8px;transition: all .5s;}
+#chatWindow .foot .tab i:hover{color:#f60;}
+#chatWindow .foot textarea{width: 100%;height: 95px;resize:none;padding: 5px;}
+#chatWindow .foot .bottom{position: relative;height: 40px;padding: 0 10px;}
+#chatWindow .foot .bottom h4{float:left;font-size:12px;color:#ccc;}
+#chatWindow .foot .bottom input{float:right;margin-top: 5px;background: #58bc58;border:1px solid #ccc;border-radius:3px;color:#fff;width: 70px;height: 30px;text-align: center;line-height: 28px;}
+#chatWindow .foot .bottom .send_hint{padding:2px;color:666;border:1px solid #333;position: absolute;font-size:12px;display: none;background: #fff;border-radius:3px;}
+
+#minwidow{width: 200px;height: 30px;background: #58bc58;padding-left: 10px;line-height: 30px;color:#fff;border-radius:3px;position: fixed;right: 0;bottom: 0;display: none;cursor:pointer;}
+
+.triangle-right::after{content:'';display: block;position: absolute;width: 0;height: 0;border:5px solid transparent;border-left-color:#58bc58;right: -10px;top: 10px;}
+.triangle-left::before{content:'';display: block;position: absolute;width: 0;height: 0;border:5px solid transparent;border-right-color:#ccc;left: -11px;top: 10px;}
+
+/*清除浮动*/
+.clfix::after{
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+    zoom: 1; 
+}
+
+/*做浮动右浮动*/
+.fl{float:left;}
+.fr{float:right;}

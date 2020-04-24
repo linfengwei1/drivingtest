@@ -59,7 +59,7 @@
 	map.centerAndZoom(point,20);
 	var geolocation = new BMap.Geolocation();
 
-	setInterval(function () {
+	setTimeout(function () {
 		geolocation.getCurrentPosition(function(r){
 			if(this.getStatus() == BMAP_STATUS_SUCCESS){
 				var mk = new BMap.Marker(r.point);
@@ -72,7 +72,7 @@
 				alert('failed'+this.getStatus());
 			}
 		},{enableHighAccuracy: true})
-	},2000);
+	},1000);
 
 
 	function getP() {
@@ -163,9 +163,22 @@
 
 			map.addOverlay(marker);
 			if (BMapLib.GeoUtils.isPointInPolygon(point, polygon)) {
-				// layer.msg('当前处于驾校范围内', {icon: 6});
+				// layer.msg('当前处于驾校范围内', {offset: '20px'});
 			} else {
-				layer.msg('您已经超出驾校范围', {icon: 5});
+				// layer.msg('您已经超出驾校范围', {offset: '20px'});
+				layer.open({
+					type: 1
+					,title: false //不显示标题栏
+					,closeBtn: false
+					,area: '300px;'
+					,shade: 0.8
+					,anim:1
+					,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+					,closeBtn: 1
+					,btnAlign: 'c'
+					,moveType: 1 //拖拽模式，0或者1
+					,content: '<div style="padding: 50px; background-color: #393D49; color: #fff; font-weight: 300;font-size: 25px;">您已经超出驾校范围,请返回驾校!</div>'
+				});
 			}
 		})
 	}
