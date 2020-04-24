@@ -143,7 +143,7 @@
         })
         //监听提交
         form.on('submit(formDemo)', function(data){
-
+            var fileupload = $(".image").val();
             $.ajax({
                 url:path+'/school/addCar',
                 type:'post',
@@ -155,6 +155,9 @@
                     }
                     if ("请输入正确的车牌号码"==$("#err1").text()){
                         layer.alert("请输入正确的车牌号码",{icon:2})
+                        return false;
+                    }if (""==fileupload){
+                        layer.alert("请上传图片",{icon:2})
                         return false;
                     }
                 },

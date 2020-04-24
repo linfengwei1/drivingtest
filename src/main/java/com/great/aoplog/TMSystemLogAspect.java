@@ -1,7 +1,7 @@
 package com.great.aoplog;
 
 
-import com.great.entity.SchoolAdmin;
+
 import com.great.entity.TbLog;
 import com.great.entity.Transportation;
 import com.great.service.SchoolManageService;

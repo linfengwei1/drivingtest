@@ -25,7 +25,7 @@
         <div class="layadmin-user-login-box layadmin-user-login-header">
             <div style="padding-bottom: 10px;">
                 <div class="layui-upload">
-                    <div style="float: left;margin-left: 10%">
+                    <div style="float: left;margin-left: 6%">
                         <label class="layui-form-label">状态</label>
                         <div class="layui-input-block" style="width: 190px;">
                             <select  name="state" id="state" >
@@ -49,7 +49,10 @@
                             <input class="layui-input" name="phone" id="phone" autocomplete="off">
                         </div>
                     </div>
-                    <div style="float: left;margin-left: 10%;padding-top: 1%">
+                    <div style="float: left;width: 130px;">
+                        <a style="color: #1E9FFF;margin-left: 2%;" href="${pageContext.request.contextPath}/school/downTemplate?name=学员模板">学员申请模板下载</a>
+                    </div>
+                    <div style="float: left;margin-left: 6%;padding-top: 1%">
                         <label class="layui-form-label" >身份证号码</label>
                         <div class="layui-input-block" style="width: 190px">
                             <input class="layui-input" name="idnumber" id="idnumber" autocomplete="off">

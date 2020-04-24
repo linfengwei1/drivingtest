@@ -64,7 +64,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">身份证</label>
             <div class="layui-input-inline">
-                <input type="text"   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" id="idNumber" name="idNumber" required lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                <input type="text"   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" id="idNumber" name="idNumber" required lay-verify="required" placeholder="请输入身份证" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

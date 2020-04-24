@@ -84,7 +84,7 @@
             ,limit:10
             ,cols: [[ //表头
                 {field: 'id', title: 'ID', width:80 ,sort: true,align:'center'}
-                ,{field:'pic', title: '车辆图片',width:200,templet:'<div><img src="${pageContext.request.contextPath}{{d.picture}}" onclick="previewImg(this)"></div>'}
+                ,{field:'pic', title: '车辆图片',width:200,templet:'<div><img src="${pageContext.request.contextPath}/static{{d.picture}}" onclick="previewImg(this)"></div>'}
                 ,{field: 'carNumber', title: '车牌号', width:100}
                 ,{field: 'schoolName', title: '驾校名', width:100}
                 ,{field: 'coachName', title: '驾驶教练名', width:100}
