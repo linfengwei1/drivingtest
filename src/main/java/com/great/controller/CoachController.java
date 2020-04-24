@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -133,7 +134,7 @@ public class CoachController
 
         if (confirm) {
             Coach coach1 = coachManageService.login(coach.getAccount(),coach.getPwd());
-            if (null!=coach1){
+            if (null!=coach1&&coach1.getCoach_state_id()==1||coach1.getCoach_state_id()==3){
                 request.getSession().setAttribute("coach",coach1);
 
                 response.getWriter().print("success");
@@ -202,6 +203,19 @@ public class CoachController
             return dateTable;
         }
         return null;
+    }
+
+    //注销登录
+    @RequestMapping("/deleteAdmin")
+    public String deleteAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        System.out.println("注销方法");
+        //获取sesson对象
+        HttpSession hs = request.getSession();
+        //注销
+        hs.invalidate();
+        //返回页面
+        return "coach/jsp/CoachLogin";
     }
 
 

@@ -5,7 +5,6 @@
 <head>
 	<title>学员登录</title>
 	<%String path = request.getContextPath();%>
-
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/studentmain.css">
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
@@ -13,6 +12,32 @@
 <%--	<script src="${pageContext.request.contextPath}/static/student/js/kefu.js" type="text/javascript" charset="utf-8"></script>--%>
 	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${pageContext.request.contextPath}/static/student/js/StudentMain.js" type="text/javascript" charset="utf-8"></script>
+
+
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_658796_or3t32rx0uo6flxr.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/index.css">
+<%--	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/bootstrap.min.css">--%>
+	<script src="${pageContext.request.contextPath}/static/student/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${pageContext.request.contextPath}/static/student/js/dateFormat.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		// 响应式处理
+		if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
+			if(window.location.href.indexOf("?mobile") < 0){
+				try{
+					if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+						window.location.href="//m.ds.cn";
+					}else if(/iPad/i.test(navigator.userAgent)){
+						window.location.href="//m.ds.cn";
+					}else{
+					}
+				}catch(e){}
+			}
+		}
+	</script>
+
+
+
+
 	<script type="text/javascript">
 		$(function(){
 			layui.use(['layer'], function () {
@@ -149,6 +174,40 @@
 			</div>
 		</div>
 	</div>
+	<div id="chatWindow" style="display: none">
+		<div class="top">
+			<span class="Name">客服机器人小码</span>
+			<div class="ope">
+				<b class="iconfont marco-zuixiaohua"></b>
+				<b class="iconfont marco-zuidahua changewindow"></b>
+				<b class="iconfont marco-guanbi"></b>
+			</div>
+		</div>
+		<div class="body">
+			<div class="msglist">
+				<ul>
+					<li class="clfix"><span class="fl robot triangle-left">您好！欢迎来到机动车驾驶员网上理论学习平台，请问有什么可以帮您？</span></li>
+				</ul>
+			</div>
+		</div>
+		<div class="foot">
+			<div class="tab">
+				<i class="iconfont marco-xiaoliansmiley40"></i>
+				<i class="iconfont marco-tupian"></i>
+				<i class="iconfont marco-wenjian"></i>
+				<i class="iconfont marco-baocun"></i>
+				<i class="iconfont marco-shoucang"></i>
+				<i class="iconfont marco-service"></i>
+			</div>
+			<textarea class="question" placeholder="我想问..."></textarea>
+			<div class="bottom">
+				<input type="button" value="发送" />
+				<span class="send_hint">Ctrl+Enter</span>
+			</div>
+		</div>
+	</div>
+	<div id="minwidow" style="display: flex">客服机器人小码（会话中...）</div>
+	<script src="${pageContext.request.contextPath}/static/student/js/index.js" type="text/javascript" charset="utf-8"></script>
 </div>
 <script>
 	//JavaScript代码区域

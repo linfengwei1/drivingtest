@@ -11802,14 +11802,14 @@ function parseFinder(ecModel, finder, opt) {
         if (!mainType
             || !queryType
             || value == null
-            || (queryType === 'index' && value === 'none')
+            || (queryType === 'static.student.css.index' && value === 'none')
             || (opt && opt.includeMainTypes && indexOf(opt.includeMainTypes, mainType) < 0)
         ) {
             return;
         }
 
         var queryParam = {mainType: mainType};
-        if (queryType !== 'index' || value !== 'all') {
+        if (queryType !== 'static.student.css.index' || value !== 'all') {
             queryParam[queryType] = value;
         }
 
@@ -28575,7 +28575,7 @@ EventProcessor.prototype = {
 
         return check(cptQuery, model, 'mainType')
             && check(cptQuery, model, 'subType')
-            && check(cptQuery, model, 'index', 'componentIndex')
+            && check(cptQuery, model, 'static.student.css.index', 'componentIndex')
             && check(cptQuery, model, 'name')
             && check(cptQuery, model, 'id')
             && check(dataQuery, packedEvent, 'name')
@@ -50012,7 +50012,7 @@ SeriesModel.extend({
                                     // legend color fetching (see seriesColor.js).
         colorAlpha: null,           // Array. Specify color alpha range of each level, like [0.2, 0.8]
         colorSaturation: null,      // Array. Specify color saturation of each level, like [0.2, 0.5]
-        colorMappingBy: 'index',    // 'value' or 'index' or 'id'.
+        colorMappingBy: 'static.student.css.index',    // 'value' or 'index' or 'id'.
         visibleMin: 10,             // If area less than this threshold (unit: pixel^2), node will not
                                     // be rendered. Only works when sort is 'asc' or 'desc'.
         childrenVisibleMin: null,   // If area of a node less than this threshold (unit: pixel^2),
@@ -52339,7 +52339,7 @@ function buildVisualMapping(
         visual: rangeVisual.range
     };
     if (opt.type === 'color'
-        && (colorMappingBy === 'index' || colorMappingBy === 'id')
+        && (colorMappingBy === 'static.student.css.index' || colorMappingBy === 'id')
     ) {
         opt.mappingMethod = 'category';
         opt.loop = true;
@@ -52375,7 +52375,7 @@ function mapVisual$1(nodeModel, visuals, child, index, mapping, seriesModel) {
     if (mapping) {
         var mappingType = mapping.type;
         var colorMappingBy = mappingType === 'color' && mapping.__drColorMappingBy;
-        var value = colorMappingBy === 'index'
+        var value = colorMappingBy === 'static.student.css.index'
             ? index
             : colorMappingBy === 'id'
             ? seriesModel.mapIdToIndex(child.getId())
@@ -80229,7 +80229,7 @@ function createNameEach(names, attrs) {
  *                            }
  * @param {Object} context
  */
-var eachAxisDim$1 = createNameEach(AXIS_DIMS, ['axisIndex', 'axis', 'index', 'id']);
+var eachAxisDim$1 = createNameEach(AXIS_DIMS, ['axisIndex', 'axis', 'static.student.css.index', 'id']);
 
 /**
  * If tow dataZoomModels has the same axis controlled, we say that they are 'linked'.
