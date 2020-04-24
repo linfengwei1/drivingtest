@@ -28,12 +28,8 @@
                     <% Coach coach = (Coach)session.getAttribute("coach"); String name = coach.getName();Integer id = coach.getId();%>
                     欢迎<%=name %>
                 </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退出</a></li>
+            <li class="layui-nav-item"><a href="<%=request.getContextPath()%>/coach/deleteAdmin">退出</a></li>
         </ul>
     </div>
 
@@ -50,22 +46,22 @@
                         <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/coach/path/CoachStudentManage" onclick="changeUrl(this)">学员信息</a></dd>
                     </dl>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">个人信息</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/coach/path/CoachInf" onclick="changeUrl(this)">个人信息</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">业务查看</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/coach/path/CoachStudentEvaluation" onclick="changeUrl(this)">查看学员信息</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                    </dl>
-                </li>
+<%--                <li class="layui-nav-item">--%>
+<%--                    <a href="javascript:;">业务查看</a>--%>
+<%--                    <dl class="layui-nav-child">--%>
+<%--                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/coach/path/CoachStudentEvaluation" onclick="changeUrl(this)">查看学员信息</a></dd>--%>
+<%--                        <dd><a href="javascript:;">列表二</a></dd>--%>
+<%--                    </dl>--%>
+<%--                </li>--%>
 
 
                 <li class="layui-nav-item">
                     <a href="javascript:;">考试预约</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/coach/path/ToOrder" onclick="changeUrl(this)">帮学生预约考试</a></dd>
+                        <dd><a href="javascript:void(0);"  title="${pageContext.request.contextPath}/coach/path/ToOrder" onclick="changeUrl(this)">预约考试</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -73,7 +69,7 @@
     </div>
 
     <div class="layui-body">
-        <iframe id="ifram_div_iframe" style="width: 100%;height: 100%;" name="ifram_div_ifram" src="${pageContext.request.contextPath}/coach/path/CoachInf"></iframe>
+        <iframe id="ifram_div_iframe" style="width: 100%;height: 100%;" name="ifram_div_ifram" src="${pageContext.request.contextPath}/coach/path/CoachStudentManage"></iframe>
         <%--        <div style="padding: 15px;">内容主体区域</div>--%>
     </div>
 

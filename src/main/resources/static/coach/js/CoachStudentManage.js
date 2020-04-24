@@ -65,7 +65,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
             , {field: 'twoScore', title: '科目二成绩', width: 120, align: 'center'}
             , {field: 'threeScore', title: '科目三成绩', width: 120, align: 'center'}
             , {field: 'fourScore', title: '科目四成绩', width: 120, align: 'center'}
-            , {field: '', title: '操作', toolbar: "#butdiv", width: 250, align: 'center'}
+            // , {field: '', title: '操作', toolbar: "#butdiv", width: 250, align: 'center'}
         ]]
     });
 

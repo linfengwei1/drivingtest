@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <!-- saved from url=(0033)http://47.96.140.98:20041/inquire -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
