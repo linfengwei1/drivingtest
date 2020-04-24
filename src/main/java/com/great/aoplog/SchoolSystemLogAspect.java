@@ -106,9 +106,11 @@ public class SchoolSystemLogAspect {
         SchoolAdmin schoolAdmin = (SchoolAdmin) session.getAttribute("SchoolAdmin");
         TbLog log = new TbLog();
         //请求的IP
+
         InetAddress addr = InetAddress.getLocalHost();
         String ip = addr.getHostAddress();
 //        String ip = request.getRemoteAddr();
+
          try {
              //拿到类名
              String targetName = joinPoint.getTarget().getClass().getName();

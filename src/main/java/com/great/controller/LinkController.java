@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.great.entity.*;
 import com.great.service.LinkService;
 //import javafx.scene.chart.Chart;我这个没找到，注销了
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class LinkController {
 
 	@Autowired//自动注入、自动装配
 	private LinkService linkService;
+
 	@Autowired//自动注入、自动装配
 	private SchoolManageService schoolAdminService;
     @RequestMapping("/path/{url}") // 访问路径的路口：path/{url是作为参数PathVariable路径变量}
@@ -35,11 +37,16 @@ public class LinkController {
 		List<Link> linkList = linkService.findAllLink();//调用查询所有友情链接数据接口，得到友情链接数据列表linkList
 		ModelAndView mav = new ModelAndView("/frontjsp/jsp/" + path);//实例化ModelAndView对象，给mav对象指定名称为/frontjsp/jsp/+ 路径path
 		List<Notice> noticeList =  schoolAdminService.getNotice();//获取首页通知公告的内容
+		List<Notice> noticeDS = linkService.getNoticeDS();//获取前台驾驶技巧通告
+		List<Notice> noticeCS = linkService.getNoticeCS();//获取学车课堂通告
 		Map<String,Object> model = new HashMap<String,Object>();
 		model.put("linkList",linkList);
 		model.put("noticeList",noticeList);
+		model.put("noticeDS",noticeDS);//将前台驾驶技巧通告添加到mav对象里
+		model.put("noticeCS",noticeCS);//学车课堂通告添加到mav对象里
 		mav.addObject("model",model);
 		return mav;
+
     }
 
 //	/**

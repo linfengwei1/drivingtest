@@ -20,6 +20,7 @@
     <title>机动车驾驶员计时培训系统</title>
 </head>
 <body>
+
 <div id="header" style="background-color: #f2f4f9;width: 100%;height:5%" align="right">
     <a href="${pageContext.request.contextPath}/student/path/StudentLogin">学员登录</a>
     <a href="${pageContext.request.contextPath}/coach/login">教练登录</a>
@@ -138,7 +139,6 @@
             </table>
         </div>
 
-
         <!-- 公示公开-->
         <div class="layui-tab-item">
 <%--            <table id="demo" class="layui-table" lay-event="" lay-skin="nob" ></table>--%>
@@ -171,15 +171,15 @@
                                                                 <tr>
                                                                     <td>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-	                                                                        <c:if test="${not empty noticeCS}">
-		                                                                        <c:forEach items="${noticeCS}"  var="cs">
+	                                                                        <c:if test="${not empty model}">
+		                                                                        <c:forEach items="${model.noticeCS}"  var="cs">
                                                                                     <tr  bgcolor='#f4f4f4'>
                                                                                         <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">${cs.title}</a></td>
                                                                                         <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${cs.time}" /></td>
                                                                                     </tr>
                                                                                 </c:forEach>
 	                                                                        </c:if>
-	                                                                        <c:if test="${empty noticeCS}">
+	                                                                        <c:if test="${empty model}">
 		                                                                        暂无消息
 	                                                                        </c:if>
 
@@ -210,15 +210,15 @@
                                                                 <tr>
                                                                     <td>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <c:if test="${not empty noticeDS}">
-                                                                                <c:forEach items="${noticeDS}"  var="ds">
+                                                                            <c:if test="${not empty model}">
+                                                                                <c:forEach items="${model.noticeDS}"  var="ds">
                                                                                     <tr  bgcolor='#f4f4f4'>
                                                                                         <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">${ds.title}</a></td>
                                                                                         <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${ds.time}" /></td>
                                                                                     </tr>
                                                                                 </c:forEach>
                                                                             </c:if>
-                                                                            <c:if test="${empty noticeDS}">
+                                                                            <c:if test="${empty model}">
                                                                                 暂无消息
                                                                             </c:if>
 
@@ -256,25 +256,10 @@
 <%--                    <a target="_blank" href="http://www.mot.gov.cn/"><img class="footer-img" src="${pageContext.request.contextPath}/static/images/homepageimages/4.PNG"/></a>--%>
 <%--                </div>--%>
     <div style="padding: 50px">
-<%--        <a href="${pageContext.request.contextPath}/TM/login" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">驾校查询</a>--%>
-<%--        <a href="${pageContext.request.contextPath}/school/path/SchoolLogin" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit">教练查询</a>--%>
         <a href="${pageContext.request.contextPath}/coach/testwelcome" class="layui-btn layui-btn layui-btn-radius layui-btn-lg layui-anim layui-anim-upbit" style="margin-left: 400px">信息查询</a>
     </div>
 
-
-<%--                <div class="layui-card-header">柱形图</div>--%>
-<%--                <div class="layui-card-body">--%>
-<%--                    <div id="EchartZhu" style="width: 500px;height: 300px;"></div>--%>
-<%--                </div>--%>
             </div>
-<%--            <a href="${pageContext.request.contextPath}/coach/testwelcome" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg layui-anim layui-anim-up" style="margin-left: 400px">进入查询</a>--%>
-<%--            <ul id="selectParent" class="layui-tab-title" style="float: left;width: 150px;height: 200px;top: 45px;">--%>
-<%--                <li onclick="selectSchInfoJump();" class="layui-this">查驾培机构</li>--%>
-<%--                <li id="selectTwo" onclick="selectCoaInfoJump();">查教练员</li>--%>
-<%--                <li id="selectThree" onclick="selectVueInfoJump();">查教练车</li>--%>
-<%--            </ul>--%>
-
-
 <%--            <div class="layui-card">--%>
 <%--                <div class="layui-card-header">柱形图</div>--%>
 <%--                <div class="layui-card-body">--%>
@@ -634,6 +619,7 @@
         </div>
     </div>
 </div>
+
 <div align="center" style="background-color: #0a76a4">
     <p class="footer-p">导航链接</p>
     <ul class="footer-orther" style="">
@@ -641,37 +627,6 @@
         <li><a target="_blank"  href="http://www.bjmcn.com">交通运输通信信息集团有限公司</a></li>
     </ul>
 </div>
-
-<div id="codefans_net" style="position:absolute">
-	<!--链接地址--><a href="#" target="_blank">
-	<!--图片地址--><img src="${pageContext.request.contextPath}/static/images/homepageimages/hu3.jpg" border="0">
-    </a>
-</div>
-
-	<script>
-		var x = 50,y = 60
-		var xin = true, yin = true
-		var step = 1
-		var delay = 10
-		var obj=document.getElementById("codefans_net")
-		function float() {
-			var L=T=0
-			var R= document.body.clientWidth-obj.offsetWidth
-			var B = document.body.clientHeight-obj.offsetHeight
-			obj.style.left = x + document.body.scrollLeft
-			obj.style.top = y + document.body.scrollTop
-			x = x + step*(xin?1:-1)
-			if (x < L) { xin = true; x = L}
-			if (x > R){ xin = false; x = R}
-			y = y + step*(yin?1:-1)
-			if (y < T) { yin = true; y = T }
-			if (y > B) { yin = false; y = B }
-		}
-		var itl= setInterval("float()", delay)
-		obj.onmouseover=function(){clearInterval(itl)}
-		obj.onmouseout=function(){itl=setInterval("float()", delay)}
-	</script>
-
 
 
 	<script>
@@ -1032,6 +987,7 @@
                 roseType: 'angle',//南丁格尔玫瑰图样式  去掉则显示基本圆饼图
                 radius : '55%',
                 data : obArr1
+
             } ]
         };
         myChart2.setOption(option);
@@ -1059,54 +1015,17 @@
         });
     });
 
-    //获取前台通知公告
-    <%--$(function() {--%>
-    <%--    $.ajax({--%>
-    <%--        async:true,--%>
-    <%--        method : "POST",--%>
-    <%--        url :"${pageContext.request.contextPath}/school/getNotice",--%>
-    <%--        dataType : "text",--%>
-    <%--        success : function(msg) {--%>
-    <%--            var arr = JSON.parse(msg);--%>
-    <%--            var tbody = document.getElementById('body1');--%>
-    <%--            for(var i = 0;i < arr.length; i++){ //遍历一下json数据  --%>
-    <%--                var trow = getDataRow(arr[i]); //定义一个方法,返回tr数据  --%>
-    <%--                console.log("trow=="+trow)--%>
-    <%--                tbody.appendChild(trow);--%>
-    <%--            }  --%>
-    <%--        },--%>
-    <%--        error : function() {--%>
-    <%--            alert("服务器正忙");--%>
-    <%--        }--%>
-    <%--    });--%>
-    <%--})--%>
-    <%--function getDataRow(h) {--%>
-    <%--    var row = document.createElement('tr'); //创建行  --%>
 
-    <%--    var idCell = document.createElement('td'); //创建第一列id --%>
-    <%--    idCell.innerHTML = h.title; //填充数据  --%>
-    <%--    row.appendChild(idCell); //加入行  ，下面类似  --%>
-
-    <%--    var nameCell = document.createElement('td');//创建第二列name  --%>
-    <%--    nameCell.innerHTML = h.type;--%>
-    <%--    row.appendChild(nameCell);--%>
-
-    <%--    var jobCell = document.createElement('td');//创建第三列job  --%>
-    <%--    jobCell.innerHTML = h.time;--%>
-    <%--    row.appendChild(jobCell);--%>
-
-    <%--    return row; //返回tr数据--%>
-    <%--}--%>
 
     //首页新闻页面跳转
     function Jump(node) {
         var REPORTID = $(node).attr('title');
         window.location.href="${pageContext.request.contextPath}/school/jumpNwePage?id="+REPORTID
         console.log("REPORTID="+REPORTID)
+
     }
 
 </script>
 
 </body>
 </html>
-

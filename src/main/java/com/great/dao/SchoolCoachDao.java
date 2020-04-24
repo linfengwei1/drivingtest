@@ -56,10 +56,12 @@ public interface SchoolCoachDao
 	public Integer updatePunish(Integer id);
 
 	//处罚记录改变状态
+
 	public Integer coachStateByStop(Integer id);
 
 	//处罚记录改变状态
 	public Integer coachStateByNo(Integer id);
+
 
 	//excel插入数据库
 	public Integer insertCoachByExcel(List<Coach> list);
@@ -101,6 +103,7 @@ public interface SchoolCoachDao
 	//查询学生评论页数
 	Integer findStudentEvaluationByCount(TableUtils tableUtils);
 
+
 	List<Student> getStudentBySubject(@Param("subject") int subject, @Param("coachId") Integer coachId);
 	int getOrderTimeBySchool(@Param("time") String time, @Param("schoolId") Integer schoolId);
 	int checkHasOrder(@Param("subject") Integer subject, @Param("date") String date);
@@ -111,4 +114,5 @@ public interface SchoolCoachDao
 
 	int addOrderTimeId(OrderTime orderTime);
 	int updateOrderStatus(@Param("list") List<Integer> studentIds);
+
 }

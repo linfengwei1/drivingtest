@@ -27,6 +27,8 @@ public class SchoolManageService {
     private SchoolCarDao schoolCarDao;
     @Resource
     private SchoolLogDao schoolLogDao;
+
+
     @Autowired
     private School school;
     private Object image;
@@ -550,6 +552,7 @@ public class SchoolManageService {
     public List<Notice> getNotice(){
         return schoolAdminDao.getNotice();
     }
+
 
     //首页通知公告信息跳转到详情页
     public Notice jumpNwePage(Integer id){

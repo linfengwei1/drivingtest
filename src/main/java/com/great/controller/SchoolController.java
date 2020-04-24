@@ -15,10 +15,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -28,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +40,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1060,13 +1064,12 @@ public class SchoolController {
     @RequestMapping("/findStudyTime")
     @ResponseBody
     public DateTable findStudyTime(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-
-       if (null!=request.getParameter("id")||!"".equals(request.getParameter("id").trim())){
+//        com.alibaba.druid.util.StringUtils.isEmpty()
+       if (null!=request.getParameter("id")&&!"".equals(request.getParameter("id").trim())){
            Integer id = Integer.valueOf(request.getParameter("id"));
 //           Integer id = id;
-           System.out.println("学时id=="+ request.getParameter("id").trim());
-           List<StudyCondition>list= schoolAdminService.findStudyTime(Integer.parseInt(request.getParameter("id").trim()));
+           System.out.println("学时id=="+ id);
+           List<StudyCondition>list= schoolAdminService.findStudyTime(id);
            if (list!=null){
                dateTable.setData(list);
                dateTable.setCode(0);
@@ -1074,7 +1077,6 @@ public class SchoolController {
                return dateTable;
            }
        }
-
         return null;
     }
 
@@ -1358,6 +1360,7 @@ public class SchoolController {
         }
         return null;
     }
+
         //首页通知公告信息显
         @RequestMapping("/getNotice")
         @ResponseBody//ajax返回值json格式转换
@@ -1367,15 +1370,13 @@ public class SchoolController {
         }
 
 
+
     //首页通知公告信息显
     @RequestMapping("/jumpNwePage")
     public String jumpNwePage(HttpServletRequest request) throws IOException {
-        System.out.println("111111");
         Integer id =Integer.valueOf(request.getParameter("id")) ;
-        System.out.println("id="+id);
         Notice notice =  schoolAdminService.jumpNwePage(id);
         request.setAttribute("jumpNwePage",notice);
-        System.out.println("notice==="+notice.toString());
 //        ModelAndView mav = new ModelAndView("/frontjsp/jsp/Welcome1");//实例化ModelAndView对象，给mav对象指定名称为/frontjsp/jsp/+ 路径path
 //        if (null!=list){
 //            mav.addObject("jumpNwePage",list);
@@ -1417,5 +1418,6 @@ public class SchoolController {
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
                 headers, HttpStatus.CREATED);
     }
+
 
 }

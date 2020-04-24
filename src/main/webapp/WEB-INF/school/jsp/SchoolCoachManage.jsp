@@ -51,7 +51,6 @@
                         <div class="layui-input-block" style="width: 190px">
                             <input class="layui-input" name="phone" id="phone" autocomplete="off">
                         </div>
-
                     </div>
                     <div style="float: left;width: 130px;">
                         <a style="color: #1E9FFF;margin-left: 2%;" href="${pageContext.request.contextPath}/school/downTemplate?name=教练模板">教练申请模板下载</a>
