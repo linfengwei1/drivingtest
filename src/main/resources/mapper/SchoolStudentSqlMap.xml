@@ -12,6 +12,7 @@
     <select id="findStudentByPage" resultMap="Student" parameterType="com.great.entity.TableUtils">
         select * from student
         <where>
+            school_id = #{school_id}
             <if test="name !='' and name!=null">
                 and name like concat('%',#{name},'%')
             </if>
@@ -35,6 +36,7 @@
     <select id="findCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
         select count(*) from student
         <where>
+            school_id = #{school_id}
             <if test="name !='' and name!=null">
                 and name like concat('%',#{name},'%')
             </if>
@@ -176,7 +178,16 @@
         </foreach>
     </update>
 
-
+    <!--单个审核学员预约时间通过或驳回-->
+    <update id="auditAppoint" parameterType="java.util.Map">
+        update appoint_time_relation
+        <set>
+            appoint_state_id=#{state}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
 
 
 
@@ -189,12 +200,23 @@
     </update>
 
 
-    <!--把学员是否预约改成0-->
+    <!--把学员是否预约批量改成0-->
     <update id="AppointNo" parameterType="java.util.List" >
         update student set hasordered = 0 where id in
         <foreach collection="list" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
+    </update>
+
+    <!--判断是否已经预约单个改为0-->
+    <update id="AppointNoByOne" parameterType="java.lang.Integer">
+        update student
+        <set>
+            hasordered=0
+        </set>
+        <where>
+            id=#{id}
+        </where>
     </update>
     
 
@@ -221,6 +243,7 @@
         left join student s2 on atr.student_id = s2.id
         left join coach s3 on s2.coach_id = s3.id
         <where>
+            s2.school_id = #{school_id}
             <if test="name != '' and name != null">
                 s2.name=#{name}
             </if>
@@ -255,6 +278,7 @@
         left join appoint_state as1 on atr.appoint_state_id = as1.id
         left join coach s3 on s2.coach_id = s3.id
         <where>
+            s2.school_id = #{school_id}
             <if test="name != '' and name != null">
                 s2.name=#{name}
             </if>

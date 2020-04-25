@@ -66,7 +66,9 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var path1 = $("#path").val();
+
         if(layEvent === 'delete'){ //删除
+
             layer.confirm('您确定要删除吗?', {icon: 3, title:'提示'}, function(index){
                 $.ajax({
                     async:true,

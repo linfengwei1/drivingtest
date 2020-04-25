@@ -58,7 +58,7 @@
 
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="doTest"><i class="layui-icon">&#xe642;</i>批准</a>
 
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notTest"><i class="layui-icon">&#xe642;</i>驳回</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="noTest"><i class="layui-icon">&#xe642;</i>驳回</a>
 
 </script>
 
@@ -101,49 +101,55 @@
                     if(data.length==0){
                         layer.alert("请选取需要批量操作的条目");
                     }else{
-                        layer.alert(JSON.stringify(data));
-                        $.ajax({
-                            async:true,
-                            method : "POST",
-                            url :'${pageContext.request.contextPath}/school/batchProcessing',
-                            data: "data="+JSON.stringify(data),
-                            dataType : "text",
-                            success:function(data){
-                                if ("error"==data){
-                                    layer.alert("审核失败",{icon:2});
-                                }else if ("success"==data) {
-                                    layer.alert("审核成功",{icon:6},function () {
-                                        window.parent.location.reload();
-                                    });
+                        layer.confirm('您确定要批准吗?', {icon: 3, title:'提示'}, function(index){
+                            layer.alert(JSON.stringify(data));
+                            $.ajax({
+                                async:true,
+                                method : "POST",
+                                url :'${pageContext.request.contextPath}/school/batchProcessing',
+                                data: "data="+JSON.stringify(data),
+                                dataType : "text",
+                                success:function(data){
+                                    if ("error"==data){
+                                        layer.alert("审核失败",{icon:2});
+                                    }else if ("success"==data) {
+                                        layer.alert("审核成功",{icon:6},function () {
+                                            window.parent.location.reload();
+                                        });
+                                    }
+                                }, error: function () {
+                                    layer.alert("网络繁忙！")
                                 }
-                            }, error: function () {
-                                layer.alert("网络繁忙！")
-                            }
-                        });
+                            });
+                        })
+
                     }
                     break;
                 case 'getCancelData':
                     if(data.length === 0){
                         layer.alert('请选取需要批量操作的条目');
                     } else {
-                        $.ajax({
-                            async:true,
-                            method : "POST",
-                            url :'${pageContext.request.contextPath}/school/batchRejected',
-                            data: "data="+JSON.stringify(data),
-                            dataType : "text",
-                            success:function(data){
-                                if ("error"==data){
-                                    layer.alert("驳回失败",{icon:2});
-                                }else if ("success"==data) {
-                                    layer.alert("驳回成功",{icon:6},function () {
-                                        window.parent.location.reload();
-                                    });
+                        layer.confirm('您确定要驳回吗?', {icon: 3, title:'提示'}, function(index){
+                            $.ajax({
+                                async:true,
+                                method : "POST",
+                                url :'${pageContext.request.contextPath}/school/batchRejected',
+                                data: "data="+JSON.stringify(data),
+                                dataType : "text",
+                                success:function(data){
+                                    if ("error"==data){
+                                        layer.alert("驳回失败",{icon:2});
+                                    }else if ("success"==data) {
+                                        layer.alert("驳回成功",{icon:6},function () {
+                                            window.parent.location.reload();
+                                        });
+                                    }
+                                }, error: function () {
+                                    layer.alert("网络繁忙！")
                                 }
-                            }, error: function () {
-                                layer.alert("网络繁忙！")
-                            }
-                        });
+                            });
+                        })
+
                     }
                     break;
             };
@@ -183,41 +189,46 @@
 
             if(layEvent === 'doTest'){
                 console.log(data.id);
+                layer.confirm('您确定要批准吗?', {icon: 3, title:'提示'}, function(index){
+                    $.ajax({
+                        async:true,
+                        method : "POST",
+                        url :'${pageContext.request.contextPath}/school/auditAppoint',
+                        data: {"id":data.id,"doing":"批准","name":data.subjectName,"studentId":data.studentId},
+                        dataType : "text",
+                        success:function(data){
 
-                $.ajax({
-                    async:true,
-                    method : "POST",
-                    url :'${pageContext.request.contextPath}/TM/auditAppoint',
-                    data: {"id":data.id,"doing":"批准","name":data.subjectName,"studentId":data.studentId},
-                    dataType : "text",
-                    success:function(data){
+                            layer.alert("批准成功",{icon:6},function () {
+                                //修改信息
+                                window.parent.location.reload();
+                            });
 
-                        layer.alert("批准成功",{icon:6},function () {
-                            //修改信息
-                            window.parent.location.reload();
-                        });
+                        }
+                    });
+                })
 
-                    }
-                });
 
             } else {
 
                 console.log(data.id);
-                $.ajax({
-                    async:true,
-                    method : "POST",
-                    url :'${pageContext.request.contextPath}/TM/auditAppoint',
-                    data: {"id":data.id,"doing":"驳回","studentId":data.studentId},
-                    dataType : "text",
-                    success:function(data){
+                layer.confirm('您确定要驳回吗?', {icon: 3, title:'提示'}, function(index){
+                    $.ajax({
+                        async:true,
+                        method : "POST",
+                        url :'${pageContext.request.contextPath}/school/auditAppoint',
+                        data: {"id":data.id,"doing":"驳回","studentId":data.studentId},
+                        dataType : "text",
+                        success:function(data){
 
-                        layer.alert("驳回成功",{icon:6},function () {
-                            //修改信息
-                            window.parent.location.reload();
-                        });
+                            layer.alert("驳回成功",{icon:6},function () {
+                                //修改信息
+                                window.parent.location.reload();
+                            });
 
-                    }
-                });
+                        }
+                    });
+                })
+
 
             }
         })

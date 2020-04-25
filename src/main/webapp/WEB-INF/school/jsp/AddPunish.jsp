@@ -37,6 +37,13 @@
     <form class="layui-form" action="" >
 
         <div style="align-content: center">
+            <div class="layui-form-item">
+                <label class="layui-form-label">违规时间</label>
+                <div class="layui-inline">
+                    <%--                    <input class="layui-input" type="date" name="time1" id="datetime" autocomplete="off">--%>
+                    <input type="text" class="layui-input" id="test1" name =datetime>
+                </div>
+            </div>
             <div class="layui-form-item" style="margin-top: 5%">
                 <label class="layui-form-label" >违规人员</label>
                 <div class="layui-input-block" style="width: 190px;">
@@ -53,13 +60,7 @@
                     <textarea style="width: 300px" name="content" id="content"  class="layui-textarea"></textarea>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">违规时间</label>
-                <div class="layui-inline">
-                    <%--                    <input class="layui-input" type="date" name="time1" id="datetime" autocomplete="off">--%>
-                    <input type="text" class="layui-input" id="test1" name =datetime>
-                </div>
-            </div>
+
             <div class="layui-form-item">
                 <label class="layui-form-label">处罚结果</label>
                 <div class="layui-input-inline">

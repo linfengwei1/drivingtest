@@ -193,6 +193,14 @@
                             $("#div2").css({"display":"none"});
                             takePhoto();
                         }
+                        else if (data == "no")
+                        {
+                            // $("#import").css("disabled",false);
+                            layer.msg('账号被封停', {icon: 5});
+                            $("#div1").css({"display":"block"});
+                            $("#div2").css({"display":"none"});
+                            takePhoto();
+                        }
                         else
                         {
                             // $("#import").css("disabled",false);
