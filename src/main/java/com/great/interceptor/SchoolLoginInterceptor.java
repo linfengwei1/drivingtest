@@ -11,15 +11,21 @@ public class SchoolLoginInterceptor extends HandlerInterceptorAdapter
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+
+		//request.getSchema()可以返回当前页面使用的协议，就是上面例子中的“http”
+		//request.getServerName()可以返回当前页面所在的服务器的名字，就是上面例子中的“localhost"
+		//request.getServerPort()可以返回当前页面所在的服务器使用的端口，
+		//request.getContextPath()可以返回当前页面所在的应用的名字
 		String uri = request.getRequestURI();
 		String path = request.getContextPath();
 		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
 
+		//判断是否登录
 		if(request.getSession() != null && request.getSession().getAttribute("SchoolAdmin") != null)
 		{
 			return true;
 		}
-
+		//给验证码放行
 		if( request.getSession().getAttribute("vcode") != null)
 		{
 			return true;

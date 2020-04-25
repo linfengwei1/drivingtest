@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -813,6 +814,8 @@ public class SchoolController {
 //
 //        String path = "http://47.96.112.105:8080/opt/tomcat/webapps/demo-0.0.1-SNAPSHOT";
 //        System.out.println(path);
+
+
 
     }
 
