@@ -43,11 +43,11 @@ function delQuestion(id,liId) {
 					data: {studentId:studentId,subject:subject,qid:id},
 					success:function(data){
 						if ("success" == data){
-							layer.msg('删除成功'+data,{icon: 6});
+							layer.msg('删除成功',{icon: 6});
 							$("#"+liId).remove();
 						}else
 						{
-							layer.msg('删除失败'+data,{icon: 5});
+							layer.msg('删除失败',{icon: 5});
 
 						}
 					},error:function (err) {
