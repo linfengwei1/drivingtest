@@ -14,6 +14,9 @@
 <script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 <script src="${pageContext.request.contextPath}/static/echarts.js" type="text/javascript" charset="UTF-8"></script>
+<script src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+<canvas id="c_n4" width="860" height="958" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.5;"></canvas>
+<script src="${pageContext.request.contextPath}/static/homepage/js/L2Dwidget.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/homepage/js/homepage.js" type="text/javascript" charset="utf-8"></script>
 <html>
 <head>
@@ -43,13 +46,13 @@
         <li style="left: 240px;font-size: 20px">信息查询</li>
         <li style="left: 280px;font-size: 20px">开通服务</li>
         <li style="left: 320px;font-size: 20px">登录</li>
-	    <li style="left: 360px;font-size: 20px">关于我们</li>
+	    <li style="left: 360px;font-size: 20px" onclick="getB()">关于我们</li>
     </ul>
     <div class="layui-tab-content" style="width: 100%;height: auto">
         <div class="layui-tab-item layui-show">
-            <table style="margin: 0px;padding: 0px;width: 90%;height: 100%">
+            <table style="margin: 0px;padding: 0px;width: 90%;height: auto">
                 <td style="margin: 0px;padding: 0px;width: 450px;padding-right: 10px;">
-                    <div class="layui-carousel" id="test2" style="left: 150px">
+                    <div class="layui-carousel" id="test2" style="left: 230px">
                         <div carousel-item>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage4.jpg" /></div>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage5.jpg" /></div>
@@ -77,7 +80,7 @@
                                         <tr style="height: 30px;background: #dadada" >
                                             <td onclick="Jump(this)" title="${link.id}">${link.title}</td>
                                             <td align="center">${link.type}</td>
-                                            <td align="center"><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${link.time}" /></td>
+                                            <td align="center" style="width: 83px;fixed: left"><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${link.time}" /></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -174,7 +177,7 @@
 	                                                                        <c:if test="${not empty model}">
 		                                                                        <c:forEach items="${model.noticeCS}"  var="cs">
                                                                                     <tr  bgcolor='#f4f4f4'>
-                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">${cs.title}</a></td>
+                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id=${cs.id}" target="_blank" title=${cs.title}>${cs.title}</a></td>
                                                                                         <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${cs.time}" /></td>
                                                                                     </tr>
                                                                                 </c:forEach>
@@ -213,7 +216,7 @@
                                                                             <c:if test="${not empty model}">
                                                                                 <c:forEach items="${model.noticeDS}"  var="ds">
                                                                                     <tr  bgcolor='#f4f4f4'>
-                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="shownews.asp?id=2276" target="_blank" title="石佛寺驾校，清明节放假通知">${ds.title}</a></td>
+                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id=${ds.id}" target="_blank" title=${ds.title}>${ds.title}</a></td>
                                                                                         <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${ds.time}" /></td>
                                                                                     </tr>
                                                                                 </c:forEach>
@@ -400,28 +403,6 @@
 								    <li>与外部平台的对接，与交通、公安、交警等职能部门的数据共享。</li>
 							    </ol>
 						    </div>
-<%--						    <div class="content">--%>
-<%--							    <p class="title">IOS 开发工程师</p>--%>
-<%--							    <p>> 职位描述</p>--%>
-<%--							    <ol>--%>
-<%--								    <li>前端开发及维护工作；</li>--%>
-<%--								    <li>有良好的技术基础，熟悉 Web 标准，熟练掌握多种 Web 前端技术；</li>--%>
-<%--								    <li>掌握行业内流行的类库，Vue.js， React 等主流框架；</li>--%>
-<%--								    <li>参与公司前端工程的设计、研发；</li>--%>
-<%--								    <li>了解不同浏览器之间的差异，移动设备之间的差异。</li>--%>
-<%--							    </ol>--%>
-<%--						    </div>--%>
-<%--						    <div class="content">--%>
-<%--							    <p class="title">JAVA 工程师</p>--%>
-<%--							    <p>> 职位描述</p>--%>
-<%--							    <ol>--%>
-<%--								    <li>前端开发及维护工作；</li>--%>
-<%--								    <li>有良好的技术基础，熟悉 Web 标准，熟练掌握多种 Web 前端技术；</li>--%>
-<%--								    <li>掌握行业内流行的类库，Vue.js， React 等主流框架；</li>--%>
-<%--								    <li>参与公司前端工程的设计、研发；</li>--%>
-<%--								    <li>了解不同浏览器之间的差异，移动设备之间的差异。</li>--%>
-<%--							    </ol>--%>
-<%--						    </div>--%>
 					    </div>
 
 					    <div class="tabCour">
@@ -637,7 +618,7 @@
     });
 
 
-</script>
+	</script>
 
 
 <script>
@@ -945,11 +926,6 @@
     myChart.setOption(optionchart, true);
 	}
 
-
-
-
-
-
     $(function() {
         $.ajax({
             async:true,
@@ -1026,5 +1002,32 @@
     }
 
 </script>
+
+<script type="text/javascript">
+	function getB(){
+		L2Dwidget
+			.on('*', (name) => {
+			console.log('%c EVENT ' + '%c -> ' + name, 'background: #222; color: yellow', 'background: #fff; color: #000')
+		})
+	.init({
+			dialog: {
+				// 开启对话框
+				enable: true,
+				script: {
+					// 每空闲 10 秒钟，显示一条一言
+					'every idle 10s': '$hitokoto$',
+					// 当触摸到星星图案
+					'hover .star': '星星在天上而你在我心里 (*/ω＼*)',
+					// 当触摸到角色身体
+					'tap body': '哎呀！别碰我！',
+					// 当触摸到角色头部
+					'tap face': '要来加入我们吗?！'
+				}
+			}
+		});
+	}
+
+</script>
+
 </body>
 </html>

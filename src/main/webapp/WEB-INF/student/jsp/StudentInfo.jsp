@@ -44,12 +44,6 @@
 			<table class="tmio_tb">
 				<tbody><tr>
 					<td class="tmio_td">
-						<div class="backbg tmio_ca">
-							<div class="tmio_carbg" getw="1.00" style="width: 70px;">
-								<div class="tmio_car"></div>
-								<div class="backbg tmio_card"></div>
-							</div>
-						</div>
 						<div id="edittd">
 							<table>
 								<tbody><tr>
@@ -95,9 +89,20 @@
 				</tr>
 				</tbody></table>
 		</div>
+		<div class="backbg tmio_ca" style="border: grey">
+			<div class="tmio_carbg" style="width: 620px;">
+				<div id="d1" style="width: 10px; float: left; /*! border: medium none green; */background-color: white;height: 25px;"></div>
+				<div style="float: left;/*! border: red; */height: 26px;width: 76px;" class="">
+					<img alt=""  style="width: 75px;height: 25px" src="${pageContext.request.contextPath}/static/student/images/car.gif">
+				</div>
+			</div>
+		</div>
 		<span style="font-size:12px;color:#808080;display:none;">❄第一部分教室有效学时最多为四学时，第四部分教室有效学时最多为二学时</span>
 	</div>
 </div>
 </div>
+<script>
+	$("#d1").animate({width:"500px"},2000);
+</script>
 </body>
 </html>
