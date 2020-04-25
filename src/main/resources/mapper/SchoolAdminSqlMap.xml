@@ -16,13 +16,13 @@
 
 	<!--登录-->
     <select id="login" resultMap="SchoolAdmin" parameterType="java.util.Map">
-		select * from schooladmin where account = #{account} and pwd = #{pwd} and school_state_id in (1,3)
+		select * from schooladmin where account = #{account} and pwd = #{pwd}
 	</select>
 
 
     <!--登录-->
     <select id="faceLogin" resultMap="SchoolAdmin" parameterType="java.lang.Integer">
-		select * from schooladmin where id = #{id} and school_state_id in (1,3)
+		select * from schooladmin where id = #{id} and school_state_id
 	</select>
 
 
@@ -32,6 +32,7 @@
     <select id="findSchoolAdminByPage" resultType="SchoolAdmin" parameterType="com.great.entity.TableUtils">
         select * from schooladmin
         <where>
+            school_id = #{ school_id}
             <if test="name !='' and name!=null">
                 and name like concat('%',#{name},'%')
             </if>
@@ -55,6 +56,7 @@
     <select id="findSchoolAdminCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
         select count(*) from schooladmin
         <where>
+            school_id = #{ school_id}
             <if test="name !='' and name!=null">
                 and name like concat('%',#{name},'%')
             </if>
@@ -92,8 +94,8 @@
 
     <!--添加驾校管理员-->
     <insert id="addSchoolAdmin"   parameterType="com.great.entity.SchoolAdmin">
-		insert into schooladmin (account,pwd,name,phone,time,school_state_id)
-		VALUES(#{account},#{pwd},#{name},#{phone},#{time},#{school_state_id})
+		insert into schooladmin (account,pwd,name,phone,time,school_state_id,school_id)
+		VALUES(#{account},#{pwd},#{name},#{phone},#{time},#{school_state_id},#{school_id})
 	</insert>
 
 

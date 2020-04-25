@@ -111,6 +111,7 @@ layui.use(['form','upload'], function(){
         var fileupload = $(".image");
         console.log("返回的路径="+fileupload.attr("value"))
         // var a =JSON.stringify(data.field)
+        var fileupload = $(".image").val();
         $.ajax({
             url: path + "/school/addCoach",
             async: true,
@@ -137,6 +138,9 @@ layui.use(['form','upload'], function(){
                 if ("请输入正确的手机号码！"==$("#err3").html()){
                     layer.alert("请输入正确的手机号码",{icon:2})
                     return false;
+                }if (""==fileupload){
+                    layer.alert("请上传图片",{icon:2})
+                    return false;
                 }
 
             },
@@ -147,11 +151,9 @@ layui.use(['form','upload'], function(){
                         window.parent.location.reload();
                     });
                 }else if (msg=="IdError"){
-                    layer.alert("身份证号码有误",{icon:6},function () {
-                        window.parent.location.reload();
-                    });
+                    layer.alert("身份证号码有误",{icon:2})
                 } else {
-                    layer.alert("新增失败",{icon:6},function () {
+                    layer.alert("新增失败",{icon:2},function () {
                         window.parent.location.reload();
                     });
                 }

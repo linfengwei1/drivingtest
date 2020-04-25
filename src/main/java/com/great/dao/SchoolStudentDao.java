@@ -72,6 +72,16 @@ public interface SchoolStudentDao
 	//统计毕业人数
 	public Integer CountOver(Integer a);
 
+
+
+	/**
+	 * 单个批准考试或驳回
+	 * @param map
+	 */
+	public void auditAppoint(Map<String, Object> map);
+
+
+
 	//批量审核通过学员预约
 	public Integer changeAppointState(List list);
 
@@ -79,8 +89,15 @@ public interface SchoolStudentDao
 	//批量驳回过学员预约
 	public Integer batchRejected(List list);
 
-	//把学员是否预约改成0
+	//把学员是否预约批量改成0
 	public Integer AppointNo(List list);
+
+	/**
+	 *判断是否已经预约单个改为0
+	 * @param id
+	 * @return
+	 */
+	public Integer AppointNoByOne(Integer id);
 
 
 	//获取预约条数

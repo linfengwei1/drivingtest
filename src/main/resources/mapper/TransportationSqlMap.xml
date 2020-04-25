@@ -304,6 +304,7 @@
 		<result property="name" column="name"/>
 		<result property="phone" column="phone"/>
 		<result property="age" column="age"/>
+		<result property="image" column="image"/>
 		<result property="idnumber" column="idnumber"/>
 		<result property="coach_state_id" column="coach_state_id"/>
 		<result property="schoolName" column="s_name"/>
@@ -337,6 +338,7 @@
 				and c.coach_state_id = #{type}
 			</if>
 		</where>
+		limit #{minlimit} , #{maxlimit}
 	</select>
 
 <!--获取教练记录数-->
@@ -357,7 +359,7 @@
 				and coach_state_id = #{type}
 			</if>
 		</where>
-		limit #{minlimit} , #{maxlimit}
+
 	</select>
 
 <!--获取所有教练状态-->
@@ -613,11 +615,11 @@
 		<result property="color" column="color"/>
 	</resultMap>
 
-	<select id="getExamTimeBySchoolId" resultMap="exTime" parameterType="java.util.Map">
+	<select id="getExamTimeBySchoolId" resultMap="exTime" parameterType="java.lang.String">
 		select ta.*,s.name "s_name"
 		from test_allocation ta
 		left join school s on ta.school_id = s.id
-		where ta.id=#{id};
+		where s.id=#{id};
 	</select>
 
 <!--插入时间-->

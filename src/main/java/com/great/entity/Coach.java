@@ -163,6 +163,7 @@ public class Coach {
                 ", phone='" + phone + '\'' +
                 ", coach_state_id=" + coach_state_id +
                 ", school_id=" + school_id +
+                ", image='" + image + '\'' +
                 ", verification='" + verification + '\'' +
                 ", schoolName='" + schoolName + '\'' +
                 ", audit_results='" + audit_results + '\'' +

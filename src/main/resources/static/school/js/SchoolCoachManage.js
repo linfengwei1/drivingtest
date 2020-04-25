@@ -21,7 +21,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
             {field: 'id', title: '教练ID', width: 120, sort: true, fixed: 'left', align: 'center',hide:true}
-            , {field: 'account', title: '教练账号', width: 100, align: 'center'}
+            , {field: 'account', title: '教练账号', width: 100, align: 'center',hide:true}
             , {field: 'name', title: '姓名', width: 80,  align: 'center'}
             , {field: 'sex', title: '性别', width: 80, align: 'center'}
             , {field: 'age', title: '年龄', width: 90, sort: true, align: 'center'}
@@ -42,7 +42,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                 }
                     return '运管审核不通过'
                 }}
-            , {field: '', title: '操作', toolbar: "#butdiv", width: 300, align: 'center'}
+            , {field: '', title: '操作', toolbar: "#butdiv", width: 380, align: 'center'}
         ]]
     });
 
@@ -73,13 +73,15 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var path1 = $("#path").val();
+        var $td = $(this).parents('tr').children('td');
+        var id = $td.eq(0).text();//获取点击按钮相对应的id
         if(layEvent === 'delete'){ //删除
             layer.confirm('您确定要删除吗?', {icon: 3, title:'提示'}, function(index){
                 $.ajax({
                     async:true,
                     method : "POST",
                     url :path1+'/school/deleteCoach',
-                    data: data,
+                    data: "id="+id,
                     dataType : "text",
                     success:function(data){
                         if ("success"==data){
