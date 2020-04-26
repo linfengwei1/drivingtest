@@ -1,7 +1,9 @@
 package com.great.controller;
 
+import com.great.aoplog.Log;
 import com.great.entity.*;
 import com.great.service.CoachManageService;
+import com.great.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +46,7 @@ public class CoachController
         return "coach/jsp/back";
     }
 
+    @Log(operationType = "教练操作", operationName = "修改教练密码")
     @RequestMapping("/changePwd" )
     public void changePwd(Coach coach, HttpServletResponse response) throws IOException {
         System.out.println("changepwd------");
@@ -133,11 +136,16 @@ public class CoachController
         Boolean confirm = coach.getVerification().equalsIgnoreCase(YZM);//不区分大小写
 
         if (confirm) {
-            Coach coach1 = coachManageService.login(coach.getAccount(),coach.getPwd());
-            if (null!=coach1&&coach1.getCoach_state_id()==1||coach1.getCoach_state_id()==3){
-                request.getSession().setAttribute("coach",coach1);
+            Coach coach1 = coachManageService.login(coach.getAccount(), MD5Utils.md5(coach.getPwd()));
+            if (null!=coach1)
+            {
+                if (coach1.getCoach_state_id()==1||coach1.getCoach_state_id()==3)
+                {
+                    request.getSession().setAttribute("coach",coach1);
 
-                response.getWriter().print("success");
+                    response.getWriter().print("success");
+                }
+
             }else{
                 response.getWriter().print("error");
             }
@@ -226,7 +234,7 @@ public class CoachController
 
 
 
-
+    @Log(operationType = "教练操作", operationName = "给学员预约考试")
     @RequestMapping("/toOrder")
     @ResponseBody
     public String toOrder(@RequestBody Orders orders) throws IOException
