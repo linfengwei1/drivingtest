@@ -31,8 +31,8 @@ public interface SchoolCoachDao
 	//添加驾校管理员
 	public Integer addCoach(Coach coach);
 
-    	//查询所有教练
-   	 public List<Coach> findAllCoach(Integer schoolid);
+	//查询所有教练
+	public List<Coach> findAllCoach(Integer schoolid);
 
 	//单独插入图片
 	public Integer AddCoachImage(Map map);
@@ -95,9 +95,9 @@ public interface SchoolCoachDao
 	List<StudentTable> newFindstudentBypage(TableUtils tableUtils);
 
 	//查询学生学时
-    List<StudyCondition> findStudentTime(TableUtils tableUtils);
+	List<StudyCondition> findStudentTime(TableUtils tableUtils);
 
-    //查询学生评论
+	//查询学生评论
 	List<EvaluationToCoach> findStudentEvaluation(TableUtils tableUtils);
 
 	//查询学生评论页数
@@ -105,6 +105,7 @@ public interface SchoolCoachDao
 
 
 	List<Student> getStudentBySubject(@Param("subject") int subject, @Param("coachId") Integer coachId);
+	List<Student> getStudentBySubject2_3(@Param("subject") int subject, @Param("coachId") Integer coachId);
 	int getOrderTimeBySchool(@Param("time") String time, @Param("schoolId") Integer schoolId);
 	int checkHasOrder(@Param("subject") Integer subject, @Param("date") String date);
 

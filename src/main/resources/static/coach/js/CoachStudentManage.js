@@ -61,10 +61,38 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                     return '毕业'
                 }}
             , {field: 'time', title: '当前阶段学时', width: 120, align: 'center'}
-            , {field: 'oneScore', title: '科目一成绩', width: 120, align: 'center'}
-            , {field: 'twoScore', title: '科目二成绩', width: 120, align: 'center'}
-            , {field: 'threeScore', title: '科目三成绩', width: 120, align: 'center'}
-            , {field: 'fourScore', title: '科目四成绩', width: 120, align: 'center'}
+            , {field: 'oneScore', title: '科目一成绩', width: 120, align: 'center',templet: function(d){
+                    if (0 == d.oneScore){
+                        return '暂无'
+                    }else
+                    {
+                        return d.oneScore;
+                    }
+                }}
+            , {field: 'twoScore', title: '科目二成绩', width: 120, align: 'center',templet: function(d){
+                    if (0 == d.twoScore){
+                        return '暂无'
+                    }else
+                    {
+                        return d.twoScore;
+                    }
+                }}
+            , {field: 'threeScore', title: '科目三成绩', width: 120, align: 'center',templet: function(d){
+                    if (0 == d.threeScore){
+                        return '暂无'
+                    }else
+                    {
+                        return d.threeScore;
+                    }
+                }}
+            , {field: 'fourScore', title: '科目四成绩', width: 120, align: 'center',templet: function(d){
+                    if (0 == d.fourScore){
+                        return '暂无'
+                    }else
+                    {
+                        return d.fourScore;
+                    }
+                }}
             // , {field: '', title: '操作', toolbar: "#butdiv", width: 250, align: 'center'}
         ]]
     });

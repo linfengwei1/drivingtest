@@ -30,11 +30,11 @@ public interface CoachManageService
      */
     Object getCoachStudentTable(TableUtils utils);
 
-	/**
-	 * 查询驾校教练人数
-	 * @return
-	 */
-	public List getSchoolCoach();
+    /**
+     * 查询驾校教练人数
+     * @return
+     */
+    public List getSchoolCoach();
 
     /**
      * 查询学生评价
@@ -46,9 +46,9 @@ public interface CoachManageService
 
 
 
-	List<Student> getStudentBySubject(String subject, String coachId);
+    List<Student> getStudentBySubject(String subject, String coachId);
 
-	String getOrderTimeBydate(String schoolId, String data);
+    String getOrderTimeBydate(String schoolId, String data);
 
-	String toOrder(Orders orders);
+    String toOrder(Orders orders);
 }

@@ -36,8 +36,41 @@
     </resultMap>
 
     <resultMap id="Student" type="com.great.entity.StudentTable">
+        <!-- 主键字段的对应 -->
+        <id property="id" column="id"></id>
         <result column="student_state_id" property="student_state_id"></result>
+
+        <association property="oneScore"
+                     select="selectoneScore"
+                     column="{id=id}">
+        </association>
+        <association property="twoScore"
+                     select="selecttwoScore"
+                     column="{id=id}">
+        </association>
+        <association property="threeScore"
+                     select="selectthreeScore"
+                     column="{id=id}">
+        </association>
+        <association property="fourScore"
+                     select="selectfourScore"
+                     column="{id=id}">
+        </association>
     </resultMap>
+
+    <select id="selectoneScore" resultType="int">
+	    select score from score where student_id = #{id} and subject_id =  1
+	</select>
+    <select id="selecttwoScore" resultType="int">
+	    select score from score where student_id = #{id} and subject_id =  2
+	</select>
+    <select id="selectthreeScore" resultType="int">
+	    select score from score where student_id = #{id} and subject_id =  3
+	</select>
+    <select id="selectfourScore" resultType="int">
+	    select score from score where student_id = #{id} and subject_id =  4
+	</select>
+
 
     <resultMap id="StudentScore" type="com.great.entity.Score">
         <result column="subject_id" property="subject"></result>
@@ -445,5 +478,14 @@
         and s.student_state_id = sd.subject_id
         and sd.time=3
         and sd.practise_score >=90
+	</select>
+    <select id="getStudentBySubject2_3" resultMap="studentMap">
+		select s.* from student as s,studycondition as sd
+        where s.coach_id = #{coachId}
+        and s.student_state_id = #{subject}
+        and s.hasordered = 0
+        and s.id = sd.student_id
+        and s.student_state_id = sd.subject_id
+        and sd.time=3
 	</select>
 </mapper>
