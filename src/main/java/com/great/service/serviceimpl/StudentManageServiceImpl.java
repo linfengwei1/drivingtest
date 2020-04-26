@@ -289,12 +289,12 @@ public class StudentManageServiceImpl implements StudentManageService
 		{   //计算出成绩
 			score = studentDao.getTest_1Score(testReplieslist.getTestReplieslist());
 				//写入成绩
-			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score);
-		}else//考科目四
+			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score,testReplieslist.getSubject());
+		}else if(testReplieslist.getSubject() == 4)//考科目四
 		{
 			score = studentDao.getTest_4Score(testReplieslist.getTestReplieslist());
 			//写入成绩
-			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score);
+			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score,testReplieslist.getSubject());
 		}
 
 		System.out.println("本次考试得了"+score);

@@ -436,32 +436,32 @@ public class TransportationServiceImp implements TransportationService {
 
         //验证日期是否包含关系//包含找出最大最小
 
-        List<TestTime> testTimes=td.getExamTimeBySchoolId(sid);
+//        List<TestTime> testTimes=td.getExamTimeBySchoolId(sid);
 
-        System.out.println(testTimes);
+//        System.out.println(testTimes);
 
-        boolean flag=false;
+        boolean flag=true;
 
-        if (testTimes==null){
-            flag=true;
-        }else {
-            for (int i=0;i<testTimes.size();i++){
-                Map<String,String> map=timeVerify(start,end,testTimes.get(i).getStart_time().split(" ")[0],testTimes.get(i).getEnd_time().split(" ")[0]);
-                if (map.get("flag").equals("true")){
-
-                    Map<String,Object> map1=new HashMap<>();
-                    map1.put("id",testTimes.get(i).getId());
-                    map1.put("start",start);
-                    map1.put("end",end);
-
-                    System.out.println("111");
-                    td.updateExamTime(map1);
-
-                    break;
-                }
-                flag = true;
-            }
-        }
+//        if (testTimes==null){
+//            flag=true;
+//        }else {
+//            for (int i=0;i<testTimes.size();i++){
+//                Map<String,String> map=timeVerify(start,end,testTimes.get(i).getStart_time().split(" ")[0],testTimes.get(i).getEnd_time().split(" ")[0]);
+//                if (map.get("flag").equals("true")){
+//
+//                    Map<String,Object> map1=new HashMap<>();
+//                    map1.put("id",testTimes.get(i).getId());
+//                    map1.put("start",start);
+//                    map1.put("end",end);
+//
+//                    System.out.println("111");
+//                    td.updateExamTime(map1);
+//
+//                    break;
+//                }
+//                flag = true;
+//            }
+//        }
         //不包含直接插入数据
         if (flag){
             System.out.println("222");

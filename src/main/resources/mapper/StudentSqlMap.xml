@@ -61,6 +61,7 @@
 	<resultMap id="scoreMap" type="Score">
 <!--		<id property="id" column="id"></id>-->
 		<!--非主键字段的对应-->
+		<result property="examId" column="examid"></result>
 		<result property="subject" column="name"></result>
 		<result property="examTime" column="datetime"></result>
 		<result property="score" column="score"></result>
@@ -118,7 +119,7 @@
 
 
 	<select id="getMyScore" resultMap="scoreMap" >
-		select s.name,t.datetime,sc.score from time as t,score as sc,appoint_time_relation as a,`subject` as s
+		select a.id as examid,s.name,t.datetime,sc.score from time as t,score as sc,appoint_time_relation as a,`subject` as s
 		where sc.student_id = #{studentId} and sc.appoint_time_relation_id =  a.id and a.time_id=t.id and sc.subject_id = s.id
 	</select>
 	<select id="getOrderTime" resultType="ExamOrder">
@@ -250,7 +251,7 @@
 		update student set student_state_id = #{stateId} where id = #{studentId}
 	</update>
 	<update id="updatePractiseScore">
-		update studycondition set practise_score = #{score} where student_id = #{studentId}
+		update studycondition set practise_score = #{score} where student_id = #{studentId} and subject_id = #{subject}
 	</update>
 	<update id="setStage">
 		update student set student_state_id = #{stage} where id = #{studentId}

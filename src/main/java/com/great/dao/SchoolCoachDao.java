@@ -105,6 +105,7 @@ public interface SchoolCoachDao
 
 
 	List<Student> getStudentBySubject(@Param("subject") int subject, @Param("coachId") Integer coachId);
+	List<Student> getStudentBySubject2_3(@Param("subject") int subject, @Param("coachId") Integer coachId);
 	int getOrderTimeBySchool(@Param("time") String time, @Param("schoolId") Integer schoolId);
 	int checkHasOrder(@Param("subject") Integer subject, @Param("date") String date);
 
