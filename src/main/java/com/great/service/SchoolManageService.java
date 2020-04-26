@@ -518,15 +518,17 @@ public class SchoolManageService {
     }
 
     //驾校申请
-    public Integer SchoolApply(String name, String admin, String address,String phone, String intro,String path){
+    public School SchoolApply(String account,String name, String admin, String address,String phone, String intro,String path){
+        school.setAccount(account);
         school.setName(name);
         school.setAdmin(admin);
         school.setAddress(address);
         school.setPhone(phone);
         school.setIntro(intro);
         school.setInformation(path);
-        Integer a = schoolAdminDao.SchoolApply(school);
-        return a;
+        schoolAdminDao.SchoolApply(school);
+
+        return school;
     }
 
 

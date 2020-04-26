@@ -15,7 +15,7 @@ public class SchoolLoginConfig implements WebMvcConfigurer
 		registration.addPathPatterns("/school/**");                      //所有驾校操作路径都被拦截
 		registration.excludePathPatterns(                         //添加不拦截路
 				"/school/path/SchoolLogin",//驾校登录
-				"/school/login",
+				"/school/Login",
 				"/school/path/SchoolFaceLogin",//驾校人脸登录
 				"/school/faceLogin",
 				"/school/path/ChangePwd",//忘记密码
@@ -28,7 +28,9 @@ public class SchoolLoginConfig implements WebMvcConfigurer
 				"/school/jumpNwePage",
 				"/school/CheckAccount",
 				"/school/upload1",
-				"/school/path/upload1"
+				"/school/path/upload1",
+				"/school/getNotice"
+
 				);
 	}
 }

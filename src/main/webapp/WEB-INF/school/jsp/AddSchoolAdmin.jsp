@@ -19,7 +19,7 @@
             margin-left: 20%;
             padding-left: 5%;
             padding-top: 2%;
-            width: 50%;
+            width: 60%;
             background-color: #dadada;
         }
         .layui-layout-body{
