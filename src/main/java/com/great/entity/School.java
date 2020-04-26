@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class School {
     private Integer id;
+    private String account;//用来存入管理员的账号
+    private String pwd;//用来存入管理员的密码
     private String name;
     private String phone;
     private String address;
@@ -32,6 +34,10 @@ public class School {
 
     }
 
+
+
+
+
     public School(Integer id, String name, String phone, String address, String admin, String intro, Integer school_state_id, String information, String audit_results, String content, String result, String dateTime) {
         this.id = id;
         this.name = name;
@@ -45,6 +51,22 @@ public class School {
         this.content = content;
         this.result = result;
         this.dateTime = dateTime;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public Integer getCount() {

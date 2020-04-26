@@ -24,10 +24,11 @@
 		<div class="tmio">
 				<table class="layui-table"  lay-filter="test" id="demo" lay-size="lg">
 					<tr>
-						<td colspan="3" style="color: #20B2AA; text-align: center" >考试预约表</td>
+						<td colspan="4" style="color: #20B2AA; text-align: center" >考试预约表</td>
 					</tr>
 					<tr style="color: white; background-color: #808080;">
 						<th>考试科目</th>
+						<th>准考证号</th>
 						<th>考试时间</th>
 						<th>状态</th>
 					</tr>

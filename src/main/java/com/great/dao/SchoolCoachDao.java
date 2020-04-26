@@ -31,8 +31,8 @@ public interface SchoolCoachDao
 	//添加驾校管理员
 	public Integer addCoach(Coach coach);
 
-    	//查询所有教练
-   	 public List<Coach> findAllCoach(Integer schoolid);
+	//查询所有教练
+	public List<Coach> findAllCoach(Integer schoolid);
 
 	//单独插入图片
 	public Integer AddCoachImage(Map map);
@@ -95,9 +95,9 @@ public interface SchoolCoachDao
 	List<StudentTable> newFindstudentBypage(TableUtils tableUtils);
 
 	//查询学生学时
-    List<StudyCondition> findStudentTime(TableUtils tableUtils);
+	List<StudyCondition> findStudentTime(TableUtils tableUtils);
 
-    //查询学生评论
+	//查询学生评论
 	List<EvaluationToCoach> findStudentEvaluation(TableUtils tableUtils);
 
 	//查询学生评论页数

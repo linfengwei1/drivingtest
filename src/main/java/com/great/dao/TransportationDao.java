@@ -231,6 +231,16 @@ public interface TransportationDao {
      */
     public void examineSchool(Map<String, Object> map);
 
+
+    //<!--根据驾校id查询到驾校对应的账号,为了去查到管理员表对应的账号-->
+    public String findSchoolAccount(Integer id);
+
+
+    //更新驾校审核的同时更新驾校管理员的状态(通过或不通过)
+    public void examineSchoolAdmin(Map<String, Object> map);
+
+
+
     /**
      * 修改教练审核
      *
@@ -355,6 +365,10 @@ public interface TransportationDao {
      */
     public void stopApplySchool(Map<String, Object> map);
 
+    //禁止该学校的所有管理员账号
+    public void stopApplySchoolAdmin(Map<String, Object> map);
+
+
     /**
      * 禁止记录
      * @param map
@@ -366,6 +380,9 @@ public interface TransportationDao {
      * @param map
      */
     public void stopDoingSchool(Map<String, Object> map);
+
+    //封停学校的所有管理员
+    public void stopDoingSchoolAdmin(Map<String, Object> map);
 
     /**
      * 封停教练
@@ -385,11 +402,17 @@ public interface TransportationDao {
      */
     public void relieveApplySchool(Map<String, Integer> map);
 
+    //解禁驾校管理员
+    public void relieveApplySchoolAdmin(Map<String, Integer> map);
+
     /**
      * 解封驾校
      * @param map
      */
     public void relieveDoingSchool(Map<String, Integer> map);
+
+    //解封驾校管理员
+    public void relieveDoingSchoolAdmin(Map<String, Integer> map);
 
     /**
      * 解封教练

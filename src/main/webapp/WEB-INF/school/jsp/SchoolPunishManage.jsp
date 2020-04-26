@@ -102,12 +102,12 @@
             //第一个实例
             table.render({
                 elem: '#dataTable'
-                , height: 280
+                , height: 450
                 , url: path + '/school/PunishTable' //数据接口
                 , page: true //开启分页
                 , id: 'searchTable'
                 ,toolbar: 'true' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-                , limit: 5
+                , limit: 10
                 , limits: [5, 10, 15, 20]
                 , cols: [[ //表头
                     {field: 'id', title: 'ID', width: 120, sort: true, fixed: 'left', align: 'center',hide:true}
@@ -186,25 +186,28 @@
                 }
 
                 if(layEvent === 'employ'){ //启用
-                    $.ajax({
-                        async:true,
-                        method : "POST",
-                        url :path1+'/school/employPunish',
-                        data: data,
-                        dataType : "text",
-                        success:function(data){
-                            if ("success"==data){
-                                layer.alert("启用成功",{icon:6},function () {
-                                    window.parent.location.reload();
-                                });
-                            }else {
-                                layer.alert("启用失败",{icon:2});
+                    layer.confirm('您确定要启用吗?', {icon: 3, title:'提示'}, function(index){
+                        $.ajax({
+                            async:true,
+                            method : "POST",
+                            url :path1+'/school/employPunish',
+                            data: data,
+                            dataType : "text",
+                            success:function(data){
+                                if ("success"==data){
+                                    layer.alert("启用成功",{icon:6},function () {
+                                        window.parent.location.reload();
+                                    });
+                                }else {
+                                    layer.alert("启用失败",{icon:2});
+                                }
+                            },
+                            error:function (err) {
+                                layer.alert("网络繁忙",{icon:2});
                             }
-                        },
-                        error:function (err) {
-                            layer.alert("网络繁忙",{icon:2});
-                        }
+                        })
                     })
+
                 }
 
                 if(layEvent === 'stop'){ //封停
@@ -265,7 +268,7 @@
                 layer.open({
                     title:'添加违规记录',
                     type: 2,
-                    area: ['1000px', '400px'],
+                    area: ['900px', '450px'],
                     content:path+"/school/jumpPunish",//弹出的页面
                 });
             })

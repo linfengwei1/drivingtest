@@ -25,7 +25,7 @@ public class SchoolLoginInterceptor extends HandlerInterceptorAdapter
 		{
 			return true;
 		}
-//		//给验证码放行
+		//给验证码放行
 //		if( request.getSession().getAttribute("vcode") != null)
 //		{
 //			return true;

@@ -123,7 +123,7 @@
 		where sc.student_id = #{studentId} and sc.appoint_time_relation_id =  a.id and a.time_id=t.id and sc.subject_id = s.id
 	</select>
 	<select id="getOrderTime" resultType="ExamOrder">
-		select s.name as subject,t.datetime as ordertime,a.appoint_state_id as status from `subject` as s,appoint_time_relation as a,time t
+		select a.id as examid,s.name as subject,t.datetime as ordertime,a.appoint_state_id as status from `subject` as s,appoint_time_relation as a,time t
 		where a.student_id = #{studentId}
 		and a.time_id = t.id
 		and t.subject_id = s.id

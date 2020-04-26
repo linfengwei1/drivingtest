@@ -170,7 +170,7 @@
             }
             if(layEvent === 'update'){ //更新
                 var $td = $(this).parents('tr').children('td');
-                var id = $td.eq(0).text();//车辆id
+                var id = $td.eq(1).text();//车辆id
                 var carNumber = $td.eq(1).text();//车牌号
                 var cid = $td.eq(2).text();//教练id
                 var name = $td.eq(3).text();//教练名

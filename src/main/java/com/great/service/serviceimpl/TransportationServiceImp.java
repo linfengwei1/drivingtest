@@ -1,5 +1,6 @@
 package com.great.service.serviceimpl;
 
+import com.great.aoplog.Log;
 import com.great.dao.TransportationDao;
 import com.great.entity.*;
 
@@ -101,21 +102,25 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "删除科目一题目")
     public Integer deleteOneSubjectMsg(Subject subject) {
         return td.deleteOneSubjectMsg(subject.getId());
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "删除科目四题目")
     public Integer deleteFourthSubjectMsg(Subject subject) {
         return td.deleteFourthSubjectMsg(subject.getId());
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "更新科目一题目")
     public Integer updateOneSubjectMsg(Subject subject) {
         return td.updateOneSubjectMsg(subject);
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "更新科目四题目")
     public Integer updateFourthSubjectMsg(Subject subject) {
         return td.updateFourthSubjectMsg(subject);
     }
@@ -335,6 +340,7 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "修改学员审核")
     public void examineStudent(Integer id, String text, Integer i) {
         Map<String,Object> map=new HashMap<>();
         map.put("id",id);
@@ -344,15 +350,20 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "修改驾校审核")
     public void examineSchool(Integer id, String text, Integer i) {
         Map<String,Object> map=new HashMap<>();
         map.put("id",id);
         map.put("text",text);
         map.put("i",i);
         td.examineSchool(map);
+        String account = td.findSchoolAccount(id);
+        map.put("account",account);
+        td.examineSchoolAdmin(map);
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "修改教练审核")
     public void examineCoach(Integer id, String text, Integer i) {
         Map<String,Object> map=new HashMap<>();
         map.put("id",id);
@@ -362,6 +373,7 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "修改教练车审核")
     public void examineCoachCar(Integer id, String text, String i) {
         Map<String,Object> map=new HashMap<>();
         map.put("id",id);
@@ -403,12 +415,14 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "删除公告")
     public Integer deleteNotice(Notice notice)
     {
         return td.deleteNotice(notice.getId());
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "更新公告")
     public Integer updateNoticeMsg(Notice notice)
     {
         return td.updateNoticeMsg(notice);
@@ -421,6 +435,7 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "新增公告")
     public Integer insertNotice(Notice notice)
     {
         return td.insertNotice(notice);
@@ -432,36 +447,38 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "插入考试可预约时间")
     public Integer insertExamTime(String start, String end, String sid, String scolor)  {
 
         //验证日期是否包含关系//包含找出最大最小
 
-//        List<TestTime> testTimes=td.getExamTimeBySchoolId(sid);
+        List<TestTime> testTimes=td.getExamTimeBySchoolId(sid);
 
-//        System.out.println(testTimes);
+        System.out.println("testTimes:"+testTimes);
 
-        boolean flag=true;
+        boolean flag=false;
 
-//        if (testTimes==null){
-//            flag=true;
-//        }else {
-//            for (int i=0;i<testTimes.size();i++){
-//                Map<String,String> map=timeVerify(start,end,testTimes.get(i).getStart_time().split(" ")[0],testTimes.get(i).getEnd_time().split(" ")[0]);
-//                if (map.get("flag").equals("true")){
-//
-//                    Map<String,Object> map1=new HashMap<>();
-//                    map1.put("id",testTimes.get(i).getId());
-//                    map1.put("start",start);
-//                    map1.put("end",end);
-//
-//                    System.out.println("111");
-//                    td.updateExamTime(map1);
-//
-//                    break;
-//                }
-//                flag = true;
-//            }
-//        }
+        if (testTimes.size()==0){
+            System.out.println("123");
+            flag=true;
+        }else {
+            for (int i=0;i<testTimes.size();i++){
+                Map<String,String> map=timeVerify(start,end,testTimes.get(i).getStart_time().split(" ")[0],testTimes.get(i).getEnd_time().split(" ")[0]);
+                if (map.get("flag").equals("true")){
+
+                    Map<String,Object> map1=new HashMap<>();
+                    map1.put("id",testTimes.get(i).getId());
+                    map1.put("start",start);
+                    map1.put("end",end);
+
+                    System.out.println("111");
+                    td.updateExamTime(map1);
+
+                    break;
+                }
+                flag = true;
+            }
+        }
         //不包含直接插入数据
         if (flag){
             System.out.println("222");
@@ -492,37 +509,37 @@ public class TransportationServiceImp implements TransportationService {
             Date e1 = sdf.parse(dateStr2_1);
             Date e2 = sdf.parse(dateStr2_2);
 
-        if((s1.getTime()<=e1.getTime()) && (e1.getTime()<=s2.getTime())){
-        }else if((e1.getTime()<=s1.getTime())&&(s1.getTime()<=e2.getTime())&&(e2.getTime()<=s2.getTime())){
-        }else if((e1.getTime()<=s1.getTime())&&(e1.getTime()<=s2.getTime())&&(s2.getTime()<=e2.getTime())) {
-        }else if((s1.getTime()<=e1.getTime())&&(s2.getTime()>=e2.getTime())) {
-        }else{
-            flag="false";
-        }
-
-        List<Date> dates=new ArrayList<>();
-        dates.add(s1);
-        dates.add(s2);
-        dates.add(e1);
-        dates.add(e2);
-        Date max=dates.get(0);
-        Date min=dates.get(0);
-        for(int i=1;i<dates.size();i++) {
-            if (dates.get(i).getTime()>max.getTime()) {
-                max=dates.get(i);
+            if((s1.getTime()<=e1.getTime()) && (e1.getTime()<=s2.getTime())){
+            }else if((e1.getTime()<=s1.getTime())&&(s1.getTime()<=e2.getTime())&&(e2.getTime()<=s2.getTime())){
+            }else if((e1.getTime()<=s1.getTime())&&(e1.getTime()<=s2.getTime())&&(s2.getTime()<=e2.getTime())) {
+            }else if((s1.getTime()<=e1.getTime())&&(s2.getTime()>=e2.getTime())) {
+            }else{
+                flag="false";
             }
-            if (dates.get(i).getTime()<min.getTime()) {
-                min=dates.get(i);
+
+            List<Date> dates=new ArrayList<>();
+            dates.add(s1);
+            dates.add(s2);
+            dates.add(e1);
+            dates.add(e2);
+            Date max=dates.get(0);
+            Date min=dates.get(0);
+            for(int i=1;i<dates.size();i++) {
+                if (dates.get(i).getTime()>max.getTime()) {
+                    max=dates.get(i);
+                }
+                if (dates.get(i).getTime()<min.getTime()) {
+                    min=dates.get(i);
+                }
             }
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String time1=formatter.format(max);
-        String time2=formatter.format(min);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String time1=formatter.format(max);
+            String time2=formatter.format(min);
 
 
-        map.put("flag",flag);
-        map.put("min",time2);
-        map.put("max",time1);
+            map.put("flag",flag);
+            map.put("min",time2);
+            map.put("max",time1);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -530,6 +547,7 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "删除考试可预约时间")
     public Integer deleteExamTime(Integer tid) {
         return td.deleteExamTime(tid);
     }
@@ -548,6 +566,7 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "禁止驾校报名")
     public void stopApply(Integer id, String content, String result, Integer i) {
         Map<String,Object> map=new HashMap<>();
         map.put("id",id);
@@ -558,11 +577,14 @@ public class TransportationServiceImp implements TransportationService {
         System.out.println(map);
         //停驾校
         td.stopApplySchool(map);
+        //把该驾校的所有管理员都禁止报名
+        td.stopApplySchoolAdmin(map);
         //记录
         td.recordApply(map);
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "封停驾校")
     public void stopDoing(Integer id, String content, String result, Integer i) {
         Map<String,Object> map=new HashMap<>();
         map.put("id",id);
@@ -574,6 +596,7 @@ public class TransportationServiceImp implements TransportationService {
         System.out.println(map);
         //停驾校
         td.stopDoingSchool(map);
+        td.stopDoingSchoolAdmin(map);
         //查询驾校教练
         List<Coach> coaches=td.getCoachBySchoolId(id);
         //停教练
@@ -586,21 +609,25 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "封停驾校解除")
     public void relieveApply(Integer id, Integer i) {
         Map<String,Integer> map=new HashMap<>();
         map.put("id",id);
         map.put("state",i);
         //解停
         td.relieveApplySchool(map);
+        td.relieveApplySchoolAdmin(map);
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "禁止驾校报名解除")
     public void relieveDoing(Integer id, Integer i) {
         Map<String,Integer> map=new HashMap<>();
         map.put("id",id);
         map.put("state",i);
         //解封驾校
         td.relieveDoingSchool(map);
+        td.relieveDoingSchoolAdmin(map);
         //解封教练
         //查询驾校教练
         List<Coach> coaches=td.getCoachBySchoolId(id);
@@ -641,6 +668,7 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
+    @Log(operationType = "运管操作", operationName = "删除驾校处罚")
     public void deletePunish(Integer id) {
         td.deletePunish(id);
     }
@@ -745,6 +773,7 @@ public class TransportationServiceImp implements TransportationService {
 
     @Override
     @Transactional
+    @Log(operationType = "运管操作", operationName = "插入成绩表")
     public int insertScoreByExcel(List<TestScore> list)
     {
         return td.insertScoreByExcel(list);

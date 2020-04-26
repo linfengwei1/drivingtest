@@ -48,12 +48,41 @@
     layui.use('form', function(){
         var form = layui.form;
         //同时支持多条规则的验证
-        form.verify({
-            phone: [
-                /^1(3|4|5|6|7|8|9)\d{9}$/
-                , '请输入正确的手机号码'
-            ],
-        });
+        // form.verify({
+        //     phone: [
+        //         /^1(3|4|5|6|7|8|9)\d{9}$/
+        //         , '请输入正确的手机号码'
+        //     ],
+        // });
+        $("#phone").blur(function (){
+            var UserPhone3=$("#phone").val();;
+            var r_UserPhone3 = /^1(3|4|5|6|7|8|9)\d{9}$/;
+            if (!r_UserPhone3.test(UserPhone3)){
+                $("#err3").html("请输入正确的手机号码！");
+            }else {
+                $.ajax({
+                    url:  "${pageContext.request.contextPath}/school/CheckAdminPhone",
+                    async: true,
+                    type: "post",
+                    data: "phone=" + $("#phone").val(),
+                    datatype: "text",
+                    success: function (msg) {
+                        if (msg == "success") {
+                            $("#err3").html("√");
+                        } else  {
+                            $("#err3").html("该手机已被注册");
+                            return false;
+                        }
+                    },
+                    error: function () {
+                        alert("网络繁忙");
+                    }
+                })
+            }
+        })
+
+
+
         //监听提交
         form.on('submit(formDemo)', function(data){
             var path = $("#path").val();
@@ -61,6 +90,16 @@
                 url:path+'/school/UpdateSchoolAdmin',
                 type:'post',
                 data:data.field,
+                beforeSend:function (){
+                    if ("请输入正确的手机号码！"==$("#err3").html()){
+                        layer.alert("请输入正确的手机号码",{icon:2})
+                        return false;
+                    }
+                    if ("该手机已被注册"==$("#err3").html()){
+                        layer.alert("该手机已被注册",{icon:2})
+                        return false;
+                    }
+                },
                 success:function(data){
                     if ("error"==data){
                         layer.alert("更新失败",{icon:2});

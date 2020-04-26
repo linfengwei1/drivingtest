@@ -62,11 +62,11 @@ jQuery(function($){
         $('.body')[0].scrollTop = $('.body')[0].scrollHeight;
         $('.question').val('').focus();
         msgidx = -1;
-        // 生成回答列表
+        // 生成回答列表49de46c409c047d19b2ed2285e8775a6&info
         setTimeout(function(){
             $.ajax({
                type: "get",
-               url: "http://www.tuling123.com/openapi/api?key=49de46c409c047d19b2ed2285e8775a6&info="+val,
+               url: "http://www.tuling123.com/openapi/api?key=f590e4b40474495aab747c068b44d322&info="+val,
                // data: "mes="+val,
                success: function(res){
                     var res = res.text;
