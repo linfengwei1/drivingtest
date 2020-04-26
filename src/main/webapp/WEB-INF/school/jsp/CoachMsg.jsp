@@ -49,7 +49,7 @@
                     </span>
                     <span>就职驾校：${coach.schoolName}</span>
                     <span>审核结果：${coach.audit_results}</span>
-                    <a href="javascript:void(0)"><img alt="" class="xueyuan" src="${pageContext.request.contextPath}/static/${student.image}"></a>
+                    <a href="javascript:void(0)"><img alt="" class="xueyuan" src="${pageContext.request.contextPath}/static${coach.image}"></a>
                 </li>
             </ul>
         </div>

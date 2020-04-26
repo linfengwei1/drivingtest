@@ -53,6 +53,9 @@ public class SchoolManageService {
           System.out.println("根据id返回的对象=="+admin.toString());
         if (null!=admin){
             request.getSession().setAttribute("SchoolAdmin",admin);
+            if (1!=admin.getSchool_state_id()||3!=admin.getSchool_state_id()){
+                return "no";
+            }
             return "success";
         }
             return "error";
@@ -261,6 +264,23 @@ public class SchoolManageService {
         return InfMap;
     }
 
+
+
+    public void auditAppoint(Integer id, String doing,String name,Integer studentId) {
+        Map<String,Object> map=new HashMap<>();
+        if (doing.equals("批准")){
+            map.put("id",id);
+            map.put("state",4);
+            schoolStudentDao.auditAppoint(map);
+        }else {
+            map.put("id",id);
+            map.put("state",2);
+            schoolStudentDao.auditAppoint(map);
+            schoolStudentDao.AppointNoByOne(studentId);
+
+        }
+
+    }
 
     //批量审核通过学员预约
     public Integer changeAppointState(List list){

@@ -21,7 +21,7 @@ public class SchoolAdmin {
     @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date time;
     private Integer school_state_id;
-    private SchoolState schoolState;
+//    private SchoolState schoolState;
     private String verification;//验证码
     private String phoneMsg;//短信验证码
 
@@ -30,16 +30,7 @@ public class SchoolAdmin {
     public SchoolAdmin() {
     }
 
-    public SchoolAdmin(Integer id, String account, String pwd, String name, String phone, Integer school_id, Integer school_state_id, SchoolState schoolState) {
-        this.id = id;
-        this.account = account;
-        this.pwd = pwd;
-        this.name = name;
-        this.phone = phone;
-        this.school_id = school_id;
-        this.school_state_id = school_state_id;
-        this.schoolState = schoolState;
-    }
+
 
     public String getPhoneMsg() {
         return phoneMsg;
@@ -113,13 +104,13 @@ public class SchoolAdmin {
         this.school_state_id = school_state_id;
     }
 
-    public SchoolState getSchoolState() {
-        return schoolState;
-    }
-
-    public void setSchoolState(SchoolState schoolState) {
-        this.schoolState = schoolState;
-    }
+//    public SchoolState getSchoolState() {
+//        return schoolState;
+//    }
+//
+//    public void setSchoolState(SchoolState schoolState) {
+//        this.schoolState = schoolState;
+//    }
 
     public Date getTime() {
         return time;
@@ -140,7 +131,8 @@ public class SchoolAdmin {
                 ", school_id=" + school_id +
                 ", time=" + time +
                 ", school_state_id=" + school_state_id +
-                ", schoolState=" + schoolState +
+                ", verification='" + verification + '\'' +
+                ", phoneMsg='" + phoneMsg + '\'' +
                 '}';
     }
 }

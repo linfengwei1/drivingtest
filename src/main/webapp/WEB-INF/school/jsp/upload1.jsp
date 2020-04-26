@@ -40,6 +40,28 @@
         <div class="layadmin-user-login-box layadmin-user-login-header" style="margin-left: 50%;">
             <h2 style="color: red">驾校申请</h2>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-inline" style="width: 190px">
+                <input  type="text" id="account" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+            </div>
+            <span id="err1" style="color: red"></span>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码框</label>
+            <div class="layui-input-inline">
+                <input type="password" id="pwd"  name="pwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+
+            <span id="err5" style="color: red"></span>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">重复输入</label>
+            <div class="layui-input-inline">
+                <input type="password"  id="rpassword" name="rpassword" required lay-verify="required" placeholder="请在此输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <span id="err2" style="color: red"></span>
+        </div>
         <div class="layadmin-user-login-box layadmin-user-login-header">
             <div class="layui-form-item">
                 <label class="layui-form-label">驾校名称：</label>
@@ -102,12 +124,69 @@
 
 </body>
 <script>
+
+
+    $("#account").blur(function (){
+        //获取用户名的值
+        var UserName3=$("#account").val();
+        //定义正则表达式
+        var r_UserName3 = /^[\u4E00-\u9FA5A-Za-z0-9_]{2,18}$/;//6-8个字符
+        //判断值是否符合正则表达式的规则
+        if (!r_UserName3.test(UserName3)){
+            $("#err1").html("正确用户名为2到18位中文、下划线、字母和数字组成");
+        }else {
+            $.ajax({
+                url:  "${pageContext.request.contextPath}/school/CheckAccount",
+                async: true,
+                type: "post",
+                data: "name=" + $("#account").val(),
+                datatype: "text",
+                success: function (msg) {
+                    if (msg == 1111) {
+                        $("#err1").html("√");
+                    } else  {
+                        $("#err1").html("用户名已经被注册");
+                        return false;
+                    }
+                },
+                error: function () {
+                    alert("网络繁忙");
+                }
+            })
+        }
+    })
+
+    $("#pwd").blur(function (){
+        var  UserPaw3=$("#pwd").val()
+        var  r_UserPaw3 =/^[A-Za-z0-9_]{6,8}$/;//(正确的密码为6到8位下划线、字母和数字组成)
+        //判断值是否符合正则表达式的规则
+        if (!r_UserPaw3.test(UserPaw3)){
+            $("#err5").html("正确的密码为6到8位下划线、字母和数字组成！");
+        }else {
+            $("#err5").html("√");
+        }
+    })
+
+    $("#rpassword").blur(function (){
+        var paw =$("#pwd").val()
+        var rpaw =$("#rpassword").val()
+        if (paw!=rpaw){
+            $("#err2").html("两次密码输入不一致");
+        }else {
+            $("#err2").html("√");
+        }
+    })
+
     layui.use(['upload','jquery','element'], function(){
         var upload = layui.upload;
             $=layui.jquery,
             element=layui.element;
         element.init();
         var path =$("#path").val();
+
+
+
+
         //执行实例
         var uploadInst = upload.render({
             elem: '#test8' //绑定元素
@@ -124,6 +203,9 @@
                     admin: $("#admin").val(),//法人
                     address: $("#address").val(),//地址
                     phone: $("#phone").val(),//联系方式
+                    Account:$("#err1").text(),//获取账号是否被注册
+                    pwd: $("#err5").html(),//判断没什么是否符合
+                    rpwd:$("#err2").html(),
                 }
 
             }
@@ -151,6 +233,10 @@
                 if(res.code == 3){
                     //上传完毕回调
                     alert("文件或其他信息不能为空！");
+                }
+                if(res.code == 4){
+                    //上传完毕回调
+                    alert("请输入正确的账号密码！");
                 }
             }
             ,error: function(){

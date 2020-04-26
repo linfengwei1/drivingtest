@@ -10,6 +10,7 @@
     <select id="findSchoolLogByPage" resultType="TbLog" parameterType="com.great.entity.TableUtils">
         select * from log
         <where>
+            school_id = #{school_id}
             <if test="name !='' and name!=null">
                 and name like concat('%',#{name},'%')
             </if>
@@ -27,6 +28,7 @@
     <select id="findSchoolLogCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
         select count(*) from log
         <where>
+            school_id = #{school_id}
             <if test="name !='' and name!=null">
                 and name like concat('%',#{name},'%')
             </if>

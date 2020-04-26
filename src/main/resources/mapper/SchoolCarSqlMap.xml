@@ -34,6 +34,7 @@
         from coachcar s1
         left join coach s on s1.coach_id = s.id
         <where>
+            s1.school_id = #{school_id}
             <if test="name!=null">
                 and  s.name like concat('%',#{name},'%')
             </if>
@@ -50,7 +51,7 @@
 
     <!--查询驾校管理员信息总数-->
     <select id="findCount" resultType="java.lang.Integer" parameterType="com.great.entity.TableUtils">
-        select count(*) from coachcar s1 ,coach s2 where s1.coach_id = s2.id
+        select count(*) from coachcar s1 ,coach s2 where s1.coach_id = s2.id and  s1.school_id = #{school_id}
 
         <if test="name!=null and state !='' ">
             and  s2.name like concat('%',#{name},'%')

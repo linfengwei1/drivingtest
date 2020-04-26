@@ -83,7 +83,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">年龄</label>
             <div class="layui-input-inline">
-                <input type="text"   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" id="age" name="age" required lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                <input type="text"   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" id="age" name="age" required lay-verify="required" maxlength="2" placeholder="请输入年龄" autocomplete="off" class="layui-input">
             </div>
         </div>
         <!--************这里是上传图片的代码***************-->

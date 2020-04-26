@@ -74,7 +74,7 @@
                     </span>
                     <span>就读驾校：${student.schoolName}</span>
                     <span>审核结果：${student.audit_results}</span>
-                    <a href="javascript:void(0)"><img alt="" class="xueyuan" src="${pageContext.request.contextPath}/static/${student.image}"></a>
+                    <a href="javascript:void(0)"><img alt="" class="xueyuan" src="${pageContext.request.contextPath}/static${student.image}"></a>
                 </li>
             </ul>
         </div>

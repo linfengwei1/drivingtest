@@ -22,9 +22,13 @@ layui.use(['form','jquery','layer','element'],  function(){
                 if ("success"==data){
                     location.href=path+"/school/path/Manage"
                 }else if ("yzm"==data) {
-                    layer.alert("验证码错误",{icon:3},function () {
+                    layer.alert("验证码错误", {icon: 3}, function () {
                         window.location.reload();
                     });
+                }else if ("no"==data) {
+                        layer.alert("账号被封停或待审核或审核失败",{icon:3},function () {
+                            window.location.reload();
+                        });
                 }else {
                     layer.alert("密码错误",{icon:3},function () {
                         window.location.reload();

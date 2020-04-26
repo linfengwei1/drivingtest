@@ -25,7 +25,10 @@ public class SchoolLoginConfig implements WebMvcConfigurer
 				"/school/index2",
 				"/school/school",
 				"/school/WelcomeTable",
-				"/school/jumpNwePage"
+				"/school/jumpNwePage",
+				"/school/CheckAccount",
+				"/school/upload1",
+				"/school/path/upload1"
 				);
 	}
 }

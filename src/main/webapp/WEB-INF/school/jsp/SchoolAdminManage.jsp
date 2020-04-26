@@ -146,13 +146,16 @@
             table.on('tool(test)', function(obj){
                 var data = obj.data; //获得当前行数据
                 var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-                var path1 = $("#path").val();
+                var $td = $(this).parents('tr').children('td');
+                var id = $td.eq(0).text();//获取点击按钮相对应的id
+                console.log("阉割版=="+id)
                 if(layEvent === 'delete'){ //删除
+                    console.log("删除管理员=="+data.id)
                     layer.confirm('您确定要删除吗?', {icon: 3, title:'提示'}, function(index){
                         $.ajax({
                             async:true,
                             method : "POST",
-                            url :path1+'/school/deleteSchoolAdmin',
+                            url :path+'/school/deleteSchoolAdmin',
                             data: data,
                             dataType : "text",
                             success:function(data){
