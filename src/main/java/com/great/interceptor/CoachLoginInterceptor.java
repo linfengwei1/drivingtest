@@ -14,19 +14,19 @@ public class CoachLoginInterceptor extends HandlerInterceptorAdapter
         String path = request.getContextPath();
         String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
 
+        System.out.println(request.getSession().getAttribute("coach"));
         if(request.getSession() != null && request.getSession().getAttribute("coach") != null)
         {
             return true;
         }
-
-        if( request.getSession().getAttribute("vcode") != null)
-        {
-            return true;
-        }
+//        if( request.getSession().getAttribute("vcode") != null)
+//        {
+//            return true;
+//        }
         System.out.println("教练执行了拦截器");
         response.sendRedirect(basePath+"/coach/login");
         return false;
-
-
     }
+
+
 }
