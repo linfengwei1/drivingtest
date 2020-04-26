@@ -61,7 +61,7 @@
 <!--    </welcome-vedio-list>-->
 
     <welcome-file-list>
-        <welcome-file>/WEB-INF/A.jsp</welcome-file>
+        <welcome-file>/WEB-INF/frontjsp/jsp/Welcome.jsp</welcome-file>
     </welcome-file-list>
 
 

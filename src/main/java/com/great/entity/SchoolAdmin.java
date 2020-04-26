@@ -30,7 +30,15 @@ public class SchoolAdmin {
     public SchoolAdmin() {
     }
 
-
+    public SchoolAdmin(String account, String pwd, String name, String phone, Integer school_id, Date time, Integer school_state_id) {
+        this.account = account;
+        this.pwd = pwd;
+        this.name = name;
+        this.phone = phone;
+        this.school_id = school_id;
+        this.time = time;
+        this.school_state_id = school_state_id;
+    }
 
     public String getPhoneMsg() {
         return phoneMsg;

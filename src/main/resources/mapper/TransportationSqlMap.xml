@@ -489,12 +489,27 @@
 		where id=#{id};
 	</update>
 
-<!--更新学员审核-->
+<!--更新驾校审核-->
 	<update id="examineSchool" parameterType="java.util.Map">
 		update school
 		set  audit_results= #{text} , school_state_id=#{i}
 		where id=#{id};
 	</update>
+
+	<!--更新驾校id查询到驾校对应的账号,为了去查到管理员表对应的账号-->
+	<select id="findSchoolAccount" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select account from school
+		where id=#{id};
+	</select>
+
+	<!--更新驾校审核的同时更新驾校管理员的状态(通过或不通过)-->
+	<update id="examineSchoolAdmin" parameterType="java.util.Map">
+		update schooladmin
+		set  school_state_id=#{i}
+		where account=#{account};
+	</update>
+
+
 
 <!--更新学员审核-->
 	<update id="examineCoach" parameterType="java.util.Map">
@@ -674,6 +689,14 @@
 		</where>
 	</update>
 
+	<!--禁止该学校的所有管理员账号	-->
+	<update id="stopApplySchoolAdmin" parameterType="java.util.Map">
+		update schooladmin set school_state_id=#{state}
+		<where>
+			school_id=#{id}
+		</where>
+	</update>
+
 <!--禁止记录	-->
 	<insert id="recordApply"  parameterType="java.util.Map">
 		insert into punish (content, datetime, school_id, result)
@@ -693,6 +716,17 @@
 		</set>
 		<where>
 			id=#{id}
+		</where>
+	</update>
+
+	<!--封停学校的所有管理员	-->
+	<update id="stopDoingSchoolAdmin"  parameterType="java.util.Map">
+		update schooladmin
+		<set>
+			school_state_id=2
+		</set>
+		<where>
+			school_id=#{id}
 		</where>
 	</update>
 
@@ -729,6 +763,19 @@
 		</where>
 	</update>
 
+
+	<!--解禁驾校管理员	-->
+	<update id="relieveApplySchoolAdmin" parameterType="java.util.Map">
+		update schooladmin
+		<set>
+			school_state_id=3
+		</set>
+		<where>
+			school_id=#{id}
+		</where>
+	</update>
+
+
 <!--解封驾校-->
 	<update id="relieveDoingSchool" parameterType="java.util.Map">
 		update school
@@ -739,6 +786,18 @@
 			id=#{id}
 		</where>
 	</update>
+
+	<!--解封驾校-->
+	<update id="relieveDoingSchoolAdmin" parameterType="java.util.Map">
+		update schooladmin
+		<set>
+			school_state_id=3
+		</set>
+		<where>
+			school_id=#{id}
+		</where>
+	</update>
+
 
 <!--解封教练-->
 	<update id="relieveDoingCoach" parameterType="java.lang.Integer">

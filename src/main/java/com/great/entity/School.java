@@ -34,6 +34,10 @@ public class School {
 
     }
 
+
+
+
+
     public School(Integer id, String name, String phone, String address, String admin, String intro, Integer school_state_id, String information, String audit_results, String content, String result, String dateTime) {
         this.id = id;
         this.name = name;

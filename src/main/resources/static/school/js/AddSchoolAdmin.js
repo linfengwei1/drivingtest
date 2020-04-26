@@ -59,7 +59,24 @@ layui.use('form', function(){
         if (!r_UserPhone3.test(UserPhone3)){
             $("#err3").html("请输入正确的手机号码！");
         }else {
-            $("#err3").text("√");
+            $.ajax({
+                url:  path+"/school/CheckAdminPhone",
+                async: true,
+                type: "post",
+                data: "phone=" + $("#phone").val(),
+                datatype: "text",
+                success: function (msg) {
+                    if (msg == "success") {
+                        $("#err3").html("√");
+                    } else  {
+                        $("#err3").html("该手机已被注册");
+                        return false;
+                    }
+                },
+                error: function () {
+                    alert("网络繁忙");
+                }
+            })
         }
     })
 
@@ -93,6 +110,10 @@ layui.use('form', function(){
                 }
                 if ("请输入正确的手机号码！"==$("#err3").html()){
                     layer.alert("请输入正确的手机号码",{icon:2})
+                    return false;
+                }
+                if ("该手机已被注册"==$("#err3").html()){
+                    layer.alert("该手机已被注册",{icon:2})
                     return false;
                 }
 
