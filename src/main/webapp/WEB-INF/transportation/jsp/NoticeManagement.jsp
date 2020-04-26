@@ -122,6 +122,7 @@
         $('#button').on('click',function () {
             var type=$(this).data('type');
             if(type == 'reload'){
+                console.log("biaogechognzai");
                 table.reload('testReload',{
                     page:{
                         curr:1

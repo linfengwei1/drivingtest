@@ -515,13 +515,13 @@
 		count(*)
 		from notice
 		<where>
-			<if test="title!=null">
+			<if test="title!=null and ''!=title" >
 				and title like concat('%',#{title},'%')
 			</if>
-			<if test="date!=null">
+			<if test="date!=null and ''!=date" >
 				and time >= DATE_FORMAT(#{date}, '%Y-%m-%d')
 			</if>
-			<if test="type!=null">
+			<if test="type!=null and ''!=type">
 				and type = #{type}
 			</if>
 		</where>
