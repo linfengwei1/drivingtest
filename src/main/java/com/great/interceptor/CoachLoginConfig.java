@@ -16,7 +16,8 @@ public class CoachLoginConfig implements WebMvcConfigurer
         registration.excludePathPatterns(                         //添加不拦截路
                 "/coach/login",//教练登录
                 "/coach/CheckCodeServlet",//验证码
-                "coach/checkLogin"
+                "/coach/checkLogin",
+                "/coach/testwelcome"
         );
     }
 }
