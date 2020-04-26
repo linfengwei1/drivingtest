@@ -20,10 +20,10 @@ public class TLoginInterceptor extends HandlerInterceptorAdapter
 			return true;
 		}
 
-		if( request.getSession().getAttribute("vcode") != null)
-		{
-			return true;
-		}
+//		if( request.getSession().getAttribute("vcode") != null)
+//		{
+//			return true;
+//		}
 		System.out.println("交管执行了拦截器");
 		response.sendRedirect(basePath+"/TM/path/TransportationLogin");
 		return false;

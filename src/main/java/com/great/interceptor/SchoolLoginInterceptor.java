@@ -26,10 +26,10 @@ public class SchoolLoginInterceptor extends HandlerInterceptorAdapter
 			return true;
 		}
 		//给验证码放行
-		if( request.getSession().getAttribute("vcode") != null)
-		{
-			return true;
-		}
+//		if( request.getSession().getAttribute("vcode") != null)
+//		{
+//			return true;
+//		}
 		System.out.println("学校执行了拦截器");
 		response.sendRedirect(basePath+"/school/path/SchoolLogin");
 		return false;

@@ -139,7 +139,8 @@ public class SchoolController {
             SchoolAdmin admin =schoolAdminService.login(schoolAdmin.getAccount(),schoolAdmin.getPwd());
             if (null!=admin){
                 request.getSession().setAttribute("SchoolAdmin",admin);
-                if (1!=admin.getSchool_state_id()||3!=admin.getSchool_state_id()){
+                System.out.println("admin.getSchool_state_id="+admin.getSchool_state_id());
+                if (1!=admin.getSchool_state_id()&&3!=admin.getSchool_state_id()){
                     return "no";
                 }
                 return "success";
@@ -227,12 +228,10 @@ public class SchoolController {
                 //修改密码
                 Integer b=schoolAdminService.changePwdByPhone(schoolAdmin);
                 ajaxReturn(b,response); //结果返回封装
-                System.out.println(1);
             }else {
                 response.getWriter().print("error");
             }
         }else{
-            System.out.println(2);
             //短信已失效
             response.getWriter().print("cancel");
         }
@@ -284,9 +283,7 @@ public class SchoolController {
     @RequestMapping("/deleteSchoolAdmin")
     @Log(operationType = "删除操作", operationName = "删除驾校管理员")
     public void deleteSchoolAdmin(SchoolAdmin schoolAdmin,HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("管理员id=="+schoolAdmin.getId());
         Integer a = schoolAdminService.deleteSchoolAdmin(schoolAdmin.getId());
-        System.out.println("管理员idaaa=="+a);
         ajaxReturn(a,response);
     }
 
@@ -601,8 +598,6 @@ public class SchoolController {
     @ResponseBody
     public String auditAppoint(Integer id,String doing,String name,Integer studentId ,HttpServletResponse response){
 
-        System.out.println("name=="+name);
-        System.out.println("studentId=="+studentId);
         schoolAdminService.auditAppoint(id,doing,name,studentId);
 
         return "Success";
