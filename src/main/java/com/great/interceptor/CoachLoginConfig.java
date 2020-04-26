@@ -14,7 +14,9 @@ public class CoachLoginConfig implements WebMvcConfigurer
         InterceptorRegistration registration = registry.addInterceptor(new CoachLoginInterceptor());
         registration.addPathPatterns("/coach/**");                      //所有驾校操作路径都被拦截
         registration.excludePathPatterns(                         //添加不拦截路
-                "/coach/login"//驾校登录
+                "/coach/login",//教练登录
+                "/coach/CheckCodeServlet",//验证码
+                "coach/checkLogin"
         );
     }
 }
