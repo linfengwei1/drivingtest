@@ -114,7 +114,10 @@
                                         layer.alert("审核失败",{icon:2});
                                     }else if ("success"==data) {
                                         layer.alert("审核成功",{icon:6},function () {
-                                            window.parent.location.reload();
+                                            // window.parent.location.reload();
+                                            var _body = window.parent;//拿到iframe的上一级也就是body
+                                            var _iframe1 = _body.document.getElementById('ifram_div_iframe');//通过id获取iframe
+                                            _iframe1.contentWindow.location.reload(true);//只刷新当前iframe
                                         });
                                     }
                                 }, error: function () {
@@ -141,7 +144,12 @@
                                         layer.alert("驳回失败",{icon:2});
                                     }else if ("success"==data) {
                                         layer.alert("驳回成功",{icon:6},function () {
+                                            //ifram_div_iframe
                                             window.parent.location.reload();
+                                            var _body = window.parent;
+                                            var _iframe1 = _body.document.getElementById('ifram_div_iframe');
+                                            _iframe1.contentWindow.location.reload(true);
+
                                         });
                                     }
                                 }, error: function () {
@@ -200,7 +208,10 @@
 
                             layer.alert("批准成功",{icon:6},function () {
                                 //修改信息
-                                window.parent.location.reload();
+                                // window.parent.location.reload();
+                                var _body = window.parent;//拿到iframe的上一级也就是body
+                                var _iframe1 = _body.document.getElementById('ifram_div_iframe');//通过id获取iframe
+                                _iframe1.contentWindow.location.reload(true);//只刷新当前iframe
                             });
 
                         }
@@ -216,13 +227,16 @@
                         async:true,
                         method : "POST",
                         url :'${pageContext.request.contextPath}/school/auditAppoint',
-                        data: {"id":data.id,"doing":"驳回","studentId":data.studentId},
+                        data: {"id":data.id,"doing":"驳回","name":data.subjectName,"studentId":data.studentId},
                         dataType : "text",
                         success:function(data){
 
                             layer.alert("驳回成功",{icon:6},function () {
                                 //修改信息
-                                window.parent.location.reload();
+                                // window.parent.location.reload();
+                                var _body = window.parent;//拿到iframe的上一级也就是body
+                                var _iframe1 = _body.document.getElementById('ifram_div_iframe');//通过id获取iframe
+                                _iframe1.contentWindow.location.reload(true);//只刷新当前iframe
                             });
 
                         }

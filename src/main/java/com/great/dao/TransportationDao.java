@@ -475,11 +475,11 @@ public interface TransportationDao {
 
 
     /**
-     *判断是否已经预约改为0
-     * @param id
+     *当驳回的时候，根据不同科目改成不同科目的申请状态
+     * @param map
      * @return
      */
-    public Integer AppointNo(Integer id);
+    public Integer AppointNo(Map<String, Object> map);
 
     /**
      *把学员状态改成考试中的状态

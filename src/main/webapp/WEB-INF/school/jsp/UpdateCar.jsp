@@ -26,7 +26,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">车牌号码</label>
             <div class="layui-input-inline">
-                <input type="text"  id="carNumber" name="carNumber" required lay-verify="carNumber"  autocomplete="off" class="layui-input">
+                <input type="text" readonly="true"  id="carNumber" name="carNumber" required lay-verify="carNumber"  autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

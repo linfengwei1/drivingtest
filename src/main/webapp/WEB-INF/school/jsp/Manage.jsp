@@ -106,7 +106,6 @@
 
     function changeUrl(node) {
         //获取跳转路径
-        console.log(node.title);
         document.getElementById("ifram_div_iframe").src=node.title;
     }
 

@@ -16,8 +16,17 @@ public class Punish {
     private Integer coach_state_id; //状态
     private String result;//处罚结果
     private String school_name;//驾校名
+    private String account;
 
     public Punish() {
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public Integer getCoach_state_id() {

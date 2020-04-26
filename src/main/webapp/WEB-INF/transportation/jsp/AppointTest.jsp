@@ -161,7 +161,7 @@
                     async:true,
                     method : "POST",
                     url :'${pageContext.request.contextPath}/TM/auditAppoint',
-                    data: {"id":data.id,"doing":"驳回","studentId":data.studentId},
+                    data: {"id":data.id,"doing":"驳回","name":data.subjectName,"studentId":data.studentId},
                     dataType : "text",
                     success:function(data){
 

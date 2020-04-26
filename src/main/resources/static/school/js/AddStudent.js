@@ -153,8 +153,7 @@ layui.use(['form','upload','element'], function(){
                         window.parent.location.reload();
                     });
                 }else if (msg=="IdError"){
-                    layer.alert("身份证号码有误",{icon:6},function () {
-                    });
+                    layer.alert("身份证号码有误",{icon:2})
                 } else {
                     layer.alert("新增失败",{icon:2})
                 }
