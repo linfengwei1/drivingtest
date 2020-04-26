@@ -129,7 +129,7 @@
                     ,where:{
 		                title:$("#title").val(),
 		                date:$("#date1").val(),
-		                type:$("#type").val(),
+		                type:$("#type").val()
                     }
                 });
             }
