@@ -6,6 +6,7 @@ import com.great.utils.ExportExcelSeedBack;
 import com.great.utils.SchoolFaceRecognitionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -77,11 +78,13 @@ public class SchoolManageService {
     }
 
     //删除驾校管理员信息
+    @Transactional
     public Integer deleteSchoolAdmin(Integer id){
         return schoolAdminDao.deleteSchoolAdmin(id);
     }
 
     //更新驾校管理员信息
+    @Transactional
     public Integer updateSchoolAdmin(SchoolAdmin schoolAdmin){
         return schoolAdminDao.updateSchoolAdmin(schoolAdmin);
     }
@@ -92,6 +95,7 @@ public class SchoolManageService {
     }
 
     //添加驾校管理员
+    @Transactional
     public Integer addSchoolAdmin(SchoolAdmin schoolAdmin){
         return schoolAdminDao.addSchoolAdmin(schoolAdmin);
     }
@@ -108,11 +112,13 @@ public class SchoolManageService {
     }
 
     //更新教练信息
+    @Transactional
     public Integer updateCoach(Coach coach){
         return schoolCoachDao.updateCoach(coach);
     }
 
     //删除教练
+    @Transactional
     public Integer deleteCount(Integer id){
         return schoolCoachDao.deleteCount(id);
     }
@@ -123,12 +129,14 @@ public class SchoolManageService {
     }
 
     //添加教练
+    @Transactional
     public Integer addCoach(Coach coach){
         return schoolCoachDao.addCoach(coach);
     }
 
 
     //excel插入数据库
+    @Transactional
     public List insertCoachByExcel(List<Coach>list){
         List list1 = new ArrayList();//用来存放重复的账号
         //判断插入的学员账号是否被使用
@@ -148,6 +156,7 @@ public class SchoolManageService {
 
 
     //单独插入图片
+    @Transactional
     public Integer AddCoachImage(Integer id,String image){
         Map<String,Object> map = new HashMap<>();
         map.put("id",id);
@@ -156,6 +165,7 @@ public class SchoolManageService {
     }
 
     //插入图片改变状态
+    @Transactional
     public Integer ChangeCoachState(Integer id){
         Map<String,Object> map = new HashMap<>();
         map.put("coach_state_id",4);
@@ -215,11 +225,13 @@ public class SchoolManageService {
     }
 
     //更新学员信息
+    @Transactional
     public Integer updateStudent(Student coach){
         return schoolStudentDao.updateStudent(coach);
     }
 
     //删除学员
+    @Transactional
     public Integer deleteStudent(Integer id){
         return schoolStudentDao.deleteStudent(id);
     }
@@ -236,6 +248,7 @@ public class SchoolManageService {
     }
 
     //学员信息excel插入数据库
+    @Transactional
     public List<Student> insertStudentByExcel(List<Student>list){
         List<Student> list1 = new ArrayList();//用来存放重复的账号
         //判断插入的学员账号是否被使用
@@ -265,9 +278,10 @@ public class SchoolManageService {
     }
 
 
-
+    @Transactional
     public void auditAppoint(Integer id, String doing,String name,Integer studentId) {
         Map<String,Object> map=new HashMap<>();
+        Map<String,Object> map1=new HashMap<>();
         if (doing.equals("批准")){
             map.put("id",id);
             map.put("state",4);
@@ -276,13 +290,27 @@ public class SchoolManageService {
             map.put("id",id);
             map.put("state",2);
             schoolStudentDao.auditAppoint(map);
-            schoolStudentDao.AppointNoByOne(studentId);
+            map1.put("id",studentId);
+            if ("科目一".equals(name)){
+                map1.put("state",1);
+            }
+            if ("科目二".equals(name)){
+                map1.put("state",2);
+            }
+            if ("科目三".equals(name)){
+                map1.put("state",3);
+            }
+            if ("科目四".equals(name)){
+                map1.put("state",4);
+            }
+            schoolStudentDao.AppointNoByOne(map1);
 
         }
 
     }
 
     //批量审核通过学员预约
+    @Transactional
     public Integer changeAppointState(List list){
         return schoolStudentDao.changeAppointState(list);
     }
@@ -291,9 +319,42 @@ public class SchoolManageService {
 
 
     //批量驳回过学员预约
-    public Integer batchRejected(List list){
+    @Transactional
+    public Integer batchRejected(List list,List<AppointTest> list2){
         Integer a =schoolStudentDao.batchRejected(list);
-              schoolStudentDao.AppointNo(list);
+        Map<String,Object> map=new HashMap<>();
+        Map<String,Object> map2=new HashMap<>();
+        Map<String,Object> map3=new HashMap<>();
+        Map<String,Object> map4=new HashMap<>();
+
+        for (int i =0;i<list2.size();i++){
+              if ("科目一".equals(list2.get(i).getSubjectName())) {
+                  System.out.println("1=="+list2.get(i).getSubjectName());
+                  map.put("id",list2.get(i).getId());
+                  map.put("student_state_id",1);
+                  Integer a1= schoolStudentDao.AppointNo(map);
+
+              }
+            if ("科目二".equals(list2.get(i).getSubjectName())) {
+                System.out.println("2=="+list2.get(i).getSubjectName());
+                map2.put("id",list2.get(i).getId());
+                map2.put("student_state_id",2);
+                Integer a2 =schoolStudentDao.AppointNo(map2);
+            }
+            if ("科目三".equals(list2.get(i).getSubjectName())) {
+                System.out.println("3=="+list2.get(i).getSubjectName());
+                map3.put("id",list2.get(i).getId());
+                map3.put("student_state_id",3);
+                schoolStudentDao.AppointNo(map3);
+            }
+            if ("科目四".equals(list2.get(i).getSubjectName())) {
+                System.out.println("4=="+list2.get(i).getSubjectName());
+                map4.put("id",list2.get(i).getId());
+                map4.put("student_state_id",4);
+                schoolStudentDao.AppointNo(map4);
+            }
+        }
+
         return a;
     }
 
@@ -308,6 +369,7 @@ public class SchoolManageService {
     }
 
     //单独插入车辆图片
+    @Transactional
     public Integer AddCarImage(Integer id,String image){
         Map<String,Object> map = new HashMap<>();
         map.put("id",id);
@@ -316,6 +378,7 @@ public class SchoolManageService {
     }
 
     //插入图片改变状态
+    @Transactional
     public Integer ChangeCarState(Integer id){
         Map<String,Object> map = new HashMap<>();
         map.put("state","待审核");
@@ -328,15 +391,18 @@ public class SchoolManageService {
         return schoolCarDao.findCoach(cid);
     }
     //车辆人员变更
+    @Transactional
     public Integer updateCar(CoachCar coachCar){
         return schoolCarDao.updateCar(coachCar);
     }
 
     //删除教练车
+    @Transactional
     public Integer deleteCar(Integer id){
         return schoolCarDao.deleteCar(id);
     }
     //添加车辆
+    @Transactional
     public Integer addCar(CoachCar coachCar){
         return schoolCarDao.addCar(coachCar);
     }
@@ -350,6 +416,7 @@ public class SchoolManageService {
 
 
     //excel插入数据库
+    @Transactional
     public List insertCarByExcel(List<CoachCar>list){
         List list1 = new ArrayList();//用来存放重复的账号
         //判断插入的学员账号是否被使用
@@ -369,6 +436,7 @@ public class SchoolManageService {
 
 
     //单独学员插入图片
+    @Transactional
     public Integer AddStudentImage(Integer id,String image){
         Map<String,Object> loginMap = new HashMap<>();
         loginMap.put("id",id);
@@ -376,6 +444,7 @@ public class SchoolManageService {
     }
 
     //改变学员状态
+    @Transactional
     public Integer ChangeStudentState(Integer id){
         Map<String,Object> map = new HashMap<>();
         map.put("student_state_id",5);
@@ -406,6 +475,7 @@ public class SchoolManageService {
     }
 
     //更改驾校信息
+    @Transactional
     public Integer updateSchoolInf(School school){
         return schoolAdminDao.updateSchoolInf(school);
     }
@@ -421,6 +491,7 @@ public class SchoolManageService {
     }
 
     //添加学员学时表
+    @Transactional
     public Integer addStudyCondition(List<StudyCondition>list){
         return schoolStudentDao.addStudyCondition(list);
     }
@@ -440,6 +511,7 @@ public class SchoolManageService {
     }
 
 
+    @Transactional
     public Integer addLog(TbLog systemLog){
         return schoolLogDao.addLog(systemLog);
     }
@@ -459,28 +531,39 @@ public class SchoolManageService {
 
 
     //添加处罚记录
+    @Transactional
     public Integer AddPunish(Punish punish){
         return schoolCoachDao.AddPunish(punish);
     }
 
     //删除处罚记录
+    @Transactional
     public Integer deletePunish(Integer punish){
         return schoolCoachDao.deletePunish(punish);
     }
 
     //处罚记录改变状态
-    public Integer updatePunish(Integer id){
-        return schoolCoachDao.updatePunish(id);
+    @Transactional
+    public Integer updatePunish(Integer id,Integer cid){
+        Integer a =schoolCoachDao.updatePunish(id);
+        schoolCoachDao.updatePunish1(id);
+        return a;
     }
 
     //处罚记录改变状态
-    public Integer coachStateByStop( Integer id){
-        return schoolCoachDao.coachStateByStop(id);
+    @Transactional
+    public Integer coachStateByStop( Integer id,Integer cid){
+       Integer a =schoolCoachDao.coachStateByStop(id);
+        schoolCoachDao.coachStateByStop1(cid);
+        return a ;
     }
 
     //处罚记录改变状态
-    public Integer coachStateByNo( Integer id){
-        return schoolCoachDao.coachStateByNo(id);
+    @Transactional
+    public Integer coachStateByNo( Integer id,Integer cid){
+        Integer a = schoolCoachDao.coachStateByNo(id);
+        schoolCoachDao.coachStateByNo1(cid);
+        return a;
     }
 
     //查看手机号是否被注册
@@ -489,6 +572,7 @@ public class SchoolManageService {
     }
 
     //通过手机号码改密码
+    @Transactional
     public Integer changePwdByPhone(SchoolAdmin schoolAdmin){
         return schoolAdminDao.changePwdByPhone(schoolAdmin);
     }
@@ -518,15 +602,18 @@ public class SchoolManageService {
     }
 
     //驾校申请
-    public Integer SchoolApply(String name, String admin, String address,String phone, String intro,String path){
+    @Transactional
+    public School SchoolApply(String account,String name, String admin, String address,String phone, String intro,String path){
+        school.setAccount(account);
         school.setName(name);
         school.setAdmin(admin);
         school.setAddress(address);
         school.setPhone(phone);
         school.setIntro(intro);
         school.setInformation(path);
-        Integer a = schoolAdminDao.SchoolApply(school);
-        return a;
+        schoolAdminDao.SchoolApply(school);
+
+        return school;
     }
 
 
@@ -578,4 +665,7 @@ public class SchoolManageService {
     public Notice jumpNwePage(Integer id){
         return schoolAdminDao.jumpNwePage(id);
     }
+
+
+
 }

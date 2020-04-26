@@ -15,7 +15,7 @@ public class TransportationlLoginConfig implements WebMvcConfigurer
 		registration.addPathPatterns("/TM/**");                      //所有驾校操作路径都被拦截
 		registration.excludePathPatterns(                         //添加不拦截路
 				"/TM/path/TransportationLogin",//驾校登录
-				"/TM/login",
+				"/TM/Login",
 				"/TM/CheckCodeServlet"//验证码
 
 

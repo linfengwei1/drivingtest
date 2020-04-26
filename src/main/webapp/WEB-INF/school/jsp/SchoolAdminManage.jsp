@@ -148,9 +148,7 @@
                 var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
                 var $td = $(this).parents('tr').children('td');
                 var id = $td.eq(0).text();//获取点击按钮相对应的id
-                console.log("阉割版=="+id)
                 if(layEvent === 'delete'){ //删除
-                    console.log("删除管理员=="+data.id)
                     layer.confirm('您确定要删除吗?', {icon: 3, title:'提示'}, function(index){
                         $.ajax({
                             async:true,
@@ -163,6 +161,8 @@
                                     layer.alert("删除成功",{icon:6},function () {
                                         window.parent.location.reload();
                                     });
+                                }else if("myself"===data){
+                                    layer.alert("不能删除自己",{icon:2});
                                 }else {
                                     layer.alert("删除失败",{icon:2});
                                 }

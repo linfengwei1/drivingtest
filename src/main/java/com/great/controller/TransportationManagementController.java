@@ -324,7 +324,6 @@ public class TransportationManagementController {
 
         request.getSession().setAttribute("student",transportationService.getStudentMsg(id));
 
-        System.out.println(request.getSession().getAttribute("student"));
 
         return "";
     }

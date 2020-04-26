@@ -357,6 +357,9 @@ public class TransportationServiceImp implements TransportationService {
         map.put("text",text);
         map.put("i",i);
         td.examineSchool(map);
+        String account = td.findSchoolAccount(id);
+        map.put("account",account);
+        td.examineSchoolAdmin(map);
     }
 
     @Override
@@ -563,7 +566,7 @@ public class TransportationServiceImp implements TransportationService {
     }
 
     @Override
-    @Log(operationType = "运管操作", operationName = "封停驾校")
+    @Log(operationType = "运管操作", operationName = "禁止驾校报名")
     public void stopApply(Integer id, String content, String result, Integer i) {
         Map<String,Object> map=new HashMap<>();
         map.put("id",id);
@@ -574,12 +577,14 @@ public class TransportationServiceImp implements TransportationService {
         System.out.println(map);
         //停驾校
         td.stopApplySchool(map);
+        //把该驾校的所有管理员都禁止报名
+        td.stopApplySchoolAdmin(map);
         //记录
         td.recordApply(map);
     }
 
     @Override
-    @Log(operationType = "运管操作", operationName = "禁止驾校报名")
+    @Log(operationType = "运管操作", operationName = "封停驾校")
     public void stopDoing(Integer id, String content, String result, Integer i) {
         Map<String,Object> map=new HashMap<>();
         map.put("id",id);
@@ -591,6 +596,7 @@ public class TransportationServiceImp implements TransportationService {
         System.out.println(map);
         //停驾校
         td.stopDoingSchool(map);
+        td.stopDoingSchoolAdmin(map);
         //查询驾校教练
         List<Coach> coaches=td.getCoachBySchoolId(id);
         //停教练
@@ -610,6 +616,7 @@ public class TransportationServiceImp implements TransportationService {
         map.put("state",i);
         //解停
         td.relieveApplySchool(map);
+        td.relieveApplySchoolAdmin(map);
     }
 
     @Override
@@ -620,6 +627,7 @@ public class TransportationServiceImp implements TransportationService {
         map.put("state",i);
         //解封驾校
         td.relieveDoingSchool(map);
+        td.relieveDoingSchoolAdmin(map);
         //解封教练
         //查询驾校教练
         List<Coach> coaches=td.getCoachBySchoolId(id);
@@ -732,7 +740,6 @@ public class TransportationServiceImp implements TransportationService {
         if (doing.equals("批准")){
             map.put("id",id);
             map.put("state",1);
-            map1.put("id",studentId);
             if ("科目一".equals(name)){
                 map1.put("student_state_id",13);
             }
@@ -751,7 +758,20 @@ public class TransportationServiceImp implements TransportationService {
             map.put("id",id);
             map.put("state",2);
             td.auditAppoint(map);
-            td.AppointNo(studentId);
+            map1.put("id",studentId);
+            if ("科目一".equals(name)){
+                map1.put("student_state_id",1);
+            }
+            if ("科目二".equals(name)){
+                map1.put("student_state_id",2);
+            }
+            if ("科目三".equals(name)){
+                map1.put("student_state_id",3);
+            }
+            if ("科目四".equals(name)){
+                map1.put("student_state_id",4);
+            }
+            td.AppointNo(map1);
 
         }
 

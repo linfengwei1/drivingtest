@@ -90,15 +90,14 @@
                            class="layui-input"style="width: 300px" >
                 </div>
             </div>
-            <div class="layadmin-user-login-box layadmin-user-login-header">
                 <div class="layui-form-item">
                     <label class="layui-form-label">联系方式：</label>
                     <div class="layui-input-inline">
-                        <input type="text"  onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" name="phone" id="phone" required  lay-verify="title"  autocomplete="off"
+                        <input type="text"  name="phone" id="phone" required  lay-verify="title"  autocomplete="off"
                                class="layui-input"style="width: 300px" >
                     </div>
+                    <span id="err3" style="color: red;margin-left: 8%;"></span>
                 </div>
-            </div>
             <div class="layadmin-user-login-box layadmin-user-login-header">
                 <div class="layui-form-item">
                     <label class="layui-form-label">选择文件：</label>
@@ -177,6 +176,34 @@
         }
     })
 
+    $("#phone").blur(function (){
+        var UserPhone3=$("#phone").val();;
+        var r_UserPhone3 = /^1(3|4|5|6|7|8|9)\d{9}$/;
+        if (!r_UserPhone3.test(UserPhone3)){
+            $("#err3").html("请输入正确的手机号码！");
+        }else {
+            $.ajax({
+                url:  "${pageContext.request.contextPath}/school/CheckAdminPhone",
+                async: true,
+                type: "post",
+                data: "phone=" + $("#phone").val(),
+                datatype: "text",
+                success: function (msg) {
+                    console.log("驾校登录手机返回值=="+msg)
+                    if (msg === "success") {
+                        $("#err3").html("√");
+                    } else  {
+                        $("#err3").html("该手机已被注册");
+                        return false;
+                    }
+                },
+                error: function () {
+                    alert("网络繁忙");
+                }
+            })
+        }
+    })
+
     layui.use(['upload','jquery','element'], function(){
         var upload = layui.upload;
             $=layui.jquery,
@@ -203,9 +230,10 @@
                     admin: $("#admin").val(),//法人
                     address: $("#address").val(),//地址
                     phone: $("#phone").val(),//联系方式
-                    Account:$("#err1").text(),//获取账号是否被注册
+                    account:$("#err1").html(),//获取账号是否被注册
                     pwd: $("#err5").html(),//判断没什么是否符合
                     rpwd:$("#err2").html(),
+                    phone2: $("#err3").val(),//联系方式的验证
                 }
 
             }
@@ -236,7 +264,7 @@
                 }
                 if(res.code == 4){
                     //上传完毕回调
-                    alert("请输入正确的账号密码！");
+                    alert("请输入正确的账号、密码和联系方式！");
                 }
             }
             ,error: function(){

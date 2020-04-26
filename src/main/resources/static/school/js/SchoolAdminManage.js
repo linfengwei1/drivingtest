@@ -77,11 +77,15 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //导�
                     data: data,
                     dataType : "text",
                     success:function(data){
-                        if ("success"==data){
+                        console.log("删除=="+data)
+                        if ("success"===data){
                             layer.alert("删除成功",{icon:6},function () {
                                 window.parent.location.reload();
                             });
-                        }else {
+                        }else if("myself"===data){
+                            layer.alert("不能删除自己",{icon:2});
+                        }
+                        else {
                             layer.alert("删除失败",{icon:2});
                         }
                     },
