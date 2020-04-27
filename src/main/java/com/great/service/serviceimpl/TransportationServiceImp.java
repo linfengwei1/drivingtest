@@ -740,7 +740,6 @@ public class TransportationServiceImp implements TransportationService {
         if (doing.equals("批准")){
             map.put("id",id);
             map.put("state",1);
-            map1.put("id",studentId);
             if ("科目一".equals(name)){
                 map1.put("student_state_id",13);
             }
@@ -759,7 +758,20 @@ public class TransportationServiceImp implements TransportationService {
             map.put("id",id);
             map.put("state",2);
             td.auditAppoint(map);
-            td.AppointNo(studentId);
+            map1.put("id",studentId);
+            if ("科目一".equals(name)){
+                map1.put("student_state_id",1);
+            }
+            if ("科目二".equals(name)){
+                map1.put("student_state_id",2);
+            }
+            if ("科目三".equals(name)){
+                map1.put("student_state_id",3);
+            }
+            if ("科目四".equals(name)){
+                map1.put("student_state_id",4);
+            }
+            td.AppointNo(map1);
 
         }
 

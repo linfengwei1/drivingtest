@@ -55,12 +55,22 @@ public interface SchoolCoachDao
 	//处罚记录改变状态
 	public Integer updatePunish(Integer id);
 
-	//处罚记录改变状态
+	//改变教练状态
+	public Integer updatePunish1(Integer id);
 
+
+	//处罚记录改变状态
 	public Integer coachStateByStop(Integer id);
+
+	//改变教练状态
+	public Integer coachStateByStop1(Integer id);
+
 
 	//处罚记录改变状态
 	public Integer coachStateByNo(Integer id);
+
+	//改变教练状态
+	public Integer coachStateByNo1(Integer id);
 
 
 	//excel插入数据库

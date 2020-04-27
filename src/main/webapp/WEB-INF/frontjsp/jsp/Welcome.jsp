@@ -70,19 +70,22 @@
                         </ul>
                         <div class="layui-tab-content">
                             <div class="layui-tab-item layui-show">
-                                <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="tab1">
                                     <tr style="background: #186ca4">
                                         <th width="300px">标题</th>
                                         <th width="100px">文章来源</th>
                                         <th>日期</th>
                                     </tr>
-                                    <c:forEach items="${model.noticeList}" var="link">
-                                        <tr style="height: 30px;background: #dadada" >
-                                            <td onclick="Jump(this)" title="${link.id}">${link.title}</td>
-                                            <td align="center">${link.type}</td>
-                                            <td align="center" style="width: 83px;fixed: left"><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${link.time}" /></td>
+<%--                                    <c:forEach items="${getNotice}" var="link">--%>
+                                        <tr style="height: 30px;background: #dadada" id="template">
+                                            <td id="title" onclick="Jump(this)"  ></td>
+                                            <td id="type"></td>
+                                            <td id="time1"></td>
+<%--                                            <td onclick="Jump(this)" title="${link.id}">${link.title}</td>--%>
+<%--                                            <td align="center">${link.type}</td>--%>
+<%--                                            <td align="center" style="width: 83px;fixed: left"><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${link.time}" /></td>--%>
                                         </tr>
-                                    </c:forEach>
+<%--                                    </c:forEach>--%>
                                     </tbody>
                                 </table>
                                 <%--                                <div align="right">查看更多>>></div>--%>
@@ -592,13 +595,21 @@
 <%--友情链接--%>
 <div class="footer" align="center" style="background-color: #0a76a4;padding-bottom: 0px;">
     <div class="footer-box">
-        <div class="footer-friend">
-            <c:forEach items="${model.linkList}" var="link">
-                <a target="_blank" href="${link.linkUrl}" alt="${link.linkName}"><img
-                        src="${pageContext.request.contextPath}/static${link.pictureUrl}" width="252px" height="48px"/></a>
-            </c:forEach>
+        <div class="footer-friend" id="test">
+            <table id="tab2">
+                <tr id="template2">
+                    <td id="template1">
+                        <a id="link"> <img src="" id="img"></a>
+                    </td>
+                </tr>
+            </table>
+
+<%--            <c:forEach items="${model.linkList}" var="link">--%>
+<%--                <a target="_blank" href="${link.linkUrl}" alt="${link.linkName}"><img--%>
+<%--                        src="${pageContext.request.contextPath}/static${link.pictureUrl}" width="252px" height="48px"/></a>--%>
+<%--            </c:forEach>--%>
         </div>
-    </div>
+
 </div>
 
 <div align="center" style="background-color: #0a76a4">
@@ -617,6 +628,28 @@
 
     });
 
+    $(function () {
+        $.ajax({
+            async:true,
+            method : "POST",
+            url :"${pageContext.request.contextPath}/link/linkW",
+            dataType : "text",
+            success : function(msg) {
+                var arr = JSON.parse(msg);
+                $.each(arr, function (i, n) {
+                    var td = $("#template1").clone();//使用 clone() 方法来复制元素
+                    td.find("#img").attr("src","${pageContext.request.contextPath}/static"+n.pictureUrl);
+                    td.find("#img").attr({"width":"252","height":"48"});
+                    td.find("#link").attr("href",n.linkUrl);
+                    td.appendTo("#template2");
+                });
+
+            },
+            error : function() {
+                alert("服务器正忙");
+            }
+        });
+    })
 
 	</script>
 
@@ -709,18 +742,11 @@
         //监听工具条
         table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data; //获得当前行数据
-            console.log(data);
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-            console.log(layEvent);
             var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
             if(layEvent === 'show'){ //查看
-                console.log("点击了查看");
-                //do somehing
-                console.log(data);
-
                 var notice=JSON.stringify(data);
-
                 $.ajax({
                     //相应路劲
                     url:"${pageContext.request.contextPath}/TM/getNoticeMsg",
@@ -752,7 +778,6 @@
                 });
 
             } else if(layEvent === 'del'){ //删除
-                // console.log("点击了删除按钮");
                 layer.confirm('确定删除数据?', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                     layer.close(index);
@@ -773,7 +798,6 @@
                         datatype:"text",
                         //返回成功消息
                         success:function (msg) {
-                            console.log(msg);
                             layer.alert("删除成功",{icon:6});
                         },
                         //返回失败消息
@@ -807,7 +831,6 @@
     var obArr = [];
     var obArr1 = [];
 	$(function() {
-		// var path = $("#path").val();
 		$.ajax({
 			async:true,
 			method : "POST",
@@ -815,11 +838,9 @@
 			dataType : "text",
 			success : function(msg) {
 				var arr = JSON.parse(msg);
-				console.log("msg=="+arr);
 				for (var i = 0;i<arr.length;i++){
 					nameArr.push(arr[i].name);
 				}
-				console.log("学校名ms=="+nameArr);
 				createEchars();
 			},
 			error : function() {
@@ -837,12 +858,11 @@
 			dataType : "text",
 			success : function(msg) {
 				var arr = JSON.parse(msg);
-				console.log("msg=="+arr);
 				for (var i = 0;i<arr.length;i++) {
                     studentArr.push(arr[i]);
 
                 }
-				console.log("学员ms=="+nameArr);
+
 				createEchars();
 
 			},
@@ -861,15 +881,12 @@
 			dataType : "text",
 			success : function(msg) {
 				var arr = JSON.parse(msg);
-				console.log("msg=="+arr);
 				for (var i = 0;i<arr.length;i++){
 					// valueArr.push(arr[i]);
 					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
 					coachArr.push(arr[i]);
-                    console.log("ms=="+arr);
 
 				}
-				console.log("教练ms=="+coachArr);
 				createEchars();
 			},
 			error : function() {
@@ -997,7 +1014,38 @@
     function Jump(node) {
         var REPORTID = $(node).attr('title');
         window.location.href="${pageContext.request.contextPath}/school/jumpNwePage?id="+REPORTID
-        console.log("REPORTID="+REPORTID)
+
+
+    }
+
+    $(function () {
+        $.ajax({
+            async:true,
+            method : "POST",
+            url :"${pageContext.request.contextPath}/school/getNotice",
+            dataType : "text",
+            success : function(msg) {
+                var arr = JSON.parse(msg);
+                $.each(arr, function (i, n) {
+                    var row = $("#template").clone();
+                    var r1=row.find("#title").text(n.title);
+                    r1.attr("title",n.id)
+                    row.find("#type").text(n.type);
+                    row.find("#time1").text(n.time);
+                    row.appendTo("#tab1");//添加到模板的容器中
+                });
+
+            },
+            error : function() {
+                alert("服务器正忙");
+            }
+        });
+    })
+    //首页新闻页面跳转
+    function Jump(node) {
+        var REPORTID = $(node).attr('title');
+        window.location.href="${pageContext.request.contextPath}/school/jumpNwePage?id="+REPORTID
+
 
     }
 

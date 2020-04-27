@@ -170,16 +170,16 @@
             }
             if(layEvent === 'update'){ //更新
                 var $td = $(this).parents('tr').children('td');
-                var id = $td.eq(1).text();//车辆id
-                var carNumber = $td.eq(1).text();//车牌号
-                var cid = $td.eq(2).text();//教练id
-                var name = $td.eq(3).text();//教练名
+                var id = $td.eq(0).text();//车辆id
+                var carNumber = $td.eq(2).text();//车牌号
+                var cid = $td.eq(3).text();//教练id
+                var name = $td.eq(4).text();//教练名
                 console.log(cid)
                 layer.open({
                     title:'车辆人员变更',
                     type: 2,
                     area: ['500px', '400px'],
-                    content:path1+"/school//findCoach",//弹出的页面
+                    content:path1+"/school/findCoach",//弹出的页面
                     success: function (layero, index) {
                         var body = layer.getChildFrame("body", index);//弹出页面的body标签
                         body.find("#id").val(id);//先在原页面获取值后，在设置弹窗的值

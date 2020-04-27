@@ -189,7 +189,8 @@
                 data: "phone=" + $("#phone").val(),
                 datatype: "text",
                 success: function (msg) {
-                    if (msg == "success") {
+                    console.log("驾校登录手机返回值=="+msg)
+                    if (msg === "success") {
                         $("#err3").html("√");
                     } else  {
                         $("#err3").html("该手机已被注册");
