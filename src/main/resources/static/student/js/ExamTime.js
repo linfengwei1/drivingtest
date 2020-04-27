@@ -29,7 +29,7 @@ $(function () {
 				{
 					result = '待审核';
 				}
-				$("#demo").append("<tr><td>"+data[i].subject+"</td><td>"+data[i].examid+"</td><td>"+data[i].orderTime+"</td><td>"+result+"</td></tr>");
+				$("#demo").append("<tr><td>"+data[i].subject+"</td><td>"+data[i].studentid+"</td><td>"+data[i].examid+"</td><td>"+data[i].orderTime+"</td><td>"+result+"</td></tr>");
 			}
 
 		},error:function (err) {

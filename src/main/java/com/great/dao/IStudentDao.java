@@ -75,4 +75,6 @@ public interface IStudentDao
 	void insertLog(SystemLog systemLog);
 
 	void updateOrderStatus(@Param("studentId") int studentId);
+
+	int judgePass(@Param("studentId")int studentId, @Param("subject")int subject);
 }

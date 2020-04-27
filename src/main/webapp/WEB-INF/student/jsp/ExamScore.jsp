@@ -13,7 +13,7 @@
 
 
 </head>
-<body class="layui-layout-body">
+<body class="">
 <input type="hidden" id="path" value="${pageContext.request.contextPath}">
 <input type="hidden" id="studentid" value="${student.id}">
 <div class="df_bd">
