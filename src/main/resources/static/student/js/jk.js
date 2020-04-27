@@ -95,10 +95,10 @@ function loadVeido(id,subject) {
 					{name: 'playToggle'}, // 播放按钮
 					// {name: 'currentTimeDisplay'}, // 当前已播放时间
 					// {name: 'durationDisplay'}, // 总时间
-					{ // 倍数播放
-						name: 'playbackRateMenuButton',
-						'playbackRates': [0.5, 1, 1.5, 2, 2.5]
-					}
+					// { // 倍数播放
+					// 	name: 'playbackRateMenuButton',
+					// 	'playbackRates': [0.5, 1, 1.5, 2, 2.5]
+					// }
 					// {
 					// 	name: 'volumePanel', // 音量控制
 					// 	inline: false, // 不使用水平方式

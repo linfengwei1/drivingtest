@@ -18,7 +18,7 @@ $(function () {
 			for (var i= 0; i <data.length; i++)
 			{
 
-				$("#demo").append("<tr><td>"+data[i].subject+"</td><td>"+data[i].examTime.substring(0,10)+"</td><td>"+data[i].score+"</td></tr>");
+				$("#demo").append("<tr><td>"+data[i].examId+"</td><td>"+data[i].subject+"</td><td>"+data[i].examTime.substring(0,10)+"</td><td>"+data[i].score+"</td></tr>");
 			}
 
 		},error:function (err) {

@@ -3,6 +3,7 @@ package com.great.service.serviceimpl;
 
 import com.great.aoplog.Log;
 import com.great.dao.IStudentDao;
+import com.great.dao.SchoolCoachDao;
 import com.great.entity.*;
 import com.great.service.StudentManageService;
 import com.great.utils.FaceRecognitionUtils;
@@ -22,7 +23,6 @@ public class StudentManageServiceImpl implements StudentManageService
 
 	@Resource
 	private IStudentDao studentDao;
-
 
 	@Override
 	@Log(operationType = "学员操作", operationName = "学员登录")
@@ -289,12 +289,12 @@ public class StudentManageServiceImpl implements StudentManageService
 		{   //计算出成绩
 			score = studentDao.getTest_1Score(testReplieslist.getTestReplieslist());
 				//写入成绩
-			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score);
-		}else//考科目四
+			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score,testReplieslist.getSubject());
+		}else if(testReplieslist.getSubject() == 4)//考科目四
 		{
 			score = studentDao.getTest_4Score(testReplieslist.getTestReplieslist());
 			//写入成绩
-			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score);
+			studentDao.updatePractiseScore(testReplieslist.getStudentId(),score,testReplieslist.getSubject());
 		}
 
 		System.out.println("本次考试得了"+score);
@@ -335,33 +335,79 @@ public class StudentManageServiceImpl implements StudentManageService
 	@Log(operationType = "学员操作", operationName = "得到学习状态信息")
 	public List<StudyCondition>  getStudyCondition(String studentId, String status, HttpServletRequest request)
 	{
-		System.out.println(status);
-
-		if(status.equals(""))
-		{
-			return null;
-		}
-		int stage = Integer.parseInt(status);
+//		System.out.println(status);
+//
+//		if(status.equals(""))
+//		{
+//			return null;
+//		}
+		int stage = studentDao.getStudentState(Integer.parseInt(studentId));
 		int newStage = 0;
 		List<StudyCondition> list =  studentDao.getStudyConditionById(Integer.parseInt(studentId));
 		for (StudyCondition s : list)
 		{
 			//遍历学习状态列表，如果处于当前阶段，且分数大于90，说明阶段有变化，则进入下一阶段  status为当前阶段
-			if(stage == s.getSubject_id() && s.getScore() >=90)
+			if(stage == 13 && s.getSubject_id() == 1)
 			{
-				if(stage == 4)//如果是第四阶段直接毕业
+				if(s.getScore() >=90)
 				{
-					studentDao.setStage(Integer.parseInt(studentId),7);//直接毕业
-					newStage = 7;
+					studentDao.setStage(Integer.parseInt(studentId),2);//进入下一阶段
+					Student student = (Student) request.getSession().getAttribute("student");
+					student.setStudent_state_id(2);
+					request.getSession().setAttribute("student",student);
 				}else
 				{
-					studentDao.setStage(Integer.parseInt(studentId),stage+1);//进入下一阶段
-					studentDao.updateOrderStatus(Integer.parseInt(studentId));//更新预约状态为0
-					newStage = stage+1;
+					studentDao.setStage(Integer.parseInt(studentId),1);//没过状态返回到1阶段
+					Student student = (Student) request.getSession().getAttribute("student");
+					student.setStudent_state_id(1);
+					request.getSession().setAttribute("student",student);
 				}
-				Student student = (Student) request.getSession().getAttribute("student");
-				student.setStudent_state_id(newStage);
-				request.getSession().setAttribute("student",student);
+//
+			}else if(stage == 14 && s.getSubject_id() == 2)
+			{
+				if(s.getScore() >=90)
+				{
+					studentDao.setStage(Integer.parseInt(studentId),3);//进入下一阶段
+					Student student = (Student) request.getSession().getAttribute("student");
+					student.setStudent_state_id(3);
+					request.getSession().setAttribute("student",student);
+				}else
+				{
+					studentDao.setStage(Integer.parseInt(studentId),2);//没过状态返回到1阶段
+					Student student = (Student) request.getSession().getAttribute("student");
+					student.setStudent_state_id(2);
+					request.getSession().setAttribute("student",student);
+				}
+			}else if(stage == 15 && s.getSubject_id() == 3)
+			{
+				if(s.getScore() >=90)
+				{
+					studentDao.setStage(Integer.parseInt(studentId),4);//进入下一阶段
+					Student student = (Student) request.getSession().getAttribute("student");
+					student.setStudent_state_id(4);
+					request.getSession().setAttribute("student",student);
+				}else
+				{
+					studentDao.setStage(Integer.parseInt(studentId),3);//没过状态返回到1阶段
+					Student student = (Student) request.getSession().getAttribute("student");
+					student.setStudent_state_id(3);
+					request.getSession().setAttribute("student",student);
+				}
+			}else if(stage == 16 && s.getSubject_id() == 4)
+			{
+				if(s.getScore() >=90)
+				{
+					studentDao.setStage(Integer.parseInt(studentId),7);//进入下一阶段
+					Student student = (Student) request.getSession().getAttribute("student");
+					student.setStudent_state_id(7);
+					request.getSession().setAttribute("student",student);
+				}else
+				{
+					studentDao.setStage(Integer.parseInt(studentId),4);//没过状态返回到1阶段
+					Student student = (Student) request.getSession().getAttribute("student");
+					student.setStudent_state_id(4);
+					request.getSession().setAttribute("student",student);
+				}
 			}
 		}
 		return list;
