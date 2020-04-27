@@ -187,6 +187,7 @@
 			<div class="msglist">
 				<ul>
 					<li class="clfix"><span class="fl robot triangle-left">您好！欢迎来到机动车驾驶员网上理论学习平台，请问有什么可以帮您？</span></li>
+					<li class="clfix"><span class="fl robot triangle-left">输入科目一，了解驾考知识</span></li>
 				</ul>
 			</div>
 		</div>

@@ -27,6 +27,7 @@
 						<td colspan="4" style="color: #20B2AA; text-align: center" >考试成绩表</td>
 					</tr>
 					<tr style="color: white; background-color: #808080;">
+						<th>准考证号</th>
 						<th>考试科目</th>
 						<th>考试时间</th>
 						<th>分数</th>

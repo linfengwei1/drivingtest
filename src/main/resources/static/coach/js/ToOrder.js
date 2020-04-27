@@ -72,16 +72,17 @@
 				studentIds:checkbox
 			};
 
-			console.log(datas);
+			console.log(datas.time);
+			console.log(datas.data);
 			if(datas.subject == 0)
 			{
 				layer.msg('请选择科目', {icon: 5});
 				return;
-			}else if(datas.time == 0)
+			}else if(time == null || time =="")
 			{
 				layer.msg('请选择考试时间', {icon: 5});
 				return;
-			}else if(datas.data == "")
+			}else if(data == null || data =="")
 			{
 				layer.msg('请选择考试日期', {icon: 5});
 				return;

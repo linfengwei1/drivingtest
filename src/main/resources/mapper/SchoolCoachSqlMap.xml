@@ -442,7 +442,7 @@
         </foreach>
     </insert>
     <update id="updateOrderStatus">
-        update student set hasordered=1
+        update student set student_state_id=#{status}
         where id in
         <foreach collection="list" index="index" item="item"
                  separator="," open="(" close=")">
@@ -488,7 +488,6 @@
 		select s.* from student as s,studycondition as sd
         where s.coach_id = #{coachId}
         and s.student_state_id = #{subject}
-        and s.hasordered = 0
         and s.id = sd.student_id
         and s.student_state_id = sd.subject_id
         and sd.time=3
@@ -498,7 +497,6 @@
 		select s.* from student as s,studycondition as sd
         where s.coach_id = #{coachId}
         and s.student_state_id = #{subject}
-        and s.hasordered = 0
         and s.id = sd.student_id
         and s.student_state_id = sd.subject_id
         and sd.time=3
