@@ -71,13 +71,13 @@
                         <div class="layui-tab-content">
                             <div class="layui-tab-item layui-show">
                                 <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="tab1">
-                                    <tr style="background: #186ca4">
+                                    <tr style="background: #188799;color: white;">
                                         <th width="300px">标题</th>
                                         <th width="100px">文章来源</th>
                                         <th>日期</th>
                                     </tr>
 <%--                                    <c:forEach items="${getNotice}" var="link">--%>
-                                        <tr style="height: 30px;background: #dadada" id="template">
+                                        <tr style="height: 30px;background: #f9f9f9;border-bottom: black;" id="template">
                                             <td id="title" onclick="Jump(this)"  ></td>
                                             <td id="type"></td>
                                             <td id="time1"></td>
