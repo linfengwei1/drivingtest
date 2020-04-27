@@ -42,22 +42,22 @@
 		<div class="fra_title"><span><b class="backbg ico_time"></b><i class="layui-icon">&#xe60e;</i>学时信息<a href="javascript:void(0)"></a></span></div>
 		<div class="tmio">
 			<table class="layui-table"  lay-filter="test" id="demo" lay-size="lg">
-				<tr style="color: white; background-color: #808080;">
+				<tr style="color: #666; background-color: #e6e6e6;">
 					<th>学习阶段</th>
 					<th>学时进度</th>
 					<th>考试状态</th>
 				</tr>
 				</table>
 		</div>
-		<div class="backbg tmio_ca" style="border: grey">
-			<div class="tmio_carbg" style="width: 690px;">
-				<div id="d1" style="width: 10px; float: left; /*! border: medium none green; */background-color: white;height: 25px;"></div>
-				<div style="float: left;/*! border: red; */height: 26px;width: 76px;" class="">
-					<img alt=""  style="width: 75px;height: 25px" src="${pageContext.request.contextPath}/static/student/images/car.gif">
-				</div>
-			</div>
-		</div>
-		<span style="font-size:12px;color:#808080;display:none;">❄第一部分教室有效学时最多为3学时，第四部分教室有效学时最多为3学时</span>
+<%--		<div class="backbg tmio_ca" style="border: grey">--%>
+<%--			<div class="tmio_carbg" style="width: 690px;">--%>
+<%--				<div id="d1" style="width: 10px; float: left; /*! border: medium none green; */background-color: white;height: 25px;"></div>--%>
+<%--				<div style="float: left;/*! border: red; */height: 26px;width: 76px;" class="">--%>
+<%--					<img alt=""  style="width: 75px;height: 25px" src="${pageContext.request.contextPath}/static/student/images/car.gif">--%>
+<%--				</div>--%>
+<%--			</div>--%>
+<%--		</div>--%>
+<%--		<span style="font-size:12px;color:#808080;display:none;">❄第一部分教室有效学时最多为3学时，第四部分教室有效学时最多为3学时</span>--%>
 	</div>
 
 </div>
@@ -116,9 +116,9 @@
 <%--	</table>--%>
 <%--</div>--%>
 
-<script>
-	$("#d1").animate({width:"580px"},2000);
+<%--<script>--%>
+<%--	// $("#d1").animate({width:"580px"},2000);--%>
 
-</script>
+<%--</script>--%>
 </body>
 </html>
