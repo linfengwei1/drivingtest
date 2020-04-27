@@ -52,7 +52,7 @@
         <div class="layui-tab-item layui-show">
             <table style="margin: 0px;padding: 0px;width: 90%;height: auto">
                 <td style="margin: 0px;padding: 0px;width: 450px;padding-right: 10px;">
-                    <div class="layui-carousel" id="test2" style="left: 230px">
+                    <div class="layui-carousel" id="test2" style="left: 200px">
                         <div carousel-item>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage4.jpg" /></div>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage5.jpg" /></div>
@@ -71,7 +71,7 @@
                         <div class="layui-tab-content">
                             <div class="layui-tab-item layui-show">
                                 <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="tab1">
-                                    <tr style="background: #186ca4">
+                                    <tr style="background: #188799;color: white;">
                                         <th width="300px">标题</th>
                                         <th width="100px">文章来源</th>
                                         <th>日期</th>
@@ -161,7 +161,7 @@
                                                                 <tr>
                                                                     <td width="33%" align="center" class="baifont" style="background: #a4752b">学车课堂</td>
                                                                     <td width="52%">　</td>
-                                                                    <td width="15%"><a href=""><img src="${pageContext.request.contextPath}/static/images/homepageimages/more.gif" width="27" height="18" border="0"></a></td>
+                                                                    <td width="15%"><a href="${pageContext.request.contextPath}/TM/path/noticemore" target="_blank"><img src="${pageContext.request.contextPath}/static/images/homepageimages/more.gif" width="27" height="18" border="0"></a></td>
                                                                 </tr>
                                                             </table>
                                                         </td>
@@ -171,18 +171,18 @@
 	                                                        <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
                                                                 <tr>
                                                                     <td>
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-	                                                                        <c:if test="${not empty model}">
-		                                                                        <c:forEach items="${model.noticeCS}"  var="cs">
-                                                                                    <tr  bgcolor='#f4f4f4'>
-                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id=${cs.id}" target="_blank" title=${cs.title}>${cs.title}</a></td>
-                                                                                        <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${cs.time}" /></td>
-                                                                                    </tr>
-                                                                                </c:forEach>
-	                                                                        </c:if>
-	                                                                        <c:if test="${empty model}">
-		                                                                        暂无消息
-	                                                                        </c:if>
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="nCS">
+<%--	                                                                        <c:if test="${not empty model}">--%>
+<%--		                                                                        <c:forEach items="${model.noticeCS}"  var="cs">--%>
+<%--                                                                                    <tr  bgcolor='#f4f4f4'>--%>
+<%--                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id=${cs.id}" target="_blank" title=${cs.title}>${cs.title}</a></td>--%>
+<%--                                                                                        <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${cs.time}" /></td>--%>
+<%--                                                                                    </tr>--%>
+<%--                                                                                </c:forEach>--%>
+<%--	                                                                        </c:if>--%>
+<%--	                                                                        <c:if test="${empty model}">--%>
+<%--		                                                                        暂无消息--%>
+<%--	                                                                        </c:if>--%>
 
                                                                         </table>
                                                                     </td>
@@ -210,18 +210,18 @@
                                                             <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
                                                                 <tr>
                                                                     <td>
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <c:if test="${not empty model}">
-                                                                                <c:forEach items="${model.noticeDS}"  var="ds">
-                                                                                    <tr  bgcolor='#f4f4f4'>
-                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id=${ds.id}" target="_blank" title=${ds.title}>${ds.title}</a></td>
-                                                                                        <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${ds.time}" /></td>
-                                                                                    </tr>
-                                                                                </c:forEach>
-                                                                            </c:if>
-                                                                            <c:if test="${empty model}">
-                                                                                暂无消息
-                                                                            </c:if>
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="nDS">
+<%--                                                                            <c:if test="${not empty model}">--%>
+<%--                                                                                <c:forEach items="${model.noticeDS}"  var="ds">--%>
+<%--                                                                                    <tr  bgcolor='#f4f4f4'>--%>
+<%--                                                                                        <td width="90%" height="25" style="font-size: 16px"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id=${ds.id}" target="_blank" title=${ds.title}>${ds.title}</a></td>--%>
+<%--                                                                                        <td width="10%"  ><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${ds.time}" /></td>--%>
+<%--                                                                                    </tr>--%>
+<%--                                                                                </c:forEach>--%>
+<%--                                                                            </c:if>--%>
+<%--                                                                            <c:if test="${empty model}">--%>
+<%--                                                                                暂无消息--%>
+<%--                                                                            </c:if>--%>
 
                                                                         </table>
                                                                     </td>
@@ -1068,6 +1068,46 @@
 		});
 	}
 
+</script>
+
+<script>
+	$(function () {
+		$.ajax({
+			async:true,
+			method : "POST",
+			url :"${pageContext.request.contextPath}/link/showNotice",
+			dataType : "text",
+			success : function(msg) {
+				var map = JSON.parse(msg);
+				console.log("map:"+map);
+
+				$.each(map, function (key, value) {
+					console.log("属性：" + key + ",值：" + map[key]);
+					if (key=="noticeDS"){
+						var tdArr = document.getElementById('nDS');
+						for(var i=0;i<map[key].length;i++){
+							var tr = document.createElement("tr");
+							tr.innerHTML = '<td width="65%" height="25" style="font-size: 16px;background: #f4f4f4"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id='+map[key][i].id+'" target="_blank" title="'+map[key][i].title+'">'+map[key][i].title +'</a></td>'
+							+ '<td width="45%" style="font-size: 16px;background: #f4f4f4">'+map[key][i].time+'</td>';
+							tdArr.appendChild(tr);
+						}
+					}else if(key=="noticeCS"){
+						var tdArr = document.getElementById('nCS');
+						for(var i=0;i<map[key].length;i++){
+							var tr = document.createElement("tr");
+							tr.innerHTML = '<td width="65%" height="25" style="font-size: 16px;background: #f4f4f4"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id='+map[key][i].id+'" target="_blank" title="'+map[key][i].title+'">'+map[key][i].title +'</a></td>'
+							+ '<td width="45%" style="font-size: 16px;background: #f4f4f4">'+map[key][i].time+'</td>';
+							tdArr.appendChild(tr);
+						}
+					}
+
+				});
+			},
+			error : function() {
+				alert("服务器正忙");
+			}
+		});
+	})
 </script>
 
 </body>
