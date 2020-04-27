@@ -28,6 +28,7 @@
 					</tr>
 					<tr style="color: white; background-color: #808080;">
 						<th>考试科目</th>
+						<th>学号</th>
 						<th>准考证号</th>
 						<th>考试时间</th>
 						<th>状态</th>
