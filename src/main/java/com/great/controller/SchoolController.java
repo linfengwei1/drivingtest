@@ -1348,8 +1348,14 @@ public class SchoolController {
     @RequestMapping("/upload1")
     @ResponseBody//ajax返回值json格式转换
     @Log(operationType = "文件上传", operationName = "文件上传")
-    public String upload1(MultipartFile file,String account,String pwd,String rpwd,String name, String admin, String address,String phone,String phone2, String intro, HttpServletRequest request) throws IOException {
+    public String upload1(MultipartFile file,String account1,String account,String pwd,String rpwd,String name, String admin, String address,String phone,String phone2, String intro, HttpServletRequest request) throws IOException {
+        System.out.println("account=="+account);
+        System.out.println("pwd=="+pwd);
+        System.out.println("rpwd=="+rpwd);
+        System.out.println("phone2=="+phone2);
+
         if ("√".equals(account)&&"√".equals(pwd)&&"√".equals(rpwd)&&"√".equals(phone2)){
+
             String dateStr="";
             if (!StringUtils.isEmpty(file) && file.getSize()>0
                     &&null!=name&&!"".equals(name)&&null!=admin&&!"".equals(admin)&&null!=admin&&!"".equals(admin)
@@ -1374,10 +1380,10 @@ public class SchoolController {
                                 files.getParentFile().mkdirs();
                             }
                             file.transferTo(files); // 将接收的文件保存到指定文件中
-                            School school = schoolAdminService.SchoolApply(account,name, admin, address,phone,intro,"/files/"+ dateStr+"/"+fileName);//插入到数据库
+                            School school = schoolAdminService.SchoolApply(account1,name, admin, address,phone,intro,"/files/"+ dateStr+"/"+fileName);//插入到数据库
                             if (school!=null){
                                 String md5 = MD5Utils.md5(pwd);
-                                SchoolAdmin admin1 = new SchoolAdmin(account,md5,name,phone,school.getId(),new Date(),4);
+                                SchoolAdmin admin1 = new SchoolAdmin(account1,md5,name,phone,school.getId(),new Date(),4);
                                 schoolAdminService.addSchoolAdmin(admin1);
                                 return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
                             }
