@@ -114,6 +114,6 @@ public interface SchoolCoachDao
 	void addOrderRecord(@Param("timeId") Integer timeId, @Param("list") List<Integer> studentIds);
 
 	int addOrderTimeId(OrderTime orderTime);
-	int updateOrderStatus(@Param("list") List<Integer> studentIds);
+	int updateOrderStatus(@Param("list") List<Integer> studentIds,@Param("status") Integer status);
 
 }
