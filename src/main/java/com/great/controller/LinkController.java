@@ -56,18 +56,18 @@ public class LinkController {
 
 
 
-//	/**
-//	 * 增加友情链接图片上传
-//	 * @param file
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	@RequestMapping("/linkImage")
-//	@ResponseBody
-//	public Object  linkImage( MultipartFile file,HttpServletRequest request) throws Exception {
-//		Map<String,Object> map= (Map<String, Object>) linkImage(file,request);
-//		return map;
-//	}
+	/**
+	 * 增加友情链接图片上传
+	 * @param file
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/linkW")
+	@ResponseBody
+	public Object  linkW( MultipartFile file,HttpServletRequest request) throws Exception {
+		List<Link> linkList = linkService.findAllLink();//调用查询所有友情链接数据接口，得到友情链接数据列表linkList
+		return linkList;
+	}
 
 	/**
 	 * 友情链接图片上传
