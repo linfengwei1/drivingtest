@@ -52,7 +52,7 @@ public interface IStudentDao
 
 	List<ExamOrder> getOrderTime(int parseInt);
 
-	void updatePractiseScore(@Param("studentId") int studentId, @Param("score") int score);
+	void updatePractiseScore(@Param("studentId") int studentId, @Param("score") int score, @Param("subject")int subject);
 
 	void setStage(@Param("studentId") int studentId, @Param("stage") int stage);
 
@@ -75,4 +75,6 @@ public interface IStudentDao
 	void insertLog(SystemLog systemLog);
 
 	void updateOrderStatus(@Param("studentId") int studentId);
+
+	int judgePass(@Param("studentId")int studentId, @Param("subject")int subject);
 }

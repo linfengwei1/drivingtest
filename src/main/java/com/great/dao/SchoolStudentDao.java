@@ -22,6 +22,10 @@ public interface SchoolStudentDao
 	//删除学员
 	public Integer deleteStudent(Integer id);
 
+	//删除学员对应的学时信息
+	public Integer deleteStudentStudycondition(Integer id);
+
+
 	//更新学员信息
 	public Integer updateStudent(Student coach);
 
@@ -89,15 +93,15 @@ public interface SchoolStudentDao
 	//批量驳回过学员预约
 	public Integer batchRejected(List list);
 
-	//把学员是否预约批量改成0
-	public Integer AppointNo(List list);
+//	//批量驳回学员预约后，根据不同的科目改成不同的申请考试状态
+	public Integer AppointNo(Map<String, Object> map);
 
 	/**
-	 *判断是否已经预约单个改为0
-	 * @param id
+	 *当驳回的时候，根据不同科目改成不同科目的申请状态
+	 * @param
 	 * @return
 	 */
-	public Integer AppointNoByOne(Integer id);
+	public Integer AppointNoByOne(Map<String, Object> map);
 
 
 	//获取预约条数

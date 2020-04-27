@@ -530,13 +530,13 @@
 		count(*)
 		from notice
 		<where>
-			<if test="title!=null">
+			<if test="title!=null and ''!=title" >
 				and title like concat('%',#{title},'%')
 			</if>
-			<if test="date!=null">
+			<if test="date!=null and ''!=date" >
 				and time >= DATE_FORMAT(#{date}, '%Y-%m-%d')
 			</if>
-			<if test="type!=null">
+			<if test="type!=null and ''!=type">
 				and type = #{type}
 			</if>
 		</where>
@@ -954,11 +954,11 @@
 		</where>
 	</update>
 
-	<!--判断是否已经预约改为0-->
-	<update id="AppointNo" parameterType="java.lang.Integer">
+	<!--当驳回的时候，根据不同科目改成不同科目的申请状态-->
+	<update id="AppointNo" parameterType="java.util.Map">
 		update student
 		<set>
-			hasordered=0
+			student_state_id=#{student_state_id}
 		</set>
 		<where>
 			id=#{id}

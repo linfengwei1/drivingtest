@@ -171,7 +171,10 @@
                             success:function(data){
                                 if ("success"==data){
                                     layer.alert("删除成功",{icon:6},function () {
-                                        window.parent.location.reload();
+                                        // window.parent.location.reload();
+                                        var _body = window.parent;//拿到iframe的上一级也就是body
+                                        var _iframe1 = _body.document.getElementById('ifram_div_iframe');//通过id获取iframe
+                                        _iframe1.contentWindow.location.reload(true);//只刷新当前iframe
                                     });
                                 }else {
                                     layer.alert("删除失败",{icon:2});
@@ -191,12 +194,15 @@
                             async:true,
                             method : "POST",
                             url :path1+'/school/employPunish',
-                            data: data,
+                            data: "id="+data.id+"&cid="+data.coach_id,
                             dataType : "text",
                             success:function(data){
                                 if ("success"==data){
                                     layer.alert("启用成功",{icon:6},function () {
-                                        window.parent.location.reload();
+                                        // window.parent.location.reload();
+                                        var _body = window.parent;
+                                        var _iframe1 = _body.document.getElementById('ifram_div_iframe');
+                                        _iframe1.contentWindow.location.reload(true);
                                     });
                                 }else {
                                     layer.alert("启用失败",{icon:2});
@@ -216,12 +222,15 @@
                             async:true,
                             method : "POST",
                             url :path1+'/school/coachStateByStop',
-                            data: data,
+                            data: "id="+data.id+"&cid="+data.coach_id,
                             dataType : "text",
                             success:function(data){
                                 if ("success"==data){
                                     layer.alert("封停成功",{icon:6},function () {
-                                        window.parent.location.reload();
+                                        // window.parent.location.reload();
+                                        var _body = window.parent;//拿到iframe的上一级也就是body
+                                        var _iframe1 = _body.document.getElementById('ifram_div_iframe');//通过id获取iframe
+                                        _iframe1.contentWindow.location.reload(true);//只刷新当前iframe
                                     });
                                 }else {
                                     layer.alert("封停失败",{icon:2});
@@ -242,7 +251,7 @@
                             async:true,
                             method : "POST",
                             url :path1+'/school/coachStateByNo',
-                            data: data,
+                            data: "id="+data.id+"&cid="+data.coach_id,
                             dataType : "text",
                             success:function(data){
                                 if ("success"==data){

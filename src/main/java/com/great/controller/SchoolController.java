@@ -132,14 +132,16 @@ public class SchoolController {
     //普通登录
     @RequestMapping("/Login")
     @ResponseBody
+    @Log(operationType = "登录操作", operationName = "普通登录")
     public String Login(SchoolAdmin schoolAdmin , HttpServletRequest request, HttpServletResponse response) throws IOException {
         String YZM = (String)request.getSession().getAttribute("vcode");//拿到验证码
         Boolean confirm = schoolAdmin.getVerification().equalsIgnoreCase(YZM);//不区分大小写
         if (confirm) {
-            SchoolAdmin admin =schoolAdminService.login(schoolAdmin.getAccount(),schoolAdmin.getPwd());
+            String PwdMd5 = MD5Utils.md5(schoolAdmin.getPwd());
+            System.out.println("PwdMd5=="+PwdMd5);
+            SchoolAdmin admin =schoolAdminService.login(schoolAdmin.getAccount(),PwdMd5);
             if (null!=admin){
                 request.getSession().setAttribute("SchoolAdmin",admin);
-                System.out.println("admin.getSchool_state_id="+admin.getSchool_state_id());
                 if (1!=admin.getSchool_state_id()&&3!=admin.getSchool_state_id()){
                     return "no";
                 }
@@ -156,11 +158,11 @@ public class SchoolController {
     //人脸登录
     @RequestMapping("/faceLogin")
     @ResponseBody
+    @Log(operationType = "登录操作", operationName = "人脸登录")
     public String faceLogin(String imageString , HttpServletRequest request, HttpServletResponse response) throws IOException {
         imageString = imageString.replaceAll(" ","+");
         String msg=  schoolAdminService.faceLogin(imageString,request);
         System.out.println("返回的msg=="+msg);
-
         return msg;
     }
 
@@ -171,7 +173,6 @@ public class SchoolController {
     public String faceAdd(String imageString, HttpServletRequest request, HttpServletResponse response) throws IOException {
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         imageString = imageString.replaceAll(" ","+");
-        System.out.println("imageString1111==="+imageString);
         String user_id = schoolAdmin.getId().toString();
         //user_id是在百度账号人脸识别库中的id,唯一的,可以在添加的时候把用户的id填进去,到时验证的时候用
         String msg = schoolAdminService.faceAdd(imageString,user_id);
@@ -225,6 +226,8 @@ public class SchoolController {
         if(null!=phoneMsg||!"".equals(phoneMsg)){
             //判断短信验证码是否一致
             if (phoneMsg.equals(schoolAdmin.getPhoneMsg())){
+                String PwdMd5 =MD5Utils.md5(schoolAdmin.getPwd());
+                schoolAdmin.setPwd(PwdMd5);
                 //修改密码
                 Integer b=schoolAdminService.changePwdByPhone(schoolAdmin);
                 ajaxReturn(b,response); //结果返回封装
@@ -320,7 +323,6 @@ public class SchoolController {
     @ResponseBody
     public String CheckAdminPhone(HttpServletRequest request, HttpServletResponse response) throws IOException {
       String phone = request.getParameter("phone");
-
         if (null!=phone||!"".equals(phone)){
             Integer a =schoolAdminService.CheckAdminPhone(phone);
             if (1>a){
@@ -484,18 +486,20 @@ public class SchoolController {
 
     //在教练违规处理中把教练状态改成封停
     @RequestMapping("/coachStateByStop")
-    public void coachStateByStop (Coach coach, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        Integer id =Integer.valueOf(coach.getId()) ;
-        Integer a=schoolAdminService.coachStateByStop(id);
+    public void coachStateByStop ( HttpServletResponse response, HttpServletRequest request) throws IOException {
+        String id = request.getParameter("id");
+        String cid = request.getParameter("cid");
+        Integer a=schoolAdminService.coachStateByStop(Integer.valueOf(id),Integer.valueOf(cid));
         ajaxReturn(a,response); //结果返回封装
 
     }
 
     //在教练违规处理中把教练状态改成禁止报名
     @RequestMapping("/coachStateByNo")
-    public void coachStateByNo (Coach coach, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        Integer id =Integer.valueOf(coach.getId()) ;
-        Integer a=schoolAdminService.coachStateByNo(id);
+    public void coachStateByNo ( HttpServletResponse response, HttpServletRequest request) throws IOException {
+        String id = request.getParameter("id");
+        String cid = request.getParameter("cid");
+        Integer a=schoolAdminService.coachStateByNo(Integer.valueOf(id),Integer.valueOf(cid));
         ajaxReturn(a,response); //结果返回封装
 
     }
@@ -546,8 +550,18 @@ public class SchoolController {
             }
 
             try {
+                //判断excel里的账号是否有重复的
+                List<String> list3 = new ArrayList<>();
+                for (int i =0;i<list.size();i++){
+                    list3.add(list.get(i).getAccount());
+                }
+                boolean isRepeat = list3.size() != new HashSet<String>(list3).size();
+                if (isRepeat){
+                    return "{\"code\":5, \"msg\":\"\", \"data\":{}}";
+                }
                 //excel的数据保存到数据库
               List list1 = schoolAdminService.insertCoachByExcel(list);
+
                 //把重复的账号取出来，现在在页面上
                 if (null!=list1){
                     map.put("code",4);
@@ -620,7 +634,6 @@ public class SchoolController {
     public String auditAppoint(Integer id,String doing,String name,Integer studentId ,HttpServletResponse response){
 
         schoolAdminService.auditAppoint(id,doing,name,studentId);
-
         return "Success";
     }
 
@@ -648,12 +661,20 @@ public class SchoolController {
     @RequestMapping("/batchRejected")
     public void batchRejected(AppointTest appointTest, HttpServletRequest request, HttpServletResponse response) throws IOException {
         List list = new ArrayList();
+        List<AppointTest> list2 = new ArrayList();
         Gson g = new Gson();
         AppointTest[] tree = g.fromJson(request.getParameter("data"), AppointTest[].class);
         for (int i = 0;i<tree.length;i++){
             list.add(tree[i].getId());
         }
-        Integer a = schoolAdminService.batchRejected(list);
+
+        for (int i = 0;i<tree.length;i++){
+            AppointTest appointTest1 = new AppointTest();
+            appointTest1.setId(tree[i].getStudentId());
+            appointTest1.setSubjectName(tree[i].getSubjectName());
+            list2.add(appointTest1);
+        }
+        Integer a = schoolAdminService.batchRejected(list,list2);
         if (tree.length==a){
             response.getWriter().print("success");
         }else{
@@ -675,7 +696,6 @@ public class SchoolController {
         SchoolAdmin schoolAdmin = (SchoolAdmin) request.getSession().getAttribute("SchoolAdmin");
         utils.setSchool_id(schoolAdmin.getSchool_id());
         Map map = (Map) schoolAdminService.getSchoolStudentTable(utils);
-        System.out.println("学员信息=="+map.get("list"));
         if (null!=map.get("list")){
             dateTable.setData((List<?>) map.get("list"));
             dateTable.setCode(0);
@@ -694,9 +714,10 @@ public class SchoolController {
 
     //删除学员
     @RequestMapping("/deleteStudent")
-//    @Log(operationType = "删除操作", operationName = "删除上传文档")
-    public void deleteStudent(Student student, HttpServletResponse response) throws IOException {
-        Integer a = schoolAdminService.deleteStudent(student.getId());
+    @Log(operationType = "删除操作", operationName = "删除学员")
+    public void deleteStudent( HttpServletRequest request,HttpServletResponse response) throws IOException {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        Integer a = schoolAdminService.deleteStudent(id);
         ajaxReturn(a,response);
     }
 
@@ -781,12 +802,22 @@ public class SchoolController {
         }
         List<Student> list = null;
         try {
+
             list = StudentExcelImport.excelToShopIdList(file.getInputStream(),request);
             if (list == null || list.size() <= 0) {
-                return "导入的数据为空";
+                return "导入的数据为空或表格填写不完整";
             }
             //excel的数据保存到数据库
             try {
+                //判断excel里的账号是否有重复的
+                List<String> list3 = new ArrayList<>();
+                for (int i =0;i<list.size();i++){
+                    list3.add(list.get(i).getAccount());
+                }
+                boolean isRepeat = list3.size() != new HashSet<String>(list3).size();
+                if (isRepeat){
+                    return "文件中存在账号重复,请检查后全部重新上传";
+                }
               List<Student>lis1= schoolAdminService.insertStudentByExcel(list);
               if (lis1.get(0).getId()>0){
                   List<StudyCondition> list2 = new ArrayList<>();
@@ -803,11 +834,11 @@ public class SchoolController {
                   schoolAdminService.addStudyCondition(list2);//新增学员id插入学时表
               }else {
                   //把重复的账号取出来，现在在页面上
-                  List list3 = new ArrayList();
+                  List list4 = new ArrayList();
                   for (int y=0;y<lis1.size();y++){
-                      list3.add(lis1.get(y).getAccount());
+                      list4.add(lis1.get(y).getAccount());
                   }
-                  return "插入失败,账号"+list3.toString()+"重复,请全部重新导入";
+                  return "插入失败,账号"+list4.toString()+"重复,请全部重新导入";
               }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1003,7 +1034,6 @@ public class SchoolController {
         // 设置response的缓冲区的编码.
         response.setCharacterEncoding("UTF-8");
         request.setAttribute("coach",transportationService.getCoachMsg(id));
-        System.out.println("教练=="+transportationService.getCoachMsg(id));
         return "school/jsp/CoachMsg";
     }
 
@@ -1097,8 +1127,14 @@ public class SchoolController {
             }
             //excel的数据保存到数据库
             try {
-                for (CoachCar coachCar : list) {
-                    System.out.println("导入的数据"+coachCar.toString());
+                //判断excel里的账号是否有重复的
+                List<String> list3 = new ArrayList<>();
+                for (int i =0;i<list.size();i++){
+                    list3.add(list.get(i).getCarNumber());
+                }
+                boolean isRepeat = list3.size() != new HashSet<String>(list3).size();
+                if (isRepeat){
+                    return "{\"code\":5, \"msg\":\"\", \"data\":{}}";
                 }
              List list1 =schoolAdminService.insertCarByExcel(list);
                 if (null!=list1){
@@ -1126,7 +1162,6 @@ public class SchoolController {
 //        com.alibaba.druid.util.StringUtils.isEmpty()
        if (null!=request.getParameter("id")&&!"".equals(request.getParameter("id").trim())){
            Integer id = Integer.valueOf(request.getParameter("id"));
-//           Integer id = id;
            System.out.println("学时id=="+ id);
            List<StudyCondition>list= schoolAdminService.findStudyTime(id);
            if (list!=null){
@@ -1286,18 +1321,17 @@ public class SchoolController {
     @RequestMapping("/deletePunish")
     @Log(operationType = "删除操作", operationName = "删除处罚记录")
     public void deletePunish(String id,  HttpServletResponse response) throws IOException {
-        System.out.println("删除处罚id=="+id);
         Integer a = schoolAdminService.deletePunish(Integer.valueOf(id.trim()));
-        System.out.println("a=="+a);
         ajaxReturn(a,response); //结果返回封装
     }
 
     //教练处罚记录改变状态
     @RequestMapping("/employPunish")
     @Log(operationType = "启用操作", operationName = "从处罚记录改为启用状态")
-    public void employPunish(Coach coach, HttpServletResponse response) throws IOException {
-        Integer id =Integer.valueOf(coach.getId()) ;
-        Integer a = schoolAdminService.updatePunish(id);
+    public void employPunish( HttpServletRequest request,HttpServletResponse response) throws IOException {
+        String id = request.getParameter("id");
+        String cid = request.getParameter("cid");
+        Integer a = schoolAdminService.updatePunish(Integer.valueOf(id),Integer.valueOf(cid));
         ajaxReturn(a,response); //结果返回封装
     }
 
@@ -1344,15 +1378,14 @@ public class SchoolController {
     @RequestMapping("/upload1")
     @ResponseBody//ajax返回值json格式转换
     @Log(operationType = "文件上传", operationName = "文件上传")
-    public String upload1(MultipartFile file,String account,String pwd,String rpwd,String name, String admin, String address,String phone,String phone2, String intro, HttpServletRequest request) throws IOException {
+    public String upload1(MultipartFile file,String account1,String account,String pwd1,String pwd,String rpwd,String name, String admin, String address,String phone,String phone2, String intro, HttpServletRequest request) throws IOException {
+
         if ("√".equals(account)&&"√".equals(pwd)&&"√".equals(rpwd)&&"√".equals(phone2)){
             String dateStr="";
+            System.out.println("account=="+1);
             if (!StringUtils.isEmpty(file) && file.getSize()>0
                     &&null!=name&&!"".equals(name)&&null!=admin&&!"".equals(admin)&&null!=admin&&!"".equals(admin)
                     &&null!=address&&!"".equals(address)&&null!=phone&&!"".equals(phone)&&null!=intro&&!"".equals(intro)){
-//                if (isMobileNO(phone)){//判断手机是否合法
-//                  Integer b = schoolAdminService.CheckAdminPhone(phone);//判断手机是否被注册
-//                    if (0==b){
                         String fileName= file.getOriginalFilename();//是得到上传时的文件名。
                         String suffix = file.getOriginalFilename().split("\\.")[1];
                         if ("xlsx".equals(suffix)||"doc".equals(suffix)){//集合是否包含要上传的文档类型
@@ -1370,21 +1403,16 @@ public class SchoolController {
                                 files.getParentFile().mkdirs();
                             }
                             file.transferTo(files); // 将接收的文件保存到指定文件中
-                            School school = schoolAdminService.SchoolApply(account,name, admin, address,phone,intro,"/files/"+ dateStr+"/"+fileName);//插入到数据库
+                            School school = schoolAdminService.SchoolApply(account1,name, admin, address,phone,intro,"/files/"+ dateStr+"/"+fileName);//插入到数据库
                             if (school!=null){
-                                String md5 = MD5Utils.md5(pwd);
-                                SchoolAdmin admin1 = new SchoolAdmin(account,md5,name,phone,school.getId(),new Date(),4);
+                                String md5 = MD5Utils.md5(pwd1);
+                                SchoolAdmin admin1 = new SchoolAdmin(account1,md5,name,phone,school.getId(),new Date(),4);
                                 schoolAdminService.addSchoolAdmin(admin1);
                                 return "{\"code\":0, \"msg\":\"\", \"data\":{}}";
                             }
-                            return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
                         }
-//                        return "{\"code\":5, \"msg\":\"\", \"data\":{}}";
-//                    }
-
+                return "{\"code\":1, \"msg\":\"\", \"data\":{}}";
                 }
-//                return "{\"code\":2, \"msg\":\"\", \"data\":{}}";
-//            }
             return "{\"code\":3, \"msg\":\"\", \"data\":{}}";
         }
         return "{\"code\":4, \"msg\":\"\", \"data\":{}}";
@@ -1491,6 +1519,7 @@ public class SchoolController {
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
                 headers, HttpStatus.CREATED);
     }
+
 
 
 }

@@ -55,12 +55,22 @@ public interface SchoolCoachDao
 	//处罚记录改变状态
 	public Integer updatePunish(Integer id);
 
-	//处罚记录改变状态
+	//改变教练状态
+	public Integer updatePunish1(Integer id);
 
+
+	//处罚记录改变状态
 	public Integer coachStateByStop(Integer id);
+
+	//改变教练状态
+	public Integer coachStateByStop1(Integer id);
+
 
 	//处罚记录改变状态
 	public Integer coachStateByNo(Integer id);
+
+	//改变教练状态
+	public Integer coachStateByNo1(Integer id);
 
 
 	//excel插入数据库
@@ -114,6 +124,6 @@ public interface SchoolCoachDao
 	void addOrderRecord(@Param("timeId") Integer timeId, @Param("list") List<Integer> studentIds);
 
 	int addOrderTimeId(OrderTime orderTime);
-	int updateOrderStatus(@Param("list") List<Integer> studentIds);
+	int updateOrderStatus(@Param("list") List<Integer> studentIds,@Param("status") Integer status);
 
 }

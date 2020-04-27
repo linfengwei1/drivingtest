@@ -189,7 +189,8 @@
                 data: "phone=" + $("#phone").val(),
                 datatype: "text",
                 success: function (msg) {
-                    if (msg == "success") {
+                    console.log("驾校登录手机返回值=="+msg)
+                    if (msg === "success") {
                         $("#err3").html("√");
                     } else  {
                         $("#err3").html("该手机已被注册");
@@ -225,6 +226,8 @@
             },before: function(obj){
                 this.data = {//要传递的数据
                     name: $("#name").val(),//驾校名
+                    account1:$("#account").val(),
+                    pwd1: $("#pwd").val(),//判断没什么是否符合
                     intro: $("#intro").val(),//简介
                     admin: $("#admin").val(),//法人
                     address: $("#address").val(),//地址
@@ -232,7 +235,7 @@
                     account:$("#err1").html(),//获取账号是否被注册
                     pwd: $("#err5").html(),//判断没什么是否符合
                     rpwd:$("#err2").html(),
-                    phone2: $("#err3").val(),//联系方式的验证
+                    phone2: $("#err3").html(),//联系方式的验证
                 }
 
             }

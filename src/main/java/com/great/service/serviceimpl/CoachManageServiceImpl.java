@@ -174,7 +174,21 @@ public class CoachManageServiceImpl implements CoachManageService
 
         System.out.println("最新主键"+o.getId());
         schoolCoachDao.addOrderRecord(o.getId(),orders.getStudentIds());
-        schoolCoachDao.updateOrderStatus(orders.getStudentIds());//更新预约成功状态
+        int status = 0;
+        if(subject == 1)
+        {
+            status = 9;
+        }else if(subject == 2)
+        {
+            status = 10;
+        }else if(subject == 3)
+        {
+            status = 11;
+        }else if(subject == 4)
+        {
+            status = 12;
+        }
+        schoolCoachDao.updateOrderStatus(orders.getStudentIds(),status);//更新预约成功状态
 
         return "success";
     }

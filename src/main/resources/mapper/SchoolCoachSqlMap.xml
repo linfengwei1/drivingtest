@@ -354,7 +354,7 @@
         from punish s1
         left join coach s on s1.coach_id = s.id
         <where>
-            s1.school_id =#{school_id}
+            s1.school_id =#{school_id} and s1.coach_id !=0
             <if test="name!=null">
                 and  s.name like concat('%',#{name},'%')
             </if>
@@ -399,22 +399,37 @@
 	</delete>
 
     <!--处罚记录改变状态（启用）-->
-    <update id="updatePunish" >
+    <update id="updatePunish"  parameterType="java.lang.Integer">
 		update  punish set  coach_state_id = 1 where id = #{id};
 	</update>
 
 
+    <!--教练状态改为启用-->
+    <update id="updatePunish1"  parameterType="java.lang.Integer" >
+		update  coach set  coach_state_id = 1 where id = #{id};
+	</update>
+
+
     <!--处罚记录改变状态（封停）-->
-    <update id="coachStateByStop" >
+    <update id="coachStateByStop"  parameterType="java.lang.Integer">
 		update  punish set  coach_state_id = 2 where id = #{id};
+	</update>
+
+    <!--教练状态改为封停-->
+    <update id="coachStateByStop1"  parameterType="java.lang.Integer">
+		update  coach set  coach_state_id = 2 where id = #{id};
 	</update>
 
 
     <!--处罚记录改变状态（禁止报名）-->
-    <update id="coachStateByNo" >
+    <update id="coachStateByNo"  parameterType="java.lang.Integer" >
 		update  punish set  coach_state_id = 3 where id = #{id};
 	</update>
 
+    <!--教练状态改为禁止报名-->
+    <update id="coachStateByNo1"   parameterType="java.lang.Integer">
+		update  coach set  coach_state_id = 3 where id = #{id};
+	</update>
 
 
 
@@ -449,7 +464,7 @@
         </foreach>
     </insert>
     <update id="updateOrderStatus">
-        update student set hasordered=1
+        update student set student_state_id=#{status}
         where id in
         <foreach collection="list" index="index" item="item"
                  separator="," open="(" close=")">
@@ -495,7 +510,6 @@
 		select s.* from student as s,studycondition as sd
         where s.coach_id = #{coachId}
         and s.student_state_id = #{subject}
-        and s.hasordered = 0
         and s.id = sd.student_id
         and s.student_state_id = sd.subject_id
         and sd.time=3
@@ -505,7 +519,6 @@
 		select s.* from student as s,studycondition as sd
         where s.coach_id = #{coachId}
         and s.student_state_id = #{subject}
-        and s.hasordered = 0
         and s.id = sd.student_id
         and s.student_state_id = sd.subject_id
         and sd.time=3

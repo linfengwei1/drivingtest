@@ -17,6 +17,7 @@
 		<result property="phone" column="phone"></result>
 		<result property="student_state_id" column="student_state_id"></result>
 		<result property="school_id" column="school_id"></result>
+		<result property="image" column="image"></result>
 		<result property="coach_id" column="coach_id"></result>
 		<result property="identity_state" column="identity_state"></result>
 		<association property="school"
@@ -61,6 +62,7 @@
 	<resultMap id="scoreMap" type="Score">
 <!--		<id property="id" column="id"></id>-->
 		<!--非主键字段的对应-->
+		<result property="examId" column="examid"></result>
 		<result property="subject" column="name"></result>
 		<result property="examTime" column="datetime"></result>
 		<result property="score" column="score"></result>
@@ -74,7 +76,7 @@
 
 
 	<select id="login" resultMap="studentMap" parameterType="java.util.HashMap">
-		select * from student where account = #{account} and pwd = #{pwd}
+		select * from student where account = #{account} and pwd = #{pwd} and student_state_id not in(5,6)
 	</select>
 
 	<select id="selectSchoolById" resultMap="schoolMap" parameterType="int">
@@ -99,11 +101,13 @@
 		select count(*) from signuprecord where studentid = #{studentId} and subjectid = #{subject} and  date_format(now(), '%Y-%m-%d') = date_format(time, '%Y-%m-%d')
 	</select>
 	<select id="getTimeDiff" resultType="int" >
-		select TIMESTAMPDIFF(HOUR,time,now()) from signuprecord where studentid = #{studentId} and subjectid = #{subject} and date_format(now(), '%Y-%m-%d') = date_format(time, '%Y-%m-%d')	</select>
+		select TIMESTAMPDIFF(HOUR,time,now()) from signuprecord where studentid = #{studentId} and subjectid = #{subject} and date_format(now(), '%Y-%m-%d') = date_format(time, '%Y-%m-%d')
+	</select>
 	<select id="getStudyConditionById" resultMap="studyConditionMap" >
-		select s.id,s.practise_score,IFNULL(sc.score,0) as score,s.student_id,s.subject_id,s.time  from
+		select DISTINCT t.* from (select s.id,s.practise_score,IFNULL(sc.score,0) as score,s.student_id,s.subject_id,s.time  from
 		(select * from studycondition where student_id = #{studentId}) as s LEFT JOIN score as sc
-		on s.subject_id = sc.subject_id and sc.student_id = s.student_id
+		on s.subject_id = sc.subject_id and sc.student_id = s.student_id and sc.score >=90) as t
+
 	</select>
 
 	<select id="getAllEvaForSchool" resultMap="evaSchoolMap" >
@@ -118,11 +122,11 @@
 
 
 	<select id="getMyScore" resultMap="scoreMap" >
-		select s.name,t.datetime,sc.score from time as t,score as sc,appoint_time_relation as a,`subject` as s
+		select a.id as examid,s.name,t.datetime,sc.score from time as t,score as sc,appoint_time_relation as a,`subject` as s
 		where sc.student_id = #{studentId} and sc.appoint_time_relation_id =  a.id and a.time_id=t.id and sc.subject_id = s.id
 	</select>
 	<select id="getOrderTime" resultType="ExamOrder">
-		select s.name as subject,t.datetime as ordertime,a.appoint_state_id as status from `subject` as s,appoint_time_relation as a,time t
+		select a.student_id as studentid,a.id as examid,s.name as subject,t.datetime as ordertime,a.appoint_state_id as status from `subject` as s,appoint_time_relation as a,time t
 		where a.student_id = #{studentId}
 		and a.time_id = t.id
 		and t.subject_id = s.id
@@ -207,6 +211,8 @@
 	<select id="getWrongQuestion_1byStudentId" resultMap="questionMap">
 		select * from question1 where iid in(select DISTINCT qid from wrongquestion1 where studentid = #{studentId})
 	</select>
+
+
 	<select id="getWrongQuestion_4byStudentId" resultMap="questionMap">
 		select * from question4 where iid in(select DISTINCT qid from wrongquestion4 where studentid = #{studentId})
 	</select>
@@ -225,6 +231,10 @@
 		<foreach collection="list" item="item" open="(" close=")" separator=",">
 			(#{item.id},#{item.answer})
 		</foreach>
+	</select>
+	<select id="judgePass" resultType="int">
+		SELECT count(*) from score
+		where student_id = #{studentId} and subject_id = #{subject} and score  &gt;= 90
 	</select>
 
 	<update id="updatePwd">
@@ -250,7 +260,7 @@
 		update student set student_state_id = #{stateId} where id = #{studentId}
 	</update>
 	<update id="updatePractiseScore">
-		update studycondition set practise_score = #{score} where student_id = #{studentId}
+		update studycondition set practise_score = #{score} where student_id = #{studentId} and subject_id = #{subject}
 	</update>
 	<update id="setStage">
 		update student set student_state_id = #{stage} where id = #{studentId}

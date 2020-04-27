@@ -45,7 +45,7 @@ layui.use(['form','jquery','layer','element'],  function(){
 
     $("#p5").click(function () {
         layer.open({
-            title:'添加驾校管理员信息',
+            title:'忘记密码',
             type: 2,
             area: ['700px', '400px'],
             content:path+"/school/path/ChangePwd",//弹出的页面

@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 public class Score implements Serializable
 {
 
+	private int examId;//准考证号
 	private int score;
 	private Timestamp examTime;
 	private String subject;
@@ -15,8 +16,9 @@ public class Score implements Serializable
 	{
 	}
 
-	public Score(int score, Timestamp examTime, String subject)
+	public Score(int examId, int score, Timestamp examTime, String subject)
 	{
+		this.examId = examId;
 		this.score = score;
 		this.examTime = examTime;
 		this.subject = subject;
@@ -50,5 +52,15 @@ public class Score implements Serializable
 	public void setSubject(String subject)
 	{
 		this.subject = subject;
+	}
+
+	public int getExamId()
+	{
+		return examId;
+	}
+
+	public void setExamId(int examId)
+	{
+		this.examId = examId;
 	}
 }

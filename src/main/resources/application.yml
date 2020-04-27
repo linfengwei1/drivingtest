@@ -47,6 +47,13 @@ spring:
     spring:
       resources:
         static-locations:classpath:static/**
+  servlet:
+    #     max-file-size 单个文件大小
+    #    max-request-size 总文件大小
+    multipart:
+      enabled: true
+      max-file-size: 5GB
+      max-request-size: 5GB
 
 #  jackson:
 #    #参数意义：

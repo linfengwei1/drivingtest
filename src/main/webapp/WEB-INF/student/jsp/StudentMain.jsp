@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-	<title>学员登录</title>
+	<title>学员后台</title>
 	<%String path = request.getContextPath();%>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/student/css/studentmain.css">
@@ -156,7 +156,7 @@
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
-					<img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+					<img src="${pageContext.request.contextPath}/static${student.image}" class="layui-nav-img">
 					${student.name}
 				</a>
 				<dl class="layui-nav-child">
@@ -187,6 +187,7 @@
 			<div class="msglist">
 				<ul>
 					<li class="clfix"><span class="fl robot triangle-left">您好！欢迎来到机动车驾驶员网上理论学习平台，请问有什么可以帮您？</span></li>
+					<li class="clfix"><span class="fl robot triangle-left">输入科目一，了解驾考知识</span></li>
 				</ul>
 			</div>
 		</div>

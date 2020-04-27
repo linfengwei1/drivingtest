@@ -55,19 +55,19 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">账号框</label>
 				<div class="layui-input-block" style="width: 190px">
-					<input style="background-color: #f7f8fa" type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+					<input style="background-color: #f7f8fa" type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input" maxlength="23">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">密码框</label>
 				<div class="layui-input-inline">
-					<input style="background-color: #f7f8fa" type="password" name="pwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+					<input style="background-color: #f7f8fa" type="password" name="pwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" maxlength="23">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">验证码</label>
 				<div class="layui-input-block" style="width: 190px">
-					<input style="background-color: #f7f8fa" type="text" name="verification" required  lay-verify="required" placeholder="不区分大小写" autocomplete="off" class="layui-input">
+					<input style="background-color: #f7f8fa" type="text" name="verification" required  lay-verify="required" placeholder="不区分大小写" autocomplete="off" class="layui-input" maxlength="7">
 				</div>
 			</div>
 			<div class="layui-form-item">

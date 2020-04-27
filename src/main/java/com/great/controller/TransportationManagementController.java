@@ -324,7 +324,6 @@ public class TransportationManagementController {
 
         request.getSession().setAttribute("student",transportationService.getStudentMsg(id));
 
-        System.out.println(request.getSession().getAttribute("student"));
 
         return "";
     }
@@ -863,7 +862,7 @@ public class TransportationManagementController {
 		// 设置response的缓冲区的编码.
 		response.setCharacterEncoding("UTF-8");
 
-        System.out.println("data:"+page+"---"+limit+"---"+title+"---"+date+"---"+type);
+        System.out.println("data:页数："+page+"、每页记录数："+limit+"、搜索标题："+title+"、搜索日期："+date+"、搜索类型："+type);
 		ObjectResult objectResult = transportationService.getNotice(page, limit, title, date, type);
 
 //        System.out.println("tmc:"+objectResult);

@@ -20,7 +20,7 @@ public class StudentTable
     private int identity_state;//是否录入人脸信息
     private int coach_id;;//教练id
     private int time;
-    private int oneScore;
+    private int oneScore;//关联查询
     private int twoScore;
     private int threeScore;
     private int fourScore;
