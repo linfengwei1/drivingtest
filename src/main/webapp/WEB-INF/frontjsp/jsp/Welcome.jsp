@@ -604,7 +604,7 @@
 <%--                        src="${pageContext.request.contextPath}/static${link.pictureUrl}" width="252px" height="48px"/></a>--%>
 <%--            </c:forEach>--%>
         </div>
-
+    </div>
 </div>
 
 <div align="center" style="background-color: #0a76a4">
