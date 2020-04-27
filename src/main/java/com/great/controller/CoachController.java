@@ -51,6 +51,7 @@ public class CoachController
     public void changePwd(Coach coach, HttpServletResponse response) throws IOException {
         System.out.println("changepwd------");
         System.out.println("Coach=="+coach.toString());
+        coach.setPwd(MD5Utils.md5(coach.getPwd()));
         Integer a= coachManageService.changeCoachpwd(coach);
         if (1==a){
             response.getWriter().print("success");
