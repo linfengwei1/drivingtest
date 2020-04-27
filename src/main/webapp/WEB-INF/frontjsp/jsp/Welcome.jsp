@@ -52,7 +52,7 @@
         <div class="layui-tab-item layui-show">
             <table style="margin: 0px;padding: 0px;width: 90%;height: auto">
                 <td style="margin: 0px;padding: 0px;width: 450px;padding-right: 10px;">
-                    <div class="layui-carousel" id="test2" style="left: 230px">
+                    <div class="layui-carousel" id="test2" style="left: 200px">
                         <div carousel-item>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage4.jpg" /></div>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage5.jpg" /></div>
@@ -166,7 +166,7 @@
                                                                 <tr>
                                                                     <td width="33%" align="center" class="baifont" style="background: #a4752b">学车课堂</td>
                                                                     <td width="52%">　</td>
-                                                                    <td width="15%"><a href=""><img src="${pageContext.request.contextPath}/static/images/homepageimages/more.gif" width="27" height="18" border="0"></a></td>
+                                                                    <td width="15%"><a href="${pageContext.request.contextPath}/TM/path/noticemore" target="_blank"><img src="${pageContext.request.contextPath}/static/images/homepageimages/more.gif" width="27" height="18" border="0"></a></td>
                                                                 </tr>
                                                             </table>
                                                         </td>
@@ -1103,13 +1103,12 @@
 						for(var i=0;i<map[key].length;i++){
 							var tr = document.createElement("tr");
 							tr.innerHTML = '<td width="65%" height="25" style="font-size: 16px;background: #f4f4f4"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id='+map[key][i].id+'" target="_blank" title="'+map[key][i].title+'">'+map[key][i].title +'</a></td>'
-								+ '<td width="45%" style="font-size: 16px;background: #f4f4f4">'+map[key][i].time+'</td>';
+							+ '<td width="45%" style="font-size: 16px;background: #f4f4f4">'+map[key][i].time+'</td>';
 							tdArr.appendChild(tr);
 						}
 					}
 
 				});
-				// alert("111");
 			},
 			error : function() {
 				alert("服务器正忙");

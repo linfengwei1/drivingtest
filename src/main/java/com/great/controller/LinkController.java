@@ -36,15 +36,15 @@ public class LinkController {
     public ModelAndView getUrl(@PathVariable(value = "url") String path) {
 		List<Link> linkList = linkService.findAllLink();//调用查询所有友情链接数据接口，得到友情链接数据列表linkList
 		ModelAndView mav = new ModelAndView("/frontjsp/jsp/" + path);//实例化ModelAndView对象，给mav对象指定名称为/frontjsp/jsp/+ 路径path
-//		List<Notice> noticeList =  schoolAdminService.getNotice();//获取首页通知公告的内容
-//		List<Notice> noticeDS = linkService.getNoticeDS();//获取前台驾驶技巧通告
-//		List<Notice> noticeCS = linkService.getNoticeCS();//获取学车课堂通告
-//		Map<String,Object> model = new HashMap<String,Object>();
-//		model.put("linkList",linkList);
-//		model.put("noticeList",noticeList);
-//		model.put("noticeDS",noticeDS);//将前台驾驶技巧通告添加到mav对象里
-//		model.put("noticeCS",noticeCS);//学车课堂通告添加到mav对象里
-//		mav.addObject("model",model);
+		List<Notice> noticeList =  schoolAdminService.getNotice();//获取首页通知公告的内容
+		List<Notice> noticeDS = linkService.getNoticeDS();//获取前台驾驶技巧通告
+		List<Notice> noticeCS = linkService.getNoticeCS();//获取学车课堂通告
+		Map<String,Object> model = new HashMap<String,Object>();
+		model.put("linkList",linkList);
+		model.put("noticeList",noticeList);
+		model.put("noticeDS",noticeDS);//将前台驾驶技巧通告添加到mav对象里
+		model.put("noticeCS",noticeCS);//学车课堂通告添加到mav对象里
+		mav.addObject("model",model);
 		return mav;
 
     }
@@ -209,129 +209,6 @@ public class LinkController {
 		return "{\"code\":3, \"msg\":\"\", \"data\":{}}";
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	@RequestMapping("/getSchoolInfoByPage")
 	@ResponseBody
 	public SchoolInfoList getSchoolInfoByPage(String curr,String shcoolName, String addr,HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -346,21 +223,24 @@ public class LinkController {
 	@ResponseBody
 	public Map showNotice(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("showNotice");
-//		List<Link> linkList = linkService.findAllLink();//调用查询所有友情链接数据接口，得到友情链接数据列表linkList
-//		ModelAndView mav = new ModelAndView();//实例化ModelAndView对象，给mav对象指定名称为/frontjsp/jsp/+ 路径path
-//		List<Notice> noticeList =  schoolAdminService.getNotice();//获取首页通知公告的内容
 		List<Notice> noticeDS = linkService.getNoticeDS();//获取前台驾驶技巧通告
 		List<Notice> noticeCS = linkService.getNoticeCS();//获取学车课堂通告
 		Map<String,Object> model = new HashMap<String,Object>();
-//		model.put("linkList",linkList);
-//		model.put("noticeList",noticeList);
 		model.put("noticeDS",noticeDS);//将前台驾驶技巧通告添加到mav对象里
 		model.put("noticeCS",noticeCS);//学车课堂通告添加到mav对象里
-//		mav.addObject("model",model);
 		request.getSession().setAttribute("model",model);
 		System.out.println("model:"+model);
 		return model;
 
+	}
+
+	//首页更多通知公告信息显
+	@RequestMapping("/moreNotice")
+	public String moreNotice(HttpServletRequest request) throws IOException {
+		List<Notice> noticeDS = linkService.getNoticeDS();//获取前台驾驶技巧通告
+		request.setAttribute("noticeDS",noticeDS);
+
+		return "frontjsp/jsp/Welcome2";
 	}
 
 }
