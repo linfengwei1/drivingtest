@@ -37,19 +37,18 @@ public class CoachManageServiceImpl implements CoachManageService
     public Object getCoachStudentTable(TableUtils utils){
         Map<String,Object> InfMap = new LinkedHashMap<>();
         List<StudentTable> list=schoolCoachDao.findStudentByPage(utils);
+//        List<StudyCondition> studyConditions = schoolCoachDao.findStudentTime(utils);
         Integer a =schoolCoachDao.findCount(utils);
         for (int i = 0;i<list.size();i++)
         {
             System.out.println(list.get(i));
         }
-        InfMap.put("list",list);
-        InfMap.put("count",a);
-        return InfMap;
+
 
 //        utils.setMaxLimit(utils.getMaxLimit()*4);
 //        utils.setMinLimit(utils.getMinLimit()*4);
 //        List<Score> studentScoreList = schoolCoachDao.findStudentScore(utils);
-//        List<StudyCondition> studyConditions = schoolCoachDao.findStudentTime(utils);
+
 ////        System.out.println("studyConditions:"+studyConditions);
 ////        System.out.println("studentScoreList:"+studentScoreList);
 ////        System.out.println("list:"+list);
@@ -77,7 +76,7 @@ public class CoachManageServiceImpl implements CoachManageService
 //                {
 //                    list.get(i).setFourScore(studentScoreList.get(i*4+3).getScore());
 //                }
-//
+
 //                //学时判断
 //                if(list.get(i).getStudent_state_id()==1||list.get(i).getStudent_state_id()==9||list.get(i).getStudent_state_id()==13)
 //                {
@@ -97,7 +96,9 @@ public class CoachManageServiceImpl implements CoachManageService
 //                }
 //            }
 //        }
-
+        InfMap.put("list",list);
+        InfMap.put("count",a);
+        return InfMap;
 
     }
 

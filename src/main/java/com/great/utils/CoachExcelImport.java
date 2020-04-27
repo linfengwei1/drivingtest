@@ -22,7 +22,7 @@ public class CoachExcelImport {
         Workbook workbook = null;
         try {
             workbook = WorkbookFactory.create(inputStream);
-            System.out.println("workbook="+workbook);
+//            System.out.println("workbook="+workbook);
             inputStream.close();
             //工作表对象
             Sheet sheet = workbook.getSheetAt(0);
@@ -34,48 +34,56 @@ public class CoachExcelImport {
 
             //总列数
             int colLength = row.getLastCellNum();
-            System.out.println("总列数有多少列" + colLength);
+            int q =0;
+//            System.out.println("总列数有多少列" + colLength);
             //得到指定的单元格
             Cell cell = row.getCell(0);
-            for (int i = 1; i <= rowLength; i++) {
-                Coach coach = new Coach();
-                row = sheet.getRow(i);
-                for (int j = 0; j < colLength; j++) {
-                    //列：0id   1车牌号 2学校id 3教练id 4状态
-                    cell = row.getCell(j);
+            if (10==colLength){
+                for (int i = 1; i <= rowLength; i++) {
+                    Coach coach = new Coach();
+                    row = sheet.getRow(i);
+                    for (int j = 0; j < colLength; j++) {
+                        //列：0id   1车牌号 2学校id 3教练id 4状态
+                        cell = row.getCell(j);
 //                    System.out.print(cell + ",");
-                    if (cell != null) {
-                        cell.setCellType(CellType.STRING);//设置字段的数据为字符串
-                        String data = cell.getStringCellValue();//获取值
-                        data = data.trim();
-                        if (j == 1) {
-                            coach.setAccount(data);
-                        } else if (j == 2) {
-                            coach.setPwd(MD5Utils.md5(data));
-                        } else if (j == 3) {
-                            coach.setName(data);
-                        }
-                        else if (j == 4) {
-                            coach.setSex(data);
-                        }
-                        else if (j == 5) {
-                            coach.setAge(data);
-                        }
-                        else if (j == 6) {
-                            coach.setIdnumber(data);
-                        }
-                        else if (j == 7) {
-                            coach.setPhone(data);
-                        }
-                        else if (j == 8) {
-                            coach.setCoach_state_id(5);
-                        }
-                        else if (j == 9) {
-                            coach.setSchool_id(schoolAdmin.getSchool_id());
+                        if (cell != null) {
+                            cell.setCellType(CellType.STRING);//设置字段的数据为字符串
+                            String data = cell.getStringCellValue();//获取值
+                            data = data.trim();
+                            q++;
+                            if (j == 1) {
+                                coach.setAccount(data);
+                            } else if (j == 2) {
+                                coach.setPwd(MD5Utils.md5(data));
+                            } else if (j == 3) {
+                                coach.setName(data);
+                            }
+                            else if (j == 4) {
+                                coach.setSex(data);
+                            }
+                            else if (j == 5) {
+                                coach.setAge(data);
+                            }
+                            else if (j == 6) {
+                                coach.setIdnumber(data);
+                            }
+                            else if (j == 7) {
+                                coach.setPhone(data);
+                            }
+                            else if (j == 8) {
+                                coach.setCoach_state_id(5);
+                            }
+                            else if (j == 9) {
+                                coach.setSchool_id(schoolAdmin.getSchool_id());
+                            }
                         }
                     }
+                    list.add(coach);
+                    if (10!=q){
+                        System.out.println(1);
+                        list.clear();
+                    }
                 }
-                list.add(coach);
             }
         } catch (Exception e) {
         }

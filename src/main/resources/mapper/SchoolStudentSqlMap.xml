@@ -56,9 +56,14 @@
 
     </select>
 
-    <!--删除教练-->
+    <!--删除学员-->
     <delete id="deleteStudent"  parameterType="java.lang.Integer">
         delete  from student where id =#{id}
+    </delete>
+
+    <!--删除学员对应的学时信息-->
+    <delete id="deleteStudentStudycondition"  parameterType="java.lang.Integer">
+        delete  from studycondition  where student_id =#{id}
     </delete>
 
     <!--更新学员信息-->
@@ -150,19 +155,19 @@
 
     <!--统计一阶段的人数-->
     <select id="CountSubject1" resultType="Integer" parameterType = "Integer"  >
-		SELECT count(*) FROM student where student_state_id in (1,13) and school_id = #{id}
+		SELECT count(*) FROM student where student_state_id in (1,9,13) and school_id = #{id}
 	</select>
     <!--统计2阶段的人数-->
     <select id="CountSubject2" resultType="Integer" parameterType = "Integer"  >
-		SELECT count(*) FROM student where student_state_id in (2,14) and school_id = #{id}
+		SELECT count(*) FROM student where student_state_id in (2,10,14) and school_id = #{id}
 	</select>
     <!--统计3阶段的人数-->
     <select id="CountSubject3" resultType="Integer"  parameterType = "Integer" >
-		SELECT count(*) FROM student where student_state_id in (3,15) and school_id = #{id}
+		SELECT count(*) FROM student where student_state_id in (3,11,15) and school_id = #{id}
 	</select>
     <!--统计4阶段的人数-->
     <select id="CountSubject4" resultType="Integer" parameterType = "Integer" >
-		SELECT count(*) FROM student where student_state_id in (4,16) and school_id = #{id}
+		SELECT count(*) FROM student where student_state_id in (4,12,16) and school_id = #{id}
 	</select>
 
     <!--统毕业的人数-->

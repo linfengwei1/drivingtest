@@ -91,7 +91,7 @@ layui.use(['upload', 'jquery', 'layer','table','laydate'], function () { //å¯¼å…
                     async:true,
                     method : "POST",
                     url :path1+'/school/deleteStudent',
-                    data: data,
+                    data: "id="+data.id,
                     dataType : "text",
                     success:function(data){
                         if ("success"==data){

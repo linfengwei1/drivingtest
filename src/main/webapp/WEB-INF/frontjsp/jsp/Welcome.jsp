@@ -52,7 +52,7 @@
         <div class="layui-tab-item layui-show">
             <table style="margin: 0px;padding: 0px;width: 90%;height: auto">
                 <td style="margin: 0px;padding: 0px;width: 450px;padding-right: 10px;">
-                    <div class="layui-carousel" id="test2" style="left: 230px">
+                    <div class="layui-carousel" id="test2" style="left: 200px">
                         <div carousel-item>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage4.jpg" /></div>
                             <div><img src="${pageContext.request.contextPath}/static/images/homepageimages/handpage5.jpg" /></div>
@@ -76,16 +76,11 @@
                                         <th width="100px">文章来源</th>
                                         <th>日期</th>
                                     </tr>
-<%--                                    <c:forEach items="${getNotice}" var="link">--%>
-                                        <tr style="height: 30px;background: #f9f9f9;border-bottom: black;" id="template">
+                                        <tr style="height: 30px;background: #dadada" id="template">
                                             <td id="title" onclick="Jump(this)"  ></td>
                                             <td id="type"></td>
                                             <td id="time1"></td>
-<%--                                            <td onclick="Jump(this)" title="${link.id}">${link.title}</td>--%>
-<%--                                            <td align="center">${link.type}</td>--%>
-<%--                                            <td align="center" style="width: 83px;fixed: left"><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${link.time}" /></td>--%>
                                         </tr>
-<%--                                    </c:forEach>--%>
                                     </tbody>
                                 </table>
                                 <%--                                <div align="right">查看更多>>></div>--%>
@@ -166,7 +161,7 @@
                                                                 <tr>
                                                                     <td width="33%" align="center" class="baifont" style="background: #a4752b">学车课堂</td>
                                                                     <td width="52%">　</td>
-                                                                    <td width="15%"><a href=""><img src="${pageContext.request.contextPath}/static/images/homepageimages/more.gif" width="27" height="18" border="0"></a></td>
+                                                                    <td width="15%"><a href="${pageContext.request.contextPath}/TM/path/noticemore" target="_blank"><img src="${pageContext.request.contextPath}/static/images/homepageimages/more.gif" width="27" height="18" border="0"></a></td>
                                                                 </tr>
                                                             </table>
                                                         </td>
@@ -609,7 +604,7 @@
 <%--                        src="${pageContext.request.contextPath}/static${link.pictureUrl}" width="252px" height="48px"/></a>--%>
 <%--            </c:forEach>--%>
         </div>
-
+    </div>
 </div>
 
 <div align="center" style="background-color: #0a76a4">
@@ -882,8 +877,6 @@
 			success : function(msg) {
 				var arr = JSON.parse(msg);
 				for (var i = 0;i<arr.length;i++){
-					// valueArr.push(arr[i]);
-					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
 					coachArr.push(arr[i]);
 
 				}
@@ -1028,8 +1021,8 @@
                 var arr = JSON.parse(msg);
                 $.each(arr, function (i, n) {
                     var row = $("#template").clone();
-                    var r1=row.find("#title").text(n.title);
-                    r1.attr("title",n.id)
+                    console.log(n.title)
+                    row.find("#title").text(n.title).attr("title",n.id);
                     row.find("#type").text(n.type);
                     row.find("#time1").text(n.time);
                     row.appendTo("#tab1");//添加到模板的容器中
@@ -1087,7 +1080,7 @@
 			success : function(msg) {
 				var map = JSON.parse(msg);
 				console.log("map:"+map);
-		
+
 				$.each(map, function (key, value) {
 					console.log("属性：" + key + ",值：" + map[key]);
 					if (key=="noticeDS"){
@@ -1103,13 +1096,12 @@
 						for(var i=0;i<map[key].length;i++){
 							var tr = document.createElement("tr");
 							tr.innerHTML = '<td width="65%" height="25" style="font-size: 16px;background: #f4f4f4"><a href="${pageContext.request.contextPath}/school/jumpNwePage?id='+map[key][i].id+'" target="_blank" title="'+map[key][i].title+'">'+map[key][i].title +'</a></td>'
-								+ '<td width="45%" style="font-size: 16px;background: #f4f4f4">'+map[key][i].time+'</td>';
+							+ '<td width="45%" style="font-size: 16px;background: #f4f4f4">'+map[key][i].time+'</td>';
 							tdArr.appendChild(tr);
 						}
 					}
 
 				});
-				// alert("111");
 			},
 			error : function() {
 				alert("服务器正忙");

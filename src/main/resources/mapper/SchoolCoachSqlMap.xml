@@ -56,8 +56,30 @@
                      select="selectfourScore"
                      column="{id=id}">
         </association>
+<!--        <association property="time"-->
+<!--                     select="selectTime"-->
+<!--                     column="{id=id},{student_state_id=student_state_id}">-->
+<!--        </association>-->
     </resultMap>
 
+    <select id="selectTime" resultType="int">
+	    select studycondition.time from studycondition,student
+	    <where>
+            studycondition.student_id = #{id} and  studycondition.student_id=student.id and
+            <if test="#{student.student_state_id}==1 or student.student_state_id==9 or student.student_state_id==13">
+                studycondition.subject_id=1
+            </if>
+            <if test="student.student_state_id==2 or student.student_state_id==10 or student.student_state_id==14">
+                studycondition.subject_id=2
+            </if>
+            <if test="student.student_state_id==3 or student.student_state_id==11 or student.student_state_id==15">
+                studycondition.subject_id=3
+            </if>
+            <if test="student.student_state_id==4 or student.student_state_id==12 or student.student_state_id==16">
+                studycondition.subject_id=4
+            </if>
+        </where>
+	</select>
     <select id="selectoneScore" resultType="int">
 	    select score from score where student_id = #{id} and subject_id =  1
 	</select>

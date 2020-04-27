@@ -95,7 +95,7 @@
                 }
                 if(res.code == 3){
                     //上传完毕回调
-                    alert("导入的数据为空！");
+                    alert("导入的数据为空、或未全部填写！");
                 }
                 if(res.code == 4){
                     //上传完毕回调
@@ -104,6 +104,10 @@
                         nameArr.push(res.data[i].carNumber);
                     }
                     alert(nameArr+"车牌号已经被注册,请全部重新导入");
+                }
+                if(res.code == 5){
+                    //上传完毕回调
+                    alert("文件中车牌号出现重复,请全部重新导入");
                 }
             }
         });
