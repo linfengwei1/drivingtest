@@ -227,6 +227,7 @@
                 this.data = {//要传递的数据
                     name: $("#name").val(),//驾校名
                     account1:$("#account").val(),
+                    pwd1: $("#pwd").val(),//判断没什么是否符合
                     intro: $("#intro").val(),//简介
                     admin: $("#admin").val(),//法人
                     address: $("#address").val(),//地址

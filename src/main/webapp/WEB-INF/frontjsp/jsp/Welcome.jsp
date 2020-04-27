@@ -76,16 +76,11 @@
                                         <th width="100px">文章来源</th>
                                         <th>日期</th>
                                     </tr>
-<%--                                    <c:forEach items="${getNotice}" var="link">--%>
                                         <tr style="height: 30px;background: #dadada" id="template">
                                             <td id="title" onclick="Jump(this)"  ></td>
                                             <td id="type"></td>
                                             <td id="time1"></td>
-<%--                                            <td onclick="Jump(this)" title="${link.id}">${link.title}</td>--%>
-<%--                                            <td align="center">${link.type}</td>--%>
-<%--                                            <td align="center" style="width: 83px;fixed: left"><fmt:formatDate type="date" pattern="yyyy/MM/dd" dateStyle="medium" timeStyle="medium" value="${link.time}" /></td>--%>
                                         </tr>
-<%--                                    </c:forEach>--%>
                                     </tbody>
                                 </table>
                                 <%--                                <div align="right">查看更多>>></div>--%>
@@ -882,8 +877,6 @@
 			success : function(msg) {
 				var arr = JSON.parse(msg);
 				for (var i = 0;i<arr.length;i++){
-					// valueArr.push(arr[i]);
-					// nu1  =parseInt(nu1)+ parseInt(arr[i]);
 					coachArr.push(arr[i]);
 
 				}
@@ -1028,8 +1021,8 @@
                 var arr = JSON.parse(msg);
                 $.each(arr, function (i, n) {
                     var row = $("#template").clone();
-                    var r1=row.find("#title").text(n.title);
-                    r1.attr("title",n.id)
+                    console.log(n.title)
+                    row.find("#title").text(n.title).attr("title",n.id);
                     row.find("#type").text(n.type);
                     row.find("#time1").text(n.time);
                     row.appendTo("#tab1");//添加到模板的容器中

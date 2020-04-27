@@ -34,33 +34,40 @@ public class CarExcelImport {
 
             //总列数
             int colLength = row.getLastCellNum();
+            int q =0;
 //            System.out.println("总列数有多少列" + colLength);
             //得到指定的单元格
             Cell cell = row.getCell(0);
-            for (int i = 1; i <= rowLength; i++) {
-                CoachCar coachCar = new CoachCar();
-                row = sheet.getRow(i);
-                for (int j = 0; j < colLength; j++) {
-                    //列：0id   1车牌号 2学校id 3教练id 4状态
-                    cell = row.getCell(j);
+            if (5==colLength){
+                for (int i = 1; i <= rowLength; i++) {
+                    CoachCar coachCar = new CoachCar();
+                    row = sheet.getRow(i);
+                    for (int j = 0; j < colLength; j++) {
+                        //列：0id   1车牌号 2学校id 3教练id 4状态
+                        cell = row.getCell(j);
 //                    System.out.print(cell + ",");
-                    if (cell != null) {
-                        cell.setCellType(CellType.STRING);//设置字段的数据为字符串
-                        String data = cell.getStringCellValue();//获取值
-                        data = data.trim();
-                        if (j == 1) {
-                            coachCar.setCarNumber(data);
-                        } else if (j == 2) {
-                            coachCar.setSchool_id(schoolAdmin.getSchool_id());
-                        } else if (j == 3) {
-                            coachCar.setCoach_id(Integer.parseInt(data));
-                        }
-                        else if (j == 4) {
-                            coachCar.setCarState("信息不完整");
+                        if (cell != null) {
+                            cell.setCellType(CellType.STRING);//设置字段的数据为字符串
+                            String data = cell.getStringCellValue();//获取值
+                            data = data.trim();
+                            q++;
+                            if (j == 1) {
+                                coachCar.setCarNumber(data);
+                            } else if (j == 2) {
+                                coachCar.setSchool_id(schoolAdmin.getSchool_id());
+                            } else if (j == 3) {
+                                coachCar.setCoach_id(Integer.parseInt(data));
+                            }
+                            else if (j == 4) {
+                                coachCar.setCarState("信息不完整");
+                            }
                         }
                     }
+                    list.add(coachCar);
+                    if (5!=q){
+                        list.clear();
+                    }
                 }
-                list.add(coachCar);
             }
         } catch (Exception e) {
         }

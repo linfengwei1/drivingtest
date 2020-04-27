@@ -34,47 +34,51 @@ public class StudentExcelImport {
 
             //总列数
             int colLength = row.getLastCellNum();
-//            System.out.println("总列数有多少列" + colLength);
+            int q =0;
             //得到指定的单元格
             Cell cell = row.getCell(0);
-            for (int i = 1; i <= rowLength; i++) {
-                Student student = new Student();
-                row = sheet.getRow(i);
-                for (int j = 0; j < colLength; j++) {
-                    //列：0学号  1账号 2密码 3姓名 4年龄 5身份证号码 6电话 7待审核状态(默认状态) 8驾校id 10教练id
-                    cell = row.getCell(j);
+            if(colLength==11){
+                for (int i = 1; i <= rowLength; i++) {
+                    Student student = new Student();
+                    row = sheet.getRow(i);
+                    for (int j = 0; j < colLength; j++) {
+                        //列：0学号  1账号 2密码 3姓名 4年龄 5身份证号码 6电话 7待审核状态(默认状态) 8驾校id 10教练id
+                        cell = row.getCell(j);
 //                    System.out.print(cell + ",");
-                    if (cell != null) {
-                        cell.setCellType(CellType.STRING);//设置字段的数据为字符串
-                        String data = cell.getStringCellValue();
-                        data = data.trim();
-//                        if (j == 0) {
-//                            student.setId(Integer.parseInt(data));
-//                        }
-                    if (j == 1) {
-                            student.setAccount(data);
-                        } else if (j == 2) {
-                            student.setPwd(MD5Utils.md5(data));
-                        } else if (j == 3) {
-                            student.setName(data);
-                        }else if (j == 4) {
-                            student.setAge(data);
-                        }else if (j == 5) {
-                            student.setSex(data);
-                        }else if (j == 6) {
-                            student.setIdNumber(data);
-                        }else if (j == 7) {
-                            student.setPhone(data);
-                        }else if (j == 8) {
-                            student.setStudent_state_id(8);
-                        }else if (j == 9) {
-                            student.setSchool_id(schoolAdmin.getSchool_id());
-                        }else if (j == 10) {
-                            student.setCoach_id(Integer.parseInt(data));
+                        if (cell != null) {
+                            cell.setCellType(CellType.STRING);//设置字段的数据为字符串
+                            String data = cell.getStringCellValue();
+                            data = data.trim();
+                            q++;
+                            System.out.println("q=="+q);
+                            if (j == 1) {
+                                student.setAccount(data);
+                            } else if (j == 2) {
+                                student.setPwd(MD5Utils.md5(data));
+                            } else if (j == 3) {
+                                student.setName(data);
+                            }else if (j == 4) {
+                                student.setAge(data);
+                            }else if (j == 5) {
+                                student.setSex(data);
+                            }else if (j == 6) {
+                                student.setIdNumber(data);
+                            }else if (j == 7) {
+                                student.setPhone(data);
+                            }else if (j == 8) {
+                                student.setStudent_state_id(8);
+                            }else if (j == 9) {
+                                student.setSchool_id(schoolAdmin.getSchool_id());
+                            }else if (j == 10) {
+                                student.setCoach_id(Integer.parseInt(data));
+                            }
                         }
                     }
+                    list.add(student);
+                    if (11!=q){
+                        list.clear();
+                    }
                 }
-                list.add(student);
             }
         } catch (Exception e) {
         }

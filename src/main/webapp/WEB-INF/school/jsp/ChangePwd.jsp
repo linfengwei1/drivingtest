@@ -44,12 +44,12 @@
         <div class="layui-form-item">
             <label class="layui-form-label">短信验证码</label>
             <div class="layui-input-inline">
-                <input type="text" id="phoneMsg" name="phoneMsg" required lay-verify="required" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+                <input type="text" id="phoneMsg" name="phoneMsg" required lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">密码框</label>
+            <label class="layui-form-label">新密码</label>
             <div class="layui-input-inline">
                 <input type="password" id="pwd"  name="pwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>

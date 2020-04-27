@@ -740,6 +740,7 @@ public class TransportationServiceImp implements TransportationService {
         if (doing.equals("批准")){
             map.put("id",id);
             map.put("state",1);
+            map1.put("id",studentId);
             if ("科目一".equals(name)){
                 map1.put("student_state_id",13);
             }

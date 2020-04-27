@@ -54,7 +54,7 @@ public class SchoolManageService {
           System.out.println("根据id返回的对象=="+admin.toString());
         if (null!=admin){
             request.getSession().setAttribute("SchoolAdmin",admin);
-            if (1!=admin.getSchool_state_id()||3!=admin.getSchool_state_id()){
+            if (1!=admin.getSchool_state_id()&&3!=admin.getSchool_state_id()){
                 return "no";
             }
             return "success";
@@ -147,7 +147,7 @@ public class SchoolManageService {
                 list1.add(list.get(i));
             }
         }
-        if (list1.get(0)==null){//当没有重复的时候才插入
+        if (0==list1.size()){//当没有重复的时候才插入
             schoolCoachDao.insertCoachByExcel(list);
             return null;
         }
@@ -233,6 +233,7 @@ public class SchoolManageService {
     //删除学员
     @Transactional
     public Integer deleteStudent(Integer id){
+        schoolStudentDao.deleteStudentStudycondition(id);
         return schoolStudentDao.deleteStudent(id);
     }
 
@@ -259,7 +260,7 @@ public class SchoolManageService {
               list1.add(list.get(i));
           }
         }
-       if (list1.get(0)==null){//当没有重复的时候才插入
+       if (list1.size()==0){//当没有重复的时候才插入
            schoolStudentDao.insertStudentByExcel(list);
            return list;
        }
@@ -427,7 +428,7 @@ public class SchoolManageService {
                 list1.add(list.get(i));
             }
         }
-        if (list1.get(0)==null){//当没有重复的时候才插入
+        if (list1.size()==0){//当没有重复的时候才插入
             schoolCarDao.insertCarByExcel(list);
             return null;
         }
@@ -546,7 +547,7 @@ public class SchoolManageService {
     @Transactional
     public Integer updatePunish(Integer id,Integer cid){
         Integer a =schoolCoachDao.updatePunish(id);
-        schoolCoachDao.updatePunish1(id);
+        schoolCoachDao.updatePunish1(cid);
         return a;
     }
 

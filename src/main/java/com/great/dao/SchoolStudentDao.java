@@ -22,6 +22,10 @@ public interface SchoolStudentDao
 	//删除学员
 	public Integer deleteStudent(Integer id);
 
+	//删除学员对应的学时信息
+	public Integer deleteStudentStudycondition(Integer id);
+
+
 	//更新学员信息
 	public Integer updateStudent(Student coach);
 
