@@ -66,10 +66,10 @@ function puhshPaper(layer) {
 			var select = $(this).find('input:radio:checked').val();
 
 			var testReply ={
-				id: questionid,
-				answer: select
+				id: questionid,//题目ID
+				answer: select//选择的选项
 			};
-			testReplies.push(testReply);
+			testReplies.push(testReply);//存入集合
 		}
 	});
 
