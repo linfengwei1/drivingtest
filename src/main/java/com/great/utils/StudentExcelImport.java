@@ -77,6 +77,8 @@ public class StudentExcelImport {
                     list.add(student);
                     if (11!=q){
                         list.clear();
+                    }if (q==11){
+                        q=0;
                     }
                 }
             }

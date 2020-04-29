@@ -562,6 +562,7 @@ public class SchoolManageService {
     //处罚记录改变状态
     @Transactional
     public Integer coachStateByNo( Integer id,Integer cid){
+        System.out.println("cid="+cid);
         Integer a = schoolCoachDao.coachStateByNo(id);
         schoolCoachDao.coachStateByNo1(cid);
         return a;

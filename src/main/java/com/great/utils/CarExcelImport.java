@@ -66,6 +66,8 @@ public class CarExcelImport {
                     list.add(coachCar);
                     if (5!=q){
                         list.clear();
+                    }if (q==5){
+                        q=0;
                     }
                 }
             }

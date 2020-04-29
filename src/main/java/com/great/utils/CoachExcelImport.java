@@ -82,6 +82,8 @@ public class CoachExcelImport {
                     if (10!=q){
                         System.out.println(1);
                         list.clear();
+                    }if (q==10){
+                        q=0;
                     }
                 }
             }
