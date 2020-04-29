@@ -28,14 +28,14 @@ public class CarExcelImport {
             Sheet sheet = workbook.getSheetAt(0);
             //总行数
             int rowLength = sheet.getLastRowNum();
-//                        System.out.println("总行数有多少行" + rowLength);
+                        System.out.println("车总行数有多少行" + rowLength);
             //工作表的列
             Row row = sheet.getRow(0);
 
             //总列数
             int colLength = row.getLastCellNum();
             int q =0;
-//            System.out.println("总列数有多少列" + colLength);
+            System.out.println("车总列数有多少列" + colLength);
             //得到指定的单元格
             Cell cell = row.getCell(0);
             if (5==colLength){
@@ -51,6 +51,7 @@ public class CarExcelImport {
                             String data = cell.getStringCellValue();//获取值
                             data = data.trim();
                             q++;
+                            System.out.println("q="+q);
                             if (j == 1) {
                                 coachCar.setCarNumber(data);
                             } else if (j == 2) {
@@ -66,13 +67,14 @@ public class CarExcelImport {
                     list.add(coachCar);
                     if (5!=q){
                         list.clear();
-                    }if (q==5){
+                    }if (5==q){
                         q=0;
                     }
                 }
             }
         } catch (Exception e) {
         }
+        System.out.println("车辆list="+list.toString());
         return list;
     }
 }
