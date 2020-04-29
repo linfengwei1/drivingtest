@@ -19,21 +19,6 @@
 <%--	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/homepage/css/bootstrap.min.css">--%>
 	<script src="${pageContext.request.contextPath}/static/student/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${pageContext.request.contextPath}/static/student/js/dateFormat.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-		// 响应式处理
-		if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
-			if(window.location.href.indexOf("?mobile") < 0){
-				try{
-					if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
-						window.location.href="//m.ds.cn";
-					}else if(/iPad/i.test(navigator.userAgent)){
-						window.location.href="//m.ds.cn";
-					}else{
-					}
-				}catch(e){}
-			}
-		}
-	</script>
 
 
 

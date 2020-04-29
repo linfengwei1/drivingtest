@@ -9,7 +9,11 @@
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${pageContext.request.contextPath}/static/student/js/StudentInfo.js" type="text/javascript" charset="utf-8"></script>
-
+	<style>
+		.layui-table td{
+			border-color: #b3a7a7;
+		}
+	</style>
 
 </head>
 <body class="layui-layout-body">
@@ -24,6 +28,7 @@
 			<li class="usio_ul_1">
 				<span>姓名：${student.name}</span>
 				<span>账号：${student.account}</span>
+				<span>学员ID：${student.id}</span>
 				<span>驾校：${student.school.name}</span>
 				<span>教练：${student.coach.name}</span>
 				<span id="stage"></span>
@@ -43,9 +48,9 @@
 		<div class="tmio">
 			<table class="layui-table"  lay-filter="test" id="demo" lay-size="lg">
 				<tr style="color: #666; background-color: #e6e6e6;">
-					<th>学习阶段</th>
-					<th>学时进度</th>
-					<th>考试状态</th>
+					<th style="border-color: #979d90;">学习阶段</th>
+					<th style="border-color: #979d90;">学时进度</th>
+					<th style="border-color: #979d90;">考试状态</th>
 				</tr>
 				</table>
 		</div>

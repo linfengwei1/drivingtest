@@ -195,7 +195,7 @@
 						<div class="rt_content_tt">
 							<h2>单选题</h2>
 							<p>
-								<span>共</span><i class="content_lit">60</i><span>题</span>
+								<span>共</span><i class="content_lit">80</i><span>题</span>
 							</p>
 						</div>
 						<div class="rt_content_nr answerSheet">

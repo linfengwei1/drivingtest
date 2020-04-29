@@ -10,7 +10,11 @@
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${pageContext.request.contextPath}/static/jquery-3.4.1.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="${pageContext.request.contextPath}/static/student/js/ExamTime.js" type="text/javascript" charset="utf-8"></script>
-
+	<style>
+		.layui-table td{
+			border-color: #b3a7a7;
+		}
+	</style>
 
 </head>
 <body class="">
@@ -24,14 +28,14 @@
 		<div class="tmio">
 				<table class="layui-table"  lay-filter="test" id="demo" lay-size="lg">
 					<tr>
-						<td colspan="4" style="color: #20B2AA; text-align: center" >考试预约表</td>
+						<td colspan="5" style="color: #20B2AA; text-align: center" >考试预约表</td>
 					</tr>
 					<tr style="color: white; background-color: #808080;">
-						<th>考试科目</th>
-						<th>学号</th>
-						<th>准考证号</th>
-						<th>考试时间</th>
-						<th>状态</th>
+						<th style="border-color: #979d90;">考试科目</th>
+						<th style="border-color: #979d90;">学号</th>
+						<th style="border-color: #979d90;">准考证号</th>
+						<th style="border-color: #979d90;">考试时间</th>
+						<th style="border-color: #979d90;">状态</th>
 					</tr>
 				</table>
 		</div>
